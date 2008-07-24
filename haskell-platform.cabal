@@ -1,0 +1,26 @@
+name:                haskell-platform
+version:             0.0.0.0
+homepage:            http://haskell.org/haskellwiki/Haskell_Platform
+license:             BSD3
+license-file:        LICENSE
+author:              libraries@haskell.org
+maintainer:          libraries@haskell.org
+category:            System
+stability:           Experimental
+synopsis:            Haskell: Batteries Included
+description:         A metapackage providing the core Haskell library suite.
+cabal-version:       >= 1.2
+build-type:          Simple
+tested-with:         GHC ==6.8.2
+
+library
+    build-depends:   
+        QuickCheck      ==1.1.0.0,
+        binary          ==0.4.2,
+        mtl             ==1.1.0.1,
+        network         ==2.2.0.0,
+        parallel        ==1.0.0.1,
+        parsec          ==2.1.0.1,
+        stm             ==2.1.1.0,
+        time            ==1.1.2.1,
+        xhtml           ==3000.2.0.0
