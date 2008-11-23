@@ -16,7 +16,6 @@ tested-with:         GHC ==6.8.2
 library
   build-depends:
     -- classic 'extra libs'
-    ALUT          ==2.1.0.0,
     cgi           ==3001.1.7.0,
     fgl           ==5.4.2.2,
     GLUT          ==2.1.1.2,
@@ -43,3 +42,10 @@ library
 
     -- problem: depending on programs does not work, they are not registered
 --    cabal-install ==0.6.0
+
+  if !os(osx)
+    -- the alut C lib is not included with OSX by default
+    -- so ommit it from the platform on OSX.
+    build-depends:
+      ALUT          ==2.1.0.0
+
