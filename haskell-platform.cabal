@@ -37,11 +37,11 @@ library
     xhtml         ==3000.2.0.1,
 
     -- recent additions
-    zlib          ==0.4.0.4,
-    HTTP          ==3001.0.4
+    zlib          ==0.5.0.0,
+    HTTP          ==4000.0.4
 
     -- problem: depending on programs does not work, they are not registered
---    cabal-install ==0.6.0
+--    cabal-install ==0.6.2
 
   if !os(osx)
     -- the alut C lib is not included with OSX by default
