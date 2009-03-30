@@ -43,9 +43,3 @@ library
     -- problem: depending on programs does not work, they are not registered
 --    cabal-install ==0.6.2
 
-  if !os(osx)
-    -- the alut C lib is not included with OSX by default
-    -- so ommit it from the platform on OSX.
-    build-depends:
-      ALUT          ==2.1.0.0
-
