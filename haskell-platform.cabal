@@ -36,10 +36,12 @@ library
     time          ==1.1.2.2,
     xhtml         ==3000.2.0.1,
 
-    -- recent additions
+    -- recent additions: deps of cabal-install
     zlib          ==0.5.0.0,
     HTTP          ==4000.0.4
 
+    -- tools:
     -- problem: depending on programs does not work, they are not registered
 --    cabal-install ==0.6.2
-
+--    alex          ==2.3.1
+--    happy         ==1.18.2
