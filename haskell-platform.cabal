@@ -1,20 +1,44 @@
 name:                haskell-platform
-version:             2008.0.0
+version:             2009.0.0
 homepage:            http://haskell.org/haskellwiki/Haskell_Platform
 license:             BSD3
 license-file:        LICENSE
 author:              libraries@haskell.org
-maintainer:          libraries@haskell.org
+maintainer:          haskell-platform@haskell.org
 category:            System
 stability:           Experimental
 synopsis:            Haskell: Batteries Included
 description:         A metapackage providing the core Haskell library suite.
-cabal-version:       >= 1.4
+cabal-version:       >= 1.6
 build-type:          Simple
-tested-with:         GHC ==6.8.2
+tested-with:         GHC ==6.10.2
 
 library
   build-depends:
+    -- core libraries: implicitly provided by ghc
+    -- array               ==0.2.0.0 
+    -- base                ==4.1.0.0 and ==3.0.3.1
+    -- bytestring          ==0.9.1.4
+    -- Cabal               ==1.6.0.3
+    -- containers          ==0.2.0.1
+    -- directory           ==1.0.0.3
+    -- editline            ==0.2.1.0
+    -- filepath            ==1.1.0.2
+    -- ghc-prim            ==0.1.0.0
+    -- haskell98           ==1.0.1.0
+    -- hpc                 ==0.5.0.3
+    -- integer             ==0.1.0.1
+    -- old-locale          ==1.0.0.1
+    -- old-time            ==1.0.0.2
+    -- packedstring        ==0.1.0.1
+    -- pretty              ==1.0.1.0
+    -- process             ==1.0.1.1
+    -- random              ==1.0.0.1
+    -- syb                 ==0.1.0.1
+    -- template-haskell    ==2.3.0.1
+    -- unix                ==2.3.2.0
+    -- Win32               ==2.2.0.0
+
     -- classic 'extra libs'
     cgi           ==3001.1.7.0,
     fgl           ==5.4.2.2,
@@ -42,6 +66,6 @@ library
 
     -- tools:
     -- problem: depending on programs does not work, they are not registered
---    cabal-install ==0.6.2
---    alex          ==2.3.1
---    happy         ==1.18.2
+    --    cabal-install ==0.6.2
+    --    alex          ==2.3.1
+    --    happy         ==1.18.2
