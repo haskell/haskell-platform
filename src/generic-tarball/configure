@@ -41,7 +41,7 @@ echo "${GHC_PKG_PATH}"
 
 echo -n "checking version of ghc... "
 GHC_VER=$(${GHC} --numeric-version) \
-  || die "${GHC} does not seem to work (or is not actually ghc)."
+  || die "${GHC} does not seem to work (or maybe ${GHC_PATH} is not actually ghc)."
 echo "${GHC_VER}"
 
 echo -n "checking version of ghc-pkg matches... "
@@ -56,7 +56,7 @@ echo "yes"
   || die "The haskell platform version ${PLATFORM_VERSION} requires ghc version ${REQUIRED_GHC_VER}"
 
 # Cache the list of packages:
-echo -n "checking the ghc core packages are installed... "
+echo -n "checking the ghc core packages are all installed... "
 echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
 
 # Is this exact version of the package already installed?
@@ -75,5 +75,12 @@ echo "yes"
 
 rm installed.packages
 
-[ -e configure.env-vars ] && rm -f configure.env-vars
-echo PREFIX=${PREFIX} >> configure.env-vars
+echo "creating ./config.status"
+[ -e config.status ] && rm -f config.status
+echo "PREFIX=${PREFIX}" >> config.status
+
+echo '**************************************************'
+echo '* Configuration completed successfully.           '
+echo '*                                                 '
+echo '* Now do "make" followed by "sudo make install"   '
+echo '**************************************************'
