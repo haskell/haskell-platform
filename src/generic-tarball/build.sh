@@ -1,10 +1,9 @@
 #!/bin/sh
 
-# A script to bootstrap cabal-install.
+# A script to install the haskell platform 2009.0.0.
 
-# It works by downloading and installing the Cabal, zlib and
-# HTTP packages. It then installs cabal-install itself.
-# It expects to be run inside the cabal-install directory.
+# It works by...
+# It expects to be run...
 
 # install settings, you can override these by setting environment vars
 PREFIX=${PREFIX:-${HOME}/.cabal}
@@ -14,27 +13,52 @@ PREFIX=${PREFIX:-${HOME}/.cabal}
 # programs, you can override these by setting environment vars
 GHC=${GHC:-ghc}
 GHC_PKG=${GHC_PKG:-ghc-pkg}
-WGET=${WGET:-wget}
-CURL=${CURL:-curl}
-TAR=${TAR:-tar}
-GUNZIP=${GUNZIP:-gunzip}
 
-
-# Versions of the packages to install.
-# The version regex says what existing installed versions are ok.
-CABAL_VER="1.6.0.2"; CABAL_VER_REGEXP="1\.6\."   # == 1.6.*
-HTTP_VER="4000.0.4"; HTTP_VER_REGEXP="4000\.0\.[3456789]"
-                                                 # >= 4000.0.3 && < 4000.0.10
-ZLIB_VER="0.5.0.0";  ZLIB_VER_REGEXP="0\.[45]\." # >= 0.4  && < 0.6
-
-HACKAGE_URL="http://hackage.haskell.org/packages/archive"
+CORE_PACKAGES="array-0.2.0.0
+               base-4.1.0.0
+               bytestring-0.9.1.4
+               Cabal-1.6.0.3
+               containers-0.2.0.1
+               directory-1.0.0.3
+               editline-0.2.1.0
+               filepath-1.1.0.2
+               ghc-prim-0.1.0.0
+               haskell98-1.0.1.0
+               hpc-0.5.0.3
+               integer-0.1.0.1
+               old-locale-1.0.0.1
+               old-time-1.0.0.2
+               packedstring-0.1.0.1
+               pretty-1.0.1.0
+               process-1.0.1.1
+               random-1.0.0.1
+               syb-0.1.0.1
+               template-haskell-2.3.0.1
+               unix-2.3.2.0"
 
 die () {
   echo
-  echo "Error during cabal-install bootstrap:"
+  echo "Error:"
   echo $1 >&2
   exit 2
 }
+
+
+# Check that we have the core libs installed, which should be distributed
+# with ghc
+
+echo " $( ${GHC_PKG} list --simple-output ) " > list
+
+echo -n "Checking the core packages"
+
+for p in ${CORE_PACKAGES}; do
+  echo -n .
+  grep " $p " list > /dev/null 2>&1 \
+    || die "Core package $p missing, should have been distributed with ghc"
+done
+
+echo "done"
+die "Not implemented further"
 
 # Check we're in the right directory:
 grep "cabal-install" ./cabal-install.cabal > /dev/null 2>&1 \
