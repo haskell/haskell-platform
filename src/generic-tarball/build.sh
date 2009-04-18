@@ -6,7 +6,7 @@
 # It expects to be run...
 
 # install settings, you can override these by setting environment vars
-PREFIX=${PREFIX:-${HOME}/.cabal}
+PREFIX=${PREFIX:-/usr/local}
 #VERBOSE
 #EXTRA_CONFIGURE_OPTS
 
@@ -21,48 +21,19 @@ die () {
   exit 2
 }
 
-die "Not implemented further"
-
 # Will we need to install this package, or is a suitable version installed?
 need_pkg () {
-  PKG=$1
-  VER_MATCH=$2
-  ! grep " ${PKG}-${VER_MATCH}" ghc-pkg.list > /dev/null 2>&1
-}
-
-info_pkg () {
-  PKG=$1
-  VER=$2
-  VER_MATCH=$3
-
-  if need_pkg ${PKG} ${VER_MATCH}
-  then
-    echo "${PKG}-${VER} will be downloaded and installed."
-  else
-    echo "${PKG} is already installed and the version is ok."
-  fi
-}
-
-dep_pkg () {
-  PKG=$1
-  VER_MATCH=$2
-  if need_pkg ${PKG} ${VER_MATCH}
-  then
-    echo
-    echo "The Haskell package '${PKG}' is required but it is not installed."
-    echo "If you are using a ghc package provided by your operating system"
-    echo "then install the corresponding packages for 'parsec' and 'network'."
-    echo "If you built ghc from source with only the core libraries then you"
-    echo "should install these extra packages. You can get them from hackage."
-    die "The Haskell package '${PKG}' is required but it is not installed."
-  else
-    echo "${PKG} is already installed and the version is ok."
-  fi
+  PKG_VER=$1
+  ! grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
 }
 
 build_pkg () {
   PKG=$1
 
+  [ -n "${VERBOSE}" ] && echo Building ${PKG}
+
+  pushd "${PKG}" > /dev/null 2>&1
+  
   [ -x Setup ] && ./Setup clean
   [ -f Setup ] && rm Setup
 
@@ -80,6 +51,8 @@ build_pkg () {
 
   ./Setup register --inplace ${VERBOSE} \
     || die "Registering the ${PKG} package failed"
+
+  popd
 }
 
 do_pkg () {
@@ -98,6 +71,20 @@ do_pkg () {
 }
 
 # Actually do something!
+
+# Cache the list of packages:
+echo "Checking installed packages..."
+echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
+
+for p in $(cat platform.packages); do
+  if need_pkg "$p"; then
+    build_pkg "$p"
+  else
+    echo "Found pre-installed $p"
+  fi
+done
+
+die "Not implemented further"
 
 dep_pkg "parsec" "2\."
 dep_pkg "network" "[12]\."
