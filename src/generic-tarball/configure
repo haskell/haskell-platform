@@ -58,3 +58,6 @@ for pkg in $(cat core.packages); do
 done
 
 rm installed.packages
+
+[ -e configure.env-vars ] && rm -f configure.env-vars
+echo PREFIX=${PREFIX} >> configure.env-vars
