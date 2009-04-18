@@ -51,6 +51,10 @@ main = do
     forM_ urls $ \(dep@(Dependency name vers), package) -> do
         system $ "cabal unpack " ++ package
 
+    writeFile "platform.packages" $ unlines [ package
+                                            | (_, package) <- urls
+                                            ]
+
 ------------------------------------------------------------------------
 
 {-
