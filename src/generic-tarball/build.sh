@@ -91,38 +91,7 @@ dep_pkg () {
   fi
 }
 
-fetch_pkg () {
-  PKG=$1
-  VER=$2
-
-  URL=${HACKAGE_URL}/${PKG}/${VER}/${PKG}-${VER}.tar.gz
-  if which ${CURL} > /dev/null
-  then
-    ${CURL} -C - -O ${URL} || die "Failed to download ${PKG}."
-  elif which ${WGET} > /dev/null
-  then
-    ${WGET} -c ${URL} || die "Failed to download ${PKG}."
-  else
-    die "Failed to find a downloader. 'wget' or 'curl' is required."
-  fi
-  [ -f "${PKG}-${VER}.tar.gz" ] \
-    || die "Downloading ${URL} did not create ${PKG}-${VER}.tar.gz"
-}
-
-unpack_pkg () {
-  PKG=$1
-  VER=$2
-
-  rm -rf "${PKG}-${VER}.tar" "${PKG}-${VER}"/
-  ${GUNZIP} -f "${PKG}-${VER}.tar.gz" \
-    || die "Failed to gunzip ${PKG}-${VER}.tar.gz"
-  ${TAR} -xf "${PKG}-${VER}.tar" \
-    || die "Failed to untar ${PKG}-${VER}.tar.gz"
-  [ -d "${PKG}-${VER}" ] \
-    || die "Unpacking ${PKG}-${VER}.tar.gz did not create ${PKG}-${VER}/"
-}
-
-install_pkg () {
+build_pkg () {
   PKG=$1
 
   [ -x Setup ] && ./Setup clean
@@ -140,8 +109,8 @@ install_pkg () {
   ./Setup build ${VERBOSE} \
     || die "Building the ${PKG} package failed"
 
-  ./Setup install ${VERBOSE} \
-    || die "Installing the ${PKG} package failed"
+  ./Setup register --inplace ${VERBOSE} \
+    || die "Registering the ${PKG} package failed"
 }
 
 do_pkg () {
@@ -152,9 +121,7 @@ do_pkg () {
   if need_pkg ${PKG} ${VER_MATCH}
   then
     echo
-    echo "Downloading ${PKG}-${VER}..."
-    fetch_pkg ${PKG} ${VER}
-    unpack_pkg ${PKG} ${VER}
+    echo "Building ${PKG}-${VER}..."
     cd "${PKG}-${VER}"
     install_pkg ${PKG} ${VER}
     cd ..
