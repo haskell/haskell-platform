@@ -1,18 +1,9 @@
 #!/bin/sh
 
-# A script to install the haskell platform 2009.0.0.
+# A script to build the haskell platform 2009.0.0.
 
 # It works by...
 # It expects to be run...
-
-# install settings, you can override these by setting environment vars
-PREFIX=${PREFIX:-/usr/local}
-#VERBOSE
-#EXTRA_CONFIGURE_OPTS
-
-# programs, you can override these by setting environment vars
-GHC=${GHC:-ghc}
-GHC_PKG=${GHC_PKG:-ghc-pkg}
 
 die () {
   echo
@@ -21,10 +12,33 @@ die () {
   exit 2
 }
 
+[ -e "config.status" ] \
+  || die "Please run ./configure first"
+
+source "config.status"
+
+# also check GHC, GHC_PKG
+[ -n "$PREFIX" ] \
+  || die "Expected PREFIX to have been defined in config.status"
+
+CABAL_PKG_VER="$(grep Cabal core.packages)"
+[ -n "${CABAL_PKG_VER}" ] \
+  || die "Expected Cabal as a preinstalled package"
+
+PACKAGE_DB="inplace-packagedb.conf"
+[ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
+echo '[]' > "${PACKAGE_DB}"
+
 # Will we need to install this package, or is a suitable version installed?
 need_pkg () {
   PKG_VER=$1
   ! grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
+}
+
+tell() {
+  echo $*
+  # will this break args with spaces?
+  $*
 }
 
 build_pkg () {
@@ -37,37 +51,22 @@ build_pkg () {
   [ -x Setup ] && ./Setup clean
   [ -f Setup ] && rm Setup
 
-  ${GHC} --make Setup -o Setup \
+  tell ${GHC} --make Setup -o Setup -package "${CABAL_PKG_VER}" \
     || die "Compiling the Setup script failed"
   [ -x Setup ] || die "The Setup script does not exist or cannot be run"
 
-  ./Setup configure --user "--prefix=${PREFIX}" \
+  tell ./Setup configure --package-db="../${PACKAGE_DB}" --prefix="${PREFIX}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} \
     ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
     || die "Configuring the ${PKG} package failed"
 
-  ./Setup build ${VERBOSE} \
+  tell ./Setup build ${VERBOSE} \
     || die "Building the ${PKG} package failed"
 
-  ./Setup register --inplace ${VERBOSE} \
+  tell ./Setup register --inplace ${VERBOSE} \
     || die "Registering the ${PKG} package failed"
 
-  popd
-}
-
-do_pkg () {
-  PKG=$1
-  VER=$2
-  VER_MATCH=$3
-
-  if need_pkg ${PKG} ${VER_MATCH}
-  then
-    echo
-    echo "Building ${PKG}-${VER}..."
-    cd "${PKG}-${VER}"
-    install_pkg ${PKG} ${VER}
-    cd ..
-  fi
+  popd > /dev/null 2>&1
 }
 
 # Actually do something!
@@ -122,4 +121,4 @@ else
 fi
 echo
 
-rm ghc-pkg.list
+rm installed.packages
