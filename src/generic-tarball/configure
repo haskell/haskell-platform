@@ -1,10 +1,9 @@
 #!/bin/sh
 
-# A script to bootstrap cabal-install.
+# A script to configure the haskell platform
 
-# It works by downloading and installing the Cabal, zlib and
-# HTTP packages. It then installs cabal-install itself.
-# It expects to be run inside the cabal-install directory.
+# It works by...
+# It expects to be run inside...
 
 # install settings, you can override these by setting environment vars
 PREFIX=${PREFIX:-/usr/local}
@@ -15,15 +14,17 @@ PREFIX=${PREFIX:-/usr/local}
 GHC=${GHC:-ghc}
 GHC_PKG=${GHC_PKG:-ghc-pkg}
 
+EXPECTED_GHC_VER="6.10.2"
+
 die () {
   echo
-  echo "Error during cabal-install bootstrap:"
+  echo "Error:"
   echo $1 >&2
   exit 2
 }
 
 # Check we're in the right directory:
-grep "cabal-install" ./platform.packages > /dev/null 2>&1 \
+[ -e platform.packages ] \
   || die "The configure script must be run in the haskell-platform directory"
 
 ${GHC} --numeric-version > /dev/null \
@@ -32,6 +33,9 @@ ${GHC_PKG} --version     > /dev/null \
   || die "${GHC_PKG} not found."
 GHC_VER=`${GHC} --numeric-version`
 GHC_PKG_VER=`${GHC_PKG} --version | cut -d' ' -f 5`
+[ ${GHC_VER} = ${EXPECTED_GHC_VER} ] \
+  || die "Expected ghc version not found, ${EXPECTED_GHC_VER}"
+
 [ ${GHC_VER} = ${GHC_PKG_VER} ] \
   || die "Version mismatch between ${GHC} and ${GHC_PKG} If you set the GHC variable then set GHC_PKG too"
 
@@ -41,8 +45,8 @@ echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
 
 # Is this exact version of the package already installed?
 is_pkg_installed () {
-  PKG=$1
-  grep " ${PKG} " installed.packages > /dev/null 2>&1
+  PKG_VER=$1
+  grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
 }
 
 # Check that we have the core libs installed, which should be distributed
@@ -53,6 +57,5 @@ for pkg in $(cat core.packages); do
     || die "The core package $pkg is missing. It should have been distributed with ghc-6.10.2."
 done
 
-die "Not implemented further"
-
 rm installed.packages
+die "Not implemented further"

@@ -14,8 +14,6 @@ PREFIX=${PREFIX:-${HOME}/.cabal}
 GHC=${GHC:-ghc}
 GHC_PKG=${GHC_PKG:-ghc-pkg}
 
-EXPECTED_GHC_VER="6.10.2"
-
 die () {
   echo
   echo "Error:"
@@ -23,33 +21,6 @@ die () {
   exit 2
 }
 
-${GHC} --numeric-version > /dev/null \
-  || die "${GHC} not found (or could not be run). If ghc is installed make sure it is on your PATH or set the GHC and GHC_PKG vars."
-${GHC_PKG} --version     > /dev/null \
-  || die "${GHC_PKG} not found."
-GHC_VER=`${GHC} --numeric-version`
-GHC_PKG_VER=`${GHC_PKG} --version | cut -d' ' -f 5`
-[ ${GHC_VER} = ${EXPECTED_GHC_VER} ] \
-  || die "Expected ghc version not found, ${EXPECTED_GHC_VER}"
-
-[ ${GHC_VER} = ${GHC_PKG_VER} ] \
-  || die "Version mismatch between ${GHC} and ${GHC_PKG} If you set the GHC variable then set GHC_PKG too"
-
-echo "GHC version: ${GHC_VER}"
-
-# Check that we have the core libs installed, which should be distributed
-# with ghc
-
-echo -n "Checking the core packages"
-echo " $( ${GHC_PKG} list --simple-output ) " > ghc-pkg.list
-
-for p in $(cat core.packages); do
-  echo -n .
-  grep " $p " ghc-pkg.list > /dev/null 2>&1 \
-    || die "Core package $p missing, should have been distributed with ghc"
-done
-
-echo "done"
 die "Not implemented further"
 
 # Will we need to install this package, or is a suitable version installed?
