@@ -2,8 +2,9 @@
 
 # A script to configure the haskell platform
 
-# It works by...
-# It expects to be run inside...
+# It works by confirming that ghc 6.10.2 is installed,
+# and that all core packages exists.
+# It expects to be run inside the haskell-platform directory.
 
 # install settings, you can override these by setting environment vars
 PREFIX=${PREFIX:-/usr/local}
@@ -18,7 +19,7 @@ EXPECTED_GHC_VER="6.10.2"
 
 die () {
   echo
-  echo "Error:"
+  echo "Error during configuring the haskell platform:"
   echo $1 >&2
   exit 2
 }
@@ -40,7 +41,7 @@ GHC_PKG_VER=`${GHC_PKG} --version | cut -d' ' -f 5`
   || die "Version mismatch between ${GHC} and ${GHC_PKG} If you set the GHC variable then set GHC_PKG too"
 
 # Cache the list of packages:
-echo "Checking installed packages for ghc-${GHC_VER}..."
+echo "Checking core packages for ghc-${GHC_VER}..."
 echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
 
 # Is this exact version of the package already installed?
@@ -51,11 +52,9 @@ is_pkg_installed () {
 
 # Check that we have the core libs installed, which should be distributed
 # with ghc
-echo -n "Checking the core packages..."
 for pkg in $(cat core.packages); do
   is_pkg_installed "$pkg" \
     || die "The core package $pkg is missing. It should have been distributed with ghc-6.10.2."
 done
 
 rm installed.packages
-die "Not implemented further"
