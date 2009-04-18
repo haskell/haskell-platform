@@ -15,11 +15,12 @@ PREFIX=${PREFIX:-/usr/local}
 GHC=${GHC:-ghc}
 GHC_PKG=${GHC_PKG:-ghc-pkg}
 
-EXPECTED_GHC_VER="6.10.2"
+PLATFORM_VERSION="2009.0.0"
+REQUIRED_GHC_VER="6.10.2"
 
 die () {
   echo
-  echo "Error during configuring the haskell platform:"
+  echo "Error while configuring the haskell platform:"
   echo $1 >&2
   exit 2
 }
@@ -28,20 +29,34 @@ die () {
 [ -e platform.packages ] \
   || die "The configure script must be run in the haskell-platform directory"
 
-${GHC} --numeric-version > /dev/null \
-  || die "${GHC} not found (or could not be run). If ghc is installed make sure it is on your PATH or set the GHC and GHC_PKG vars."
-${GHC_PKG} --version     > /dev/null \
-  || die "${GHC_PKG} not found."
-GHC_VER=`${GHC} --numeric-version`
-GHC_PKG_VER=`${GHC_PKG} --version | cut -d' ' -f 5`
-[ ${GHC_VER} = ${EXPECTED_GHC_VER} ] \
-  || die "Expected ghc version not found, ${EXPECTED_GHC_VER}"
+echo -n "checking for ghc... "
+GHC_PATH=$(which ${GHC}) \
+  || die "${GHC} not found. If ghc is installed make sure it is on your PATH or use --with-ghc="
+echo "${GHC_PATH}"
+
+echo -n "checking for ghc-pkg... "
+GHC_PKG_PATH=$(which ${GHC_PKG}) \
+  || die "${GHC_PKG} not found. If ghc is installed make sure ghc-pkg is on your PATH or use --with-ghc-pkg="
+echo "${GHC_PKG_PATH}"
+
+echo -n "checking version of ghc... "
+GHC_VER=$(${GHC} --numeric-version) \
+  || die "${GHC} does not seem to work (or is not actually ghc)."
+echo "${GHC_VER}"
+
+echo -n "checking version of ghc-pkg matches... "
+GHC_PKG_VER=$(${GHC_PKG} --version | cut -d' ' -f 5) \
+  || die "${GHC_PKG} does not seem to work (or is not actually ghc-pkg)."
+echo "yes"
 
 [ ${GHC_VER} = ${GHC_PKG_VER} ] \
-  || die "Version mismatch between ${GHC} and ${GHC_PKG} If you set the GHC variable then set GHC_PKG too"
+  || die "Version mismatch between ${GHC} and ${GHC_PKG}. If you used --with-ghc= then also set --with-ghc-pkg="
+  
+[ ${GHC_VER} = ${REQUIRED_GHC_VER} ] \
+  || die "The haskell platform version ${PLATFORM_VERSION} requires ghc version ${REQUIRED_GHC_VER}"
 
 # Cache the list of packages:
-echo "Checking core packages for ghc-${GHC_VER}..."
+echo -n "checking the ghc core packages are installed... "
 echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
 
 # Is this exact version of the package already installed?
@@ -54,8 +69,9 @@ is_pkg_installed () {
 # with ghc
 for pkg in $(cat core.packages); do
   is_pkg_installed "$pkg" \
-    || die "The core package $pkg is missing. It should have been distributed with ghc-6.10.2."
+    || die "The core package $pkg is missing. It should have been distributed with ${REQUIRED_GHC_VER}"
 done
+echo "yes"
 
 rm installed.packages
 
