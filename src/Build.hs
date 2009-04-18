@@ -51,9 +51,18 @@ main = do
     forM_ urls $ \(dep@(Dependency name vers), package) -> do
         system $ "cabal unpack " ++ package
 
-    writeFile "platform.packages" $ unlines [ package
-                                            | (_, package) <- urls
-                                            ]
+    -- in the order they can be built.
+--    writeFile "platform.packages" $
+
+    --
+    -- Too sleepy.
+    --
+    system $ "cabal install --dry-run --reinstall " ++ (
+                        intercalate " " [ package
+                                | (_, package) <- urls
+                    ] ) ++ " > platform.packages.raw"
+    ls <- readFile "platform.packages.raw"
+    writeFile "platform.packages" (unlines . drop 2 . lines $ ls)
 
 ------------------------------------------------------------------------
 
