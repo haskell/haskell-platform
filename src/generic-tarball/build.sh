@@ -14,27 +14,7 @@ PREFIX=${PREFIX:-${HOME}/.cabal}
 GHC=${GHC:-ghc}
 GHC_PKG=${GHC_PKG:-ghc-pkg}
 
-CORE_PACKAGES="array-0.2.0.0
-               base-4.1.0.0
-               bytestring-0.9.1.4
-               Cabal-1.6.0.3
-               containers-0.2.0.1
-               directory-1.0.0.3
-               editline-0.2.1.0
-               filepath-1.1.0.2
-               ghc-prim-0.1.0.0
-               haskell98-1.0.1.0
-               hpc-0.5.0.3
-               integer-0.1.0.1
-               old-locale-1.0.0.1
-               old-time-1.0.0.2
-               packedstring-0.1.0.1
-               pretty-1.0.1.0
-               process-1.0.1.1
-               random-1.0.0.1
-               syb-0.1.0.1
-               template-haskell-2.3.0.1
-               unix-2.3.2.0"
+EXPECTED_GHC_VER="6.10.2"
 
 die () {
   echo
@@ -43,40 +23,34 @@ die () {
   exit 2
 }
 
-
-# Check that we have the core libs installed, which should be distributed
-# with ghc
-
-echo " $( ${GHC_PKG} list --simple-output ) " > list
-
-echo -n "Checking the core packages"
-
-for p in ${CORE_PACKAGES}; do
-  echo -n .
-  grep " $p " list > /dev/null 2>&1 \
-    || die "Core package $p missing, should have been distributed with ghc"
-done
-
-echo "done"
-die "Not implemented further"
-
-# Check we're in the right directory:
-grep "cabal-install" ./cabal-install.cabal > /dev/null 2>&1 \
-  || die "The bootstrap.sh script must be run in the cabal-install directory"
-
 ${GHC} --numeric-version > /dev/null \
   || die "${GHC} not found (or could not be run). If ghc is installed make sure it is on your PATH or set the GHC and GHC_PKG vars."
 ${GHC_PKG} --version     > /dev/null \
   || die "${GHC_PKG} not found."
 GHC_VER=`${GHC} --numeric-version`
 GHC_PKG_VER=`${GHC_PKG} --version | cut -d' ' -f 5`
+[ ${GHC_VER} = ${EXPECTED_GHC_VER} ] \
+  || die "Expected ghc version not found, ${EXPECTED_GHC_VER}"
+
 [ ${GHC_VER} = ${GHC_PKG_VER} ] \
   || die "Version mismatch between ${GHC} and ${GHC_PKG} If you set the GHC variable then set GHC_PKG too"
 
-# Cache the list of packages:
-echo "Checking installed packages for ghc-${GHC_VER}..."
-${GHC_PKG} list > ghc-pkg.list \
-  || die "running '${GHC_PKG} list' failed"
+echo "GHC version: ${GHC_VER}"
+
+# Check that we have the core libs installed, which should be distributed
+# with ghc
+
+echo -n "Checking the core packages"
+echo " $( ${GHC_PKG} list --simple-output ) " > ghc-pkg.list
+
+for p in $(cat core.packages); do
+  echo -n .
+  grep " $p " ghc-pkg.list > /dev/null 2>&1 \
+    || die "Core package $p missing, should have been distributed with ghc"
+done
+
+echo "done"
+die "Not implemented further"
 
 # Will we need to install this package, or is a suitable version installed?
 need_pkg () {
