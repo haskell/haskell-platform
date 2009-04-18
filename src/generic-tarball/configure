@@ -78,6 +78,8 @@ rm installed.packages
 echo "creating ./config.status"
 [ -e config.status ] && rm -f config.status
 echo "PREFIX=${PREFIX}" >> config.status
+echo "GHC=${GHC}" >> config.status
+echo "GHC_PKG=${GHC_PKG}" >> config.status
 
 echo '**************************************************'
 echo '* Configuration completed successfully.           '
