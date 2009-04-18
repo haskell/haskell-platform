@@ -7,8 +7,21 @@ author:              libraries@haskell.org
 maintainer:          haskell-platform@haskell.org
 category:            System
 stability:           Experimental
-synopsis:            Haskell: Batteries Included
-description:         A metapackage providing the core Haskell library suite.
+synopsis:            The Haskell Platform
+description:         
+    The Haskell Platform is the a blessed core library set for
+    Haskell. It provides a mature "batteries included" library set for
+    Haskell projects to build on.
+    .
+    This version specifies the following additional developer tools be
+    installed, for a system to be in full compliance:
+    . 
+    * cabal-install
+    * alex
+    * happy
+    * haddock
+    .
+
 cabal-version:       >= 1.6
 build-type:          Simple
 tested-with:         GHC ==6.10.2
