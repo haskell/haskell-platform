@@ -8,10 +8,10 @@ install_pkg () {
   ./Setup copy ${VERBOSE} \
     || die "Copying the ${PKG} component failed"
 
-  ./Setup register ${VERBOSE} --gen-pkg-config=${PKG}.pkg \
+  ./Setup register ${VERBOSE} --gen-pkg-config="${PKG}.conf" \
     || die "Generating the registration information for the package ${PKG} failed"
 
-  ${GHC_PKG} update --global
+  ${GHC_PKG} update --global "${PKG}.conf" \
     || die "Registering the package ${PKG} failed"
 }
 
