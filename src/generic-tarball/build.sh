@@ -15,7 +15,7 @@ die () {
 [ -e "config.status" ] \
   || die "Please run ./configure first"
 
-source "config.status"
+. ./config.status
 
 # also check GHC, GHC_PKG
 [ -n "$PREFIX" ] \
@@ -44,9 +44,10 @@ tell() {
 build_pkg () {
   PKG=$1
 
-  [ -n "${VERBOSE}" ] && echo Building ${PKG}
+  [ -n "${VERBOSE}" ] && echo "Building ${PKG}"
 
-  pushd "${PKG}" > /dev/null 2>&1
+  cd "${PKG}" 2> /dev/null \
+    || die "The directory for the component ${PKG} is missing"
   
   [ -x Setup ] && ./Setup clean
   [ -f Setup ] && rm Setup
@@ -66,37 +67,16 @@ build_pkg () {
   tell ./Setup register --inplace ${VERBOSE} \
     || die "Registering the ${PKG} package failed"
 
-  popd > /dev/null 2>&1
+  cd ..
 }
 
 # Actually do something!
 
-# Cache the list of packages:
-echo "Checking installed packages..."
-echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
-
-for p in $(cat platform.packages); do
-  if need_pkg "$p"; then
-    build_pkg "$p"
-  else
-    echo "Found pre-installed $p"
-  fi
+for pkg in $(cat platform.packages); do
+  build_pkg "${pkg}"
 done
 
 die "Not implemented further"
-
-dep_pkg "parsec" "2\."
-dep_pkg "network" "[12]\."
-
-info_pkg "Cabal" ${CABAL_VER} ${CABAL_VER_REGEXP}
-info_pkg "HTTP"  ${HTTP_VER}  ${HTTP_VER_REGEXP}
-info_pkg "zlib"  ${ZLIB_VER}  ${ZLIB_VER_REGEXP}
-
-do_pkg "Cabal" ${CABAL_VER} ${CABAL_VER_REGEXP}
-do_pkg "HTTP"  ${HTTP_VER}  ${HTTP_VER_REGEXP}
-do_pkg "zlib"  ${ZLIB_VER}  ${ZLIB_VER_REGEXP}
-
-install_pkg "cabal-install"
 
 echo
 echo "==========================================="
