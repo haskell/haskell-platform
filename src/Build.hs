@@ -31,11 +31,18 @@ import Distribution.Verbosity
 import Distribution.Text ( display, simpleParse )
 import qualified Distribution.Simple.PackageIndex as PackageIndex
 import System.Cmd
+import System.FilePath
 
 -- import Network.Curl.Download.Lazy
 
 main = do
-    [cabal] <- getArgs
+    [cabalpath,outdir] <- getArgs
+
+    pwd <- getCurrentDirectory
+    setCurrentDirectory outdir
+
+    let cabal = pwd </> cabalpath
+
 
     cabalsrc  <- readPackageDescription normal cabal
     let final =  flattenPackageDescription cabalsrc
@@ -51,11 +58,9 @@ main = do
     forM_ urls $ \(dep@(Dependency name vers), package) -> do
         system $ "cabal unpack " ++ package
 
-    -- in the order they can be built.
---    writeFile "platform.packages" $
 
     --
-    -- Too sleepy.
+    -- Too sleepy. Future: solve this via the cabal library
     --
     system $ "cabal install --dry-run --reinstall " ++ (
                         intercalate " " [ package
@@ -63,6 +68,9 @@ main = do
                     ] ) ++ " > platform.packages.raw"
     ls <- readFile "platform.packages.raw"
     writeFile "platform.packages" (unlines . drop 2 . lines $ ls)
+
+    removeFile "platform.packages.raw"
+    setCurrentDirectory pwd
 
 ------------------------------------------------------------------------
 
