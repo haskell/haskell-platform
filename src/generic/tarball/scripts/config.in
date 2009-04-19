@@ -1,0 +1,14 @@
+PLATFORM_VERSION=@PACKAGE_VERSION@
+PACKAGE_TARNAME=@PACKAGE_TARNAME@
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+bindir=@bindir@
+datarootdir=@datarootdir@
+datadir=@datadir@
+docdir=@docdir@
+
+GHC=@GHC@
+GHC_PKG=@GHC_PKG@
+PERL=@PERL@

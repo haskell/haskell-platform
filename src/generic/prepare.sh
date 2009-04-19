@@ -24,8 +24,10 @@ runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages"
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
-cp tarball/configure tarball/Makefile "${IMAGE_DIR}/"
-chmod +x "${IMAGE_DIR}/scripts/"*.sh "${IMAGE_DIR}/configure"
+cp tarball/scripts/config.in          "${IMAGE_DIR}/scripts/"
+cp tarball/configure.ac tarball/Makefile "${IMAGE_DIR}/"
+chmod +x "${IMAGE_DIR}/scripts/"*.sh
+cd "${IMAGE_DIR}/" && autoreconf && cd ..
 
 tar -c "${IMAGE_DIR}" -zf "${IMAGE_DIR}.tar.gz"
 echo "Created ${IMAGE_DIR}.tar.gz"
