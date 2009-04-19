@@ -77,9 +77,10 @@ library
     zlib          ==0.5.0.0,
     HTTP          ==4000.0.5
 
-    -- tools:
-    -- problem: depending on programs does not work, they are not registered
-    --    cabal-install ==0.6.2
-    --    alex          ==2.3.1
-    --    happy         ==1.18.2
-    --    haddock       ==2.4.2
+  -- problem: depending on programs does not work, they are not registered
+  build-tools:
+    cabal-install ==0.6.2,
+    alex          ==2.3.1,
+    happy         ==1.18.2,
+    haddock       ==2.4.2
+
