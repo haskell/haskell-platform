@@ -25,6 +25,10 @@ CABAL_PKG_VER="$(grep Cabal packages/core.packages)"
 [ -n "${CABAL_PKG_VER}" ] \
   || die "Expected Cabal as a preinstalled package"
 
+HAPPY_PKG_VER="$(grep happy packages/platform.packages)"
+HAPPY_INPLACE="${HAPPY_PKG_VER}/dist/build/happy/happy"
+HAPPY_TEMPLATE="${HAPPY_PKG_VER}"
+
 # Initialise the package db
 PACKAGE_DB="packages/package.conf.inplace"
 [ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
@@ -51,9 +55,14 @@ build_pkg () {
     || die "Compiling the Setup script failed"
   [ -x Setup ] || die "The Setup script does not exist or cannot be run"
 
+  if [ -x ../${HAPPY_INPLACE} ]; then
+    HAPPY_FLAG1="--with-happy=../${HAPPY_INPLACE}"
+    HAPPY_FLAG2="--happy-options=--template=../${HAPPY_TEMPLATE}"
+  fi
+
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${PREFIX}" \
-    --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} \
-    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
+    --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} ${HAPPY_FLAG1} ${HAPPY_FLAG2} \
+    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} -O0 \
     || die "Configuring the ${PKG} package failed"
 
   tell ./Setup build ${VERBOSE} \
