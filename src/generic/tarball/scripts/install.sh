@@ -7,10 +7,10 @@ die () {
   exit 2
 }
 
-[ -e "config.status" ] \
+[ -e "scripts/config" ] \
   || die "Please run ./configure first"
 
-. ./config.status
+. scripts/config
 
 install_pkg () {
   PKG=$1
@@ -43,7 +43,7 @@ echo '**************************************************'
 echo '* Installation completed successfully.            '
 echo '*                                                 '
 echo '* Programs installed into:                        '
-echo "*   ${PREFIX}/bin                                 "
+echo "*   ${prefix}/bin                                 "
 echo '*                                                 '
 echo '* Now do "cabal update"                           '
 echo '**************************************************'

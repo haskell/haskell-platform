@@ -12,14 +12,14 @@ die () {
   exit 2
 }
 
-[ -e "config.status" ] \
+[ -e "scripts/config" ] \
   || die "Please run ./configure first"
 
-. ./config.status
+. scripts/config
 
 # also check GHC, GHC_PKG
-[ -n "$PREFIX" ] \
-  || die "Expected PREFIX to have been defined in config.status"
+[ -n "$prefix" ] \
+  || die "Expected prefix to have been defined in scripts/config"
 
 CABAL_PKG_VER="$(grep Cabal packages/core.packages)"
 [ -n "${CABAL_PKG_VER}" ] \
@@ -59,7 +59,7 @@ build_pkg () {
     HAPPY_FLAG2="--happy-options=--template=../${HAPPY_TEMPLATE}"
   fi
 
-  tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${PREFIX}" \
+  tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} ${HAPPY_FLAG1} ${HAPPY_FLAG2} \
     ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} -O0 \
     || die "Configuring the ${PKG} package failed"
