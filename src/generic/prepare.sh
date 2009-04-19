@@ -20,7 +20,7 @@ mkdir "${IMAGE_DIR}/"
 mkdir "${IMAGE_DIR}/packages"
 mkdir "${IMAGE_DIR}/scripts"
 
-runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages"
+./Build ../../haskell-platform.cabal "${IMAGE_DIR}/packages"
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"

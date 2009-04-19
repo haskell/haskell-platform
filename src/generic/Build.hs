@@ -71,7 +71,8 @@ main = do
     src <- readFile "platform.packages.raw"
 
     let programs = drop 2 $ lines src
-    let ls = case partition ("happy" `isPrefixOf`) programs of ([h],rest) -> h : rest
+    let ls' = case partition ("happy" `isPrefixOf`) programs of ([h],rest) -> h : rest
+    let ls = case partition ("mtl" `isPrefixOf`) ls' of ([h],rest) -> h : rest
 
     writeFile "platform.packages" (unlines ls) -- move happy to top of list.
 
