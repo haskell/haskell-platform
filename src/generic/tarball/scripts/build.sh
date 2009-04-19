@@ -77,6 +77,7 @@ build_pkg () {
 
 cd packages
 for pkg in $(cat platform.packages); do
+  echo "Building ${pkg}..."
   build_pkg "${pkg}"
 done
 
