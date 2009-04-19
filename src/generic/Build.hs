@@ -46,7 +46,8 @@ main = do
 
     cabalsrc  <- readPackageDescription normal cabal
     let final =  flattenPackageDescription cabalsrc
-        dependencies  = buildDepends final
+        dependencies  = buildDepends final ++
+                concatMap buildTools (allBuildInfo final)
 
     -- relies on the fact that meta cabal package is a simple list of
     -- dependencies and versions. nothing suss.
@@ -67,7 +68,7 @@ main = do
                                 | (_, package) <- urls
                     ] ) ++ " > platform.packages.raw"
     ls <- readFile "platform.packages.raw"
-    writeFile "platform.packages" (unlines . drop 2 . lines $ ls)
+    writeFile "platform.packages" (unlines . drop 2 . lines $ ls) -- move happy to top of list.
 
     removeFile "platform.packages.raw"
     setCurrentDirectory pwd
