@@ -48,7 +48,6 @@ build_pkg () {
   cd "${PKG}" 2> /dev/null \
     || die "The directory for the component ${PKG} is missing"
 
-  [ -x Setup ] && ./Setup clean
   [ -f Setup ] && rm Setup
 
   tell ${GHC} --make Setup -o Setup -package "${CABAL_PKG_VER}" \
