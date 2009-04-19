@@ -10,7 +10,7 @@ build.stamp: config.status
 	@touch build.stamp
 
 install: build.stamp
-	scrupts/install.sh
+	scripts/install.sh
 
 clean:
 	rm -f config.status build.stamp packages/package.conf.inplace
