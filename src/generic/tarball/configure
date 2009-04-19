@@ -73,8 +73,6 @@ for pkg in $(cat packages/core.packages); do
 done
 echo "yes"
 
-rm packages/installed.packages
-
 echo "creating ./config.status"
 [ -e config.status ] && rm -f config.status
 echo "PREFIX=${PREFIX}" >> config.status
