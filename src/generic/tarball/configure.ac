@@ -95,6 +95,15 @@ if test "$PERL" = "notfound"; then
 fi
 
 
+# Check for zlib C library
+if test "$WIN32" != "yes"; then
+  AC_CHECK_HEADER([zlib.h], [],
+    [AC_MSG_ERROR(The zlib C library is required)])
+  AC_CHECK_LIB([z], [zlibVersion], [],
+    [AC_MSG_ERROR(The zlib C library is required)])
+fi
+
+
 # Check for OpenGL and GLUT
 if test "$OSX" != "yes"; then
   AC_CHECK_HEADER([GL/gl.h], [],

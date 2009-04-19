@@ -27,6 +27,8 @@ cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
 cp tarball/scripts/config.in          "${IMAGE_DIR}/scripts/"
 cp tarball/configure.ac tarball/Makefile "${IMAGE_DIR}/"
 chmod +x "${IMAGE_DIR}/scripts/"*.sh
+
+echo "Running autoreconf"
 cd "${IMAGE_DIR}/" && autoreconf && cd ..
 
 tar -c "${IMAGE_DIR}" -zf "${IMAGE_DIR}.tar.gz"
