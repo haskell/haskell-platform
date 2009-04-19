@@ -21,12 +21,12 @@ die () {
 [ -n "$PREFIX" ] \
   || die "Expected PREFIX to have been defined in config.status"
 
-CABAL_PKG_VER="$(grep Cabal core.packages)"
+CABAL_PKG_VER="$(grep Cabal packages/core.packages)"
 [ -n "${CABAL_PKG_VER}" ] \
   || die "Expected Cabal as a preinstalled package"
 
 # Initialise the package db
-PACKAGE_DB="package.conf.inplace"
+PACKAGE_DB="packages/package.conf.inplace"
 [ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
 
@@ -43,7 +43,7 @@ build_pkg () {
 
   cd "${PKG}" 2> /dev/null \
     || die "The directory for the component ${PKG} is missing"
-  
+
   [ -x Setup ] && ./Setup clean
   [ -f Setup ] && rm Setup
 
@@ -51,7 +51,7 @@ build_pkg () {
     || die "Compiling the Setup script failed"
   [ -x Setup ] || die "The Setup script does not exist or cannot be run"
 
-  tell ./Setup configure --package-db="../${PACKAGE_DB}" --prefix="${PREFIX}" \
+  tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${PREFIX}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} \
     ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
     || die "Configuring the ${PKG} package failed"
@@ -67,6 +67,7 @@ build_pkg () {
 
 # Actually do something!
 
+cd packages
 for pkg in $(cat platform.packages); do
   build_pkg "${pkg}"
 done

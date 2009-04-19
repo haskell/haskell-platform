@@ -6,12 +6,12 @@ config.status:
 	./configure
 
 build.stamp: config.status
-	./build.sh
+	scripts/build.sh
 	@touch build.stamp
 
 install: build.stamp
-	./install.sh
+	scrupts/install.sh
 
 clean:
-	rm -f config.status build.stamp package.conf.inplace
-	rm -rf ./*/dist/
+	rm -f config.status build.stamp packages/package.conf.inplace
+	rm -rf packages/*/dist/

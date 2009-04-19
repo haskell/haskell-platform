@@ -13,6 +13,7 @@ install_pkg () {
 }
 
 # Actually do something!
+cd packages
 for pkg in $(cat platform.packages); do
   cd "${pkg}"
   echo "Installing ${pkg}..."

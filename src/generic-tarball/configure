@@ -26,7 +26,7 @@ die () {
 }
 
 # Check we're in the right directory:
-[ -e platform.packages ] \
+[ -e packages/platform.packages ] \
   || die "The configure script must be run in the haskell-platform directory"
 
 echo -n "checking for ghc... "
@@ -57,23 +57,23 @@ echo "yes"
 
 # Cache the list of packages:
 echo -n "checking the ghc core packages are all installed... "
-echo " $( ${GHC_PKG} list --simple-output ) " > installed.packages
+echo " $( ${GHC_PKG} list --simple-output ) " > packages/installed.packages
 
 # Is this exact version of the package already installed?
 is_pkg_installed () {
   PKG_VER=$1
-  grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
+  grep " ${PKG_VER} " packages/installed.packages > /dev/null 2>&1
 }
 
 # Check that we have the core libs installed, which should be distributed
 # with ghc
-for pkg in $(cat core.packages); do
+for pkg in $(cat packages/core.packages); do
   is_pkg_installed "$pkg" \
     || die "The core package $pkg is missing. It should have been distributed with ${REQUIRED_GHC_VER}"
 done
 echo "yes"
 
-rm installed.packages
+rm packages/installed.packages
 
 echo "creating ./config.status"
 [ -e config.status ] && rm -f config.status
