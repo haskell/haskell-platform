@@ -25,15 +25,10 @@ CABAL_PKG_VER="$(grep Cabal core.packages)"
 [ -n "${CABAL_PKG_VER}" ] \
   || die "Expected Cabal as a preinstalled package"
 
-PACKAGE_DB="inplace-packagedb.conf"
+# Initialise the package db
+PACKAGE_DB="package.conf.inplace"
 [ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
-
-# Will we need to install this package, or is a suitable version installed?
-need_pkg () {
-  PKG_VER=$1
-  ! grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
-}
 
 tell() {
   echo $*
@@ -76,29 +71,9 @@ for pkg in $(cat platform.packages); do
   build_pkg "${pkg}"
 done
 
-die "Not implemented further"
-
 echo
-echo "==========================================="
-CABAL_BIN="$PREFIX/bin"
-if [ -x "$CABAL_BIN/cabal" ]
-then
-    echo "The 'cabal' program has been installed in $CABAL_BIN/"
-    echo "You should either add $CABAL_BIN to your PATH"
-    echo "or copy the cabal program to a directory that is on your PATH."
-    echo
-    echo "The first thing to do is to get the latest list of packages with:"
-    echo "  cabal update"
-    echo "This will also create a default config file (if it does not already"
-    echo "exist) at $HOME/.cabal/config"
-    echo
-    echo "By default cabal will install programs to $HOME/.cabal/bin"
-    echo "If you do not want to add this directory to your PATH then you can"
-    echo "change the setting in the config file, for example you could use:"
-    echo "symlink-bindir: $HOME/bin"
-else
-    echo "Sorry, something went wrong."
-fi
-echo
-
-rm installed.packages
+echo '**************************************************'
+echo '* Building each component completed successfully. '
+echo '*                                                 '
+echo '* Now do "sudo make install"                      '
+echo '**************************************************'
