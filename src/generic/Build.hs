@@ -4,6 +4,7 @@
 -- able to treat the local tree as a db.
 -}
 
+import Data.List hiding (intercalate)
 import System.Directory
 import Control.Monad
 import System.IO
@@ -67,8 +68,12 @@ main = do
                         intercalate " " [ package
                                 | (_, package) <- urls
                     ] ) ++ " > platform.packages.raw"
-    ls <- readFile "platform.packages.raw"
-    writeFile "platform.packages" (unlines . drop 2 . lines $ ls) -- move happy to top of list.
+    src <- readFile "platform.packages.raw"
+
+    let programs = drop 2 $ lines src
+    let ls = case partition ("happy" `isPrefixOf`) programs of ([h],rest) -> h : rest
+
+    writeFile "platform.packages" (unlines ls) -- move happy to top of list.
 
     removeFile "platform.packages.raw"
     setCurrentDirectory pwd
