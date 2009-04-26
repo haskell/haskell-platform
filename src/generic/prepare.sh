@@ -20,7 +20,8 @@ mkdir "${IMAGE_DIR}/"
 mkdir "${IMAGE_DIR}/packages"
 mkdir "${IMAGE_DIR}/scripts"
 
-runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages"
+runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
+    || die "Build.hs failed"
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
@@ -35,5 +36,5 @@ chmod +x "${IMAGE_DIR}/scripts/"*.sh
 echo "Running autoreconf"
 cd "${IMAGE_DIR}/" && autoreconf && cd ..
 
-tar -c "${IMAGE_DIR}" -zf "${IMAGE_DIR}.tar.gz"
+tar -czf "${IMAGE_DIR}.tar.gz" "${IMAGE_DIR}"
 echo "Created ${IMAGE_DIR}.tar.gz"
