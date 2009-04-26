@@ -34,10 +34,20 @@ PACKAGE_DB="packages/package.conf.inplace"
 [ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
 
+# Maybe use a small script instead ? Tested with bash and zsh.
 tell() {
-  echo $*
-  # will this break args with spaces?
-  $*
+  # Save and shift the executable name
+  CMD=$1
+  shift
+  # Build the string of command-line parameters
+  PRINT="\"${CMD}\""
+  for arg in "$@"; do
+      PRINT+=" \"${arg}\""
+  done
+  # Echo the command
+  echo `echo $PRINT`
+  # Run the command
+  "$CMD" "$@"
 }
 
 build_pkg () {
