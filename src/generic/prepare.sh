@@ -19,7 +19,7 @@ mkdir "${IMAGE_DIR}/"
 mkdir "${IMAGE_DIR}/packages"
 mkdir "${IMAGE_DIR}/scripts"
 
-runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
+runhaskell Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
     || die "Build.hs failed"
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
