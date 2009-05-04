@@ -4,14 +4,14 @@ homepage:            http://haskell.org/haskellwiki/Haskell_Platform
 license:             BSD3
 license-file:        LICENSE
 author:              libraries@haskell.org
-maintainer:          haskell-platform@haskell.org
+maintainer:          haskell-platform@projects.haskell.org
 category:            System
-stability:           Experimental
 synopsis:            The Haskell Platform
-description:         
-    The Haskell Platform is the a blessed core library set for
-    Haskell. It provides a mature "batteries included" library set for
-    Haskell projects to build on.
+description:
+    The Haskell Platform (HP) is the blessed set of libraries and tools on
+    which to build further Haskell libraries and applications. It is
+    intended to provide a comprehensive, stable, and quality tested base for
+    Haskell projects to work from.
     .
     This version specifies the following additional developer tools be
     installed, for a system to be in full compliance:
@@ -20,7 +20,6 @@ description:
     * alex
     * happy
     * haddock
-    .
 
 cabal-version:       >= 1.6
 build-type:          Simple
