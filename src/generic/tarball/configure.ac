@@ -33,8 +33,8 @@ AC_ARG_ENABLE(unsupported-ghc-version,
                 [Try building using a version of GHC that is not the one]
                 [specified by this release of the platform.  This is not]
                 [guaranteed to work.])],
-  ALLOW_UNSUPPORTED_GHC=YES,
-  ALLOW_UNSUPPORTED_GHC=NO
+  [ALLOW_UNSUPPORTED_GHC=YES],
+  [ALLOW_UNSUPPORTED_GHC=NO]
 )
 
 

@@ -13,5 +13,5 @@ install: build.stamp
 	scripts/install.sh
 
 clean:
-	rm -f config.status build.stamp packages/package.conf.inplace
+	rm -f config.status build.stamp packages/package.conf.inplace scripts/config
 	rm -rf packages/*/dist/
