@@ -14,11 +14,11 @@ Haskell Platform!
 
 Please note that this is a beta release. We do not expect everything to
 work perfectly and we would appreciate feedback. Issues related to the
-packaging and installers can be filed in the [platform trac].
+packaging and installers can be filed in the [Platform Bug Tracker].
 
 [Haskell Platform]: http://haskell.org/haskellwiki/Haskell_Platform
 [Hackage]: http://hackage.haskell.org
-[platform trac]: http://trac.haskell.org/haskell-platform/
+[Platform Bug Tracker]: http://trac.haskell.org/haskell-platform/
 
 There will be a couple more minor releases in the 2009.2.x series. These
 will incorperate your feedback on the installers. They will also include
@@ -62,4 +62,4 @@ More info
 ---------
 
 * [Haskell Platform]
-* [platform trac]
+* [Platform Bug Tracker]
