@@ -1,6 +1,8 @@
 #!/bin/sh
 
-PLATFORM_VERSION=$(grep '^version:' ../../haskell-platform.cabal | sed -e 's/version://' -e 's/ //g')
+TOP=../..
+
+PLATFORM_VERSION=$(grep '^version:' ${TOP}/haskell-platform.cabal | sed -e 's/version://' -e 's/ //g')
 IMAGE_DIR="haskell-platform-${PLATFORM_VERSION}"
 
 die () {
@@ -21,6 +23,12 @@ mkdir "${IMAGE_DIR}/scripts"
 
 runhaskell Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
     || die "Build.hs failed"
+
+PLATFORM_PACKAGE_ID="haskell-platform-${PLATFORM_VERSION}"
+echo ${PLATFORM_PACKAGE_ID} >> "${IMAGE_DIR}/packages/platform.packages"
+mkdir "${IMAGE_DIR}/packages/${PLATFORM_PACKAGE_ID}"
+cp "${TOP}/haskell-platform.cabal" "${TOP}/Setup.hs" "${TOP}/LICENSE" \
+  "${IMAGE_DIR}/packages/${PLATFORM_PACKAGE_ID}"
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"

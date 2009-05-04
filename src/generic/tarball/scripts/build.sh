@@ -32,6 +32,12 @@ HAPPY_PKG_VER="$(grep happy packages/platform.packages)"
 HAPPY_INPLACE="${HAPPY_PKG_VER}/dist/build/happy/happy"
 HAPPY_TEMPLATE="${HAPPY_PKG_VER}"
 
+ALEX_PKG_VER="$(grep alex packages/platform.packages)"
+ALEX_INPLACE="${ALEX_PKG_VER}/dist/build/alex/alex"
+
+CABAL_INSTALL_PKG_VER="$(grep cabal-install packages/platform.packages)"
+CABAL_INSTALL_INPLACE="${CABAL_INSTALL_PKG_VER}/dist/build/cabal/cabal"
+
 # Initialise the package db
 PACKAGE_DB="packages/package.conf.inplace"
 [ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
@@ -71,9 +77,16 @@ build_pkg () {
     HAPPY_FLAG1="--with-happy=../${HAPPY_INPLACE}"
     HAPPY_FLAG2="--happy-options=--template=../${HAPPY_TEMPLATE}"
   fi
+  if [ -x ../${ALEX_INPLACE} ]; then
+    ALEX_FLAG="--with-alex=../${ALEX_INPLACE}"
+  fi
+  if [ -x ../${CABAL_INSTALL_INPLACE} ]; then
+    CABAL_INSTALL_FLAG="--with-cabal-install=../${CABAL_INSTALL_INPLACE}"
+  fi
 
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
-    --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} ${HAPPY_FLAG1} ${HAPPY_FLAG2} \
+    --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} \
+    ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} ${CABAL_INSTALL_FLAG} \
     ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} -O0 \
     || die "Configuring the ${PKG} package failed"
 
