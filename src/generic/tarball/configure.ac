@@ -205,7 +205,7 @@ echo '*     the global ghc package database             '
 fi
 echo '*                                                 '
 echo '*   If you wish to change these settings then     '
-echo '*   use --preifx= and/or --enable-user-install    '
+echo '*   use --prefix= and/or --enable-user-install    '
 echo '*                                                 '
 if test "${USER_INSTALL}" = "YES"; then
 echo '* Now do "make" followed by "make install"        '
