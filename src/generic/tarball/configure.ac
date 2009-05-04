@@ -137,19 +137,6 @@ if test "$OSX" != "yes"; then
     [AC_MSG_ERROR(The OpenGL C library is required)])
 fi
 
-# Check for OpenAL
-FOUND=no
-AC_CHECK_HEADERS([AL/al.h    OpenAL/al.h],    [FOUND=yes; break])
-AC_CHECK_HEADERS([AL/alc.h   OpenAL/alc.h],   [FOUND=yes; break])
-AC_CHECK_HEADERS([AL/alext.h OpenAL/alext.h], [FOUND=yes; break])
-if test "$FOUND" != "yes"; then
-  AC_MSG_ERROR(The OpenAL C library is required)
-fi
-if test "$OSX" != "yes"; then
-  AC_SEARCH_LIBS([alGenSources], [openal openal32], [],
-    [AC_MSG_ERROR(The OpenAL C library is required)])
-fi
-
 
 AC_SUBST([GHC])
 AC_SUBST([GHC_PKG])
