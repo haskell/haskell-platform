@@ -22,7 +22,7 @@ description:
     * haddock
 
 cabal-version:       >= 1.6
-build-type:          Simple
+build-type:          Custom
 tested-with:         GHC ==6.10.2
 
 library
