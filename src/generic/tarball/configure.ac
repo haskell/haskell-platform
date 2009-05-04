@@ -54,6 +54,19 @@ else
   AC_MSG_ERROR([Version mismatch between ${GHC} and ${GHC_PKG}. If you used --with-ghc= then also use --with-ghc-pkg=])
 fi
 
+
+AC_MSG_CHECKING([ghc actually works])
+TRY_COMPILE_GHC([main = putStr "Hello world!\n"],,
+  AC_MSG_RESULT([no])
+  AC_MSG_ERROR(
+  [Your installation of ghc does not appear to work.]
+  [It cannot compile a simple program (see config.log for the details).]
+  [If you installed ghc from a generic binary tarball then it is worth]
+  [checking that you have the 'gmp' C library and header files installed.]
+  [(On debian-based systems this package is called libgmp3-dev.)]))
+AC_MSG_RESULT([yes])
+
+
 AC_MSG_CHECKING([the ghc core packages are all installed])
 # Cache the list of packages:
 echo " $( ${GHC_PKG} list --simple-output ) " > packages/installed.packages
