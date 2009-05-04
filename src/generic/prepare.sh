@@ -26,7 +26,7 @@ runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
 cp tarball/scripts/config.*           "${IMAGE_DIR}/scripts/"
-cp tarball/configure.ac tarball/Makefile "${IMAGE_DIR}/"
+cp tarball/configure.ac tarball/aclocal.m4 tarball/Makefile "${IMAGE_DIR}/"
 chmod +x "${IMAGE_DIR}/scripts/"*.sh
 chmod +x "${IMAGE_DIR}/scripts/config.guess" "${IMAGE_DIR}/scripts/config.sub"
 
