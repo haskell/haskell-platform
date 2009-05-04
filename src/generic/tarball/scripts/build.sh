@@ -98,5 +98,9 @@ echo
 echo '**************************************************'
 echo '* Building each component completed successfully. '
 echo '*                                                 '
+if test "${USER_INSTALL}" = "YES"; then
+echo '* Now do "make install"                           '
+else
 echo '* Now do "sudo make install"                      '
+fi
 echo '**************************************************'

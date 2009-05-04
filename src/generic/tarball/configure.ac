@@ -108,6 +108,29 @@ AC_MSG_RESULT([yes])
 fi
 
 
+AC_ARG_ENABLE([user-install],
+[AC_HELP_STRING([--enable-user-install],
+  [Register packages into the per-user or the global ghc package database. [default=autodetect]])],
+  [case "${enableval}" in
+     yes)
+       USER_INSTALL=YES
+       ;;
+     no)
+       USER_INSTALL=NO
+       ;;
+     *)
+       AC_MSG_ERROR([The --enable-user-install value should be "yes" or "no"])
+       ;;
+   esac
+  ],
+  [if echo "${prefix}" | grep "$HOME"; then
+     USER_INSTALL=YES
+   else
+     USER_INSTALL=NO
+   fi
+  ])
+
+
 # Check if we're on OSX or windows
 case $target_os in
   darwin*)
@@ -161,11 +184,28 @@ fi
 AC_SUBST([GHC])
 AC_SUBST([GHC_PKG])
 AC_SUBST([PERL])
+
 AC_SUBST([ALLOW_UNSUPPORTED_GHC])
+AC_SUBST([USER_INSTALL])
 
 AC_OUTPUT
 echo '**************************************************'
 echo '* Configuration completed successfully.           '
 echo '*                                                 '
+echo "*   Install prefix: ${prefix}"
+echo '*     Haskell packages will be registered into    '
+if test "${USER_INSTALL}" = "YES"; then
+echo '*     the per-user ghc package database           '
+else
+echo '*     the global ghc package database             '
+fi
+echo '*                                                 '
+echo '*   If you wish to change these settings then     '
+echo '*   use --preifx= and/or --enable-user-install    '
+echo '*                                                 '
+if test "${USER_INSTALL}" = "YES"; then
+echo '* Now do "make" followed by "make install"        '
+else
 echo '* Now do "make" followed by "sudo make install"   '
+fi
 echo '**************************************************'

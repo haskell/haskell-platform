@@ -24,7 +24,12 @@ install_pkg () {
     || die "Generating the registration information for the package ${PKG} failed"
 
   if [ -f ${PKG}.conf ]; then
-    ${GHC_PKG} update --global "${PKG}.conf" \
+    if test "${USER_INSTALL}" = "YES"; then
+      GHC_PKG_DB="--user"
+    else
+      GHC_PKG_DB="--global"
+    fi
+    ${GHC_PKG} update ${GHC_PKG_DB} "${PKG}.conf" \
       || die "Registering the package ${PKG} failed"
   fi
 }
@@ -43,7 +48,7 @@ echo '**************************************************'
 echo '* Installation completed successfully.            '
 echo '*                                                 '
 echo '* Programs installed into:                        '
-echo "*   ${prefix}/bin                                 "
+echo "*   ${prefix}/bin"
 echo '*                                                 '
 echo '* Now do "cabal update"                           '
 echo '**************************************************'
