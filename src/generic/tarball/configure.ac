@@ -39,6 +39,19 @@ if test "${GHC_PKG}" = "notfound"; then
 fi
 
 
+AC_ARG_WITH([hsc2hs],
+[AC_HELP_STRING([--with-hsc2hs=ARG],
+  [Use ARG as the path to hsc2hs  [default=autodetect]])],
+  [HSC2HS="$withval"],
+  [if test "${HSC2HS}" = ""; then
+    AC_PATH_PROG([HSC2HS], [hsc2hs], [notfound])
+  fi])
+if test "${HSC2HS}" = "notfound"; then
+  AC_MSG_ERROR([The hsc2hs program could not be found.]
+  [It is usually installed along with ghc. You may need to specify --with-hsc2hs=])
+fi
+
+
 AC_ARG_ENABLE(unsupported-ghc-version,
 [AC_HELP_STRING([--enable-unsupported-ghc-version],
                 [Try building using a version of GHC that is not the one]
@@ -196,6 +209,7 @@ fi
 
 AC_SUBST([GHC])
 AC_SUBST([GHC_PKG])
+AC_SUBST([HSC2HS])
 AC_SUBST([PERL])
 
 AC_SUBST([ALLOW_UNSUPPORTED_GHC])
