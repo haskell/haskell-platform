@@ -11,7 +11,7 @@ die () {
   exit 2
 }
 
-which cabal 2> /dev/null || die "The prepare script needs the cabal program"
+which cabal > /dev/null 2>&1 || die "The prepare script needs the cabal program"
 
 echo "Preparing a tarball for ${IMAGE_DIR}"
 

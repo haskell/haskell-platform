@@ -31,7 +31,7 @@ AC_ARG_WITH([ghc-pkg],
 AC_MSG_CHECKING([version of ghc])
 if GHC_VER=$(${GHC} --numeric-version 2> /dev/null); then
   AC_MSG_RESULT([$GHC_VER])
-else  
+else
   AC_MSG_RESULT([])
   AC_MSG_ERROR([${GHC} does not seem to work (or maybe it is not actually ghc).])
 fi
@@ -43,7 +43,7 @@ fi
 AC_MSG_CHECKING([version of ghc-pkg matches])
 if GHC_PKG_VER_STR=$(${GHC_PKG} --version); then
   GHC_PKG_VER=$(echo ${GHC_PKG_VER_STR} | cut -d' ' -f 5)
-else  
+else
   AC_MSG_RESULT([])
   AC_MSG_ERROR([${GHC_PKG} does not seem to work (or maybe it is not actually ghc-pkg).])
 fi
