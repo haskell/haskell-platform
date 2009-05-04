@@ -36,7 +36,7 @@ install_pkg () {
 
 # Actually do something!
 cd packages
-for pkg in $(cat platform.packages); do
+for pkg in `cat platform.packages`; do
   cd "${pkg}" || die "The directory for the component ${PKG} is missing"
   echo "Installing ${pkg}..."
   install_pkg ${pkg}

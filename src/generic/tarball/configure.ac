@@ -50,7 +50,7 @@ AC_ARG_ENABLE(unsupported-ghc-version,
 
 
 AC_MSG_CHECKING([version of ghc])
-if GHC_VER=$(${GHC} --numeric-version 2> /dev/null); then
+if GHC_VER=`${GHC} --numeric-version 2> /dev/null`; then
   AC_MSG_RESULT([$GHC_VER])
 else
   AC_MSG_RESULT([])
@@ -70,8 +70,8 @@ fi
 
 
 AC_MSG_CHECKING([version of ghc-pkg matches])
-if GHC_PKG_VER_STR=$(${GHC_PKG} --version); then
-  GHC_PKG_VER=$(echo ${GHC_PKG_VER_STR} | cut -d' ' -f 5)
+if GHC_PKG_VER_STR=`${GHC_PKG} --version`; then
+  GHC_PKG_VER=`echo ${GHC_PKG_VER_STR} | cut -d' ' -f 5`
 else
   AC_MSG_RESULT([])
   AC_MSG_ERROR([${GHC_PKG} does not seem to work (or maybe it is not actually ghc-pkg).])
@@ -101,7 +101,7 @@ AC_MSG_RESULT([yes])
 if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
 AC_MSG_CHECKING([the ghc core packages are all installed])
 # Cache the list of packages:
-echo " $( ${GHC_PKG} list --simple-output ) " > packages/installed.packages
+echo " ` ${GHC_PKG} list --simple-output ` " > packages/installed.packages
 
 # Is this exact version of the package already installed?
 is_pkg_installed () {
@@ -111,7 +111,7 @@ is_pkg_installed () {
 
 # Check that we have the core libs installed, which should be distributed
 # with ghc
-for pkg in $(cat packages/core.packages); do
+for pkg in `cat packages/core.packages`; do
   if ! is_pkg_installed "$pkg"; then
     AC_MSG_RESULT([no])
     AC_MSG_ERROR([The core package $pkg is missing. It should have been distributed with ${REQUIRED_GHC_VER}])
@@ -136,7 +136,7 @@ AC_ARG_ENABLE([user-install],
        ;;
    esac
   ],
-  [if echo "${prefix}" | grep "$HOME"; then
+  [if echo "${prefix}" | grep "$HOME" > /dev/null; then
      USER_INSTALL=YES
    else
      USER_INSTALL=NO

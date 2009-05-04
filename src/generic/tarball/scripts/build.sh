@@ -12,7 +12,7 @@ die () {
   exit 2
 }
 
-[ -e "scripts/config" ] \
+[ -f "scripts/config" ] \
   || die "Please run ./configure first"
 
 . scripts/config
@@ -21,26 +21,26 @@ die () {
 [ -n "$prefix" ] \
   || die "Expected prefix to have been defined in scripts/config"
 
-CABAL_PKG_VER="$(grep Cabal packages/core.packages)"
+CABAL_PKG_VER="`grep Cabal packages/core.packages`"
 [ -n "${CABAL_PKG_VER}" ] \
   || die "Expected Cabal as a preinstalled package"
 if test "${ALLOW_UNSUPPORTED_GHC}" = "YES"; then
 CABAL_PKG_VER="Cabal"
 fi
 
-HAPPY_PKG_VER="$(grep happy packages/platform.packages)"
+HAPPY_PKG_VER="`grep happy packages/platform.packages`"
 HAPPY_INPLACE="${HAPPY_PKG_VER}/dist/build/happy/happy"
 HAPPY_TEMPLATE="${HAPPY_PKG_VER}"
 
-ALEX_PKG_VER="$(grep alex packages/platform.packages)"
+ALEX_PKG_VER="`grep alex packages/platform.packages`"
 ALEX_INPLACE="${ALEX_PKG_VER}/dist/build/alex/alex"
 
-CABAL_INSTALL_PKG_VER="$(grep cabal-install packages/platform.packages)"
+CABAL_INSTALL_PKG_VER="`grep cabal-install packages/platform.packages`"
 CABAL_INSTALL_INPLACE="${CABAL_INSTALL_PKG_VER}/dist/build/cabal/cabal"
 
 # Initialise the package db
 PACKAGE_DB="packages/package.conf.inplace"
-[ -e "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
+[ -f "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
 
 # Maybe use a small script instead ? Tested with bash and zsh.
@@ -51,7 +51,7 @@ tell() {
   # Build the string of command-line parameters
   PRINT="\"${CMD}\""
   for arg in "$@"; do
-      PRINT+=" \"${arg}\""
+      PRINT="${PRINT} \"${arg}\""
   done
   # Echo the command
   echo `echo $PRINT`
@@ -102,7 +102,7 @@ build_pkg () {
 # Actually do something!
 
 cd packages
-for pkg in $(cat platform.packages); do
+for pkg in `cat platform.packages`; do
   echo "Building ${pkg}..."
   build_pkg "${pkg}"
 done
