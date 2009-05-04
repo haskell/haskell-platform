@@ -87,7 +87,7 @@ build_pkg () {
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} \
     ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} ${CABAL_INSTALL_FLAG} \
-    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} -O0 \
+    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
     || die "Configuring the ${PKG} package failed"
 
   tell ./Setup build ${VERBOSE} \
