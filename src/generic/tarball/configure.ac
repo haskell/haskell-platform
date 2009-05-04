@@ -8,7 +8,9 @@ AC_CONFIG_SRCDIR([packages/platform.packages])
 # Set the output config file:
 AC_CONFIG_FILES([scripts/config])
 
+#TODO: have these numbers generated from the .cabal file
 REQUIRED_GHC_VER=6.10.2
+ACCEPTABLE_GHC_VER=6.10.3
 
 AC_ARG_WITH([ghc],
 [AC_HELP_STRING([--with-ghc=ARG],
@@ -47,11 +49,13 @@ else
 fi
 if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
 if test "${GHC_VER}" != "${REQUIRED_GHC_VER}"; then
+if test "${GHC_VER}" != "${ACCEPTABLE_GHC_VER}"; then
   AC_MSG_ERROR(
   [The Haskell Platform version ${PACKAGE_VERSION} requires ghc-${REQUIRED_GHC_VER}]
   [It is recommended that you upgrade to ghc-${REQUIRED_GHC_VER} however if you]
   [really want to use this release with an unsupported version of GHC]
   [then use ./configure --enable-unsupported-ghc-version])
+fi
 fi
 fi
 
