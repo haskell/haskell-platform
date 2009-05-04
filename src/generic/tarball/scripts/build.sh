@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# A script to build the haskell platform 2009.0.0.
+# A script to build the haskell platform.
 
 # It works by...
 # It expects to be run...

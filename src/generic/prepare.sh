@@ -1,7 +1,6 @@
 #!/bin/sh
 
-. tarball/scripts/versions
-
+PLATFORM_VERSION=$(grep '^version:' ../../haskell-platform.cabal | sed -e 's/version://' -e 's/ //g')
 IMAGE_DIR="haskell-platform-${PLATFORM_VERSION}"
 
 die () {
