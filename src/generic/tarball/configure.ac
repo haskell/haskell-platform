@@ -181,7 +181,7 @@ if test "$OSX" != "yes"; then
   AC_CHECK_HEADER([GL/glut.h], [],
     [AC_MSG_ERROR(The GLUT C library is required)])
   AC_SEARCH_LIBS([glutMainLoop], [glut glut32], [],
-    [AC_MSG_ERROR(The OpenGL C library is required)])
+    [AC_MSG_ERROR(The GLUT C library is required)])
 fi
 
 
