@@ -28,6 +28,16 @@ AC_ARG_WITH([ghc-pkg],
   fi])
 
 
+AC_ARG_ENABLE(unsupported-ghc-version,
+[AC_HELP_STRING([--enable-unsupported-ghc-version],
+                [Try building using a version of GHC that is not the one]
+                [specified by this release of the platform.  This is not]
+                [guaranteed to work.])],
+  ALLOW_UNSUPPORTED_GHC=YES,
+  ALLOW_UNSUPPORTED_GHC=NO
+)
+
+
 AC_MSG_CHECKING([version of ghc])
 if GHC_VER=$(${GHC} --numeric-version 2> /dev/null); then
   AC_MSG_RESULT([$GHC_VER])
@@ -35,8 +45,14 @@ else
   AC_MSG_RESULT([])
   AC_MSG_ERROR([${GHC} does not seem to work (or maybe it is not actually ghc).])
 fi
+if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
 if test "${GHC_VER}" != "${REQUIRED_GHC_VER}"; then
-  AC_MSG_ERROR([The Haskell platform version ${PACKAGE_VERSION} requires ghc-${REQUIRED_GHC_VER}])
+  AC_MSG_ERROR(
+  [The Haskell Platform version ${PACKAGE_VERSION} requires ghc-${REQUIRED_GHC_VER}]
+  [It is recommended that you upgrade to ghc-${REQUIRED_GHC_VER} however if you]
+  [really want to use this release with an unsupported version of GHC]
+  [then use ./configure --enable-unsupported-ghc-version])
+fi
 fi
 
 
@@ -67,6 +83,7 @@ TRY_COMPILE_GHC([main = putStr "Hello world!\n"],,
 AC_MSG_RESULT([yes])
 
 
+if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
 AC_MSG_CHECKING([the ghc core packages are all installed])
 # Cache the list of packages:
 echo " $( ${GHC_PKG} list --simple-output ) " > packages/installed.packages
@@ -86,6 +103,7 @@ for pkg in $(cat packages/core.packages); do
   fi
 done
 AC_MSG_RESULT([yes])
+fi
 
 
 # Check if we're on OSX or windows
@@ -141,6 +159,7 @@ fi
 AC_SUBST([GHC])
 AC_SUBST([GHC_PKG])
 AC_SUBST([PERL])
+AC_SUBST([ALLOW_UNSUPPORTED_GHC])
 
 AC_OUTPUT
 echo '**************************************************'
