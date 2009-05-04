@@ -17,8 +17,13 @@ AC_ARG_WITH([ghc],
   [Use ARG as the path to ghc  [default=autodetect]])],
   [GHC="$withval"],
   [if test "$GHC" = ""; then
-    AC_PATH_PROG([GHC], [ghc])
+    AC_PATH_PROG([GHC], [ghc], [notfound])
   fi])
+if test "${GHC}" = "notfound"; then
+  AC_MSG_ERROR([]
+  [This installer for the Haskell Platform requires ghc to be installed first]
+  [If ghc is installed not on the PATH then use --with-ghc= and --with-ghc-pkg=])
+fi
 
 
 AC_ARG_WITH([ghc-pkg],
@@ -26,8 +31,12 @@ AC_ARG_WITH([ghc-pkg],
   [Use ARG as the path to ghc-pkg  [default=autodetect]])],
   [GHC_PKG="$withval"],
   [if test "${GHC_PKG}" = ""; then
-    AC_PATH_PROG([GHC_PKG], [ghc-pkg])
+    AC_PATH_PROG([GHC_PKG], [ghc-pkg], [notfound])
   fi])
+if test "${GHC_PKG}" = "notfound"; then
+  AC_MSG_ERROR([The ghc-pkg program could not be found.]
+  [If you used --with-ghc= then also use --with-ghc-pkg=])
+fi
 
 
 AC_ARG_ENABLE(unsupported-ghc-version,
