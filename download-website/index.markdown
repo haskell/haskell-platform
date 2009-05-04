@@ -1,9 +1,10 @@
-% Haskell Platform Download <img src="http://code.haskell.org/haskell-platform/download-website/images/beta-icon.png" alt="&Beta;">
+% Haskell Platform Download <img src="http://code.haskell.org/haskell-platform/download-website/images/beta-icon.png" alt="beta">
 %
 
 <img src="http://haskell.org/sitewiki/images/a/a8/Haskell-logo-60.png" alt="Logo">
 
 This is the beta release of the [Haskell Platform], version 2009.2.0.
+Find out what ships as part of the platform here: [Haskell: Batteries Included].
 
 The Haskell Platform is a blessed library and tool suite for Haskell.
 Taking the best software from [Hackage], it provides a comprehensive,
@@ -19,32 +20,32 @@ packaging and installers can be filed in the [Platform Bug Tracker].
 [Haskell Platform]: http://haskell.org/haskellwiki/Haskell_Platform
 [Hackage]: http://hackage.haskell.org
 [Platform Bug Tracker]: http://trac.haskell.org/haskell-platform/
-
-There will be a couple more minor releases in the 2009.2.x series. These
-will incorperate your feedback on the installers. They will also include
-minor bug-fix updates in some packages.
-
+[Haskell: Batteries Included]: ./contents.html
 
 Windows
 -------
 
-haskell-platform-2009.2.0.exe
+The Windows installer installs GHC 6.10.2, along with the full tool and
+library suite,
 
-MacOS X
--------
+    haskell-platform-2009.2.0.exe
 
-The installer for MacOS X is not yet available. 
+Mac OS X
+--------
+
+The installer for MacOS X is not yet available.  Use the generic unix
+source release for now.
 
 Linux
 -----
 
 A few distributions already support the Haskell Platform. We expect more to follow soon.
 
- * Arch
+ * Arch Linux
  * Gentoo
  * Nix / NixOS
 
-If your distribution is not yet listed then you will need to use the source tarball.
+See your package maintainer for more information. If your distribution is not yet listed then you will need to use the source tarball.
 
 Source
 ------
@@ -52,14 +53,21 @@ Source
 For unix systems, there is a generic source installer. You only need GHC
 installed to get started:
 
-haskell-platform-2009.2.0.tar.gz
+    haskell-platform-2009.2.0.tar.gz
 
-This is a traditional "./configure; make; make install" style .
+Download and unpack the installer. Then:
 
-The source tarball requires that you already have ghc-6.10.x installed.
+    ./configure --prefix=$HOME
+    make
+    make install
+
+Note: the source tarball requires that you already have ghc-6.10.x installed.
 
 More info
 ---------
 
 * [Haskell Platform]
 * [Platform Bug Tracker]
+* [GHC 6.10.x]
+
+[GHC 6.10.x]: http://haskell.org/ghc
