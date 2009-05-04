@@ -1,4 +1,4 @@
-AC_INIT([haskell-platform],[2009.2.0])
+AC_INIT([haskell-platform],[2009.1.0])
 AC_CONFIG_AUX_DIR([scripts])
 AC_CANONICAL_TARGET
 
