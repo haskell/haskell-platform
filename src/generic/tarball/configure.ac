@@ -67,7 +67,9 @@ if test "${GHC_VER}" = "${GHC_PKG_VER}"; then
   AC_MSG_RESULT([yes])
 else
   AC_MSG_RESULT([no (${GHC_PKG_VER})])
-  AC_MSG_ERROR([Version mismatch between ${GHC} and ${GHC_PKG}. If you used --with-ghc= then also use --with-ghc-pkg=])
+  AC_MSG_ERROR(
+  [Version mismatch between ${GHC} and ${GHC_PKG}.]
+  [If you used --with-ghc= then also use --with-ghc-pkg=])
 fi
 
 
