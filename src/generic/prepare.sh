@@ -25,13 +25,10 @@ runghc Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
 
 cp tarball/packages/core.packages     "${IMAGE_DIR}/packages/"
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
-cp tarball/scripts/config.in          "${IMAGE_DIR}/scripts/"
-curl "http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD"   \
-    -o "${IMAGE_DIR}/scripts/config.sub"   || die "Failed to download config.sub"
-curl "http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD" \
-    -o "${IMAGE_DIR}/scripts/config.guess" || die "Failed to download config.guess"
+cp tarball/scripts/config.*           "${IMAGE_DIR}/scripts/"
 cp tarball/configure.ac tarball/Makefile "${IMAGE_DIR}/"
 chmod +x "${IMAGE_DIR}/scripts/"*.sh
+chmod +x "${IMAGE_DIR}/scripts/config.guess" "${IMAGE_DIR}/scripts/config.sub"
 
 echo "Running autoreconf"
 cd "${IMAGE_DIR}/" && autoreconf && cd ..
