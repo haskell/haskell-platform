@@ -10,7 +10,7 @@ The contents of the platform are specified here: [Haskell: Batteries Included].
 The platform saves you the task of picking and choosing the best
 libraries to use for a task, and distros that support the Haskell
 Platform can be confident they're fully supporting Haskell as the
-developers envisage.
+developers intend it.
 
 The platform takes the best software from [Hackage], providing a
 comprehensive, stable and mature base for Haskell projects to work from.
