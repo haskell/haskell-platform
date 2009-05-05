@@ -9,9 +9,7 @@ Find out what ships as part of the platform here: [Haskell: Batteries Included].
 The Haskell Platform is a blessed library and tool suite for Haskell.
 Taking the best software from [Hackage], it provides a comprehensive,
 stable and mature base for Haskell projects to work from. Every system
-supporting "Haskell" will need to comply to the Haskell Platform
-specification. We think every OS distribution should ship with the
-Haskell Platform!
+supporting Haskell needs to ship with the Haskell Platform suite.
 
 Please note that this is a beta release. We do not expect everything to
 work perfectly and we would appreciate feedback. Issues related to the
