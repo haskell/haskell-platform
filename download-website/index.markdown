@@ -3,12 +3,14 @@
 
 <img src="http://haskell.org/sitewiki/images/a/a8/Haskell-logo-60.png" alt="Logo">
 
-This is the beta release of the [Haskell Platform], version 2009.2.0: [Haskell: Batteries Included].
+This is the beta release of the [Haskell Platform], version 2009.2.0.
 
 The Haskell Platform is a blessed library and tool suite for Haskell.
-Taking the best software from [Hackage], it provides a comprehensive,
-stable and mature base for Haskell projects to work from. Every system
-supporting Haskell needs to ship with the Haskell Platform suite.
+The contents of the platform are specified here: [Haskell: Batteries Included].
+
+The platform takes the best software from [Hackage], providing a
+comprehensive, stable and mature base for Haskell projects to work from.
+Every system supporting Haskell needs to ship with the Haskell Platform suite.
 
 Please note that this is a beta release. We do not expect everything to
 work perfectly and we would appreciate feedback. Issues related to the
