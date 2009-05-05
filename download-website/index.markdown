@@ -1,7 +1,5 @@
-% Haskell Platform Download <img src="http://code.haskell.org/haskell-platform/download-website/images/beta-icon.png" alt="beta">
+% Haskell Platform Download (Beta)
 %
-
-<img src="http://haskell.org/sitewiki/images/a/a8/Haskell-logo-60.png" alt="Logo">
 
 This is the beta release of the [Haskell Platform], version 2009.2.0.
 

@@ -1,9 +1,5 @@
-% 
 % Haskell: Batteries Included
-% 
-
-<img src="http://haskell.org/sitewiki/images/thumb/7/7d/Platform.png/300px-Platform.png">
-
+%
 
 [The Platform Specification] is a cabal file stating required tools and
 packages. There content is summarised below:

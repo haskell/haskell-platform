@@ -56,7 +56,14 @@ h1, h2, h3, h4 {
   color: #3f6bcf;
 }
 
-h1 { 
+h1.title {
+    width: 300px;
+    height: 103px;
+    background: url(http://haskell.org/sitewiki/images/thumb/7/7d/Platform.png/300px-Platform.png);
+    text-indent: -9999px;
+}
+
+h1 {
   font-size: 2.4em;
 }
 
