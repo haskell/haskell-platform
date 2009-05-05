@@ -48,7 +48,7 @@ Functionality
 -------------
 
  * Control Structures
-    - applicatives, arrows, 
+    - applicatives, arrows, monoids
     - synchronous and asynchronous (extensible) exceptions
     - monads: the mtl monad suite
     - foldables, traversables
