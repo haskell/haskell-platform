@@ -12,9 +12,10 @@ The platform takes the best software from [Hackage], providing a
 comprehensive, stable and mature base for Haskell projects to work from.
 Every system supporting Haskell needs to ship with the Haskell Platform suite.
 
-Please note that this is a beta release. We do not expect everything to
-work perfectly and we would appreciate feedback. Issues related to the
-packaging and installers can be filed in the [Platform Bug Tracker].
+Please note that this is a beta release. We do not expect all the
+installers to work perfectly and we would appreciate feedback. Issues
+related to the packaging and installers can be filed in the [Platform
+Bug Tracker].
 
 [Haskell Platform]: http://haskell.org/haskellwiki/Haskell_Platform
 [Hackage]: http://hackage.haskell.org
