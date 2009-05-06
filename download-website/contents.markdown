@@ -35,8 +35,8 @@ Compiler and Tools
 [Haddock]: http://haskell.org/haddock
 [Cabal]: http://haskell.org/cabal/
 
-Packages
---------
+Packages and Documentation
+--------------------------
 
 *  [base],  [array],  [bytestring],  [Cabal],  [containers],  [directory],  [editline],  [filepath],  ghc-prim,  [haskell98],  [hpc],  integer,  [old-locale],  [old-time],  [packedstring],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],  [time],  [xhtml],  [zlib],  [HTTP]
 
