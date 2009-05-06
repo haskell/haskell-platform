@@ -11,11 +11,11 @@ Compiler and Tools
 
  * [GHC] 6.10.2
         - The state-of-the-art optimzing compiler for Haskell.
- * GHCi 6.10.2
+ * [GHCi] 6.10.2
         - A bytecode interpreter and interactive environment for Haskell
- * The GHCi debugger
+ * [The GHCi debugger]
         - An interactive, imperative-style debugger for Haskell
- * The GHC parallel runtime - a multicore-ready runtime, featuring
+ * [The GHC parallel runtime] - a multicore-ready runtime, featuring
    lightweight threads, thread sparks, affinity control, and a parallel
    garbage collector
  * The [Happy] parser generator
@@ -30,6 +30,9 @@ Compiler and Tools
         - a preprocessor for binding Haskell to C
 
 [GHC]: http://haskell.org/ghc
+[GHCi]: http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html
+[The GHCi debugger]: http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html
+[The GHC parallel runtime]: http://www.haskell.org/ghc/docs/latest/html/users_guide/lang-parallel.html
 [Happy]: http://haskell.org/happy
 [Alex]: http://haskell.org/alex
 [Haddock]: http://haskell.org/haddock
