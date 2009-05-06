@@ -15,9 +15,8 @@ Compiler and Tools
         - A bytecode interpreter and interactive environment for Haskell
  * [The GHCi debugger]
         - An interactive, imperative-style debugger for Haskell
- * [The GHC parallel runtime] - a multicore-ready runtime, featuring
-   lightweight threads, thread sparks, affinity control, and a parallel
-   garbage collector
+ * [The GHC parallel runtime] - a multicore language runtime, featuring
+   lightweight threads, thread sparks, affinity control, and a parallel garbage collector
  * The [Happy] parser generator
         - Happy 1.18.2, a yacc-like parser generator for Haskell
  * The [Alex] lexer generator
