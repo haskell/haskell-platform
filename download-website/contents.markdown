@@ -43,8 +43,10 @@ Packages
 Functionality
 -------------
 
+ * The Haskell Prelude
+ 
  * Control Structures
-    - applicatives, arrows, monoids
+    - applicatives, arrows, functors, monoids
     - synchronous and asynchronous (extensible) exceptions
     - monads: the mtl monad suite
     - foldables, traversables
@@ -53,11 +55,13 @@ Functionality
     - lightweight threads
     - thread sparks / futures
     - software transactional memory
-    - MVars
+    - MVars: thread synchronization variables
     - channels, semaphors, sample vars
 
  * Data Structures
-    - basic atomic types
+    - primitive and standard data types
+    - strings
+    - sequence types
     - pure, impure arrays, boxed/unboxed, foreign, storable, ST, diff arrays
     - strict and lazy bytestrings
     - regular, and inductive graphs
@@ -68,12 +72,15 @@ Functionality
     - mutable references
     - mutable hashtables
     - dynamic types
+    - weak and stable references
 
  * Debugging and Testing
     - tracing and debugging
     - HUnit uni testing
     - QuickCheck test generation
     - HPC code coverage framework
+    - Heap profiling
+    - Retainer profiling
 
  * Distribution
     - The Cabal distribution framework
@@ -88,11 +95,22 @@ Functionality
 
  * Languages
     - The C FFI specification
+    - C errno handling
+    - C types
     - Haskell98 compatibility layer
+    - Haskell language parsing and pretty printing
 
  * Network
-    - sockets, handles, URIs
-    - client-side HTTP 
+    - Sockets, Handles
+    - HTTP protocol client
+    - CGI Common Gateway Interface support.
+    - URI construction
+
+ * Math
+    - arbitrary precision integers and ratios
+    - fixed precision numbers
+    - complex numbers
+    - random number generators
 
  * Text
     - Unicode characters
@@ -102,20 +120,23 @@ Functionality
     - posix regular expressions
 
  * System
-    - IO
+    - file and handle abstractions
+    - System IO
+    - garbage collector services
     - portable process and pipe support
     - directory handling
-    - portable filepath abstractions
+    - OS portable filepath manipulation
     - editline console handling
     - environment handling
     - cpu time, system info, posix, timeouts
-    - random number generators
     - Unix Posix support or Win32 support
-    - portable time 
-    - zlib encoding/decoding
+    - portable dates and calender times
+    - read/show data serialisation
+    - zlib compression
+    - locale support
  
  * Web     
-    - html, xhtml generation
+    - simple html and xhtml generation
 
 [base]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/base
 [array]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/array

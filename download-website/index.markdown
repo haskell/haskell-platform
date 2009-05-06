@@ -3,9 +3,10 @@
 
 This is the beta release of the Haskell Platform, version 2009.2.0.
 
-The Haskell Platform is a blessed library and tool suite for Haskell,
-along with installers for a wide variety of systems.  The contents of
-the platform are specified here: [Haskell: Batteries Included].
+The Haskell Platform is a blessed library and tool suite for Haskell
+culled from [Hackage], along with installers for a wide variety of
+systems.  The contents of the platform are specified here: [Haskell:
+Batteries Included].
 
 The platform saves you the task of picking and choosing the best
 Haskell libraries and tools to use for a task. Distro maintainers that
@@ -16,9 +17,9 @@ can be confident they have a trusted base of code to work with.
 Please note that this is a beta release. We do not expect all the
 installers to work perfectly and we would appreciate feedback. Issues
 related to the packaging and installers can be filed in the [Platform
-Bug Tracker].
+Bug Tracker]. Future releases of the platform will include more tools and
+libraries to meet developer need.
 
-[Haskell Platform]: http://haskell.org/haskellwiki/Haskell_Platform
 [Hackage]: http://hackage.haskell.org
 [Platform Bug Tracker]: http://trac.haskell.org/haskell-platform/
 [Haskell: Batteries Included]: ./contents.html
@@ -83,10 +84,11 @@ distro packages, in .cabal and tarball form:
 Read more
 ---------
 
-* [Haskell Platform]
+* [Haskell Platform Users]
 * [Platform Bug Tracker]
 * [GHC 6.10.x]
 
+[Haskell Platform Users]: http://haskell.org/haskellwiki/Haskell_Platform
 [GHC 6.10.x]: http://haskell.org/ghc
 
 Tue May  5 21:03:42 PDT 2009
