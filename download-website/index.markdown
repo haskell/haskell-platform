@@ -1,7 +1,8 @@
 % Haskell Platform Download (Beta)
 %
 
-This is the beta release of the Haskell Platform, version 2009.2.0.
+This is the beta release of the Haskell Platform, version 2009.2.0: a
+single, standard Haskell distribution for every system.
 
 The Haskell Platform is a blessed library and tool suite for Haskell
 culled from [Hackage], along with installers for a wide variety of
