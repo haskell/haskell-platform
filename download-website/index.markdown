@@ -1,18 +1,17 @@
 % Haskell Platform Download (Beta)
 %
 
-This is the beta release of the [Haskell Platform], version 2009.2.0.
+This is the beta release of the Haskell Platform, version 2009.2.0.
 
-The Haskell Platform is a blessed library and tool suite for Haskell.
-The contents of the platform are specified here: [Haskell: Batteries Included].
+The Haskell Platform is a blessed library and tool suite for Haskell,
+along with installers for a wide variety of systems.  The contents of
+the platform are specified here: [Haskell: Batteries Included].
+
 The platform saves you the task of picking and choosing the best
-libraries to use for a task, and distros that support the Haskell
-Platform can be confident they're fully supporting Haskell as the
-developers intend it.
-
-The platform takes the best software from [Hackage], providing a
-comprehensive, stable and mature base for Haskell projects to work from.
-Every system supporting Haskell needs to ship with the Haskell Platform suite.
+Haskell libraries and tools to use for a task. Distro maintainers that
+support the Haskell Platform can be confident they're fully supporting
+Haskell as the developers intend it. Developers targetting the platform
+can be confident they have a trusted base of code to work with.
 
 Please note that this is a beta release. We do not expect all the
 installers to work perfectly and we would appreciate feedback. Issues
@@ -32,7 +31,7 @@ library suite,
 
  * [HaskellPlatform-2009.2.0-setup.exe]
 
-[HaskellPlatform-2009.2.0-setup.exe]: http://haskell.org/download/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe
+[HaskellPlatform-2009.2.0-setup.exe]: http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe
 
 Mac OS X
 --------
@@ -59,7 +58,7 @@ installed to get started:
 
  * [haskell-platform-2009.2.0.tar.gz]
 
-[haskell-platform-2009.2.0.tar.gz]: http://haskell.org/download/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz
+[haskell-platform-2009.2.0.tar.gz]: http://hackage.haskell.org/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz
 
 Download and unpack the installer. Then (possibly with 'sudo'):
 
@@ -69,6 +68,18 @@ Download and unpack the installer. Then (possibly with 'sudo'):
 
 Note: the source tarball requires that you already have ghc-6.10.x installed.
 
+Specification
+-------------
+
+The platform specification is also available, to aid in constructing
+distro packages, in .cabal and tarball form:
+
+ * [haskell-platform.cabal]
+ * [haskell-platform cabal package]
+
+[haskell-platform.cabal]: http://hackage.haskell.org/platform/2009.2.0/haskell-platform.cabal
+[haskell-platform cabal package]: http://hackage.haskell.org/platform/2009.2.0/cabal/
+
 Read more
 ---------
 
@@ -77,3 +88,5 @@ Read more
 * [GHC 6.10.x]
 
 [GHC 6.10.x]: http://haskell.org/ghc
+
+Tue May  5 21:03:42 PDT 2009

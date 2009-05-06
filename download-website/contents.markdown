@@ -4,7 +4,7 @@
 [The Platform Specification] is a cabal file stating required tools and
 packages. There content is summarised below:
 
-[The Platform Specification]: http://code.haskell.org/haskell-platform/haskell-platform.cabal
+[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0/haskell-platform.cabal
 
 Compiler and Tools
 ------------------
