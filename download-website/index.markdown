@@ -45,6 +45,12 @@ Linux
 *A few distributions already support the Haskell Platform. See your
 package maintainer for more information.*
 
+* [Arch Linux]
+* [NixOS]
+
+[Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
+[NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6102.haskellPlatform/jobstatus
+
 Source
 ------
 
