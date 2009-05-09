@@ -78,6 +78,6 @@ library
   build-tools:
     cabal-install ==0.6.2,
     alex          ==2.3.1,
-    happy         ==1.18.2
+    happy         ==1.18.4
 --    haddock       ==2.4.2
 
