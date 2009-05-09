@@ -31,9 +31,9 @@ Windows
 The Windows installer provides GHC 6.10.2, along with the full tool and
 library suite,
 
- * [HaskellPlatform-2009.2.0-setup.exe]
+ * [HaskellPlatform-2009.2.0-r1-setup.exe]
 
-[HaskellPlatform-2009.2.0-setup.exe]: http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe
+[HaskellPlatform-2009.2.0-r1-setup.exe]: http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-r1-setup.exe
 
 Mac OS X
 --------
@@ -47,9 +47,14 @@ Linux
 package maintainer for more information.*
 
 * [Arch Linux]
+* Debian
+* Fedora
+* [Gentoo]
 * [NixOS]
+* Ubuntu
 
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
+[Gentoo]: http://code.haskell.org/gentoo/gentoo-haskell/dev-haskell/haskell-platform/
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6102.haskellPlatform/jobstatus
 
 Source
@@ -92,4 +97,4 @@ Read more
 [Haskell Platform Users]: http://haskell.org/haskellwiki/Haskell_Platform
 [GHC 6.10.x]: http://haskell.org/ghc
 
-Tue May  5 21:03:42 PDT 2009
+Thu May  7 13:02:12 PDT 2009
