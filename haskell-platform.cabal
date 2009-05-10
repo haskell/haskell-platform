@@ -23,10 +23,12 @@ description:
 
 cabal-version:       >= 1.6
 build-type:          Custom
-tested-with:         GHC ==6.10.2
+tested-with:         GHC ==6.10.3
 
 library
   build-depends:
+    -- ghc 6.10.3
+
     -- core libraries: implicitly provided by ghc
     -- array               ==0.2.0.0 
     -- base                ==4.1.0.0 and ==3.0.3.1
