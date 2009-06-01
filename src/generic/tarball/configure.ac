@@ -1,4 +1,4 @@
-AC_INIT([haskell-platform],[2009.2.0])
+AC_INIT([haskell-platform],[2009.2.0.1])
 AC_CONFIG_AUX_DIR([scripts])
 AC_CANONICAL_TARGET
 
@@ -9,8 +9,8 @@ AC_CONFIG_SRCDIR([packages/platform.packages])
 AC_CONFIG_FILES([scripts/config])
 
 #TODO: have these numbers generated from the .cabal file
-REQUIRED_GHC_VER=6.10.2
-ACCEPTABLE_GHC_VER=6.10.3
+REQUIRED_GHC_VER=6.10.3
+ACCEPTABLE_GHC_VER=6.10.4
 
 AC_ARG_WITH([ghc],
 [AC_HELP_STRING([--with-ghc=ARG],

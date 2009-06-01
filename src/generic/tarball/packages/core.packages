@@ -4,7 +4,6 @@ bytestring-0.9.1.4
 Cabal-1.6.0.3
 containers-0.2.0.1
 directory-1.0.0.3
-editline-0.2.1.0
 filepath-1.1.0.2
 ghc-prim-0.1.0.0
 haskell98-1.0.1.0
