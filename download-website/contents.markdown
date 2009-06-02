@@ -4,21 +4,21 @@
 [The Platform Specification] is a cabal file stating required tools and
 packages. The content of the platform is summarised below:
 
-[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0/haskell-platform.cabal
+[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform.cabal
 
 Compiler and Tools
 ------------------
 
- * [GHC] 6.10.2
+ * [GHC] 6.10.3
         - The state-of-the-art optimzing compiler for Haskell.
- * [GHCi] 6.10.2
+ * [GHCi] 6.10.3
         - A bytecode interpreter and interactive environment for Haskell
  * [The GHCi debugger]
         - An interactive, imperative-style debugger for Haskell
  * [The GHC parallel runtime] - a multicore language runtime, featuring
    lightweight threads, thread sparks, affinity control, and a parallel garbage collector
  * The [Happy] parser generator
-        - Happy 1.18.2, a yacc-like parser generator for Haskell
+        - Happy 1.18.4, a yacc-like parser generator for Haskell
  * The [Alex] lexer generator
         - Alex 2.3.1, a lex-like lexer generator for Haskell
  * The [Haddock] Documentation tool
