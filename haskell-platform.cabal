@@ -1,5 +1,5 @@
 name:                haskell-platform
-version:             2009.2.0.1
+version:             2009.2.0.2
 homepage:            http://haskell.org/haskellwiki/Haskell_Platform
 license:             BSD3
 license-file:        LICENSE
@@ -23,11 +23,11 @@ description:
 
 cabal-version:       >= 1.6
 build-type:          Custom
-tested-with:         GHC ==6.10.3
+tested-with:         GHC ==6.10.4
 
 library
   build-depends:
-    -- ghc 6.10.3
+    -- ghc 6.10.4
     -- core libraries: implicitly provided by ghc
     -- array               ==0.2.0.0 
     -- base                ==4.1.0.0 and ==3.0.3.1
@@ -60,7 +60,7 @@ library
     html          ==1.0.1.2,
     HUnit         ==1.2.0.3,
     mtl           ==1.1.0.2,
-    network       ==2.2.1.1,
+    network       ==2.2.1.3,
     OpenGL        ==2.2.1.1,
     parallel      ==1.1.0.1,
     parsec        ==2.1.0.1,
