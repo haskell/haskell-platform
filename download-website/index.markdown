@@ -1,7 +1,7 @@
 % Haskell Platform Download (Beta)
 %
 
-This is the release of the Haskell Platform, version 2009.2.0.1: a
+This is the the Haskell Platform, version 2009.2.0.1: a
 single, standard Haskell distribution for every system.
 
 The Haskell Platform is a blessed library and tool suite for Haskell
@@ -38,7 +38,11 @@ library suite,
 Mac OS X
 --------
 
-* The installer for MacOS X is not yet available: use the generic unix source release.*
+The MacOS X installer provides GHC 6.10.3 and the full tool and library suite:
+
+ * [haskell-platform-2009.2.0.1-beta1-i386.dmg] (Leopard/x86)
+
+[haskell-platform-2009.2.0.1-beta1-i386.dmg]: http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform-2009.2.0.1-beta1-i386.dmg
 
 Linux
 -----
@@ -47,7 +51,7 @@ Linux
 package maintainer for more information.*
 
 * [Arch Linux]
-* Debian
+* Debian ([Debian Status])
 * Fedora
 * [Gentoo]
 * [NixOS]
@@ -56,6 +60,7 @@ package maintainer for more information.*
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
 [Gentoo]: http://code.haskell.org/gentoo/gentoo-haskell/dev-haskell/haskell-platform/
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6102.haskellPlatform/jobstatus
+[Debian Status]: http://wiki.debian.org/Haskell/Platform
 
 Source
 ------
@@ -73,7 +78,7 @@ Download and unpack the installer. Then (possibly with 'sudo'):
     make
     make install
 
-Note: the *source* tarball requires that you already have ghc-6.10.x installed.
+Note: the *source* tarball requires that you already have ghc-6.10.3 (or 6.10.4) installed.
 
 Specification
 -------------
@@ -90,11 +95,9 @@ distro packages, in .cabal and tarball form:
 Read more
 ---------
 
-* [Haskell Platform Users]
 * [Platform Bug Tracker]
 * [GHC 6.10.x]
 
-[Haskell Platform Users]: http://haskell.org/haskellwiki/Haskell_Platform
 [GHC 6.10.x]: http://haskell.org/ghc
 
-Tue Jun  2 13:57:40 PDT 2009
+Thu Jun  4 12:46:32 PDT 2009
