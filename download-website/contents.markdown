@@ -4,14 +4,14 @@
 [The Platform Specification] is a cabal file stating required tools and
 packages. The content of the platform is summarised below:
 
-[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform.cabal
+[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform.cabal
 
 Compiler and Tools
 ------------------
 
- * [GHC] 6.10.3
+ * [GHC] 6.10.4
         - The state-of-the-art optimzing compiler for Haskell.
- * [GHCi] 6.10.3
+ * [GHCi] 6.10.4
         - A bytecode interpreter and interactive environment for Haskell
  * [The GHCi debugger]
         - An interactive, imperative-style debugger for Haskell
