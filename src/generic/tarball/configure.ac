@@ -14,7 +14,7 @@ ACCEPTABLE_GHC_VER=6.10.5
 
 AC_ARG_WITH([ghc],
 [AC_HELP_STRING([--with-ghc=ARG],
-  [Use ARG as the path to ghc  [default=autodetect]])],
+  [Use ARG as the path to ghc  (default=autodetect)])],
   [GHC="$withval"],
   [if test "$GHC" = ""; then
     AC_PATH_PROG([GHC], [ghc], [notfound])
@@ -28,7 +28,7 @@ fi
 
 AC_ARG_WITH([ghc-pkg],
 [AC_HELP_STRING([--with-ghc-pkg=ARG],
-  [Use ARG as the path to ghc-pkg  [default=autodetect]])],
+  [Use ARG as the path to ghc-pkg  (default=autodetect)])],
   [GHC_PKG="$withval"],
   [if test "${GHC_PKG}" = ""; then
     AC_PATH_PROG([GHC_PKG], [ghc-pkg], [notfound])
@@ -41,7 +41,7 @@ fi
 
 AC_ARG_WITH([hsc2hs],
 [AC_HELP_STRING([--with-hsc2hs=ARG],
-  [Use ARG as the path to hsc2hs  [default=autodetect]])],
+  [Use ARG as the path to hsc2hs  (default=autodetect)])],
   [HSC2HS="$withval"],
   [if test "${HSC2HS}" = ""; then
     AC_PATH_PROG([HSC2HS], [hsc2hs], [notfound])
@@ -155,7 +155,7 @@ fi
 
 AC_ARG_ENABLE([user-install],
 [AC_HELP_STRING([--enable-user-install],
-  [Register packages into the per-user or the global ghc package database. [default=autodetect]])],
+  [Register packages into the per-user or the global ghc package database. (default=autodetect)])],
   [case "${enableval}" in
      yes)
        USER_INSTALL=YES
