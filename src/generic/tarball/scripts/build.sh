@@ -62,8 +62,6 @@ tell() {
 build_pkg () {
   PKG=$1
 
-  [ -n "${VERBOSE}" ] && echo "Building ${PKG}"
-
   cd "${PKG}" 2> /dev/null \
     || die "The directory for the component ${PKG} is missing"
 
