@@ -104,12 +104,22 @@ build_pkg () {
   cd ..
 }
 
+# Is this exact version of the package already installed?
+is_pkg_installed () {
+  PKG_VER=$1
+  grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
+}
+
 # Actually do something!
 
 cd packages
 for pkg in `cat platform.packages`; do
-  echo "Building ${pkg}..."
-  build_pkg "${pkg}"
+  if is_pkg_installed "${pkg}"; then
+    echo "Platform package ${pkg} is already installed. Skipping..."
+  else
+    echo "Building ${PKG}"
+    build_pkg "${pkg}"
+  fi
 done
 
 echo
