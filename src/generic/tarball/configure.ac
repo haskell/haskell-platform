@@ -52,6 +52,29 @@ if test "${HSC2HS}" = "notfound"; then
 fi
 
 
+AC_ARG_ENABLE([user-install],
+[AC_HELP_STRING([--enable-user-install],
+  [Register packages into the per-user or the global ghc package database. (default=autodetect)])],
+  [case "${enableval}" in
+     yes)
+       USER_INSTALL=YES
+       ;;
+     no)
+       USER_INSTALL=NO
+       ;;
+     *)
+       AC_MSG_ERROR([The --enable-user-install value should be "yes" or "no"])
+       ;;
+   esac
+  ],
+  [if echo "${prefix}" | grep "$HOME" > /dev/null; then
+     USER_INSTALL=YES
+   else
+     USER_INSTALL=NO
+   fi
+  ])
+
+
 AC_ARG_ENABLE(profiling,
 [AC_HELP_STRING([--enable-profiling],
                 [Build profiling versions of libraries. (default=enable)])],
@@ -153,29 +176,6 @@ AC_MSG_RESULT([yes])
 fi
 
 
-AC_ARG_ENABLE([user-install],
-[AC_HELP_STRING([--enable-user-install],
-  [Register packages into the per-user or the global ghc package database. (default=autodetect)])],
-  [case "${enableval}" in
-     yes)
-       USER_INSTALL=YES
-       ;;
-     no)
-       USER_INSTALL=NO
-       ;;
-     *)
-       AC_MSG_ERROR([The --enable-user-install value should be "yes" or "no"])
-       ;;
-   esac
-  ],
-  [if echo "${prefix}" | grep "$HOME" > /dev/null; then
-     USER_INSTALL=YES
-   else
-     USER_INSTALL=NO
-   fi
-  ])
-
-
 # Check if we're on OSX or windows
 case $target_os in
   darwin*)
@@ -231,9 +231,9 @@ AC_SUBST([GHC_PKG])
 AC_SUBST([HSC2HS])
 AC_SUBST([PERL])
 
+AC_SUBST([USER_INSTALL])
 AC_SUBST([ENABLE_PROFILING])
 AC_SUBST([ALLOW_UNSUPPORTED_GHC])
-AC_SUBST([USER_INSTALL])
 
 AC_OUTPUT
 echo '**************************************************'
