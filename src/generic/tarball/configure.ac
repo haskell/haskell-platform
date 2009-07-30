@@ -52,6 +52,25 @@ if test "${HSC2HS}" = "notfound"; then
 fi
 
 
+AC_ARG_ENABLE(profiling,
+[AC_HELP_STRING([--enable-profiling],
+                [Build profiling versions of libraries. (default=enable)])],
+  [case "${enableval}" in
+     yes)
+       ENABLE_PROFILING=YES
+       ;;
+     no)
+       ENABLE_PROFILING=NO
+       ;;
+     *)
+       AC_MSG_ERROR([The --enable-profiling value should be "yes" or "no"])
+       ;;
+   esac
+  ],
+  [ENABLE_PROFILING=YES]
+)
+
+
 AC_ARG_ENABLE(unsupported-ghc-version,
 [AC_HELP_STRING([--enable-unsupported-ghc-version],
                 [Try building using a version of GHC that is not the one]
@@ -212,6 +231,7 @@ AC_SUBST([GHC_PKG])
 AC_SUBST([HSC2HS])
 AC_SUBST([PERL])
 
+AC_SUBST([ENABLE_PROFILING])
 AC_SUBST([ALLOW_UNSUPPORTED_GHC])
 AC_SUBST([USER_INSTALL])
 

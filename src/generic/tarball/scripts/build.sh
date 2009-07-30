@@ -83,10 +83,15 @@ build_pkg () {
   if [ -x ../${CABAL_INSTALL_INPLACE} ]; then
     CABAL_INSTALL_FLAG="--with-cabal-install=../${CABAL_INSTALL_INPLACE}"
   fi
+  if test "${ENABLE_PROFILING}" = "YES"; then
+    CABAL_PROFILING_FLAG="--enable-library-profiling"
+  fi
+
 
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} --with-hsc2hs=${HSC2HS} \
-    ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} ${CABAL_INSTALL_FLAG} \
+    ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} \
+    ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} \
     ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
     || die "Configuring the ${PKG} package failed"
 
