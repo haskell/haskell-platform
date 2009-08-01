@@ -1,18 +1,19 @@
 % Haskell Platform Download (Beta)
 %
 
-This is the the Haskell Platform, version 2009.2.0.2: a
-single, standard Haskell distribution for every system.
+This is the the Haskell Platform, version 2009.2.0.2: a single, standard
+Haskell distribution for every system.
 
 The Haskell Platform is a blessed library and tool suite for Haskell
 distilled from [Hackage], along with installers for a wide variety of
-machines. The contents of the platform is specified here: [Haskell: Batteries Included].
+machines. The contents of the platform is specified here: [Haskell:
+Batteries Included].
 
-The platform saves you the task of picking and choosing the best
-Haskell libraries and tools to use for a task. Distro maintainers that
-support the Haskell Platform can be confident they're fully supporting
-Haskell as the developers intend it. Developers targetting the platform
-can be confident they have a trusted base of code to work with.
+The platform saves you the task of picking and choosing the best Haskell
+libraries and tools to use for a task. Distro maintainers that support
+the Haskell Platform can be confident they're fully supporting Haskell
+as the developers intend it. Developers targetting the platform can be
+confident they have a trusted base of code to work with.
 
 Please note that this is a beta release - we would appreciate feedback.
 Issues related to the packaging and installers can be filed in the
@@ -40,7 +41,7 @@ The MacOS X installer provides GHC 6.10.4 and the full tool and library suite:
 
  * [haskell-platform-2009.2.0.2-i386.dmg] (Leopard/x86)
 
-[haskell-platform-2009.2.0.2-i386.dmg]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.1-i386.dmg
+[haskell-platform-2009.2.0.2-i386.dmg]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg
 
 Linux
 -----
@@ -76,7 +77,7 @@ Download and unpack the installer. Then (possibly with 'sudo'):
     make
     make install
 
-Note: the *source* tarball requires that you already have ghc-6.10.4 installed.
+Note: the *source* tarball requires that you already have ghc installed.
 
 Specification
 -------------
@@ -107,4 +108,4 @@ Read more
 
 [GHC 6.10.x]: http://haskell.org/ghc
 
-Wed Jul 29 09:58:06 PDT 2009
+Fri Jul 31 15:11:11 PDT 2009
