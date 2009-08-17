@@ -11,9 +11,13 @@ die () {
   || die "Please run ./configure first"
 
 . scripts/config
+. scripts/common.sh
 
 install_pkg () {
   PKG=$1
+
+  cd "packages/${PKG}" 2> /dev/null \
+    || die "The directory for the component ${PKG} is missing"
 
   [ -x Setup ] || die "The ${PKG}/Setup script does not exist or cannot be run"
 
@@ -32,15 +36,18 @@ install_pkg () {
     ${GHC_PKG} update ${GHC_PKG_DB} "${PKG}.conf" \
       || die "Registering the package ${PKG} failed"
   fi
+
+  cd ../..
 }
 
 # Actually do something!
-cd packages
-for pkg in `cat platform.packages`; do
-  cd "${pkg}" || die "The directory for the component ${PKG} is missing"
-  echo "Installing ${pkg}..."
-  install_pkg ${pkg}
-  cd ..
+for pkg in `cat packages/platform.packages`; do
+  if is_pkg_installed "${pkg}"; then
+    echo "Platform package ${pkg} is already installed. Skipping..."
+  else
+    echo "Installing ${pkg}..."
+    install_pkg ${pkg}
+  fi
 done
 
 echo

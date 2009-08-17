@@ -16,6 +16,7 @@ die () {
   || die "Please run ./configure first"
 
 . scripts/config
+. scripts/common.sh
 
 # also check GHC, GHC_PKG
 [ -n "$prefix" ] \
@@ -43,26 +44,10 @@ PACKAGE_DB="packages/package.conf.inplace"
 [ -f "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
 
-# Maybe use a small script instead ? Tested with bash and zsh.
-tell() {
-  # Save and shift the executable name
-  CMD=$1
-  shift
-  # Build the string of command-line parameters
-  PRINT="\"${CMD}\""
-  for arg in "$@"; do
-      PRINT="${PRINT} \"${arg}\""
-  done
-  # Echo the command
-  echo `echo $PRINT`
-  # Run the command
-  "$CMD" "$@"
-}
-
 build_pkg () {
   PKG=$1
 
-  cd "${PKG}" 2> /dev/null \
+  cd "packages/${PKG}" 2> /dev/null \
     || die "The directory for the component ${PKG} is missing"
 
   [ -f Setup ] && rm Setup
@@ -78,7 +63,8 @@ build_pkg () {
   if [ -x ../${ALEX_INPLACE} ]; then
     ALEX_FLAG="--with-alex=../${ALEX_INPLACE}"
   fi
-  if [ -x ../${CABAL_INSTALL_INPLACE} ]; then
+  if [ -x ../${CABAL_INSTALL_INPLACE} ] \
+     && echo ${PKG} | grep 'haskell-platform' > /dev/null 2>&1; then
     CABAL_INSTALL_FLAG="--with-cabal-install=../${CABAL_INSTALL_INPLACE}"
   fi
   if test "${ENABLE_PROFILING}" = "YES"; then
@@ -99,19 +85,11 @@ build_pkg () {
   tell ./Setup register --inplace ${VERBOSE} \
     || die "Registering the ${PKG} package failed"
 
-  cd ..
-}
-
-# Is this exact version of the package already installed?
-is_pkg_installed () {
-  PKG_VER=$1
-  grep " ${PKG_VER} " installed.packages > /dev/null 2>&1
+  cd ../..
 }
 
 # Actually do something!
-
-cd packages
-for pkg in `cat platform.packages`; do
+for pkg in `cat packages/platform.packages`; do
   if is_pkg_installed "${pkg}"; then
     echo "Platform package ${pkg} is already installed. Skipping..."
   else
