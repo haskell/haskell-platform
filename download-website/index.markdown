@@ -50,16 +50,23 @@ Linux
 package maintainer for more information.*
 
 * [Arch Linux]
+* [Debian]
+* [Fedora]
 * [Gentoo]
 * [NixOS]
-* Debian ([Debian Status])
-* Ubuntu
-* Fedora
 
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
-[Gentoo]: http://code.haskell.org/gentoo/gentoo-haskell/dev-haskell/haskell-platform/
+[Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6102.haskellPlatform/jobstatus
-[Debian Status]: http://wiki.debian.org/Haskell/Platform
+[Fedora]: http://fedoraproject.org/wiki/Haskell_SIG#Haskell_Platform_support 
+[Debian]: http://packages.debian.org/sid/haskell-platform
+
+*The following platforms provide some support for the Platform, but
+you're best using the source installer*
+
+* Ubuntu ([Installing on Ubuntu])
+
+[Installing on Ubuntu]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 
 Source
 ------
@@ -109,4 +116,8 @@ Read more
 
 [GHC 6.10.x]: http://haskell.org/ghc
 
-Fri Jul 31 15:11:11 PDT 2009
+Hosting kindly donated by [Galois Inc].
+
+[Galois Inc]: http://galois.com
+
+Sun Aug  2 12:26:59 PDT 2009
