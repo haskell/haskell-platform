@@ -64,20 +64,21 @@ package maintainer for more information.*
 Source
 ------
 
-For unix systems, there is a generic source installer. You only need GHC
-installed to get started:
+For unix systems, there is a generic source installer.
+
+You need GHC 6.10.4 installed. You should get this from your distro or
+alternatively you can get a [GHC 6.10.4 generic binary].
 
  * [haskell-platform-2009.2.0.2.tar.gz]
 
 [haskell-platform-2009.2.0.2.tar.gz]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz
+[GHC 6.10.4 generic binary]: http://haskell.org/ghc/download_ghc_6_10_4.html
 
 Download and unpack the installer. Then (possibly with 'sudo'):
 
     ./configure
     make
     make install
-
-Note: the *source* tarball requires that you already have ghc installed.
 
 Specification
 -------------
