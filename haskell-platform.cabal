@@ -1,6 +1,6 @@
 name:                haskell-platform
-version:             2009.3.1
-homepage:            http://haskell.org/haskellwiki/Haskell_Platform
+version:             2010.1.0
+homepage:            http://haskell.org/platform
 license:             BSD3
 license-file:        LICENSE
 author:              libraries@haskell.org
