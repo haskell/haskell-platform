@@ -64,9 +64,12 @@ package maintainer for more information.*
 *The following platforms provide some support for the Platform, but
 you're best using the source installer*
 
-* Ubuntu ([Installing on Ubuntu])
+* Ubuntu ([Karmic], [Jaunty])
+* [OpenSUSE]
 
-[Installing on Ubuntu]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
+[Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
+[Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
+[OpenSUSE]: http://en.opensuse.org/Packaging/Haskell
 
 Source
 ------
@@ -120,4 +123,4 @@ Hosting kindly donated by [Galois Inc].
 
 [Galois Inc]: http://galois.com
 
-Sun Aug  2 12:26:59 PDT 2009
+Wed Nov  4 13:45:15 PST 2009
