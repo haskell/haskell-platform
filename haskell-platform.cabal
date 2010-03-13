@@ -74,10 +74,10 @@ library
     HTTP          ==4000.0.8
 
   -- Depending on programs does not work, they are not registered
-  -- We list them for convenience
+  -- We list them to help distro packaging.
   build-tools:
-    cabal-install ==0.6.4,
-    alex          ==2.3.1,
+    cabal-install ==0.8.0,
+    alex          ==2.3.2,
     happy         ==1.18.4
---    haddock       ==2.4.2
+--    haddock       ==2.6.0
 
