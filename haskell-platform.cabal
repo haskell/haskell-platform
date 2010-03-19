@@ -1,5 +1,5 @@
 name:                haskell-platform
-version:             2010.1.0
+version:             2010.1.0.0
 homepage:            http://haskell.org/platform
 license:             BSD3
 license-file:        LICENSE
@@ -36,12 +36,10 @@ library
     -- Cabal                    ==1.8.0.2
     -- containers               ==0.3.0.0
     -- directory                ==1.0.1.0
-    -- extensible-exceptions    ==0.1.1.1  -- NOTE
     -- filepath                 ==1.1.0.3
+    -- ghc-prim-0.2.0.0
     -- haskell98                ==1.0.1.1
     -- hpc                      ==0.5.0.4
-    -- integer-gmp              ==0.2.0.0  -- NOTE
-    -- integer-simple           ==0.1.0.0  -- NOTE
     -- old-locale               ==1.0.0.2
     -- old-time                 ==1.0.0.3
     -- pretty                   ==1.0.1.1
