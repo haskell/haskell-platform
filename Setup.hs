@@ -5,6 +5,6 @@ main = defaultMainWithHooks simpleUserHooks { hookedPrograms = [cabal] }
 
 cabal :: Program
 cabal = (simpleProgram "cabal-install") {
-  programFindLocation = findProgramOnPath "cabal",
+  programFindLocation = findProgramLocation "cabal",
   programFindVersion  = findProgramVersion "--numeric-version" id
 }
