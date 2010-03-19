@@ -28,17 +28,16 @@ tested-with:         GHC ==6.12.1
 library
   build-depends:
     -- ghc 6.12.1
-    -- core libraries: provided by every ghc installation
+    -- Core libraries: provided by every ghc installation
+    -- We don't include "non-API" packages here.
     -- array                    ==0.3.0.0 
     -- base                     ==4.2.0.0 and ==3.0.3.2
     -- bytestring               ==0.9.1.5
-    -- bin-package-db           ==0.0.0.0  -- NOTE
     -- Cabal                    ==1.8.0.2
     -- containers               ==0.3.0.0
     -- directory                ==1.0.1.0
     -- extensible-exceptions    ==0.1.1.1  -- NOTE
     -- filepath                 ==1.1.0.3
-    -- ghc-prim                 ==0.2.0.0  -- NOTE
     -- haskell98                ==1.0.1.1
     -- hpc                      ==0.5.0.4
     -- integer-gmp              ==0.2.0.0  -- NOTE
@@ -69,7 +68,7 @@ library
     network                     ==2.2.1.7,
     OpenGL                      ==2.2.3.0, -- NOTE
     parallel                    ==2.2.0.1,
-    parsec                      ==2.1.0.1, -- NOTE
+    parsec                      ==2.1.0.1, -- NOTE, not using parsec 3
     QuickCheck                  ==2.1.0.3,
     regex-base                  ==0.93.1,
     regex-compat                ==0.92,
@@ -85,5 +84,5 @@ library
     cabal-install ==0.8.0,
     alex          ==2.3.2,
     happy         ==1.18.4
---    haddock       ==2.7.0
+--    haddock       ==2.7.2
 
