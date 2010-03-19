@@ -23,7 +23,7 @@ description:
 
 cabal-version:       >= 1.6
 build-type:          Custom
-tested-with:         GHC ==6.10.4
+tested-with:         GHC ==6.12.1
 
 library
   build-depends:
