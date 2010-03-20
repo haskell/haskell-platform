@@ -1,0 +1,33 @@
+ 
+ # update list of libraries shipped with GHC.
+ # update list of external libraries to latest stable version.
+ - check and follow up on changes to visible packages.
+ - check unix package builds
+    +  tarball/packages/core.packages has to be updated from .cabal file
+    +  update configure.ac with version number
+    + update required GHC version
+ - bump version number to 2010.2.0.0
+ - check clean room builds
+ - check windows installer
+ - check mac installer
+ - update web page.
+
+------------------------------------------------------------------------
+= 2010.1.0 release = 
+
+ + Wait for Cabal update (to support windows).
+    > 1.8.0.2
+
+Package changes:
+
+ + Added extensible-exceptions: don't list.
+ + Remove packedstring
+ + Time moves back into the base set.
+ + Not upgrading to parsec 3!
+ + Not adding OpenGL 2.4, 
+        -- would add OpenGLRaw >=1.1.0.0, GLURaw >=1.1.0.0,
+                        StateVar -any, ObjectName -any, Tensor -any
+ + Ship a newer haddock? No.
+ + Added deepseq to the HP.
+
+
