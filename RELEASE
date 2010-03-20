@@ -1,41 +1,52 @@
  
  # update list of libraries shipped with GHC.
  # update list of external libraries to latest stable version.
- - check and follow up on changes to visible packages.
- - check unix package builds
-    + tarball/packages/core.packages has to be updated from .cabal file
-    + update configure.ac with version number
-    + update required GHC version
+ # check and follow up on changes to visible packages.
+ # check unix package builds
+    # tarball/packages/core.packages has to be updated from .cabal file
+    # update configure.ac with version number
+    # update required GHC version
     + update cabal-install
  - bump version number to 2010.2.0.0
  - put up .cabal file 
- - check clean room builds
+ # check clean room builds
  - check windows installer
  - check mac installer
  - update web page.
     + get new content.
+    + move mailing list
 
 ------------------------------------------------------------------------
 = 2010.1.0 release = 
 
 Package changes:
 
- + Added extensible-exceptions: don't list.
- + Remove packedstring
- + Time moves back into the base set.
- + Not upgrading to parsec 3!
- + Not adding OpenGL 2.4, 
+ # Added extensible-exceptions: don't list.
+ # Remove packedstring
+ # Time moves back into the base set.
+ # Not upgrading to parsec 3!
+ # Not adding OpenGL 2.4, 
         -- would add OpenGLRaw >=1.1.0.0, GLURaw >=1.1.0.0,
                         StateVar -any, ObjectName -any, Tensor -any
- + Ship a newer haddock? No.
- + Added deepseq to the HP.
+ # Ship a newer haddock? No.
+ # Added deepseq to the HP.
 
- + Due to ghc's dependency on Cabal, we can't upgrade Cabal as part of
+ # Due to ghc's dependency on Cabal, we can't upgrade Cabal as part of
      the HP build.
          + Bug in Cabal, meaning local package db's were dropped.
                 - work around: manually register.
          + Bug in Cabal on Windows -- wait for 6.12.2
  
- + New update to cabal-install coming.
+ # New update to cabal-install coming.
  + Policy: Modify script to include only --global packages in a global install,
      and always include --user packages in user installs
+
+------------------------------------------------------------------------
+= Site =
+
+ * Write a new "Learn about the platform page"
+ * Add a simpler "Help" page.
+ * Change download links:
+    -> Nice simple page for each distro. Icons.
+    -> Includes the help page for each distro.
+ * Simple logo 
