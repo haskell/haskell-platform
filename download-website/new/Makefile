@@ -1,4 +1,4 @@
-all : linux.html
+all : linux.html mac.html windows.html
 
 %.html : %.markdown
 	pandoc --from=markdown --to=html \

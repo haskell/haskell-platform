@@ -4,7 +4,7 @@
 Haskell Platform for Linux
 -----
 
-*Some distributions support the Haskell Platform.*
+**Community supported versions of the Haskell Platform:**
 
 * [Arch Linux]
 * [Debian]
@@ -18,7 +18,7 @@ Haskell Platform for Linux
 [Fedora]: http://fedoraproject.org/wiki/Haskell_SIG#Haskell_Platform_support 
 [Debian]: http://packages.debian.org/sid/haskell-platform
 
-*Additional experimental installers for other systems*
+**Experimental installers for other systems:**
 
 * Ubuntu ([Karmic], [Jaunty])
 * [OpenSUSE]
@@ -27,23 +27,22 @@ Haskell Platform for Linux
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
 [OpenSUSE]: http://en.opensuse.org/Packaging/Haskell
 
-Source
-------
+**Build from source**
 
-For Unix systems (including Mac OS X), there is a generic source installer.
-
-You need GHC 6.12.1 installed first. You should get this from your distro or
-you can get a [GHC 6.12.1 generic binary].
+For Unix systems (including Mac OS X), there is a source installer.
 
  * [haskell-platform-2010.0.1.0.tar.gz]
 
+You need GHC 6.12.1 installed before building the platform. You can get this from your distro or
+you can get a [GHC 6.12.1 generic binary].
+
 [haskell-platform-2010.0.1.0.tar.gz]: //code.haskell.org/~dons/code/haskell-platform/snapshot/haskell-platform-2010.1.0.0-20100320-2.tar.gz
-[GHC 6.12.1 generic binary]: http://haskell.org/ghc/download_ghc_6_12_1.html
+[GHC 6.12.1 generic binary]: http://haskell.org/ghc/download_ghc_6_12_1.html#distros
 
-Download and unpack the installer. Then (possibly with 'sudo'):
+To install from source download and unpack the installer, then (possibly with 'sudo'):
 
-    ./configure
-    make
-    make install
+        ./configure
+        make
+        make install
 
-And you will have a complete environment.
+You may pass --prefix flags to change the default install path.

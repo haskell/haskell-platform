@@ -1,0 +1,17 @@
+html, body, div { margin:0; padding:0; }
+
+body { font-family: sans-serif; font-size: 1em;
+       margin: 2em 2em;
+     }
+
+h1.title {
+    width: 100px;
+    height: 103px;
+    background: url(Platform.png) no-repeat;
+    text-indent: -9999px;
+}
+
+img { border: 0; }
+
+a { color: #1c3a4b; }
+a:hover { color: #2090cd; }
