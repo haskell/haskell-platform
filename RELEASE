@@ -30,6 +30,10 @@ Package changes:
  + Ship a newer haddock? No.
  + Added deepseq to the HP.
 
- + Bug in Cabal, meaning local package db's were dropped.
-        - work around: manually register.
-
+ + Due to ghc's dependency on Cabal, we can't upgrade Cabal as part of
+     the HP build.
+         + Bug in Cabal, meaning local package db's were dropped.
+                - work around: manually register.
+         + Bug in Cabal on Windows -- wait for 6.12.2
+ 
+ + New update to cabal-install coming.
