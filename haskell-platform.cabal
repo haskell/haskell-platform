@@ -77,7 +77,8 @@ library
     stm                         ==2.1.1.2,
     xhtml                       ==3000.2.0.1,
     zlib                        ==0.5.2.0,
-    HTTP                        ==4000.0.9
+    HTTP                        ==4000.0.9,
+    deepseq                     ==1.1.0.0
 
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
