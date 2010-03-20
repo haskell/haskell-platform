@@ -3,20 +3,20 @@
  # update list of external libraries to latest stable version.
  - check and follow up on changes to visible packages.
  - check unix package builds
-    +  tarball/packages/core.packages has to be updated from .cabal file
-    +  update configure.ac with version number
+    + tarball/packages/core.packages has to be updated from .cabal file
+    + update configure.ac with version number
     + update required GHC version
+    + update cabal-install
  - bump version number to 2010.2.0.0
+ - put up .cabal file 
  - check clean room builds
  - check windows installer
  - check mac installer
  - update web page.
+    + get new content.
 
 ------------------------------------------------------------------------
 = 2010.1.0 release = 
-
- + Wait for Cabal update (to support windows).
-    > 1.8.0.2
 
 Package changes:
 
@@ -37,3 +37,5 @@ Package changes:
          + Bug in Cabal on Windows -- wait for 6.12.2
  
  + New update to cabal-install coming.
+ + Policy: Modify script to include only --global packages in a global install,
+     and always include --user packages in user installs
