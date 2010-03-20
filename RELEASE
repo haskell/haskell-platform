@@ -30,4 +30,6 @@ Package changes:
  + Ship a newer haddock? No.
  + Added deepseq to the HP.
 
+ + Bug in Cabal, meaning local package db's were dropped.
+        - work around: manually register.
 
