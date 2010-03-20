@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Haskell: Batteries Included</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="date" content="" />
+  <link rel="stylesheet" href="style-info.css" type="text/css" />
+</head>
+<body>
+<h1 class="title">Haskell: Batteries Included</h1>
+<p
+>The Haskell Platform is a single, standard Haskell development environment for everyone.</p
+><p
+>It offers a set of blessed libraries and tools, to save you the task of picking and choosing which core Haskell libraries to use.</p
+><p
+>The following components are provided:</p
+><div id="compiler-and-tools"
+><h2
+  >Compiler and Tools</h2
+  ><ul
+  ><li
+    ><a href="http://haskell.org/ghc"
+      >GHC</a
+      > 6.12.1 - The state-of-the-art optimzing compiler for Haskell.</li
+    ><li
+    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html"
+      >GHCi</a
+      > 6.12.1 - A bytecode interpreter and interactive environment for Haskell</li
+    ><li
+    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html"
+      >The GHCi debugger</a
+      > - An interactive, imperative-style debugger for Haskell</li
+    ><li
+    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/lang-parallel.html"
+      >The GHC parallel runtime</a
+      > - a multicore language runtime, featuring lightweight threads, thread sparks, affinity control, and a parallel garbage collector</li
+    ><li
+    >The <a href="http://haskell.org/happy"
+      >Happy</a
+      > parser generator - Happy, a yacc-like parser generator for Haskell</li
+    ><li
+    >The <a href="http://haskell.org/alex"
+      >Alex</a
+      > lexer generator - Alex, a lex-like lexer generator for Haskell</li
+    ><li
+    >The <a href="http://haskell.org/haddock"
+      >Haddock</a
+      > Documentation tool - Haddock, a documentation tool for Haskell</li
+    ><li
+    >The <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal"
+      >Cabal</a
+      > package distribution tool - cabal-install, download and install new Haskell packages from <a href="http://hackage.haskell.org"
+      >Hackage</a
+      ></li
+    ><li
+    >The hsc2hs foreign language binding tool - a preprocessor for binding Haskell to C</li
+    ></ul
+  ></div
+><div id="packages-and-documentation"
+><h2
+  >Packages and Documentation</h2
+  ><p
+  >The following libraries are provided:</p
+  ><ul
+  ><li
+    ><a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/base"
+      >base</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/array"
+      >array</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/bytestring"
+      >bytestring</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal"
+      >Cabal</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/containers"
+      >containers</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/directory"
+      >directory</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/editline"
+      >editline</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/filepath"
+      >filepath</a
+      >, ghc-prim, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell98"
+      >haskell98</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hpc"
+      >hpc</a
+      >, integer, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-locale"
+      >old-locale</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-time"
+      >old-time</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/packedstring"
+      >packedstring</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/pretty"
+      >pretty</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/process"
+      >process</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/random"
+      >random</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/syb"
+      >syb</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/template-haskell"
+      >template-haskell</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/unix"
+      >unix</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Win32"
+      >Win32</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/cgi"
+      >cgi</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/fgl"
+      >fgl</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/GLUT"
+      >GLUT</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell-src"
+      >haskell-src</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/html"
+      >html</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/HUnit"
+      >HUnit</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/mtl"
+      >mtl</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/network"
+      >network</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/OpenGL"
+      >OpenGL</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/parallel"
+      >parallel</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/parsec"
+      >parsec</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/QuickCheck"
+      >QuickCheck</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-base"
+      >regex-base</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-compat"
+      >regex-compat</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-posix"
+      >regex-posix</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/stm"
+      >stm</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/time"
+      >time</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/xhtml"
+      >xhtml</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/zlib"
+      >zlib</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/HTTP"
+      >HTTP</a
+      ></li
+    ></ul
+  ></div
+><div id="functionality"
+><h2
+  >Functionality</h2
+  ><p
+  >The following components are available through the Haskell Platform:</p
+  ><ul
+  ><li
+    ><p
+      >The Haskell Prelude</p
+      ></li
+    ><li
+    >Control Structures<ul
+      ><li
+	>applicatives, arrows, functors, monoids</li
+	><li
+	>synchronous and asynchronous (extensible) exceptions</li
+	><li
+	>monads: the mtl monad suite</li
+	><li
+	>foldables, traversables</li
+	></ul
+      ></li
+    ><li
+    >Concurrency and Parallelism<ul
+      ><li
+	>lightweight threads</li
+	><li
+	>thread sparks / futures</li
+	><li
+	>software transactional memory</li
+	><li
+	>MVars: thread synchronization variables</li
+	><li
+	>channels, semaphors, sample vars</li
+	></ul
+      ></li
+    ><li
+    >Data Structures<ul
+      ><li
+	>primitive and standard data types</li
+	><li
+	>strings</li
+	><li
+	>sequence types</li
+	><li
+	>pure, impure arrays, boxed/unboxed, foreign, storable, ST, diff arrays</li
+	><li
+	>strict and lazy bytestrings</li
+	><li
+	>regular, and inductive graphs</li
+	><li
+	>finite maps</li
+	><li
+	>patricia tries</li
+	><li
+	>sets</li
+	><li
+	>fingertrees</li
+	><li
+	>mutable references</li
+	><li
+	>mutable hashtables</li
+	><li
+	>dynamic types</li
+	><li
+	>weak and stable references</li
+	></ul
+      ></li
+    ><li
+    >Debugging and Testing<ul
+      ><li
+	>tracing and debugging</li
+	><li
+	>HUnit uni testing</li
+	><li
+	>QuickCheck test generation</li
+	><li
+	>HPC code coverage framework</li
+	><li
+	>Heap profiling</li
+	><li
+	>Retainer profiling</li
+	></ul
+      ></li
+    ><li
+    >Distribution<ul
+      ><li
+	>The Cabal distribution framework</li
+	></ul
+      ></li
+    ><li
+    >Generics<ul
+      ><li
+	>Template Haskell</li
+	><li
+	>Scrap-Your-Boilerplate generics</li
+	></ul
+      ></li
+    ><li
+    >Graphics<ul
+      ><li
+	>GLUT</li
+	><li
+	>OpenGL</li
+	></ul
+      ></li
+    ><li
+    >Languages<ul
+      ><li
+	>The C FFI specification</li
+	><li
+	>C errno handling</li
+	><li
+	>C types</li
+	><li
+	>Haskell98 compatibility layer</li
+	><li
+	>Haskell language parsing and pretty printing</li
+	></ul
+      ></li
+    ><li
+    >Network<ul
+      ><li
+	>Sockets, Handles</li
+	><li
+	>HTTP protocol client</li
+	><li
+	>CGI Common Gateway Interface support.</li
+	><li
+	>URI construction</li
+	></ul
+      ></li
+    ><li
+    >Math<ul
+      ><li
+	>arbitrary precision integers and ratios</li
+	><li
+	>fixed precision numbers</li
+	><li
+	>complex numbers</li
+	><li
+	>random number generators</li
+	></ul
+      ></li
+    ><li
+    >Text<ul
+      ><li
+	>Unicode characters</li
+	><li
+	>readp parsing combinators</li
+	><li
+	>parsec parsing combinators</li
+	><li
+	>Hughes/SPJ pretty printing combinators</li
+	><li
+	>posix regular expressions</li
+	></ul
+      ></li
+    ><li
+    >System<ul
+      ><li
+	>file and handle abstractions</li
+	><li
+	>System IO</li
+	><li
+	>garbage collector services</li
+	><li
+	>portable process and pipe support</li
+	><li
+	>directory handling</li
+	><li
+	>OS portable filepath manipulation</li
+	><li
+	>editline console handling</li
+	><li
+	>environment handling</li
+	><li
+	>cpu time, system info, posix, timeouts</li
+	><li
+	>Unix Posix support or Win32 support</li
+	><li
+	>portable dates and calender times</li
+	><li
+	>read/show data serialisation</li
+	><li
+	>zlib compression</li
+	><li
+	>locale support</li
+	></ul
+      ></li
+    ><li
+    >Web<ul
+      ><li
+	>simple html and xhtml generation</li
+	></ul
+      ></li
+    ></ul
+  ></div
+>
+</body>
+</html>
+
