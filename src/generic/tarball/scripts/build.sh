@@ -71,12 +71,14 @@ build_pkg () {
     CABAL_PROFILING_FLAG="--enable-library-profiling"
   fi
 
+  # Work around for Cabal 1.8.0.2 not registering properly
+  GHC_PKG_FLAG=--ghc-pkg-option=--package-conf="../../${PACKAGE_DB}" 
 
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} --with-hsc2hs=${HSC2HS} \
     ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} \
     ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} \
-    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
+    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} ${GHC_PKG_FLAG} \
     || die "Configuring the ${PKG} package failed"
 
   tell ./Setup build ${VERBOSE} \
