@@ -74,11 +74,18 @@ build_pkg () {
   # Work around for Cabal 1.8.0.2 not registering properly
   GHC_PKG_FLAG=--ghc-pkg-option=--package-conf="../../${PACKAGE_DB}" 
 
+  # Include the user package database if ${USER_INSTALL}
+  if test "${USER_INSTALL}" = "YES"; then
+      USER_PKG_FLAG=--user
+  else
+      USER_PKG_FLAG=
+  fi
+
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} --with-hsc2hs=${HSC2HS} \
     ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} \
     ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} \
-    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} ${GHC_PKG_FLAG} \
+    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} ${GHC_PKG_FLAG} ${USER_PKG_FLAG} \
     || die "Configuring the ${PKG} package failed"
 
   tell ./Setup build ${VERBOSE} \

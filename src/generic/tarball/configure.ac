@@ -156,7 +156,13 @@ AC_MSG_RESULT([yes])
 if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
 AC_MSG_CHECKING([the ghc core packages are all installed])
 # Cache the list of packages:
+# This sets up our initial environment, and we include both global and
+# user packages if it is a ${USER_INSTALL} install
+if test "${USER_INSTALL}" = "YES"; then
 echo " ` ${GHC_PKG} list --simple-output ` " > packages/installed.packages
+else
+echo " ` ${GHC_PKG} list --simple-output --global ` " > packages/installed.packages
+fi
 
 # Is this exact version of the package already installed?
 is_pkg_installed () {
@@ -248,7 +254,11 @@ echo '*     the global ghc package database             '
 fi
 echo '*                                                 '
 echo '*   If you wish to change these settings then     '
+if test "${USER_INSTALL}" = "YES"; then
+echo '*   use --prefix= '
+else
 echo '*   use --prefix= and/or --enable-user-install    '
+fi
 echo '*                                                 '
 if test "${USER_INSTALL}" = "YES"; then
 echo '* Now do "make" followed by "make install"        '

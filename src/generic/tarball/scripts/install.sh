@@ -51,11 +51,11 @@ for pkg in `cat packages/platform.packages`; do
 done
 
 echo
-echo '**************************************************'
+echo '*******************************************************'
 echo '* Installation completed successfully.            '
 echo '*                                                 '
 echo '* Programs installed into:                        '
 echo "*   ${prefix}/bin"
 echo '*                                                 '
-echo '* Now do "cabal update"                           '
-echo '**************************************************'
+echo '* Now do "cabal update" to initialize the package list                          '
+echo '*******************************************************'
