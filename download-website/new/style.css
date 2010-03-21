@@ -22,6 +22,21 @@ body { padding-top: 150px; font-family: sans-serif; font-size: 1em}
   background:url(download.png) no-repeat;
 }
 
+#download_bar .info {
+  position: absolute;
+  margin-left: 230px;
+  width:250px;
+  left: 50%;    top: 40px;
+  font-weight: bold;
+}
+
+#download_bar .info .points {
+  margin-left: 20px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
 #download_bar h1 { 
   position: absolute;
   font-weight: normal; 
@@ -47,7 +62,7 @@ body { padding-top: 150px; font-family: sans-serif; font-size: 1em}
 img { border: 0; }
 
 a { color: #1c3a4b; }
-a:hover { color: #2090cd; }
+a:hover { color: #1030cd; }
 
 #download_bar .platforms a {
   font-size: 0.9em;
