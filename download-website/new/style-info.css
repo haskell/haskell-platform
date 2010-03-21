@@ -1,7 +1,7 @@
 html, body, div { margin:0; padding:0; }
 
 body { font-family: sans-serif; font-size: 1em;
-       margin: 2em 2em;
+       margin: 4em 4em;
      }
 
 h1.title {
@@ -15,3 +15,8 @@ img { border: 0; }
 
 a { color: #1c3a4b; }
 a:hover { color: #2090cd; }
+
+#wrap {
+    background: url(bind-raw.png) no-repeat;
+    background-position: top right;
+}

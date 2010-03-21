@@ -1,4 +1,4 @@
-% Haskell: Batteries Included
+% The Haskell Platform
 %
 
 [The Platform Specification] is a cabal file stating required tools and

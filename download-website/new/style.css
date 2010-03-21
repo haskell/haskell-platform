@@ -1,6 +1,6 @@
 html, body, div { margin:0; padding:0; }
 
-body { padding-top: 150px; font-family: sans-serif; font-size: 1em}
+body { padding-top: 150px; font-family: Helvetica, Arial, sans-serif; font-size: 1em}
 
 #download_bar {
   background:url(background.png) repeat-x;
@@ -28,6 +28,7 @@ body { padding-top: 150px; font-family: sans-serif; font-size: 1em}
   width:250px;
   left: 50%;    top: 40px;
   font-weight: bold;
+  font-size: 0.9em;
 }
 
 #download_bar .info .points {
