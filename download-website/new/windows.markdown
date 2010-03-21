@@ -4,9 +4,7 @@
 Haskell Platform for Windows
 -----
 
-* **[Download Haskell Platform/i386]**
-
-[Download Haskell Platform/i386]: http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe
+* <a href="http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
 
 After downloading:
 

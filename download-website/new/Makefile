@@ -4,7 +4,5 @@ all : linux.html mac.html windows.html contents.html
 	pandoc --from=markdown --to=html \
 		--standalone \
 		--css=style-info.css \
+	    --include-after-body analytics.js \
 		--output=$@ $<
-	sed -i '/<\/body>/d;/<\/html>/d;' $@
-	cat analytics.js >> $@
-	echo "</body></html>" >> $@
