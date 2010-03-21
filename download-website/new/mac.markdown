@@ -4,9 +4,11 @@
 Haskell Platform for Mac OSX
 -----
 
-* **[Download Haskell Platform/i386]**
+* **[Download Haskell Platform/Leopard]**
 
-[Download Haskell Platform/i386]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg
+For Mac OS X Leopard (10.5) and above, it won't work for Tiger (10.4) or earlier.
+
+[Download Haskell Platform/Leopard]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg
 
 After downloading:
 
