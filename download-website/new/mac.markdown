@@ -4,13 +4,23 @@
 Haskell Platform for Mac OSX
 -----
 
-* **[Download Haskell Platform/Leopard]**
+For Mac OS X Leopard (10.5) and above:
 
-For Mac OS X Leopard (10.5) and above, it won't work for Tiger (10.4) or earlier.
+* **[Download the Haskell Platform for Mac]**
 
-[Download Haskell Platform/Leopard]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg
+[Download the Haskell Platform for Mac]: http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0-i386.dmg
 
 After downloading:
 
 * Open the .dmg file
 * Follow the install instructions
+
+Mac Ports
+---------
+
+The Haskell Platform is also in [MacPorts].  Once MacPorts is installed,
+you can build the haskell platform by typing
+
+         sudo port install haskell-platform
+
+[MacPorts]: http://macports.org
