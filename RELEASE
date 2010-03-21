@@ -50,3 +50,4 @@ Package changes:
     -> Nice simple page for each distro. Icons.
     -> Includes the help page for each distro.
  * Simple logo 
+ * chrome 'download' redirects you to the 'thank you' + help page
