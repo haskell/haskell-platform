@@ -45,10 +45,11 @@ Package changes:
 = Site =
 
  * Write a new "Learn about the platform page"
- * add source landing page on front.
+ * Add source landing page on front?
  * Move from em measurements to px.
- * develop widgets.
- * proposed haskell projects for GSoC
+ * Requested: Develop widgets.
+ * Proposed haskell projects for GSoC
+ * Arch Haskell HP upload
 
 = Future = 
 

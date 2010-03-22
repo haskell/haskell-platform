@@ -19,8 +19,3 @@ img { border: 0; }
 
 a { color: #1c3a4b; }
 a:hover { color: #2090cd; }
-
-#wrap {
-    background: url(bind-raw.png) no-repeat;
-    background-position: top right;
-}
