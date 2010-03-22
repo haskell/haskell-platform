@@ -1,30 +1,33 @@
-% The Haskell Platform
+% Haskell: Batteries Included
 %
 
-[The Platform Specification] is a cabal file stating required tools and
-packages. The content of the platform is summarised below:
+The Haskell Platform is a single, standard Haskell development
+environment for everyone.
 
-[The Platform Specification]: http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform.cabal
+It offers a set of blessed libraries and tools, to save you the task of
+picking and choosing which core Haskell libraries to use.
+
+The following components are provided:
 
 Compiler and Tools
 ------------------
 
- * [GHC] 6.10.4
+ * [GHC] 6.12.1
         - The state-of-the-art optimzing compiler for Haskell.
- * [GHCi] 6.10.4
+ * [GHCi] 6.12.1
         - A bytecode interpreter and interactive environment for Haskell
  * [The GHCi debugger]
         - An interactive, imperative-style debugger for Haskell
  * [The GHC parallel runtime] - a multicore language runtime, featuring
    lightweight threads, thread sparks, affinity control, and a parallel garbage collector
  * The [Happy] parser generator
-        - Happy 1.18.4, a yacc-like parser generator for Haskell
+        - Happy, a yacc-like parser generator for Haskell
  * The [Alex] lexer generator
-        - Alex 2.3.1, a lex-like lexer generator for Haskell
+        - Alex, a lex-like lexer generator for Haskell
  * The [Haddock] Documentation tool
-        - generator   Haddock 2.4.2
+        - Haddock, a documentation tool for Haskell
  * The [Cabal] package distribution tool
-        - cabal-install 0.6.2, download and install new Haskell packages from [Hackage]
+        - cabal-install, download and install new Haskell packages from [Hackage]
  * The hsc2hs foreign language binding tool
         - a preprocessor for binding Haskell to C
 
@@ -40,10 +43,14 @@ Compiler and Tools
 Packages and Documentation
 --------------------------
 
-*  [base],  [array],  [bytestring],  [Cabal],  [containers],  [directory],  [editline],  [filepath],  ghc-prim,  [haskell98],  [hpc],  integer,  [old-locale],  [old-time],  [packedstring],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],  [time],  [xhtml],  [zlib],  [HTTP]
+The following libraries are provided:
+
+*  [base],  [array],  [bytestring],  [Cabal],  [containers],  [directory],  [filepath],  ghc-prim,  [haskell98],  [hpc],  integer,  [old-locale],  [old-time],  [packedstring],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],  [time],  [xhtml],  [zlib],  [HTTP]
 
 Functionality
 -------------
+
+The following components are available through the Haskell Platform:
 
  * The Haskell Prelude
  
@@ -128,7 +135,6 @@ Functionality
     - portable process and pipe support
     - directory handling
     - OS portable filepath manipulation
-    - editline console handling
     - environment handling
     - cpu time, system info, posix, timeouts
     - Unix Posix support or Win32 support
@@ -146,7 +152,6 @@ Functionality
 [Cabal]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal
 [containers]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/containers
 [directory]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/directory
-[editline]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/editline
 [filepath]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/filepath
 [haskell98]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell98
 [hpc]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hpc

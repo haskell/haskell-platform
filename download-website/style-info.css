@@ -1,14 +1,18 @@
 html, body, div { margin:0; padding:0; }
 
 body { font-family: sans-serif; font-size: 1em;
-       margin: 4em 4em;
+       width: 700px;
+       margin: 4em auto;
      }
 
 h1.title {
-    width: 100px;
+    width: 580px;
     height: 103px;
-    background: url(Platform.png) no-repeat;
-    text-indent: -9999px;
+    line-height: 103px;
+    background: url(Platform.png) no-repeat center left;
+    padding: 0 0 0 120px;
+    font-size: 250%;
+    vertical-align: middle;
 }
 
 img { border: 0; }

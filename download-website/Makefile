@@ -1,7 +1,8 @@
-all : index.html contents.html
+all : linux.html mac.html windows.html contents.html
 
 %.html : %.markdown
 	pandoc --from=markdown --to=html \
 		--standalone \
-		--css=nominolo.css \
+		--css=style-info.css \
+	    --include-after-body analytics.js \
 		--output=$@ $<

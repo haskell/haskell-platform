@@ -6,11 +6,11 @@ Haskell Platform for Linux
 
 **Community supported versions of the Haskell Platform:**
 
-![](http://hackage.haskell.org/platform/new/icons/debian.png) [Debian]
-![](http://hackage.haskell.org/platform/new/icons/fedora.png) [Fedora]
-![](http://hackage.haskell.org/platform/new/icons/arch.png) [Arch Linux]
-![](http://hackage.haskell.org/platform/new/icons/gentoo.png) [Gentoo]
-![](http://hackage.haskell.org/platform/new/icons/nixos.png) [NixOS]
+![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]
+![](http://hackage.haskell.org/platform/icons/fedora.png) [Fedora]
+![](http://hackage.haskell.org/platform/icons/arch.png) [Arch Linux]
+![](http://hackage.haskell.org/platform/icons/gentoo.png) [Gentoo]
+![](http://hackage.haskell.org/platform/icons/nixos.png) [NixOS]
 
 [Debian]: http://packages.debian.org/sid/haskell-platform
 [Fedora]: https://admin.fedoraproject.org/pkgdb/acls/name/haskell-platform
@@ -20,9 +20,9 @@ Haskell Platform for Linux
 
 **Information for other systems:**
 
-![](http://hackage.haskell.org/platform/new/icons/ubuntu.png) Ubuntu ([Karmic], [Jaunty])
+![](http://hackage.haskell.org/platform/icons/ubuntu.png) Ubuntu ([Karmic], [Jaunty])
 
-![](http://hackage.haskell.org/platform/new/icons/opensuse.png) [openSUSE]
+![](http://hackage.haskell.org/platform/icons/opensuse.png) [openSUSE]
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
@@ -32,7 +32,7 @@ Haskell Platform for Linux
 
 For Unix systems (including Mac OS X), there is a source installer.
 
-![](http://hackage.haskell.org/platform/new/icons/source.png)
+![](http://hackage.haskell.org/platform/icons/source.png)
 <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2010.1.0.0.tar.gz</a>
 
 You need GHC 6.12.1 installed before building the platform. You can get this from your distro or
