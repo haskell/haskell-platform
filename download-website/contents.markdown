@@ -1,35 +1,104 @@
-% Haskell: Batteries Included
+% The Haskell Platform
 %
 
-The Haskell Platform is a single, standard Haskell development
-environment for everyone.
+Haskell: Batteries Included
+-------------------
 
-It offers a set of blessed libraries and tools, to save you the task of
-picking and choosing which core Haskell libraries to use.
+[The Haskell Platform] is a comprehensive, robust development
+environment for programming in [Haskell]. For new users the platform
+makes it trivial to get up and running with a full Haskell development
+environment. For experienced developers, the platform provides a
+comprehensive, standard base for commercial and open source Haskell
+development that maximises interoperability and stability of your code.
 
-The following components are provided:
+[The Haskell Platform]: http://hackage.haskell.org/platform
+[Haskell]: http://haskell.org
 
-Compiler and Tools
-------------------
+To learn more about programming in Haskell:
 
- * [GHC] 6.12.1
-        - The state-of-the-art optimzing compiler for Haskell.
- * [GHCi] 6.12.1
-        - A bytecode interpreter and interactive environment for Haskell
- * [The GHCi debugger]
-        - An interactive, imperative-style debugger for Haskell
- * [The GHC parallel runtime] - a multicore language runtime, featuring
-   lightweight threads, thread sparks, affinity control, and a parallel garbage collector
- * The [Happy] parser generator
-        - Happy, a yacc-like parser generator for Haskell
- * The [Alex] lexer generator
-        - Alex, a lex-like lexer generator for Haskell
- * The [Haddock] Documentation tool
-        - Haddock, a documentation tool for Haskell
- * The [Cabal] package distribution tool
-        - cabal-install, download and install new Haskell packages from [Hackage]
- * The hsc2hs foreign language binding tool
-        - a preprocessor for binding Haskell to C
+* Visit [haskell.org] - the center of the Haskell community, a comprehensive resource.
+* Follow [Learn You a Haskell] - an online Haskell tutorial with a sense of humor.
+* Or jump straight to [Real World Haskell], O'Reilly's book on professional Haskell programming.
+* You can even [Try Haskell] in your browser.
+
+[haskell.org]: http://haskell.org
+[Learn You a Haskell]: http://learnyouahaskell.com
+[Real World Haskell]: http://book.realworldhaskell.org
+[Try Haskell]: http://tryhaskell.org
+
+The following components are provided in the latest revision of The
+Platform:
+
+Compiler and Runtime
+--------
+
+**[GHC] 6.12.1**
+
+The state-of-the-art optimzing native code compiler for Haskell.
+
+**[GHCi] 6.12.1**
+
+A bytecode interpreter and interactive REPL environment for Haskell
+
+**The GHC runtime**
+
+A multicore language runtime (virtual machine), providing
+fast lightweight threads, parallel sparks and futures, software
+transactional memory, core affinity control, a parallel garbage
+collector, and much more.
+
+Developer Tools
+-----------
+
+The Platform also comes with the most useful developer tools out of the
+box, including:
+
+**[Cabal]**
+
+Cabal and cabal-install are tools for building and distributing Haskell
+libraries and programs. With cabal-install you have immediate access
+to thousands of Haskell libraries and tools on [Hackage] -- you'll be
+sure to find something interesting.
+
+**[Haddock]**
+
+Haddock is a high quality documentation tool for Haskell. Comments and
+types in your code are used to generate indexed and cross-referenced
+online documentation.
+
+**[The GHCi debugger]**
+
+The Platform ships with the GHCi debugger - an interactive,
+imperative-style debugger for Haskell. Type ":help" in GHCi for more
+information.
+
+**The [Happy] parser generator**
+
+Happy is a yacc-like parser generator for Haskell for constructing
+efficient parsers.
+
+**The [Alex] lexer generator**
+
+Alex is a lex-like lexer generator for Haskell
+
+**The hsc2hs foreign language binding tool**
+
+Often you need to call C libraries from Haskell. hsc2hs is a
+preprocessor for binding Haskell to C, that automates much of the work.
+
+**The GHC Profiler**
+
+The Platform comes with several tools for analyzing your Haskell
+programs performance and behaviour. Included are time and space
+profiling tools, and tools for graphically visualizing the memory use
+and structure of running Haskell programs.
+
+**Haskell Code Coverage**
+
+The Platform provides HPC - a professional-grade tool generating code
+coverage information and statistics for Haskell. Code coverage
+information can tell you how good your testsuite is, or what part of
+your code is executing at any given time.
 
 [GHC]: http://haskell.org/ghc
 [GHCi]: http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html
@@ -43,14 +112,15 @@ Compiler and Tools
 Packages and Documentation
 --------------------------
 
-The following libraries are provided:
+The following libraries are provided by default:
 
-*  [base],  [array],  [bytestring],  [Cabal],  [containers],  [directory],  [filepath],  ghc-prim,  [haskell98],  [hpc],  integer,  [old-locale],  [old-time],  [packedstring],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],  [time],  [xhtml],  [zlib],  [HTTP]
+*  [base],  [array],  [bytestring],  [Cabal],  [containers], [directory],  [filepath],  [haskell98],  [hpc],  [old-locale], [time], [old-time],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],   [xhtml],  [zlib],  [HTTP], deepseq
 
 Functionality
 -------------
 
-The following components are available through the Haskell Platform:
+The Haskell Platform comes with the "batteries" installed, with the following
+rich set of features for programmers to use:
 
  * The Haskell Prelude
  

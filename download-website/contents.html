@@ -1,67 +1,176 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Haskell: Batteries Included</title>
+  <title>The Haskell Platform</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="date" content="" />
   <link rel="stylesheet" href="style-info.css" type="text/css" />
 </head>
 <body>
-<h1 class="title">Haskell: Batteries Included</h1>
-<p
->The Haskell Platform is a single, standard Haskell development environment for everyone.</p
-><p
->It offers a set of blessed libraries and tools, to save you the task of picking and choosing which core Haskell libraries to use.</p
-><p
->The following components are provided:</p
-><div id="compiler-and-tools"
-><h2
-  >Compiler and Tools</h2
-  ><ul
+<h1 class="title">The Haskell Platform</h1>
+<div id="TOC"
+><ul
   ><li
-    ><a href="http://haskell.org/ghc"
-      >GHC</a
-      > 6.12.1 - The state-of-the-art optimzing compiler for Haskell.</li
-    ><li
-    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html"
-      >GHCi</a
-      > 6.12.1 - A bytecode interpreter and interactive environment for Haskell</li
-    ><li
-    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html"
-      >The GHCi debugger</a
-      > - An interactive, imperative-style debugger for Haskell</li
-    ><li
-    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/lang-parallel.html"
-      >The GHC parallel runtime</a
-      > - a multicore language runtime, featuring lightweight threads, thread sparks, affinity control, and a parallel garbage collector</li
-    ><li
-    >The <a href="http://haskell.org/happy"
-      >Happy</a
-      > parser generator - Happy, a yacc-like parser generator for Haskell</li
-    ><li
-    >The <a href="http://haskell.org/alex"
-      >Alex</a
-      > lexer generator - Alex, a lex-like lexer generator for Haskell</li
-    ><li
-    >The <a href="http://haskell.org/haddock"
-      >Haddock</a
-      > Documentation tool - Haddock, a documentation tool for Haskell</li
-    ><li
-    >The <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal"
-      >Cabal</a
-      > package distribution tool - cabal-install, download and install new Haskell packages from <a href="http://hackage.haskell.org"
-      >Hackage</a
+    ><a href="#haskell-batteries-included"
+      >Haskell: Batteries Included</a
       ></li
     ><li
-    >The hsc2hs foreign language binding tool - a preprocessor for binding Haskell to C</li
+    ><a href="#compiler-and-runtime"
+      >Compiler and Runtime</a
+      ></li
+    ><li
+    ><a href="#developer-tools"
+      >Developer Tools</a
+      ></li
+    ><li
+    ><a href="#packages-and-documentation"
+      >Packages and Documentation</a
+      ></li
+    ><li
+    ><a href="#functionality"
+      >Functionality</a
+      ></li
     ></ul
+  ></div
+>
+<div id="haskell-batteries-included"
+><h2
+  ><a href="#TOC"
+    >Haskell: Batteries Included</a
+    ></h2
+  ><p
+  ><a href="http://hackage.haskell.org/platform"
+    >The Haskell Platform</a
+    > is a comprehensive, robust development environment for programming in <a href="http://haskell.org"
+    >Haskell</a
+    >. For new users the platform makes it trivial to get up and running with a full Haskell development environment. For experienced developers, the platform provides a comprehensive, standard base for commercial and open source Haskell development that maximises interoperability and stability of your code.</p
+  ><p
+  >To learn more about programming in Haskell:</p
+  ><ul
+  ><li
+    >Visit <a href="http://haskell.org"
+      >haskell.org</a
+      > - the center of the Haskell community, a comprehensive resource.</li
+    ><li
+    >Follow <a href="http://learnyouahaskell.com"
+      >Learn You a Haskell</a
+      > - an online Haskell tutorial with a sense of humor.</li
+    ><li
+    >Or jump straight to <a href="http://book.realworldhaskell.org"
+      >Real World Haskell</a
+      >, O'Reilly's book on professional Haskell programming.</li
+    ><li
+    >You can even <a href="http://tryhaskell.org"
+      >Try Haskell</a
+      > in your browser.</li
+    ></ul
+  ><p
+  >The following components are provided in the latest revision of The Platform:</p
+  ></div
+><div id="compiler-and-runtime"
+><h2
+  ><a href="#TOC"
+    >Compiler and Runtime</a
+    ></h2
+  ><p
+  ><strong
+    ><a href="http://haskell.org/ghc"
+      >GHC</a
+      > 6.12.1</strong
+    ></p
+  ><p
+  >The state-of-the-art optimzing native code compiler for Haskell.</p
+  ><p
+  ><strong
+    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html"
+      >GHCi</a
+      > 6.12.1</strong
+    ></p
+  ><p
+  >A bytecode interpreter and interactive REPL environment for Haskell</p
+  ><p
+  ><strong
+    >The GHC runtime</strong
+    ></p
+  ><p
+  >A multicore language runtime (virtual machine), providing fast lightweight threads, parallel sparks and futures, software transactional memory, core affinity control, a parallel garbage collector, and much more.</p
+  ></div
+><div id="developer-tools"
+><h2
+  ><a href="#TOC"
+    >Developer Tools</a
+    ></h2
+  ><p
+  >The Platform also comes with the most useful developer tools out of the box, including:</p
+  ><p
+  ><strong
+    ><a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal"
+      >Cabal</a
+      ></strong
+    ></p
+  ><p
+  >Cabal and cabal-install are tools for building and distributing Haskell libraries and programs. With cabal-install you have immediate access to thousands of Haskell libraries and tools on <a href="http://hackage.haskell.org"
+    >Hackage</a
+    > -- you'll be sure to find something interesting.</p
+  ><p
+  ><strong
+    ><a href="http://haskell.org/haddock"
+      >Haddock</a
+      ></strong
+    ></p
+  ><p
+  >Haddock is a high quality documentation tool for Haskell. Comments and types in your code are used to generate indexed and cross-referenced online documentation.</p
+  ><p
+  ><strong
+    ><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html"
+      >The GHCi debugger</a
+      ></strong
+    ></p
+  ><p
+  >The Platform ships with the GHCi debugger - an interactive, imperative-style debugger for Haskell. Type &quot;:help&quot; in GHCi for more information.</p
+  ><p
+  ><strong
+    >The <a href="http://haskell.org/happy"
+      >Happy</a
+      > parser generator</strong
+    ></p
+  ><p
+  >Happy is a yacc-like parser generator for Haskell for constructing efficient parsers.</p
+  ><p
+  ><strong
+    >The <a href="http://haskell.org/alex"
+      >Alex</a
+      > lexer generator</strong
+    ></p
+  ><p
+  >Alex is a lex-like lexer generator for Haskell</p
+  ><p
+  ><strong
+    >The hsc2hs foreign language binding tool</strong
+    ></p
+  ><p
+  >Often you need to call C libraries from Haskell. hsc2hs is a preprocessor for binding Haskell to C, that automates much of the work.</p
+  ><p
+  ><strong
+    >The GHC Profiler</strong
+    ></p
+  ><p
+  >The Platform comes with several tools for analyzing your Haskell programs performance and behaviour. Included are time and space profiling tools, and tools for graphically visualizing the memory use and structure of running Haskell programs.</p
+  ><p
+  ><strong
+    >Haskell Code Coverage</strong
+    ></p
+  ><p
+  >The Platform provides HPC - a professional-grade tool generating code coverage information and statistics for Haskell. Code coverage information can tell you how good your testsuite is, or what part of your code is executing at any given time.</p
   ></div
 ><div id="packages-and-documentation"
 ><h2
-  >Packages and Documentation</h2
+  ><a href="#TOC"
+    >Packages and Documentation</a
+    ></h2
   ><p
-  >The following libraries are provided:</p
+  >The following libraries are provided by default:</p
   ><ul
   ><li
     ><a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/base"
@@ -78,16 +187,16 @@
       >directory</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/filepath"
       >filepath</a
-      >, ghc-prim, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell98"
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell98"
       >haskell98</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hpc"
       >hpc</a
-      >, integer, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-locale"
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-locale"
       >old-locale</a
+      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/time"
+      >time</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-time"
       >old-time</a
-      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/packedstring"
-      >packedstring</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/pretty"
       >pretty</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/process"
@@ -134,22 +243,22 @@
       >regex-posix</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/stm"
       >stm</a
-      >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/time"
-      >time</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/xhtml"
       >xhtml</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/zlib"
       >zlib</a
       >, <a href="http://hackage.haskell.org/cgi-bin/hackage-scripts/package/HTTP"
       >HTTP</a
-      ></li
+      >, deepseq</li
     ></ul
   ></div
 ><div id="functionality"
 ><h2
-  >Functionality</h2
+  ><a href="#TOC"
+    >Functionality</a
+    ></h2
   ><p
-  >The following components are available through the Haskell Platform:</p
+  >The Haskell Platform comes with the &quot;batteries&quot; installed, with the following rich set of features for programmers to use:</p
   ><ul
   ><li
     ><p
