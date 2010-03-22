@@ -50,6 +50,9 @@ Package changes:
  * Requested: Develop widgets.
  * Proposed haskell projects for GSoC
  * Arch Haskell HP upload
+ * Upload .cabal bundle
+        -- add downloads/cabal as a goal
+        -- upload the cabal icon
 
 = Future = 
 

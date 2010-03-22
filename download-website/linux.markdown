@@ -44,3 +44,16 @@ To install from source download and unpack the installer, then (possibly with 's
         make install
 
 You may pass --prefix flags to change the default install path.
+
+**Build from cabal**
+
+If you already have a reasonable Haskell development environment with
+GHC 6.12 and cabal-install On systems with , you can build the platform
+from the Cabal package alone.
+
+![](http://hackage.haskell.org/platform/icons/cabal.png)
+<a href="http://hackage.haskell.org/platform/2010.1.0.0/cabal/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
+
+To install, unpack the cabal tarball, and run:
+
+        cabal install

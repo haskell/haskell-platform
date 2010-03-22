@@ -10,8 +10,7 @@ After downloading:
 * Open the .dmg file
 * Follow the install instructions
 
-MacPorts
----------
+**MacPorts**
 
 The Haskell Platform is also in [MacPorts].  If you have MacPorts installed,
 you can build the Haskell Platform by typing:
