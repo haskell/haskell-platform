@@ -1,9 +1,6 @@
 % Haskell Platform for Linux
 %
 
-Haskell Platform for Linux
------
-
 **Community supported versions of the Haskell Platform:**
 
 ![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]

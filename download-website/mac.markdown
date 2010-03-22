@@ -1,10 +1,7 @@
 % Haskell Platform for OSX
 %
 
-Haskell Platform for Mac OSX
------
-
-For Mac OS X Leopard (10.5), Snow Leopard and above:
+For Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit):
 
 * <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X</a>
 
