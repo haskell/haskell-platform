@@ -44,16 +44,20 @@ Package changes:
 ------------------------------------------------------------------------
 = Site =
 
- * Write a new "Learn about the platform page"
- * Add source landing page on front?
+ # Write a new "Learn about the platform page"
+ # Add source landing page on front?
+ * Generate documentation.
  * Move from em measurements to px.
  * Requested: Develop widgets.
  * Proposed haskell projects for GSoC
  * Arch Haskell HP upload
- * Upload .cabal bundle
-        -- add downloads/cabal as a goal
-        -- upload the cabal icon
+ # Upload .cabal bundle
+        ? add downloads/cabal as a goal
+        # upload the cabal icon
+ * Add links to old versions
 
 = Future = 
 
  * chrome 'download' redirects you to the 'thank you' + help page
+ * obtain scripts for Windows and Mac installers.
+ * List maintainer on the web page.
