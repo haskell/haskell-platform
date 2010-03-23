@@ -1,5 +1,18 @@
 AC_INIT([haskell-platform],[2010.1.0.0])
 AC_CONFIG_AUX_DIR([scripts])
+
+#TODO: have these numbers generated from the .cabal file
+REQUIRED_GHC_VER=6.12.1
+ACCEPTABLE_GHC_VER=6.12.2
+
+echo '**************************************************'
+echo '*'
+echo '*     Haskell Platform Source Installer'
+echo '*'
+echo "*     For the Haskell Platform ${PACKAGE_VERSION} and GHC ${REQUIRED_GHC_VER}"
+echo '*'
+echo '**************************************************'
+
 AC_CANONICAL_TARGET
 
 # Sanity check:
@@ -7,10 +20,6 @@ AC_CONFIG_SRCDIR([packages/platform.packages])
 
 # Set the output config file:
 AC_CONFIG_FILES([scripts/config])
-
-#TODO: have these numbers generated from the .cabal file
-REQUIRED_GHC_VER=6.12.1
-ACCEPTABLE_GHC_VER=6.12.2
 
 AC_ARG_WITH([ghc],
 [AC_HELP_STRING([--with-ghc=ARG],
@@ -52,6 +61,8 @@ if test "${HSC2HS}" = "notfound"; then
 fi
 
 
+# A policy decision is made here: if HOME is in the prefix, it is a user
+# install, else it is a global install.
 AC_ARG_ENABLE([user-install],
 [AC_HELP_STRING([--enable-user-install],
   [Register packages into the per-user or the global ghc package database. (default=autodetect)])],
@@ -74,7 +85,7 @@ AC_ARG_ENABLE([user-install],
    fi
   ])
 
-
+# By default we build profiling versions of everything
 AC_ARG_ENABLE(profiling,
 [AC_HELP_STRING([--enable-profiling],
                 [Build profiling versions of libraries. (default=enable)])],
@@ -142,14 +153,14 @@ fi
 
 
 AC_MSG_CHECKING([ghc actually works])
-TRY_COMPILE_GHC([main = putStr "Hello world!\n"],,
+TRY_COMPILE_GHC([main = print "Hello world!"],,
   AC_MSG_RESULT([no])
   AC_MSG_ERROR(
   [Your installation of ghc does not appear to work.]
   [It cannot compile a simple program (see config.log for the details).]
   [If you installed ghc from a generic binary tarball then it is worth]
   [checking that you have the 'gmp' C library and header files installed.]
-  [(On debian-based systems this package is called libgmp3-dev.)]))
+  [(On Debian-based systems this package is called libgmp3-dev.)]))
 AC_MSG_RESULT([yes])
 
 
