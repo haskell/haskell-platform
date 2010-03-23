@@ -53,9 +53,15 @@ done
 echo
 echo '*******************************************************'
 echo '* Installation completed successfully.            '
-echo '*                                                 '
+echo '*'
 echo '* Programs installed into:                        '
 echo "*   ${prefix}/bin"
-echo '*                                                 '
+echo '*'
 echo '* Now do "cabal update" to initialize the package list                          '
+echo '*'
+echo '* Additional packages may be found at http://hackage.haskell.org'
+echo '* or via "cabal list <pattern>"'
+echo '*'
+echo '* Use "cabal install <foo>" to install additional packages'
+echo '*'
 echo '*******************************************************'
