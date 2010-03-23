@@ -155,7 +155,7 @@ rich set of features for programmers to use:
 
  * Debugging and Testing
     - tracing and debugging
-    - HUnit uni testing
+    - HUnit unit testing
     - QuickCheck test generation
     - HPC code coverage framework
     - Heap profiling
