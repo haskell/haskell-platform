@@ -43,7 +43,7 @@ install_pkg () {
 # Actually do something!
 for pkg in `cat packages/platform.packages`; do
   if is_pkg_installed "${pkg}"; then
-    echo "Platform package ${pkg} is already installed. Skipping..."
+    true
   else
     echo "Installing ${pkg}..."
     install_pkg ${pkg}

@@ -97,11 +97,48 @@ build_pkg () {
   cd ../..
 }
 
+# Let them know what we're doing 
+echo '**************************************************'
+echo "Scanning system for any installed Haskell Platform components..."
+already_installed=""
+will_install=""
+
+# Partition the platform packages into those already found, and those
+# we'll need to install.
+for pkg in `cat packages/platform.packages`; do
+  if is_pkg_installed "${pkg}"; then
+    already_installed="${already_installed} ${pkg}"
+  else
+    will_install="${will_install} ${pkg}"
+  fi
+done
+
+# State what we found.
+echo
+echo -n "Found:"
+
+if test -z "${already_installed}" ; then
+echo "None."
+else
+echo "${already_installed}"
+fi
+
+echo
+echo -n "New packages to install: "
+
+if test -z "${will_installed}" ; then
+echo "None! All done."
+else
+echo "${will_install}"
+fi
+echo
+
 # Actually do something!
 for pkg in `cat packages/platform.packages`; do
   if is_pkg_installed "${pkg}"; then
-    echo "Platform package ${pkg} is already installed. Skipping..."
+    true
   else
+    echo '**************************************************'
     echo "Building ${PKG}"
     build_pkg "${pkg}"
   fi
@@ -109,7 +146,7 @@ done
 
 echo
 echo '**************************************************'
-echo '* Building each component completed successfully. '
+echo '* Building Haskell Platform completed successfully. '
 echo '*                                                 '
 if test "${USER_INSTALL}" = "YES"; then
 echo '* Now do "make install"                           '
