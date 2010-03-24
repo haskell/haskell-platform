@@ -45,10 +45,6 @@ To install from source download and unpack the installer, then (possibly with 's
 
 You may pass --prefix flags to change the default install path.
 
-You can also download the source using BitTorrent:
-
-* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/torrents/haskell-platform-2010.1.0.0.tar.gz.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/linux'); ">Torrent for Source</a>
-
 **Build from cabal**
 
 If you already have a reasonable Haskell development environment with
