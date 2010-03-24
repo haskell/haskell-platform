@@ -10,6 +10,10 @@ After downloading:
 * Open the .dmg file
 * Follow the install instructions
 
+You can also download using BitTorrent:
+
+* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/torrents/haskell-platform-2010.1.0.0-i386.dmg.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/mac'); ">Torrent for Mac OS X</a>
+
 **MacPorts**
 
 The Haskell Platform is also in [MacPorts].  If you have MacPorts installed,
