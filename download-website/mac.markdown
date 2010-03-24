@@ -1,9 +1,10 @@
 % Haskell Platform for OSX
 %
 
-For Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit):
+For Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit),
+Intel only:
 
-* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X</a>
+* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X (intel)</a>
 
 After downloading:
 
@@ -12,7 +13,7 @@ After downloading:
 
 You can also download using BitTorrent:
 
-* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/torrents/haskell-platform-2010.1.0.0-i386.dmg.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/mac'); ">Torrent for Mac OS X</a>
+* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/torrents/haskell-platform-2010.1.0.0-i386.dmg.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/mac'); ">Torrent for Mac OS X (intel)</a>
 
 **MacPorts**
 
