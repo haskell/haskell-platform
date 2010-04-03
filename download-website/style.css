@@ -78,7 +78,7 @@ a:hover { color: #1030cd; }
   vertical-align: bottom;
 }
 
-#download_bar #osx     { left: 20px; top: 120px; }
+#download_bar #osx     { left: 30px; top: 120px; }
 #download_bar #windows { left: 145px; top: 120px; }
 #download_bar #linux   { left: 267px; top: 120px; }
 

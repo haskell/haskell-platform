@@ -41,3 +41,10 @@ To install from source download and unpack the installer, then (possibly with 's
         make install
 
 You may pass --prefix flags to change the default install path.
+
+**Older Releases**
+
+Older releases of the Haskell Platform are available:
+
+* <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2009.2.0.2</a>, for Mac OS X Leopard (intel), July 2009.
+
