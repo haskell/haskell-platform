@@ -7,14 +7,16 @@
     # update configure.ac with version number
     # update required GHC version
     + update cabal-install
- - bump version number to 2010.2.0.0
- - put up .cabal file 
+ # bump version number to 2010.2.0.0
+ # put up .cabal file 
  # check clean room builds
- - check windows installer
- - check mac installer
- - update web page.
+ # check windows installer
+ # check mac installer
+ # update web page.
     + get new content.
     + move mailing list
+
+ # reddit links via CDN.
 
 ------------------------------------------------------------------------
 = 2010.1.0 release = 
@@ -44,22 +46,14 @@ Package changes:
 ------------------------------------------------------------------------
 = Site =
 
- # Write a new "Learn about the platform page"
- # Add source landing page on front?
- # Requested: Develop widgets.
-        + put logos and JS on wiki.
-
+ * Generate contents page inclusion.
  * Generate documentation.
  * Move from em measurements to px.
- * Add links to old versions on wiki
+ # Add links to old versions on wiki
  * List maintainer on the web page.
+ * Heads in 'learn more' link to TOC.
 
- * Proposed haskell projects for GSoC
  * Arch Haskell HP upload
-
- # Upload .cabal bundle
-        ? add downloads/cabal as a goal
-        # upload the cabal icon
 
 = Future = 
 
