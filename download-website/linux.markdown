@@ -18,12 +18,19 @@
 **Information for other systems:**
 
 ![](http://hackage.haskell.org/platform/icons/ubuntu.png) Ubuntu ([Karmic], [Jaunty])
-
 ![](http://hackage.haskell.org/platform/icons/opensuse.png) [openSUSE]
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
 [openSUSE]: http://en.opensuse.org/Packaging/Haskell
+
+**More info...**
+
+* [The Haskell Platform] home...
+* [Learn more] about the Haskell Platform.
+
+[The Haskell Platform]: index.html
+[Learn more]: contents.html
 
 **Build from source**
 
@@ -48,7 +55,7 @@ You may pass --prefix flags to change the default install path.
 **Build from cabal**
 
 If you already have a reasonable Haskell development environment with
-GHC 6.12 and cabal-install On systems with , you can build the platform
+GHC 6.12 and cabal-install, you can build the platform
 from the Cabal package alone.
 
 ![](http://hackage.haskell.org/platform/icons/cabal.png)

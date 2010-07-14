@@ -11,7 +11,9 @@ environment. For experienced developers, the platform provides a
 comprehensive, standard base for commercial and open source Haskell
 development that maximises interoperability and stability of your code.
 
-[The Haskell Platform]: http://hackage.haskell.org/platform
+**Download [The Haskell Platform] for your system now!**
+
+[The Haskell Platform]: index.html
 [Haskell]: http://haskell.org
 
 To learn more about programming in Haskell:

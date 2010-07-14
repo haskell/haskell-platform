@@ -52,6 +52,7 @@ Package changes:
  # Add links to old versions on wiki
  * List maintainer on the web page.
  * Heads in 'learn more' link to TOC.
+ * Links should head back up to the main page.
 
  * Arch Haskell HP upload
 
