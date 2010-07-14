@@ -53,7 +53,7 @@ library
     -- Win32                    ==2.2.0.1 -- removed??
 
     -- Libraries in addition to what GHC provides:
-    cgi                         ==3001.1.8.1,
+    cgi                         ==3001.1.7.3,
     fgl                         ==5.4.2.3,
     GLUT                        ==2.1.2.1,
     -- NOTE
