@@ -7,9 +7,9 @@
     # tarball/packages/core.packages has to be updated from .cabal file
     # update configure.ac with version number
     # update required GHC version
-    # update cabal-install
- # bump version number to 2010.2.0.0
+ # bump version number in .cabal file
  # put up .cabal file 
+
  # check clean room builds
  # check windows installer
  # check mac installer
