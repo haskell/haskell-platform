@@ -36,7 +36,7 @@ library
     -- Cabal                    ==1.8.0.6
     -- containers               ==0.3.0.0
     -- directory                ==1.0.1.1
-    -- extensible-exceptions ==0.1.1.1 -- NOTE, new?
+    -- extensible-exceptions    ==0.1.1.1
     -- filepath                 ==1.1.0.4
     -- ghc-prim-0.2.0.0
     -- haskell98                ==1.0.1.1
