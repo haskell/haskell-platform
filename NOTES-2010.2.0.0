@@ -1,0 +1,26 @@
+ Core packages
+ * array bumped.
+ * base 4 bumped
+ * bytestring bumped.
+ * Cabal bumped
+ * extensible-exceptions added
+ * filepath bumped
+ * hpc bumped
+ * old-time bumped
+ * process bumped
+ * template-haskell bumped
+ * unix bumped
+ 
+ 3rd party
+ * cgi bumped
+ * fgl bumped
+ * QuickCheck bumped
+ * regex-base bumped
+ * regex-compat bumped
+ * regex-posix bumped
+ * stm bumped
+ 
+ Apps
+ * cabal-install bumped
+ * alex bumped
+ * happy bumped
