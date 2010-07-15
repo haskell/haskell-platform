@@ -151,7 +151,7 @@ rich set of features for programmers to use:
     - finite maps
     - patricia tries
     - sets
-    - fingertrees
+    - fingertrees (as Data.Sequence)
     - mutable references
     - mutable hashtables
     - dynamic types
