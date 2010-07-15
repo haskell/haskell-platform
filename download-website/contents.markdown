@@ -29,7 +29,9 @@ To learn more about programming in Haskell:
 [Try Haskell]: http://tryhaskell.org
 
 The following components are provided in the latest revision of The
-Platform:
+Platform (see the [Changelog]):
+
+[Changelog]: changelog.html
 
 Compiler and Runtime
 --------
