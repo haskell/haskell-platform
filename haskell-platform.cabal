@@ -83,5 +83,5 @@ library
     cabal-install ==0.8.2,
     alex          ==2.3.3,
     happy         ==1.18.5
---    haddock       ==2.7.2
+    -- haddock       ==2.7.2 -- valid, but needs ghc-paths
 
