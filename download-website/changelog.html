@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>The Haskell Platform: Changelog</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="date" content="" />
+  <link rel="stylesheet" href="style-info.css" type="text/css" />
+</head>
+<body>
+<h1 class="title">The Haskell Platform: Changelog</h1>
+<div id="changelog-for-the-haskell-platform"
+><h2
+  >Changelog for the Haskell Platform</h2
+  ></div
+><div id="section"
+><h2
+  >2010.2.0.0</h2
+  ><p
+  ><strong
+    >Bug fixes</strong
+    ></p
+  ><p
+  ><strong
+    ><em
+      >GHC</em
+      ></strong
+    ></p
+  ><ul
+  ><li
+    >A crash when Haskell calls C, which in turn calls back into Haskell, has been fixed.</li
+    ><li
+    >A bug which caused forking large processes to not terminate has been fixed.</li
+    ><li
+    >Calling hSetEncoding will now set the encoding for both the read and write side of a Handle, rather than just the read side.</li
+    ><li
+    >Using hReady and hWaitForInput on Handles created from Sockets will no longer block on Windows.</li
+    ><li
+    >Some improvements have been made in when library functions do, and do not, block asynchronous exceptions.</li
+    ><li
+    >A new flag -no-rtsopts flag allows you to disable parsing of +RTS options by the run-time system. In some use-cases, when a program can be run as another user, this can cause security problems. For example, myprog -tsomefile will overwrite somefile if the other user has permissions to do so.</li
+    ><li
+    >ghc-pkg now ensures that the conf files it writes are UTF8.</li
+    ></ul
+  ><p
+  ><strong
+    ><em
+      >Template Haskell</em
+      ></strong
+    ></p
+  ><ul
+  ><li
+    >A bug in the kind parser has been fixed.</li
+    ></ul
+  ><p
+  ><strong
+    ><em
+      >directory</em
+      ></strong
+    ></p
+  ><ul
+  ><li
+    >System.Directory.doesFileExist on Unix-like OSes now correctly identifies various types of special file as files.</li
+    ></ul
+  ><p
+  ><strong
+    ><em
+      >bytestring</em
+      ></strong
+    ></p
+  ><ul
+  ><li
+    >bytestring: Fixed bug that caused hGetContents to block when it shouldn't.</li
+    ></ul
+  ><p
+  ><strong
+    >Package versions</strong
+    ></p
+  ><ul
+  ><li
+    ><a href="http://haskell.org/ghc"
+      >ghc</a
+      > 6.12.1 6.12.3</li
+    ><li
+    ><a href="http://haskell.org/alex"
+      >alex</a
+      > 2.3.2 -&gt; 2.3.3</li
+    ><li
+    ><a href="http://haskell.org/happy"
+      >happy</a
+      > 1.18.4 -&gt; 1.18.5</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/cabal-install"
+      >cabal-install</a
+      > 0.8.0 -&gt; 0.8.2</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/Cabal"
+      >Cabal</a
+      > 1.8.0.2 -&gt; 1.8.0.6</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/QuickCheck"
+      >QuickCheck</a
+      > 2.1.0.3 -&gt; 2.1.1.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/array"
+      >array</a
+      > 0.3.0.0 -&gt; 0.3.0.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/base"
+      >base</a
+      > 4.2.0.0 -&gt; 4.2.0.2</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/bytestring"
+      >bytestring</a
+      > 0.9.1.5 -&gt; 0.9.1.7</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/cgi"
+      >cgi</a
+      > 3001.1.7.2 -&gt; 3001.1.7.3</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/directory"
+      >directory</a
+      > 1.0.1.0 -&gt; 1.0.1.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/fgl"
+      >fgl</a
+      > 5.4.2.2 -&gt; 5.4.2.3</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/filepath"
+      >filepath</a
+      > 1.1.0.3 -&gt; 1.1.0.4</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/hpc"
+      >hpc</a
+      > 0.5.0.4 -&gt; 0.5.0.5</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/old-time"
+      >old-time</a
+      > 1.0.0.3 -&gt; 1.0.0.5</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/process"
+      >process</a
+      > 1.0.1.2 -&gt; 1.0.1.3</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/regex-base"
+      >regex-base</a
+      > 0.93.1 -&gt; 0.93.2</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/regex-compat"
+      >regex-compat</a
+      > 0.92 -&gt; 0.93.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/regex-posix"
+      >regex-posix</a
+      > 0.94.1 -&gt; 0.94.2</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/stm"
+      >stm</a
+      > 2.1.1.2 -&gt; 2.1.2.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/template-haskell"
+      >template-haskell</a
+      > 2.4.0.0 -&gt; 2.4.0.1</li
+    ><li
+    ><a href="http://hackage.haskell.org/package/unix"
+      >unix</a
+      > 2.4.0.0 -&gt; 2.4.0.2</li
+    ><li
+    >Added: <a href="http://hackage.haskell.org/package/extensible-exceptions"
+      >extensible-exceptions</a
+      > 0.1.1.1</li
+    ></ul
+  ><hr
+   /></div
+>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15375175-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
+
