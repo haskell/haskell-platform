@@ -36,11 +36,11 @@ Platform (see the [Changelog]):
 Compiler and Runtime
 --------
 
-**[GHC] 6.12.1**
+**[GHC] 6.12.3**
 
 The state-of-the-art optimzing native code compiler for Haskell.
 
-**[GHCi] 6.12.1**
+**[GHCi] 6.12.3**
 
 A bytecode interpreter and interactive REPL environment for Haskell
 
@@ -118,7 +118,7 @@ Packages and Documentation
 
 The following libraries are provided by default:
 
-*  [base],  [array],  [bytestring],  [Cabal],  [containers], [directory],  [filepath],  [haskell98],  [hpc],  [old-locale], [time], [old-time],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],   [xhtml],  [zlib],  [HTTP], deepseq
+*  [base],  [array],  [bytestring],  [Cabal],  [containers], [directory],  [filepath],  [haskell98],  [hpc],  [old-locale], [time], [old-time],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],   [xhtml],  [zlib],  [HTTP], [deepseq], [extensible-exceptions]
 
 Functionality
 -------------
@@ -220,43 +220,45 @@ rich set of features for programmers to use:
  * Web     
     - simple html and xhtml generation
 
-[base]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/base
-[array]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/array
-[bytestring]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/bytestring
-[Cabal]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Cabal
-[containers]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/containers
-[directory]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/directory
-[filepath]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/filepath
-[haskell98]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell98
-[hpc]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hpc
-[old-locale]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-locale
-[old-time]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/old-time
-[packedstring]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/packedstring
-[pretty]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/pretty
-[process]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/process
-[random]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/random
-[syb]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/syb
-[template-haskell]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/template-haskell
-[unix]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/unix
-[win32]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/Win32
-[cgi]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/cgi
-[fgl]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/fgl
-[parsec]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/parsec
-[GLUT]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/GLUT
-[haskell-src]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/haskell-src
-[html]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/html
-[HUnit]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/HUnit
-[mtl]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/mtl
-[network]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/network
-[OpenGL]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/OpenGL
-[parallel]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/parallel
-[QuickCheck]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/QuickCheck
-[regex-base]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-base
-[regex-compat]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-compat
-[regex-posix]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/regex-posix
-[stm]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/stm
-[time]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/time
-[xhtml]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/xhtml
-[zlib]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/zlib
-[HTTP]: http://hackage.haskell.org/cgi-bin/hackage-scripts/package/HTTP
+[base]: http://hackage.haskell.org/package/base
+[extensible-exceptions]: http://hackage.haskell.org/package/extensible-exceptions
+[array]: http://hackage.haskell.org/package/array
+[bytestring]: http://hackage.haskell.org/package/bytestring
+[Cabal]: http://hackage.haskell.org/package/Cabal
+[containers]: http://hackage.haskell.org/package/containers
+[directory]: http://hackage.haskell.org/package/directory
+[filepath]: http://hackage.haskell.org/package/filepath
+[haskell98]: http://hackage.haskell.org/package/haskell98
+[hpc]: http://hackage.haskell.org/package/hpc
+[old-locale]: http://hackage.haskell.org/package/old-locale
+[old-time]: http://hackage.haskell.org/package/old-time
+[packedstring]: http://hackage.haskell.org/package/packedstring
+[pretty]: http://hackage.haskell.org/package/pretty
+[process]: http://hackage.haskell.org/package/process
+[random]: http://hackage.haskell.org/package/random
+[syb]: http://hackage.haskell.org/package/syb
+[template-haskell]: http://hackage.haskell.org/package/template-haskell
+[unix]: http://hackage.haskell.org/package/unix
+[win32]: http://hackage.haskell.org/package/Win32
+[cgi]: http://hackage.haskell.org/package/cgi
+[fgl]: http://hackage.haskell.org/package/fgl
+[parsec]: http://hackage.haskell.org/package/parsec
+[GLUT]: http://hackage.haskell.org/package/GLUT
+[haskell-src]: http://hackage.haskell.org/package/haskell-src
+[html]: http://hackage.haskell.org/package/html
+[HUnit]: http://hackage.haskell.org/package/HUnit
+[mtl]: http://hackage.haskell.org/package/mtl
+[network]: http://hackage.haskell.org/package/network
+[OpenGL]: http://hackage.haskell.org/package/OpenGL
+[parallel]: http://hackage.haskell.org/package/parallel
+[QuickCheck]: http://hackage.haskell.org/package/QuickCheck
+[regex-base]: http://hackage.haskell.org/package/regex-base
+[regex-compat]: http://hackage.haskell.org/package/regex-compat
+[regex-posix]: http://hackage.haskell.org/package/regex-posix
+[stm]: http://hackage.haskell.org/package/stm
+[time]: http://hackage.haskell.org/package/time
+[xhtml]: http://hackage.haskell.org/package/xhtml
+[zlib]: http://hackage.haskell.org/package/zlib
+[HTTP]: http://hackage.haskell.org/package/HTTP
+[deepseq]: http://hackage.haskell.org/package/deepseq
 [Hackage]: http://hackage.haskell.org
