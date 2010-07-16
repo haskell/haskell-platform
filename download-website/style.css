@@ -48,3 +48,5 @@ body { background:url(images/background.jpg); background-size: cover;
 
 a { color: #1c3a4b; }
 a:hover { color: #1030cd; }
+
+img { border: 0; }
