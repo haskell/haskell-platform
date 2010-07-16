@@ -4,9 +4,10 @@ body { background:url(images/background.jpg); background-size: cover;
        font-family: Helvetica, Arial, sans-serif; font-size: .95em }
 
 #download_bar { 
-  position: relative;
-  text-align: center;
+  position: absolute;
   top: 20%;
+  left: 35%;
+  text-align: center;
 }
 
 #download_bar #logo {
