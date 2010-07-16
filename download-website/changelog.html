@@ -28,8 +28,6 @@
     ></p
   ><ul
   ><li
-    >A crash when Haskell calls C, which in turn calls back into Haskell, has been fixed.</li
-    ><li
     >A bug which caused forking large processes to not terminate has been fixed.</li
     ><li
     >Calling hSetEncoding will now set the encoding for both the read and write side of a Handle, rather than just the read side.</li
@@ -61,16 +59,6 @@
   ><ul
   ><li
     >System.Directory.doesFileExist on Unix-like OSes now correctly identifies various types of special file as files.</li
-    ></ul
-  ><p
-  ><strong
-    ><em
-      >bytestring</em
-      ></strong
-    ></p
-  ><ul
-  ><li
-    >bytestring: Fixed bug that caused hGetContents to block when it shouldn't.</li
     ></ul
   ><p
   ><strong

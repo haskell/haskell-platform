@@ -3,8 +3,6 @@ Release 2010.2.0.0
 
 Changelog:
 
-    * A crash when Haskell calls C, which in turn calls back into Haskell,
-    has been fixed.
     * A bug which caused forking large processes to not terminate has been
     fixed.
     * Calling hSetEncoding will now set the encoding for both the read and
@@ -13,8 +11,6 @@ Changelog:
     no longer block on Windows.
     * Some improvements have been made in when library functions do, and
     do not, block asynchronous exceptions.
-    * bytestring: Fixed bug that caused hGetContents to block when it
-    shouldn't.
     * A new flag -no-rtsopts flag allows you to disable parsing of +RTS
      ... options by the run-time system.  In some use-cases, when a
      program can be run as another user, this can cause security
