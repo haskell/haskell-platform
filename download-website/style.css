@@ -1,92 +1,50 @@
 html, body, div { margin:0; padding:0; }
 
-body { padding-top: 150px; font-family: Helvetica, Arial, sans-serif; font-size: .95em}
+body { background:url(images/background.jpg); background-size: cover; 
+       font-family: Helvetica, Arial, sans-serif; font-size: .95em }
 
-#download_bar {
-  background:url(background.png) repeat-x;
-  height: 253px;
+#download_bar { 
   position: relative;
+  text-align: center;
+  top: 20%;
 }
 
 #download_bar #logo {
-  position: absolute;
-  margin-left: -417px; /* 365 `div` 2 */
-  left: 50%;    top: 0;
+  margin-left:  auto;
+  margin-right: auto;
+  display: block;
 }
 
-#download_bar .wrap {
-  position: absolute;
-  margin-left: -200px; /* 400 `div` 2 */
-  left: 50%;    top: 0;
-  width:400px; height:253px;
-  background:url(download.png) no-repeat;
-}
+#info .title  { font-size: 1.5em;    }
+#info .points { font-size: 0.95em; }
 
-#download_bar .info {
-  position: absolute;
-  margin-left: 230px;
-  width:250px;
-  left: 50%;    top: 40px;
-  font-weight: bold;
-  font-size: 0.9em;
-}
+#info .col1   { position: absolute;
+                top: 80%;
+                left:10%;
+                width: 15em;
+              }
 
-#download_bar .info .points {
-  margin-left: 20px;
-  font-weight: normal;
-  margin-bottom: 10px;
-  font-size: 0.9em;
-}
+#info .col2   { position: absolute;
+                top: 80%;
+                left:40%;
+                width: 15em; }
 
-#download_bar h1 { 
-  position: absolute;
-  font-weight: normal; 
-  top: 20px;
-  left: 0;
-  width: 400px;
-  text-align: center;
-  font-size: 2em;
-  color: #1c3a4b;
-  whitespace: nowrap;
-}
+#info .col3   { position: absolute;
+                top: 80%;
+                right:10%;
+                width: 15em; }
 
-#download_bar h2 { 
-  position: absolute;
-  font-weight: normal; 
-  top: 70px;
-  left: 0;
-  width: 400px;
-  text-align: center;
-  font-size: 1.15em;
-  color: #1c3a4b;
-}
+#timeline { position: absolute;
+            top: 5%;
+            right: 10%;
+            text-align: right;
+          }
 
-img { border: 0; }
+#extra    { position: absolute;
+            top: 90%;
+            left: 10%;
+            text-align: left;
+          }
 
 a { color: #1c3a4b; }
 a:hover { color: #1030cd; }
-
-#download_bar .platforms a {
-  font-size: 0.9em;
-  border: 0;
-  position: absolute;
-  display: block;
-  top: 120px;
-  width: 100px; height: 20px;
-  padding-top: 80px;
-  text-align: center;
-  vertical-align: bottom;
-}
-
-#download_bar #osx     { left: 30px; top: 120px; }
-#download_bar #windows { left: 145px; top: 120px; }
-#download_bar #linux   { left: 267px; top: 120px; }
-
-#contact {
-  font-size: 0.9em;
-  border: 0;
-  padding-right: 20px;
-  padding-top: 4px;
-  text-align:right;
-  vertical-align: bottom;
-}

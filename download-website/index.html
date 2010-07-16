@@ -7,49 +7,82 @@
     <link rel="SHORTCUT ICON" href="favicon.ico"/>
   </head>
   <body>
+
+    <!-- Download box !-->
+
     <div id="download_bar">
-      <a href="http://haskell.org" title="Haskell homepage"><img id="logo" src="bind.png" alt="Haskell homepage"></a>
       <div class="wrap">
-        <h1>Get the Haskell Platform</h1>
-        <h2>The standard Haskell development environment</h2>
+
+       <h1>The Haskell Platform</h1>
+
+       <a href="http://haskell.org"
+           title="Haskell homepage"
+           ><img id="logo" src="images/602px-Haskell-Logo.svg.png" alt="Haskell homepage"></a>
+
+       <h2>Download</h2>
+
         <div class="platforms">
-            <a href="mac.html"     id="osx">Mac</a>
-            <a href="windows.html" id="windows">Windows</a>
-            <a href="linux.html"   id="linux">Linux</a>
+            <a href="mac.html"    ><img id="osx"     src="images/OS_X-Logo.png" alt="Mac OSX"></a>
+            <a href="windows.html"><img id="windows" src="images/windows.png" alt="Windows"></a>
+            <a href="linux.html"  ><img id="linux"   src="images/Tux.png"     alt="Linux"></a>
         </div>
+
       </div>
-      <div class="info">
-        Comprehensive
-        <div class="points">
-            A rich development environment for Haskell
-            programming.
+    </div>
+
+    <!-- Footer !-->
+
+    <div id="info">
+
+        <div class="col1">
+            <div class="title">
+            Comprehensive
+            </div>
+            <div class="points">
+                A rich development environment for Haskell
+                programming.
+            </div>
         </div>
 
-            Robust
-        <div class="points">
-            Stable and widely-used tools and libraries.
+        <div class="col2">
+            <div class="title">
+                Robust
+            </div>
+            <div class="points">
+                Stable and widely-used tools and libraries.
+            </div>
         </div>
 
+        <div class="col3">
+            <div class="title">
             Cutting Edge
-        <div class="points">
-            Advanced features such as easy multicore parallelism
+            </div>
+            <div class="points">
+            Advanced features such as multicore parallelism
             and transactional memory.
+            </div>
         </div>
+
+    </div>
             
-        <a id="about" href="contents.html">Learn more...</a>
+      <!--
         <br />
-        <a id="about" href="changelog.html">Changelog...</a>
-        </div>
+
+       !-->
+
+     <div id="timeline">
+        Current stable: 2010.2.0.0 (July 2010)
+        <br />
+        Next release: <a href="http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable">January 2011</a>
     </div>
 
-    <div id="contact">
-        <a id="bug" href="http://haskell.org/haskellwiki/Haskell_Platform">Problems?</a>
-        <br />
-        <br />
-        <b>Current stable: 2010.2.0.0 (July 2010)</b>
-        <br />
-        Testing: 2011.1.0.0 (<a href="http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable">due January 2011</a>)
+    <div id="extra">
+        <a href="contents.html">Learn more...</a>
+        <a href="changelog.html">Changelog...</a>
+        <a href="http://haskell.org/haskellwiki/Haskell_Platform">Problems?</a>
     </div>
+
+
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
