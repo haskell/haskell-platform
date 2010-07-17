@@ -4,9 +4,7 @@ body { background:url(images/background.jpg); background-size: cover;
        font-family: Helvetica, Arial, sans-serif; font-size: .95em }
 
 #download_bar { 
-  position: absolute;
-  top: 20%;
-  left: 35%;
+  margin: 12% auto 0 auto;
   text-align: center;
 }
 
@@ -16,29 +14,13 @@ body { background:url(images/background.jpg); background-size: cover;
   display: block;
 }
 
-#info .title  { font-size: 1.5em;    }
-#info .points { font-size: 0.95em; }
-
-#info .col1   { position: absolute;
-                top: 80%;
-                left:10%;
-                width: 30%;
-                max-width:15em;
+#info         { margin: 14% auto 0 auto;
+                max-width: 70%;
               }
 
-#info .col2   { position: absolute;
-                top: 80%;
-                left:39%;
-                width: 30%;
-                max-width:15em;
-            }
-
-#info .col3   { position: absolute;
-                top: 80%;
-                right:10%;
-                width: 30%;
-                max-width:15em;
-            }
+#info .title  { font-size: 1.5em;  }
+#info .points { width: 18em;
+                font-size: 0.95em; }
 
 #timeline { position: absolute;
             top: 5%;
