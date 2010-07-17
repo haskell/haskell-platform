@@ -14,9 +14,8 @@ body { background:url(images/background.jpg); background-size: cover;
   display: block;
 }
 
-#info         { margin: 14% auto 0 auto;
-                max-width: 70%;
-              }
+#info         { margin: 10% auto 0;
+                width:60%; margin-left:20%; margin-right:20%; }
 
 #info .title  { font-size: 1.5em;  }
 #info .points { width: 18em;
@@ -26,12 +25,6 @@ body { background:url(images/background.jpg); background-size: cover;
             top: 5%;
             right: 10%;
             text-align: right;
-          }
-
-#extra    { position: absolute;
-            top: 90%;
-            left: 10%;
-            text-align: left;
           }
 
 a { color: #1c3a4b; }
