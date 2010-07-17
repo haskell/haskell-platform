@@ -22,18 +22,23 @@ body { background:url(images/background.jpg); background-size: cover;
 #info .col1   { position: absolute;
                 top: 80%;
                 left:10%;
-                width: 15em;
+                width: 30%;
+                max-width:15em;
               }
 
 #info .col2   { position: absolute;
                 top: 80%;
                 left:40%;
-                width: 15em; }
+                width: 30%;
+                max-width:15em;
+            }
 
 #info .col3   { position: absolute;
                 top: 80%;
                 right:10%;
-                width: 15em; }
+                width: 30%;
+                max-width:15em;
+            }
 
 #timeline { position: absolute;
             top: 5%;
