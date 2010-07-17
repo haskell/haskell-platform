@@ -39,10 +39,10 @@ For Unix systems (including Mac OS X), there is a source installer.
 ![](http://hackage.haskell.org/platform/icons/source.png)
 <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2010.1.0.0.tar.gz</a>
 
-You need GHC 6.12.1 installed before building the platform. You can get this from your distro or
-you can get a [GHC 6.12.1 generic binary].
+You need GHC 6.12.3 installed before building the platform. You can get this from your distro or
+you can get a [GHC 6.12.3 generic binary].
 
-[GHC 6.12.1 generic binary]: http://haskell.org/ghc/download_ghc_6_12_1.html#distros
+[GHC 6.12.3 generic binary]: http://haskell.org/ghc/download_ghc_6_12_3.html#distros
 
 To install from source download and unpack the installer, then (possibly with 'sudo'):
 
