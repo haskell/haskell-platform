@@ -19,10 +19,12 @@
 
 ![](http://hackage.haskell.org/platform/icons/ubuntu.png) Ubuntu ([Karmic], [Jaunty])
 ![](http://hackage.haskell.org/platform/icons/opensuse.png) [openSUSE]
+and [FreeBSD]
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
-[openSUSE]: http://en.opensuse.org/Packaging/Haskell
+[openSUSE]: https://build.opensuse.org/project/show?project=devel:languages:haskell
+[FreeBSD]: http://wiki.freebsd.org/Haskell
 
 **More info...**
 
