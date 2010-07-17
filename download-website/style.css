@@ -28,7 +28,7 @@ body { background:url(images/background.jpg); background-size: cover;
 
 #info .col2   { position: absolute;
                 top: 80%;
-                left:40%;
+                left:39%;
                 width: 30%;
                 max-width:15em;
             }
