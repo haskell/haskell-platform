@@ -7,6 +7,7 @@ body { background:url(images/background.jpg); background-size: cover;
   margin: 12% auto 0 auto;
   text-align: center;
   font-size: 1.3em;  
+  color: #aa0000;
 }
 
 #download_bar #logo {
@@ -18,7 +19,9 @@ body { background:url(images/background.jpg); background-size: cover;
 #info         { margin: 4% auto 0;
                 width:60%; margin-left:20%; margin-right:20%; }
 
-#info .title  { font-size: 1.5em;  }
+#info .title  { font-size: 1.5em;
+                color: #770000;
+              }
 #info .points { width: 18em;
                 font-size: 0.95em; }
 
