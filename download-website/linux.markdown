@@ -9,7 +9,7 @@
 ![](http://hackage.haskell.org/platform/icons/gentoo.png) [Gentoo]
 ![](http://hackage.haskell.org/platform/icons/nixos.png) [NixOS]
 
-[Debian]: http://packages.debian.org/sid/haskell-platform
+[Debian]: http://packages.debian.org/haskell-platform
 [Fedora]: https://admin.fedoraproject.org/pkgdb/acls/name/haskell-platform
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
 [Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
