@@ -1,5 +1,5 @@
 html, body, div{margin:0;padding:0;}
-body{background:url(images/background.jpg);background-size:cover;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
+body{background:url(images/background.jpg);background-size:cover;background-repeat:no-repeat;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
 #download_bar{margin:12% auto 0 auto;text-align:center;font-size:1.3em;color:#aa0000;}
 #download_bar #logo{margin-left:auto;margin-right:auto;display:block;}
 #info{margin:4% auto 0;width:60%;margin-left:20%;margin-right:20%;}
