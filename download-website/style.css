@@ -6,6 +6,6 @@ body{background:url(images/background.jpg);background-size:cover;background-repe
 #info .title{font-size:1.5em;color:#770000;}
 #info .points{width:18em;font-size:0.95em;}
 #timeline{position:absolute;top:5%;right:10%;text-align:right;}
-a{color:#1c3a4b;}
-a:hover{color:#1030cd;}
+a{color:#770000;}
+a:hover{color:#330000;}
 img{border:0;}
