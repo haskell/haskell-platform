@@ -1,6 +1,6 @@
 html, body, div{margin:0;padding:0;}
 body{background:url(images/background.jpg);background-size:cover;background-repeat:no-repeat;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
-#download_bar{margin:12% auto 0 auto;text-align:center;font-size:1.3em;color:#aa0000;}
+#download_bar{margin:9% auto 0 auto;text-align:center;font-size:1.3em;color:#aa0000;}
 #download_bar #logo{margin-left:auto;margin-right:auto;display:block;}
 #info{margin:4% auto 0;width:70%;margin-left:15%;margin-right:15%;}
 #info .title{font-size:1.5em;color:#770000;}
