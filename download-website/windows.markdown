@@ -8,7 +8,7 @@ Please consider using the torrent for a faster download:
 
 The Windows installer for the 2010.2.0.0 Haskell Platform:
 
-* <a href="http://hackage.haskell.org/platform/2010.2.0.0/HaskellPlatform-2010.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
+* <a href="http://lambda.galois.com/hp-tmp/2010.2.0.0/HaskellPlatform-2010.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
 
 After downloading:
 
