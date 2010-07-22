@@ -1,9 +1,9 @@
 % Haskell Platform for Windows
 %
 
-The Windows installer currently provides the 2010.1.0.0 Haskell Platform:
+The Windows installer currently provides the 2010.2.0.0 Haskell Platform:
 
-* <a href="http://hackage.haskell.org/platform/2010.1.0.0/HaskellPlatform-2010.1.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
+* <a href="http://hackage.haskell.org/platform/2010.2.0.0/HaskellPlatform-2010.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
 
 After downloading:
 
@@ -12,7 +12,7 @@ After downloading:
 
 You can also download using BitTorrent:
 
-* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/torrents/HaskellPlatform-2010.1.0.0-setup.exe.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/windows'); ">Torrent for Windows</a>
+* <a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/torrents/HaskellPlatform-2010.2.0.0-setup.exe.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/windows'); ">Torrent for Windows</a>
 
 **More info...**
 
@@ -26,6 +26,7 @@ You can also download using BitTorrent:
 
 Older releases of the Haskell Platform are available:
 
+* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/HaskellPlatform-2010.1.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2010.1.0.0</a>, for Windows, March 2010.
 * <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2009.2.0.2</a>, for Windows, July 2009.
 * <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.1/HaskellPlatform-2009.2.0.1-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2009.2.0.1</a>, for Windows, June 2009.
 * <a id="download" href="http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2009.2.0</a>, for Windows, May 2009.
