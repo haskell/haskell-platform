@@ -2,7 +2,7 @@
 %
 
 The Windows installer for 2010.2.0.0 Haskell Platform, via BitTorrent.
-Please consider using the torrent to help save bandwidth:
+Please consider using the torrent for a faster download:
 
 * <a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/torrents/HaskellPlatform-2010.2.0.0-setup.exe.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/windows'); ">Torrent for Windows</a>
 
