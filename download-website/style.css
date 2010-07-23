@@ -2,7 +2,8 @@ html, body, div{margin:0;padding:0;}
 body{background:url(images/background.jpg) #f15008;background-size:cover;background-repeat:no-repeat;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
 #download_bar{margin:9% auto 0 auto;text-align:center;font-size:1.3em;color:#aa0000;}
 #download_bar #logo{margin-left:auto;margin-right:auto;display:block;}
-#info{margin:4% auto 0;width:70%;margin-left:15%;margin-right:15%;}
+#info{margin:4% auto 0 auto;}
+#info table{margin: 0 auto;}
 #info .title{font-size:1.5em;color:#770000;}
 #info .points{width:18em;font-size:0.95em;}
 #timeline{position:absolute;top:5%;right:10%;text-align:right;}

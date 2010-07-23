@@ -38,7 +38,7 @@ Compiler and Runtime
 
 **[GHC] 6.12.3**
 
-The state-of-the-art optimzing native code compiler for Haskell.
+The state-of-the-art optimizing native code compiler for Haskell.
 
 **[GHCi] 6.12.3**
 
@@ -83,12 +83,12 @@ efficient parsers.
 
 **The [Alex] lexer generator**
 
-Alex is a lex-like lexer generator for Haskell
+Alex is a lex-like lexer generator for Haskell.
 
 **The hsc2hs foreign language binding tool**
 
 Often you need to call C libraries from Haskell. hsc2hs is a
-preprocessor for binding Haskell to C, that automates much of the work.
+preprocessor for binding Haskell to C that automates much of the work.
 
 **The GHC Profiler**
 
@@ -101,7 +101,7 @@ and structure of running Haskell programs.
 
 The Platform provides HPC - a professional-grade tool generating code
 coverage information and statistics for Haskell. Code coverage
-information can tell you how good your testsuite is, or what part of
+information can tell you how good your test suite is, or what part of
 your code is executing at any given time.
 
 [GHC]: http://haskell.org/ghc
