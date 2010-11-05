@@ -3,28 +3,36 @@
 
 **Community supported versions of the Haskell Platform:**
 
+![](http://hackage.haskell.org/platform/icons/ubuntu.png) [Ubuntu]
 ![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]
 ![](http://hackage.haskell.org/platform/icons/fedora.png) [Fedora]
+
 ![](http://hackage.haskell.org/platform/icons/arch.png) [Arch Linux]
 ![](http://hackage.haskell.org/platform/icons/gentoo.png) [Gentoo]
 ![](http://hackage.haskell.org/platform/icons/nixos.png) [NixOS]
 
+[Ubuntu]: http://packages.ubuntu.com/haskell-platform
 [Debian]: http://packages.debian.org/haskell-platform
 [Fedora]: https://admin.fedoraproject.org/pkgdb/acls/name/haskell-platform
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
 [Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6123.haskellPlatform2010200
 
+&nbsp;
+
 **Information for other systems:**
 
-![](http://hackage.haskell.org/platform/icons/ubuntu.png) Ubuntu ([Lucid PPA], [Karmic], [Jaunty])
+![](http://hackage.haskell.org/platform/icons/ubuntu.png) Ubuntu ([Lucid], [Karmic], [Jaunty])
 ![](http://hackage.haskell.org/platform/icons/opensuse.png) [openSUSE]
-and [FreeBSD]
+![](http://hackage.haskell.org/platform/icons/mandriva.png) [Mandriva]
+
+![](http://hackage.haskell.org/platform/icons/freebsd.png) [FreeBSD]
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
-[Lucid PPA]: https://launchpad.net/~justinbogner/+archive/haskell-platform
+[Lucid]: https://launchpad.net/~justinbogner/+archive/haskell-platform
 [openSUSE]: https://build.opensuse.org/project/show?project=devel:languages:haskell
+[Mandriva]: http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell
 [FreeBSD]: http://wiki.freebsd.org/Haskell
 
 **More info...**
