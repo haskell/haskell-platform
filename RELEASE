@@ -13,11 +13,10 @@
  # check clean room builds
  # check windows installer
  # check mac installer
- # update web page.
-    + get new content.
-    + move mailing list
 
- # reddit links via CDN.
+ - update content on lambda.galois.com
+ # push web page with new urls.
+ # publish reddit links with CDN.
 
 ------------------------------------------------------------------------
 = 2010.1.0 release = 

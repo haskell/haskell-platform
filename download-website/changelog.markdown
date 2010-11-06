@@ -9,6 +9,9 @@ Changelog for the Haskell Platform
 
 **Contents of the Haskell Platform** 
 
+The contents of the Haskell Platform are specified
+as [this Cabal file](http://code.haskell.org/haskell-platform/haskell-platform.cabal).
+
 ***Libraries***
 
  * [ghc] ==6.12.3
@@ -81,7 +84,7 @@ Changelog for the Haskell Platform
 
 **Package version changes since last release**
 
- * [ghc]             6.12.1      6.12.3
+ * [ghc]            6.12.1      -> 6.12.3
  * [alex]           2.3.2       -> 2.3.3
  * [happy]          1.18.4      -> 1.18.5
  * [cabal-install]  0.8.0       -> 0.8.2
@@ -152,3 +155,4 @@ Changelog for the Haskell Platform
 [ghc]: http://haskell.org/ghc
 [alex]: http://haskell.org/alex
 [happy]: http://haskell.org/happy
+[haddock]: http://haskell.org/haddock
