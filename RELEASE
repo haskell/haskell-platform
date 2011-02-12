@@ -1,13 +1,13 @@
  
- # update list of libraries shipped with GHC.
+ * update list of libraries shipped with GHC.
         http://haskell.org/haskellwiki/Libraries_released_with_GHC
- # update list of external libraries to latest stable version.
- # check and follow up on changes to visible packages.
- # check unix package builds
-    # tarball/packages/core.packages has to be updated from .cabal file
-    # update configure.ac with version number
-    # update required GHC version
- # bump version number in .cabal file
+ * update list of external libraries to latest stable version.
+ * check and follow up on changes to visible packages.
+ * check unix package builds
+    * tarball/packages/core.packages has to be updated from .cabal file
+    * update configure.ac with version number
+    * update required GHC version
+ * bump version number in .cabal file
  # put up .cabal file 
 
  # check clean room builds

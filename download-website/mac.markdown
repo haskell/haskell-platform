@@ -9,7 +9,7 @@ and above (including 64 bit), Intel only, via BitTorrent.  Please consider using
 For Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit),
 Intel only:
 
-* <a id="download" href="http://lambda.galois.com/hp-tmp/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X (Intel)</a>
+* <a id="download" href="http://lambda.haskell.org/hp-tmp/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X (Intel)</a>
 
 After downloading:
 
