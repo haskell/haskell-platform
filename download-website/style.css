@@ -1,12 +1,12 @@
 html, body, div{margin:0;padding:0;}
-body{background:url(images/background.jpg) #f15008;background-size:cover;background-repeat:no-repeat;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
-#download_bar{margin:9% auto 0 auto;text-align:center;font-size:1.3em;color:#aa0000;}
+body{background:url(images/background.jpg) #ffffff;background-size:cover;background-repeat:no-repeat;font-family:Helvetica, Arial, sans-serif;font-size:.95em}
+#download_bar{margin:9% auto 0 auto;text-align:center;font-size:1.3em;color:#660bab;}
 #download_bar #logo{margin-left:auto;margin-right:auto;display:block;}
 #info{margin:4% auto 0 auto;}
 #info table{margin: 0 auto;}
-#info .title{font-size:1.5em;color:#770000;}
+#info .title{font-size:1.5em;color:#660BAB;}
 #info .points{width:18em;font-size:0.95em;}
 #timeline{position:absolute;top:5%;right:10%;text-align:right;}
-a{color:#770000;}
-a:hover{color:#330000;}
+a{color:#660BAB;}
+a:hover{color:#a767d5;}
 img{border:0;}
