@@ -5,7 +5,7 @@ body{background:url(images/background.jpg) #ffffff;background-size:cover;backgro
 #info{margin:4% auto 0 auto;}
 #info table{margin: 0 auto;}
 #info .title{font-size:1.5em;color:#660BAB;}
-#info .points{width:18em;font-size:0.95em;}
+#info .points {width:18em; margin: 6px 12px 0 0; }
 #timeline{position:absolute;top:5%;right:10%;text-align:right;}
 a{color:#660BAB;}
 a:hover{color:#a767d5;}
