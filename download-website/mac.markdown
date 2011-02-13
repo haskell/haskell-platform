@@ -24,18 +24,6 @@ After downloading:
 [The Haskell Platform]: index.html
 [Learn more]: contents.html
 
-**MacPorts**
-
-The Haskell Platform is also in [MacPorts].  If you have MacPorts installed,
-you can build the Haskell Platform by typing:
-
-         sudo port install haskell-platform
-
-[MacPorts]: http://macports.org
-
-Note the version of the Haskell Platform in MacPorts may be lagging the
-current release.
-
 **Build from Source**
 
 If you already have a GHC 6.12.3, but not the full platform, you can build
