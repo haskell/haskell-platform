@@ -9,13 +9,13 @@ h1.title {
     width: 580px;
     height: 103px;
     line-height: 103px;
-    background: url(Platform.png) no-repeat center left;
+    background: url(images/Haskell-Logo-Boxed.png) no-repeat center left;
     padding: 0 0 0 120px;
-    font-size: 200%;
+    font-size:2em;color:#660BAB;
     vertical-align: middle;
 }
 
 img { border: 0; }
 
-a { color: #1c3a4b; }
-a:hover { color: #2090cd; }
+a{color:#660BAB;}
+a:hover{color:#a767d5;}
