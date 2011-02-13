@@ -82,7 +82,7 @@ library
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
   build-tools:
-  --  cabal-install ==0.8.2,
+    cabal-install ==0.8.2,
     alex          ==2.3.5,
     happy         ==1.18.6
   --  haddock       ==2.8.0 -- need to use the one shipped with ghc. valid, but needs ghc-paths
