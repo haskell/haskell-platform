@@ -284,7 +284,11 @@ INSTALLER_PACKAGE = dist/HaskellPlatform.pkg
 
 $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	#/Developer/usr/bin/packagemaker --doc Platform.pmdoc --verbose --out $@
-	@echo Build from PackageMaker please...
+	@echo "Build from PackageMaker please..."
+	@echo "*** Remember to:"
+	@echo "***    Open each component and:"
+	@echo "***    Select Content tab"
+	@echo "***    Click Apply Recommendations"
 	open Platform.pmdoc
 	
 installer: $(INSTALLER_PACKAGE)
