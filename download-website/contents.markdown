@@ -263,3 +263,6 @@ rich set of features for programmers to use:
 [HTTP]: http://hackage.haskell.org/package/HTTP
 [deepseq]: http://hackage.haskell.org/package/deepseq
 [Hackage]: http://hackage.haskell.org
+[haskell2010]: http://hackage.haskell.org/package/haskell2010
+[Win32]: http://hackage.haskell.org/package/Win32
+[transformers]: http://hackage.haskell.org/package/transformers
