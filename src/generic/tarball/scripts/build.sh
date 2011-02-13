@@ -39,6 +39,8 @@ ALEX_INPLACE="${ALEX_PKG_VER}/dist/build/alex/alex"
 CABAL_INSTALL_PKG_VER="`grep cabal-install packages/platform.packages`"
 CABAL_INSTALL_INPLACE="${CABAL_INSTALL_PKG_VER}/dist/build/cabal/cabal"
 
+HADDOCK_FLAG="--hyperlink-source"
+
 # Initialise the package db
 PACKAGE_DB="packages/package.conf.inplace"
 [ -f "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
@@ -46,6 +48,7 @@ echo '[]' > "${PACKAGE_DB}"
 
 build_pkg () {
   PKG=$1
+  NAME=${PKG%-*}
 
   cd "packages/${PKG}" 2> /dev/null \
     || die "The directory for the component ${PKG} is missing"
@@ -94,6 +97,10 @@ build_pkg () {
   tell ./Setup register --inplace ${VERBOSE} \
     || die "Registering the ${PKG} package failed"
 
+  if test "${NAME}" \!= "haskell-platform"; then
+    tell ./Setup haddock ${VERBOSE} ${HADDOCK_FLAG} \
+      || die "Generating the ${PKG} package documentation failed"
+  fi
   cd ../..
 }
 

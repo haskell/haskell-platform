@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Haskell Platform</title>
+    <link href="ocean.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+body {
+  color: #424242;
+}
+
+h1, h2, h3, h4, h5, h6, b {
+  color: #cc2900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Skia, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+#content {
+  padding-top: 1em;
+  position: relative;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+.paths {
+  margin: 0 0 0.5em 3em;
+	font-family:monospace;
+	*font-size:108%;
+	line-height: 124%;
+}
+
+#content a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #30f
+}
+
+#content a:hover {
+  background-color: #fd6;
+  border: 2px solid #fd6;
+}
+
+#content.with-sidebar {
+  padding-right: 15em;
+}
+
+#sidebar {
+  width: 14em;
+  position: absolute;
+  top: 2em;
+  right: 0;
+  border-left: 1px dashed #cc2900;
+}
+
+#sidebar .module {
+  font-size: 85%; /* 11pt */
+  line-height: 1.25em;
+  margin: 0 1.5em;
+}
+
+#sidebar .module + .module {
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+  border-top: 1px dashed #cc2900;
+}
+
+#sidebar ul {
+  margin: 1em 0;
+}
+
+#sidebar li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5em 0;
+  display: block;
+}
+    </style>
+  </head>
+  <body>
+    <div id="package-header">
+      <p class="caption">Haskell Platform</p>
+    </div>
+    <div id="content" class="with-sidebar">
+      <h1>Haskell Platform for Mac OS X</h1>
+      <p>Welcome to Haskell Platform. The platform consists of the Glasgow Haskell Compiler (GHC) and an extensive set of standard libraries and utilities with full documentation.</p>
+      
+      <h2>Documentation</h2>
+      <ul>
+        <li>
+          <p><a href="index.html">Libraries</a></p>
+          <p>Documentation for the libraries that come with Haskell Platform &amp; GHC.</p>
+        </li>
+        <li>
+          <p><a href="ghc-doc/users_guide/index.html">GHC</a></p>
+          <p>The GHC User's Guide has all you need to know about using GHC: command line options, language extensions, GHCi, etc.</p>
+        </li>
+        <li>
+          <p><a href="ghc-doc/libraries/ghc-7.0.1/index.html">GHC API</a></p>
+          <p>Documentation for the GHC API.</p>
+        </li>
+        <li>
+          <p><a href="ghc-doc/Cabal/index.html">Cabal</a></p>
+          <p>An infrastructure for building and distributing Haskell software.</p>
+        </li>
+        <li>
+          <p><a href="ghc-doc/haddock/index.html">Haddock</a></p>
+          <p>A tool for automatically generating documentation from annotated Haskell source code.</p>
+        </li>
+      </ul>
+      
+      <h2>What is Installed</h2>
+      <p>On Mac OS X, the Haskell Platform is installed in two major pieces: GHC and Haskell Platform. They are installed respectively in:</p>
+      <p class="paths">/Library/Frameworks/GHC.framework
+      <br/>/Library/Haskell</p>
+      <p>Executables are symlinked in <tt>/usr/bin</tt> and should be available in any shell.</p>
+      
+      <h2>Installed Haskell Package Layout</h2>
+      <p>To facilitate easier management, the non-core libraries of Haskell Platform are installed under a compiler-specific subdirectory of <tt>/Library/Haskell</tt>, each in their own per-package directory.</p>
+      <p>To configure <tt>cabal</tt> to install additional packages with the same layout, set your <tt>.cabal/config</tt> file to (replacing <tt>xxx</tt> with your user name):</p>  
+      <pre>
+library-profiling: True
+documentation: True
+
+install-dirs global
+  prefix: /Library/Haskell/$compiler/lib/$pkgid
+  libsubdir:  
+  datasubdir: 
+  docdir: $prefix/doc
+  
+install-dirs user
+  prefix: /Users/xxx/Library/Haskell/$compiler/lib/$pkgid
+  libsubdir:  
+  datasubdir: 
+  docdir: $prefix/doc
+      </pre>
+      <div id="sidebar">
+      <div class="module">
+      <h2>Community</h2>
+      <ul>
+        <li><a href="http://www.haskell.org/">Haskell Home Page</a></li>
+        <li>
+          <a href="http://www.reddit.com/r/haskell/">Reddit</a>
+        </li>
+        <li>
+          <a href="http://stackoverflow.com/questions/tagged?tagnames=haskell">Stack Overflow</a>
+        </li>
+      </ul>
+      </div>
+      <div class="module">
+      <h2>Development Resources</h2>
+      <ul>
+        <li><a href="http://hackage.haskell.org/packages/hackage.html">Hackage libary database</a></li>
+        <li><a href="http://haskell.org/hoogle/">Hoogle</a> and
+            <a href="http://holumbus.fh-wedel.de/hayoo/">Hayoo</a> API search</li>
+      </ul>
+      </div>
+      <div class="module">
+      <h2>External Documentation</h2>
+      <ul>
+        <li><a href="http://www.haskell.org/ghc/">GHC Home Page</a></li>
+        <li><a href="http://hackage.haskell.org/trac/ghc/">GHC Developers Home</a></li>
+        <li><a href="http://hackage.haskell.org/platform/">Haskell Platform</a></li>
+      </ul>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
