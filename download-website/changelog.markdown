@@ -84,29 +84,39 @@ as [this Cabal file](http://code.haskell.org/haskell-platform/haskell-platform.c
 
 **Package version changes since last release**
 
- * [ghc]            6.12.1      -> 6.12.3
- * [alex]           2.3.2       -> 2.3.3
- * [happy]          1.18.4      -> 1.18.5
- * [cabal-install]  0.8.0       -> 0.8.2
- * [Cabal]          1.8.0.2     -> 1.8.0.6
- * [QuickCheck]     2.1.0.3     -> 2.1.1.1
- * [array]          0.3.0.0     -> 0.3.0.1
- * [base]           4.2.0.0     -> 4.2.0.2
- * [bytestring]     0.9.1.5     -> 0.9.1.7
- * [cgi]            3001.1.7.2  -> 3001.1.7.3
- * [directory]      1.0.1.0     -> 1.0.1.1
- * [fgl]            5.4.2.2     -> 5.4.2.3
- * [filepath]       1.1.0.3     -> 1.1.0.4
- * [hpc]            0.5.0.4     -> 0.5.0.5
- * [old-time]       1.0.0.3     -> 1.0.0.5
- * [process]        1.0.1.2     -> 1.0.1.3
- * [regex-base]     0.93.1      -> 0.93.2
- * [regex-compat]   0.92        -> 0.93.1
- * [regex-posix]    0.94.1      -> 0.94.2
- * [stm]            2.1.1.2     -> 2.1.2.1
- * [template-haskell] 2.4.0.0    -> 2.4.0.1
- * [unix]           2.4.0.0     -> 2.4.0.2
- * Added: [extensible-exceptions] 0.1.1.1
+ * [ghc]            6.12.3      -> 7.0.2 
+ * [base]           4.2.0.2     -> 4.3.0.2
+ * [array]          0.3.0.1     -> 0.3.0.2
+ * [bytestring]     0.9.1.7     -> 0.9.1.8
+ * [containers]     0.3.0.0     -> 0.4.0.0
+ * [directory]      1.0.1.1     -> 1.1.0.0
+ * [extensible-exceptions]  0.1.1.1 -> 0.1.1.2
+ * [filepath]       1.1.0.4     -> 1.2.0.0
+ * Added [haskell2010]
+ * [haskell98]      1.0.1.1     -> 1.1.0.0
+ * [hpc]            0.5.0.5     -> 0.5.0.6
+ * [old-time]       1.0.0.5     -> 1.0.0.6
+
+
+HTTP 4000.0.9 -> 4000.1.1
+HUnit 1.2.2.1 -> 1.2.2.3
+QuickCheck 2.1.1.1 -> 2.4.0.1
+alex 2.3.3 -> 2.3.5
+cgi 3001.1.7.3 -> 3001.1.7.4
+deepseq 1.1.0.0 -> 1.1.0.2
+happy 1.18.5 -> 1.18.6
+haskell-src 1.0.1.3 -> 1.0.1.4
+mtl 1.1.0.2 -> 2.0.1.0
+network 2.2.1.7 -> 2.3.0.2
+parallel 2.2.0.1 -> 3.1.0.1
+parsec 2.1.0.1 -> 3.1.1
+regex-posix 0.94.2 -> 0.94.4
+stm 2.1.2.1 -> 2.2.0.1
+syb Added:  0.3
+text Added:  0.11.0.5
+transformers Added:  0.2.2.0
+zlib 0.5.2.0 -> 0.5.3.1
+
 
 ------------------------------------------------------------------------
 

@@ -11,7 +11,7 @@ environment. For experienced developers, the platform provides a
 comprehensive, standard base for commercial and open source Haskell
 development that maximises interoperability and stability of your code.
 
-**Download [The Haskell Platform] for your system now!**
+**Download [The Haskell Platform] for your system**
 
 [The Haskell Platform]: index.html
 [Haskell]: http://haskell.org
@@ -36,11 +36,11 @@ Platform (see the [Changelog]):
 Compiler and Runtime
 --------
 
-**[GHC] 6.12.3**
+**[GHC] 7.0.2**
 
 The state-of-the-art optimizing native code compiler for Haskell.
 
-**[GHCi] 6.12.3**
+**[GHCi] 7.0.2**
 
 A bytecode interpreter and interactive REPL environment for Haskell
 
@@ -118,7 +118,7 @@ Packages and Documentation
 
 The following libraries are provided by default:
 
-*  [base],  [array],  [bytestring],  [Cabal],  [containers], [directory],  [filepath],  [haskell98],  [hpc],  [old-locale], [time], [old-time],  [pretty],  [process],  [random],  [syb],  [template-haskell],  [unix],  [Win32],  [cgi],  [fgl],  [GLUT],  [haskell-src],  [html],  [HUnit],  [mtl],  [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck],  [regex-base],  [regex-compat],  [regex-posix],  [stm],   [xhtml],  [zlib],  [HTTP], [deepseq], [extensible-exceptions]
+* [base], [array], [bytestring], [Cabal], [containers], [directory], [extensible-exceptions], [filepath], [haskell98], [haskell2010], [hpc], [old-locale], [old-time], [pretty], [process], [random], [template-haskell], [time], [unix] or [Win32], [cgi], [fgl], [GLUT], [haskell-src], [html], [HUnit], [network],  [OpenGL],  [parallel],  [parsec],  [QuickCheck], [regex-base],  [regex-compat],  [regex-posix],  [stm],  [syb], [xhtml], [zlib],  [HTTP], [deepseq], [text], [transformers], [mtl] 
 
 Functionality
 -------------
@@ -131,7 +131,7 @@ rich set of features for programmers to use:
  * Control Structures
     - applicatives, arrows, functors, monoids
     - synchronous and asynchronous (extensible) exceptions
-    - monads: the mtl monad suite
+    - monads: the mtl monad suite and its transformers
     - foldables, traversables
 
  * Concurrency and Parallelism
@@ -143,7 +143,7 @@ rich set of features for programmers to use:
 
  * Data Structures
     - primitive and standard data types
-    - strings
+    - strings, unicode text
     - sequence types
     - pure, impure arrays, boxed/unboxed, foreign, storable, ST, diff arrays
     - strict and lazy bytestrings
@@ -196,7 +196,7 @@ rich set of features for programmers to use:
     - random number generators
 
  * Text
-    - Unicode characters
+    - Unicode characters and text operations
     - readp parsing combinators
     - parsec parsing combinators
     - Hughes/SPJ pretty printing combinators
@@ -257,6 +257,7 @@ rich set of features for programmers to use:
 [regex-posix]: http://hackage.haskell.org/package/regex-posix
 [stm]: http://hackage.haskell.org/package/stm
 [time]: http://hackage.haskell.org/package/time
+[text]: http://hackage.haskell.org/package/time
 [xhtml]: http://hackage.haskell.org/package/xhtml
 [zlib]: http://hackage.haskell.org/package/zlib
 [HTTP]: http://hackage.haskell.org/package/HTTP
