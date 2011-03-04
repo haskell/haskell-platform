@@ -1,4 +1,4 @@
-AC_INIT([haskell-platform],[2011.1.0.0])
+AC_INIT([haskell-platform],[2011.2.0.0])
 AC_CONFIG_AUX_DIR([scripts])
 
 #TODO: have these numbers generated from the .cabal file
