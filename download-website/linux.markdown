@@ -13,7 +13,7 @@
 
 [Ubuntu]: http://packages.ubuntu.com/haskell-platform
 [Debian]: http://packages.debian.org/haskell-platform
-[Fedora]: https://admin.fedoraproject.org/pkgdb/acls/name/haskell-platform
+[Fedora]: https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance
 [Arch Linux]: http://aur.archlinux.org/packages.php?ID=26279
 [Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6123.haskellPlatform2010200
