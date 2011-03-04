@@ -23,7 +23,7 @@ description:
 
 cabal-version:       >= 1.6
 build-type:          Custom
-tested-with:         GHC ==7.0.1
+tested-with:         GHC ==7.0.2
 
 library
   build-depends:
@@ -31,24 +31,24 @@ library
     -- Core libraries: provided by every ghc installation
     -- We don't include "non-API" packages here.
     -- array                    ==0.3.0.2
-    -- base                     ==4.3.0.2
-    -- bytestring               ==0.9.1.8
-    -- Cabal                    ==1.10.0.0
+    -- base                     ==4.3.1.0
+    -- bytestring               ==0.9.1.10
+    -- Cabal                    ==1.10.1.0
     -- containers               ==0.4.0.0
     -- directory                ==1.1.0.0
     -- extensible-exceptions    ==0.1.1.2
     -- filepath                 ==1.2.0.0
     -- haskell2010              ==1.0.0.0
-    -- haskell98                ==1.1.0.0
+    -- haskell98                ==1.1.0.1
     -- hpc                      ==0.5.0.6
     -- old-locale               ==1.0.0.2
     -- old-time                 ==1.0.0.6
     -- pretty                   ==1.0.1.2
-    -- process                  ==1.0.1.4
+    -- process                  ==1.0.1.5
     -- random                   ==1.0.0.3
     -- template-haskell         ==2.5.0.0
     -- time                     ==1.2.0.3
-    -- unix                     ==XXX 2.4.1.0
+    -- unix                     ==XXX 2.4.2.0
     -- Win32                    ==XXX 2.2.0.1
 
     -- Libraries in addition to what GHC provides:
@@ -62,7 +62,7 @@ library
     network                     ==2.3.0.2,
     OpenGL                      ==2.2.3.0,
     parallel                    ==3.1.0.1,
-    parsec                      ==3.1.1,  
+    parsec                      ==3.1.1,
     QuickCheck                  ==2.4.0.1,
     regex-base                  ==0.93.2,
     regex-compat                ==0.93.1,
@@ -82,8 +82,8 @@ library
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
   build-tools:
-  --  cabal-install ==0.8.2, -- depends  on containers 0.3.0.0
+    cabal-install ==0.10.0,
     alex          ==2.3.5,
     happy         ==1.18.6
-  --  haddock       ==2.8.0 -- need to use the one shipped with ghc. valid, but needs ghc-paths
+  --  haddock       ==2.9.2 -- need to use the one shipped with ghc. valid, but needs ghc-paths
 
