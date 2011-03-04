@@ -2,8 +2,8 @@ AC_INIT([haskell-platform],[2011.1.0.0])
 AC_CONFIG_AUX_DIR([scripts])
 
 #TODO: have these numbers generated from the .cabal file
-REQUIRED_GHC_VER=7.0.1
-ACCEPTABLE_GHC_VER=6.12.3
+REQUIRED_GHC_VER=7.0.2
+ACCEPTABLE_GHC_VER=7.0.1
 
 echo '**************************************************'
 echo '*'
