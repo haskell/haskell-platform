@@ -39,7 +39,8 @@ ALEX_INPLACE="${ALEX_PKG_VER}/dist/build/alex/alex"
 CABAL_INSTALL_PKG_VER="`grep cabal-install packages/platform.packages`"
 CABAL_INSTALL_INPLACE="${CABAL_INSTALL_PKG_VER}/dist/build/cabal/cabal"
 
-HADDOCK_FLAG="--hyperlink-source"
+# Creates dependency on hscolour
+# HADDOCK_FLAG="--hyperlink-source"
 
 # Initialise the package db
 PACKAGE_DB="packages/package.conf.inplace"

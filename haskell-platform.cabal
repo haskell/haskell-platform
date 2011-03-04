@@ -85,5 +85,6 @@ library
     cabal-install ==0.10.0,
     alex          ==2.3.5,
     happy         ==1.18.6
-  --  haddock       ==2.9.2 -- need to use the one shipped with ghc. valid, but needs ghc-paths
+    -- hscolour      ==1.17       
+  --  haddock       ==2.9.2     -- need to use the one shipped with ghc
 
