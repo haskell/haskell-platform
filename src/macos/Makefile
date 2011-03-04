@@ -13,6 +13,7 @@ DIRS := $(BUILD)
 SPEC_CABAL := ../../haskell-platform.cabal
 
 GHC_VERSION := $(subst ==,,$(word 3,$(shell grep '^tested-with:' $(SPEC_CABAL))))
+GHC_ARCH := i386
 PLATFORM_VERSION := $(word 2,$(shell grep '^version:' $(SPEC_CABAL)))
 
 # Locations are paths to things that are installed. There are three versions
@@ -49,8 +50,8 @@ DIRS += $(IMAGE_FRAMEWORKS) $(IMAGE_HASKELL)
 ###
 ### Fetch GHC distribution, and unpack it
 ###
-GHC_PKG_URL := http://haskell.org/ghc/dist/$(GHC_VERSION)/GHC-$(GHC_VERSION)-i386.pkg
-GHC_PKG := $(BUILD)/GHC-$(GHC_VERSION)-i386.pkg
+GHC_PKG_URL := http://haskell.org/ghc/dist/$(GHC_VERSION)/GHC-$(GHC_VERSION)-$(GHC_ARCH).pkg
+GHC_PKG := $(BUILD)/GHC-$(GHC_VERSION)-$(GHC_ARCH).pkg
 GHC_PACKAGE := $(BUILD)/GHC-package
 GHC_PAYLOAD := $(GHC_PACKAGE)/ghc.pkg/Payload
 
@@ -214,7 +215,7 @@ clean: clean-scripts
 $(eval $(call location,DOC_BASE,PLATFORM_BASE,doc))
 $(eval $(call location,INDEX_HTML,DOC_BASE,index.html))
 $(eval $(call location,START_HTML,DOC_BASE,start.html))
-$(eval $(call location,GHC_DOC_BASE,GHC_FRAMEWORK,Versions/${GHC_VERSION}-i386/usr/share/doc/ghc/html))
+$(eval $(call location,GHC_DOC_BASE,GHC_FRAMEWORK,Versions/${GHC_VERSION}-$(GHC_ARCH)/usr/share/doc/ghc/html))
 
 define relpath # $1 from, $2 to
 $(shell python -c "import os; print os.path.relpath('$1','$2')")
@@ -241,7 +242,7 @@ $(IMAGE_INDEX_HTML): $(HP_POST_SCRIPT)
 	    read="$$read --read-interface=ghc-doc/$${html#${TARGET_GHC_DOC_BASE}/},${IMAGE_ROOT}$$intf" ; \
 	  fi ; \
 	done ; \
-	./$(BUILD_BIN)/haddock --odir=${IMAGE_DOC_BASE} --gen-index --gen-contents --built-in-themes \
+	./$(BUILD_BIN)/haddock --odir=${IMAGE_DOC_BASE} --gen-index --gen-contents \
 	  $$read --title="Haskell Platform"
 	# These can't be symlink'd in the image as they cause PackageMaker fits
 	#	cd $(IMAGE_DOC_BASE) && ln -s $(PKGS_PLAT_REL) packages
@@ -270,6 +271,9 @@ polish: doc package
 	mkdir -p $(IMAGE_PLATFORM_BIN)
 	cd $(IMAGE_PLATFORM_BIN) && ln -s ../lib/*/bin/* .
 	-rm $(IMAGE_PLATFORM_BIN)/*-tests
+	mv $(IMAGE_PLATFORM_BIN)/cabal $(IMAGE_PLATFORM_BIN)/cabal.real
+	cp cabal.wrap $(IMAGE_PLATFORM_BIN)/cabal.wrap
+	cd $(IMAGE_PLATFORM_BIN) && ln -s cabal.wrap cabal
 	cd $(IMAGE_HASKELL) && ln -sf ghc-$(GHC_VERSION) current
 	cd $(IMAGE_HASKELL) && ln -sf current/bin bin
 	cd $(IMAGE_HASKELL) && ln -sf current/doc doc
@@ -284,12 +288,10 @@ INSTALLER_PACKAGE = dist/HaskellPlatform.pkg
 
 $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	#/Developer/usr/bin/packagemaker --doc Platform.pmdoc --verbose --out $@
+	@echo "About to change permissions of root. You will need to authorize:"
+	sudo chown -R -P root:admin $(IMAGE_ROOT)
 	@echo "Build from PackageMaker please..."
-	@echo "*** Remember to:"
-	@echo "***    Open each component and:"
-	@echo "***    Select Content tab"
-	@echo "***    Click Apply Recommendations"
-	open Platform.pmdoc
+	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
 	
 installer: $(INSTALLER_PACKAGE)
 clean-installer:
@@ -305,8 +307,8 @@ clean: clean-installer
 help:
 	@echo "make one of the following targets:"
 	@echo "   ghc     	 -- fetch and unpack ghc"
-	@echo "   source  	 -- create a working copy of the haskell platform source tree"
 	@echo "   rewrap  	 -- create working relocated ghc"
+	@echo "   source  	 -- create a working copy of the haskell platform source tree"
 	@echo "   config     -- config the working copy to use the unpacked ghc"
 	@echo "   build      -- build the packages in the working copy"
 	@echo "   package    -- install the packages in the root tree"

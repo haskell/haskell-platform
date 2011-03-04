@@ -1,0 +1,139 @@
+#!/bin/sh
+
+update_cabal_config() {
+    cabal_dir=~/.cabal
+    cabal_config=${cabal_dir}/config
+    cabal_config_new=${cabal_config}.platform
+    
+    user_haskell_dir=~/Library/Haskell
+    
+    if [ \! -e ${cabal_config_new} ]
+    then
+        mkdir -m 755 ${cabal_dir} &>/dev/null
+        mkdir -m 755 ${user_haskell_dir} &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/bin &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/logs &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/repo-cache &>/dev/null
+        
+        
+        cat > ${cabal_config_new} <<CONFIG_END
+-- This is the configuration file for the 'cabal' command line tool.
+
+-- The available configuration options are listed below.
+-- Some of them have default values listed.
+
+-- Lines (like this one) beginning with '--' are comments.
+-- Be careful with spaces and indentation because they are
+-- used to indicate layout for nested sections.
+
+-- This configuration follows the layout of Haskell Platform on Mac OS X,
+-- placing all installed package parts in the directories
+--   /Library/Haskell for packages installed --global
+--   ~/Library/Haskell for packages installed --user (the default)
+
+-- === Built executables will be installed in:
+--     ~/Library/Haskell/bin
+-- 
+-- You may wish to place this on your PATH by adding the following
+-- line to your ~/.bash_profile:
+--     export PATH="\$HOME/Library/Haskell/bin:\$PATH"
+
+-- === When documentation is built, a master index to all documentation
+-- will be placed in:
+--     ~/Library/Haskell/doc/index.html
+-- 
+-- You may wish to bookmark that file
+
+
+remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
+remote-repo-cache: ${user_haskell_dir}/repo-cache
+-- local-repo:
+-- logs-dir:
+world-file: ${user_haskell_dir}/logs/world
+-- verbose: 1
+-- compiler: ghc
+-- with-compiler:
+-- with-hc-pkg:
+-- scratchdir:
+-- program-prefix: 
+-- program-suffix: 
+-- library-vanilla: True
+library-profiling: True
+-- shared: False
+-- executable-profiling: False
+-- optimization: True
+-- library-for-ghci: True
+-- split-objs: False
+-- executable-stripping: True
+-- user-install: True
+-- package-db:
+-- flags:
+-- extra-include-dirs:
+-- extra-lib-dirs:
+-- constraint:
+-- tests: False
+-- cabal-lib-version:
+-- preference:
+documentation: True
+doc-index-file: ${user_haskell_dir}/doc/index.html
+-- upgrade-dependencies:
+-- only-dependencies:
+root-cmd: sudo
+symlink-bindir: ${user_haskell_dir}/bin
+build-summary: ${user_haskell_dir}/logs/build.log
+-- build-log:
+remote-build-reporting: anonymous
+-- one-shot:
+-- username:
+-- password:
+-- username:
+-- password:
+
+install-dirs user
+  prefix: ${user_haskell_dir}/\$compiler/lib/\$pkgid
+  -- bindir: \$prefix/bin
+  -- libdir: \$prefix/lib
+  libsubdir:  
+  -- libexecdir: \$prefix/libexec
+  -- datadir: \$prefix/share
+  datasubdir: 
+  docdir: \$prefix/doc
+  -- htmldir: \$docdir/html
+  -- haddockdir: \$htmldir
+
+install-dirs global
+  prefix: /Library/Haskell/\$compiler/lib/\$pkgid
+  -- bindir: \$prefix/bin
+  -- libdir: \$prefix/lib
+  libsubdir:  
+  -- libexecdir: \$prefix/libexec
+  -- datadir: \$prefix/share
+  datasubdir: 
+  docdir: \$prefix/doc
+  -- htmldir: \$docdir/html
+  -- haddockdir: \$htmldir
+
+CONFIG_END
+        
+        if [ \! -e ${cabal_config} ]
+        then
+            cp ${cabal_config_new} ${cabal_config}
+            echo "=== Built executables will be installed in:"
+            echo "    ${user_haskell_dir}/bin"
+            echo
+            echo "You may wish to place this on your PATH by adding the following"
+            echo "line to your ~/.bash_profile:"
+            echo '    export PATH="$HOME/Library/Haskell/bin:$PATH"'
+            echo
+            echo "=== When documentation is built, a master index to all documentation"
+            echo "will be placed in:"
+            echo "    ${user_haskell_dir}/doc/index.html"
+            echo
+            echo "You may wish to bookmark that file"
+        fi
+    fi
+}
+
+update_cabal_config
+exec -a cabal /Library/Haskell/bin/cabal.real "$@"
+
