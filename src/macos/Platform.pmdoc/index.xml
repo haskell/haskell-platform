@@ -7,8 +7,8 @@
 \
 This package will be installed on the system volume and is not relocatable.  An admin password is required during installation.\
 \
-*** IMPORTANT NOTE ***\
+*** IMPORTANT PREREQUISITE ***\
 \
-You already need to have Xcode 3.0 or later.  Apple's developer package Xcode includes basic developer tools, such as the make utility and a C compiler.  Without these installed, the installation of the Glasgow Haskell Compiler will fail.\
+You must have Xcode 3.0 or later installed before you continue.  Apple's developer package Xcode includes basic developer tools, such as the make utility and a C compiler.  The Glasgow Haskell Compiler relies on these tools.\
 \
-Xcode can be installed off your Mac OS X installation DVD or be downloaded from <http://developer.apple.com>.}]]></resource></locale></resources><requirements><requirement id="file" operator="eq" value="true"><file>/usr/bin/gcc</file><message-title>Developer Tools Missing</message-title><message>Please install Xcode developer tools first.</message></requirement></requirements><flags/><postinstall><action id="com.apple.packagemaker.actions.openurl"><value>file:///Library/Haskell/doc/start.html</value></action></postinstall><item type="file">01ghc.xml</item><item type="file">02haskell.xml</item><mod>postinstallActions.actions</mod><mod>properties.title</mod><mod>description</mod><mod>properties.anywhereDomain</mod><mod>properties.systemDomain</mod></pkmkdoc>
+Xcode can be installed off your Mac OS X installation DVD or be downloaded from {\field{\*\fldinst{HYPERLINK "http://developer.apple.com"}}{\fldrslt http://developer.apple.com}}.}]]></resource></locale></resources><requirements><requirement id="file" operator="eq" value="true"><file>/usr/bin/gcc</file><message-title>Developer Tools Missing</message-title><message>Please install Xcode developer tools first.</message></requirement></requirements><flags/><postinstall><action id="com.apple.packagemaker.actions.openfile"><value>/Library/Haskell/doc/start.html</value><type>absolute-path</type></action></postinstall><item type="file">01ghc.xml</item><item type="file">02haskell.xml</item><mod>postinstallActions.actions</mod><mod>properties.title</mod><mod>description</mod><mod>properties.anywhereDomain</mod><mod>properties.systemDomain</mod></pkmkdoc>
