@@ -90,6 +90,9 @@ BUILD_BIN := $(BUILD)/bin
 BUILD_PROGS :=
 DIRS += $(BUILD_BIN) $(BUILD_PACKAGE_DB)
 
+WITH_DB := GHC_PACKAGE_PATH=$(abspath $(BUILD_PACKAGE_DB))
+WITH_PATH := PATH="$(abspath $(BUILD_BIN)):$$PATH"
+
 define rewrap-prog # $1 = prog
 $(BUILD_BIN)/$1: | $(IMAGE_GHC_FRAMEWORK)
 	sed -e 's:$(TARGET_GHC_FRAMEWORK):$(IMAGE_GHC_FRAMEWORK_ABS):' $(IMAGE_GHC_BIN)/$1 > $$@
@@ -121,7 +124,7 @@ BUILD_SOURCE_TREE := $(BUILD)/source
 BUILD_PACKAGE_LIST := $(BUILD_SOURCE_TREE)/packages/platform.packages
 
 $(GENERIC_PACKAGE_LIST):
-	cd ../generic && sh prepare.sh
+	cd ../generic && $(WITH_DB) $(WITH_PATH) sh prepare.sh
 
 $(BUILD_PACKAGE_LIST): $(GENERIC_PACKAGE_LIST)
 	cp -r $(GENERIC_SOURCE_TREE)/ $(BUILD_SOURCE_TREE)
@@ -142,8 +145,6 @@ CONFIG_STATUS := $(BUILD_SOURCE_TREE)/config.status
 CONFIG_OPTIONS += --disable-user-install
 CONFIG_OPTIONS += --prefix=$(TARGET_PLATFORM_LIB)
 CD_AND := cd $(BUILD_SOURCE_TREE) &&
-WITH_DB := GHC_PACKAGE_PATH=$(abspath $(BUILD_PACKAGE_DB))
-WITH_PATH := PATH="$(abspath $(BUILD_BIN)):$$PATH"
 SRC_RUN := $(CD_AND) $(WITH_DB) $(WITH_PATH)
 
 $(CONFIG_STATUS): $(BUILD_PACKAGE_LIST)

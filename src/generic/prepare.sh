@@ -21,7 +21,8 @@ mkdir "${IMAGE_DIR}/"
 mkdir "${IMAGE_DIR}/packages"
 mkdir "${IMAGE_DIR}/scripts"
 
-runhaskell Build.hs ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
+ghc --make Build.hs
+./Build ../../haskell-platform.cabal "${IMAGE_DIR}/packages" \
     || die "Build.hs failed"
 
 PLATFORM_PACKAGE_ID="haskell-platform-${PLATFORM_VERSION}"
