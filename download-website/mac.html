@@ -8,25 +8,23 @@
 </head>
 <body>
 <h1 class="title">Haskell Platform for OSX</h1>
+<!--
+The Haskell Platform installer for Mac OS X Leopard (10.5), Snow Leopard
+and above (including 64 bit), Intel only, via BitTorrent.  Please consider using the torrent for a faster download:
+
+* <a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/torrents/haskell-platform-2010.2.0.0.i386.dmg.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/mac'); ">Torrent for Mac OS X (intel)</a>
+-->
 <p
->The Haskell Platform installer for Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit), Intel only, via BitTorrent. Please consider using the torrent for a faster download:</p
+>The Haskell Platform for 32 bit Intel Mac OS X (10.6 and above only). For Mac OS X 10.5 please use the 2010.2.0.0 installer.</p
 ><ul
 ><li
-  ><a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/torrents/haskell-platform-2010.2.0.0.i386.dmg.torrent" onClick="javascript: pageTracker._trackPageview('/downloads/torrent/mac'); ">Torrent for Mac OS X (intel)</a></li
+  ><a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-i386-rc1.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 32 bit GHC)</a></li
   ></ul
 ><p
->For Mac OS X Leopard (10.5), Snow Leopard and above (including 64 bit), Intel only:</p
+>The Haskell Platform for 64 bit Intel Mac OS X (10.6 and above only):</p
 ><ul
 ><li
-  ><a id="download" href="http://lambda.haskell.org/hp-tmp/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X (Intel)</a></li
-  ></ul
-><p
->After downloading:</p
-><ul
-><li
-  >Open the .dmg file</li
-  ><li
-  >Follow the install instructions</li
+  ><a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-x86_64-rc1.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 64 bit GHC)</a></li
   ></ul
 ><p
 ><strong
@@ -42,29 +40,28 @@
     >Learn more</a
     > about the Haskell Platform.</li
   ></ul
-><p
-><strong
-  >Build from Source</strong
-  ></p
-><p
->If you already have a GHC 6.12.3, but not the full platform, you can build it from source on the Mac:</p
-><p
-><img src="http://hackage.haskell.org/platform/icons/source.png"
-   /> <a href="http://hackage.haskell.org/platform/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2010.2.0.0.tar.gz</a></p
-><p
->You need GHC 6.12.3 installed before building the platform.</p
-><p
->To install from source download and unpack the installer, then (possibly with 'sudo'):</p
-><pre
-><code
-  >    ./configure
-    make
-    make install
-</code
-  ></pre
-><p
->You may pass --prefix flags to change the default install path.</p
-><p
+><!--
+**Build from Source**
+
+If you already have a GHC 7.0.2, but not the full platform, you can build it
+from source on the Mac:
+
+![](http://hackage.haskell.org/platform/icons/source.png)
+<a href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.2.0.0.tar.gz</a>
+
+You need GHC 7.0.2 installed before building the platform. You can get this from your distro or
+you can get a [GHC 7.0.2 generic binary].
+
+
+
+To install from source download and unpack the installer, then (possibly with 'sudo'):
+
+        ./configure
+        make
+        make install
+
+  -->
+<p
 ><strong
   >Older Releases</strong
   ></p
@@ -72,6 +69,8 @@
 >Older releases of the Haskell Platform are available:</p
 ><ul
 ><li
+  ><a id="download" href="http://lambda.haskell.org/hp-tmp/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.2.0.0</a>, for Mac OS X 10.5 and above (32 bit), July 2010.</li
+  ><li
   ><a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.1-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.1.0.0</a>, for Mac OS X Leopard (intel), March 2010.</li
   ><li
   ><a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2009.2.0.2</a>, for Mac OS X Leopard (intel), July 2009.</li

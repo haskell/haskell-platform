@@ -20,7 +20,7 @@
    /> <a href="http://packages.debian.org/haskell-platform"
   >Debian</a
   > <img src="http://hackage.haskell.org/platform/icons/fedora.png"
-   /> <a href="https://admin.fedoraproject.org/pkgdb/acls/name/haskell-platform"
+   /> <a href="https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance"
   >Fedora</a
   ></p
 ><p
@@ -82,10 +82,10 @@
 >For Unix systems (including Mac OS X), there is a source installer.</p
 ><p
 ><img src="http://hackage.haskell.org/platform/icons/source.png"
-   /> <a href="http://hackage.haskell.org/platform/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2010.2.0.0.tar.gz</a></p
+   /> <a href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.2.0.0.tar.gz</a></p
 ><p
->You need GHC 6.12.3 installed before building the platform. You can get this from your distro or you can get a <a href="http://haskell.org/ghc/download_ghc_6_12_3.html#distros"
-  >GHC 6.12.3 generic binary</a
+>You need GHC 7.0.2 installed before building the platform. You can get this from your distro or you can get a <a href="http://haskell.org/ghc/download_ghc_7_0_2.html#distros"
+  >GHC 7.0.2 generic binary</a
   >.</p
 ><p
 >To install from source download and unpack the installer, then (possibly with 'sudo'):</p
@@ -98,23 +98,21 @@
   ></pre
 ><p
 >You may pass --prefix flags to change the default install path.</p
-><p
-><strong
-  >Build from cabal</strong
-  ></p
-><p
->If you already have a reasonable Haskell development environment with GHC 6.12.3 and cabal-install, you can build the platform from the Cabal package alone.</p
-><p
-><img src="http://hackage.haskell.org/platform/icons/cabal.png"
-   /> <a href="http://hackage.haskell.org/platform/2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a></p
-><p
->To install, unpack the cabal tarball, and run:</p
-><pre
-><code
-  >    cabal install
-</code
-  ></pre
-><p
+><!--
+**Build from cabal**
+
+If you already have a reasonable Haskell development environment with
+GHC 7.0.2 and cabal-install, you can build the platform from the Cabal
+package alone.
+
+![](http://hackage.haskell.org/platform/icons/cabal.png)
+<a href="http://hackage.haskell.org/platform/2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
+
+To install, unpack the cabal tarball, and run:
+
+        cabal install
+ -->
+<p
 ><strong
   >Older Releases</strong
   ></p
@@ -122,6 +120,8 @@
 >Older releases of the Haskell Platform are available:</p
 ><ul
 ><li
+  ><a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.2.0.0</a> source, July 2010.</li
+  ><li
   ><a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.1.0.0</a> source, March 2010.</li
   ><li
   ><a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0.2</a> source, July 2009.</li
