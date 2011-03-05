@@ -118,18 +118,33 @@ CONFIG_END
         if [ \! -e ${cabal_config} ]
         then
             cp ${cabal_config_new} ${cabal_config}
-            echo "=== Built executables will be installed in:"
-            echo "    ${user_haskell_dir}/bin"
-            echo
-            echo "You may wish to place this on your PATH by adding the following"
-            echo "line to your ~/.bash_profile:"
-            echo '    export PATH="$HOME/Library/Haskell/bin:$PATH"'
-            echo
-            echo "=== When documentation is built, a master index to all documentation"
-            echo "will be placed in:"
-            echo "    ${user_haskell_dir}/doc/index.html"
-            echo
-            echo "You may wish to bookmark that file"
+            cat <<NOTICE_END
+
+**********************************************************************
+
+=== Configuration for cabal has been written to
+    ${cabal_config}
+
+=== Executables will be installed in:
+    ${user_haskell_dir}/bin
+
+    You may wish to place this on your PATH by adding the following
+    line to your ~/.bash_profile:
+    
+    export PATH="\$HOME/Library/Haskell/bin:\$PATH"
+
+=== When documentation is built, a master index to all documentation
+    will be placed in:
+    
+    ${user_haskell_dir}/doc/index.html
+
+    You may wish to bookmark that file once it gets built (after the
+    first cabal install).
+
+**********************************************************************
+
+NOTICE_END
+            /Library/Haskell/bin/cabal.real update  
         fi
     fi
 }
