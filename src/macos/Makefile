@@ -293,6 +293,7 @@ $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	@echo "About to change permissions of root. You will need to authorize:"
 	sudo chown -R -P root:admin $(IMAGE_ROOT)
 	@echo "Build from PackageMaker please..."
+	rm -f Platform.pmdoc/*-contents.xml
 	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
 	
 installer: $(INSTALLER_PACKAGE)
