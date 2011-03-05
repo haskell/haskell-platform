@@ -274,6 +274,7 @@ polish: doc package
 	-rm $(IMAGE_PLATFORM_BIN)/*-tests
 	mv $(IMAGE_PLATFORM_BIN)/cabal $(IMAGE_PLATFORM_BIN)/cabal.real
 	cp cabal.wrap $(IMAGE_PLATFORM_BIN)/cabal.wrap
+	chmod +x $(IMAGE_PLATFORM_BIN)/cabal.wrap
 	cd $(IMAGE_PLATFORM_BIN) && ln -s cabal.wrap cabal
 	cd $(IMAGE_HASKELL) && ln -sf ghc-$(GHC_VERSION) current
 	cd $(IMAGE_HASKELL) && ln -sf current/bin bin
