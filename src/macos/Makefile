@@ -217,6 +217,7 @@ $(eval $(call location,DOC_BASE,PLATFORM_BASE,doc))
 $(eval $(call location,INDEX_HTML,DOC_BASE,index.html))
 $(eval $(call location,START_HTML,DOC_BASE,start.html))
 $(eval $(call location,GHC_DOC_BASE,GHC_FRAMEWORK,Versions/${GHC_VERSION}-$(GHC_ARCH)/usr/share/doc/ghc/html))
+$(eval $(call location,GHC_API_BASE,GHC_DOC_BASE,libraries/ghc-${GHC_VERSION}))
 
 define relpath # $1 from, $2 to
 $(shell python -c "import os; print os.path.relpath('$1','$2')")
@@ -224,6 +225,7 @@ endef
 
 PKGS_PLAT_REL := $(call relpath,$(IMAGE_PLATFORM_LIB),$(IMAGE_DOC_BASE))
 PKGS_GHC_REL := $(call relpath,$(IMAGE_GHC_DOC_BASE),$(IMAGE_DOC_BASE))
+PKGS_API_REL := $(call relpath,$(IMAGE_GHC_API_BASE),$(IMAGE_DOC_BASE))
 
 DIRS += $(IMAGE_DOC_BASE)
 
@@ -246,11 +248,10 @@ $(IMAGE_INDEX_HTML): $(HP_POST_SCRIPT)
 	./$(BUILD_BIN)/haddock --odir=${IMAGE_DOC_BASE} --gen-index --gen-contents \
 	  $$read --title="Haskell Platform"
 	# These can't be symlink'd in the image as they cause PackageMaker fits
-	#	cd $(IMAGE_DOC_BASE) && ln -s $(PKGS_PLAT_REL) packages
-	#	cd $(IMAGE_DOC_BASE) && ln -s $(PKGS_GHC_REL) ghc-doc
 	# So symlink them in the post install script
 	echo "ln -s $(PKGS_PLAT_REL) $(TARGET_DOC_BASE)/packages" >> $(HP_POST_SCRIPT)
 	echo "ln -s $(PKGS_GHC_REL) $(TARGET_DOC_BASE)/ghc-doc" >> $(HP_POST_SCRIPT)
+	echo "ln -s $(PKGS_API_REL) $(TARGET_DOC_BASE)/ghc-api" >> $(HP_POST_SCRIPT)
 
 $(IMAGE_START_HTML): start.html
 	cp $< $@
@@ -276,6 +277,7 @@ polish: doc package
 	cp cabal.wrap $(IMAGE_PLATFORM_BIN)/cabal.wrap
 	chmod +x $(IMAGE_PLATFORM_BIN)/cabal.wrap
 	cd $(IMAGE_PLATFORM_BIN) && ln -s cabal.wrap cabal
+	-rm $(IMAGE_HASKELL)/current $(IMAGE_HASKELL)/bin $(IMAGE_HASKELL)/doc
 	cd $(IMAGE_HASKELL) && ln -sf ghc-$(GHC_VERSION) current
 	cd $(IMAGE_HASKELL) && ln -sf current/bin bin
 	cd $(IMAGE_HASKELL) && ln -sf current/doc doc
