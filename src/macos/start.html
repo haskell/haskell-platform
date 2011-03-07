@@ -120,25 +120,17 @@ p {
       <br/>/Library/Haskell</p>
       <p>Executables are symlinked in <tt>/usr/bin</tt> and should be available in any shell.</p>
       
-      <h2>Installed Haskell Package Layout</h2>
-      <p>To facilitate easier management, the non-core libraries of Haskell Platform are installed under a compiler-specific subdirectory of <tt>/Library/Haskell</tt>, each in their own per-package directory.</p>
-      <p>To configure <tt>cabal</tt> to install additional packages with the same layout, set your <tt>.cabal/config</tt> file to (replacing <tt>xxx</tt> with your user name):</p>  
-      <pre>
-library-profiling: True
-documentation: True
-
-install-dirs global
-  prefix: /Library/Haskell/$compiler/lib/$pkgid
-  libsubdir:  
-  datasubdir: 
-  docdir: $prefix/doc
-  
-install-dirs user
-  prefix: /Users/xxx/Library/Haskell/$compiler/lib/$pkgid
-  libsubdir:  
-  datasubdir: 
-  docdir: $prefix/doc
-      </pre>
+      <h2>Configuring Cabal</h2>
+      <p>The <tt>cabal</tt> command manages the building and installation of packages, both your own, and those it can fetch from the Hackage repository.</p> 
+      <p>The first time you run <tt>cabal</tt>, a Mac specific configuration is written into the <tt>~/.cabal</tt> directory.</p>
+      <ul>
+        <li><p>If this is the first time you have ever run <tt>cabal</tt>, it will be made your active configuration.</p></li>
+        <li><p>If you have run cabal in the past, the new settings are in the file <tt>config.platform</tt>. You might want to review and incorporate some of the settings into your existing <tt>config</tt> file, or just replace your <tt>config</tt> file with it entirely.</p></li>
+      </ul>
+      <p>The configuration sets up <tt>cabal</tt> to install packages with the same layout as those installed with the Platform. Packages installed per user (<tt>--user</tt>, the default) are placed in a parallel tree in <tt>~/Library/Haskell</tt>.</p>
+      <p><b>N.B.</b> Built executables will be symlink'd into <tt>~/Library/Haskell/bin</tt>, you probably want to add that to your <tt>$PATH</tt> by adding this line to your <tt>~/.bash_profile</tt>:
+      <p class="paths">export PATH="$HOME/Library/Haskell/bin:$PATH"</p>
+      
       <div id="sidebar">
       <div class="module">
       <h2>Community</h2>
