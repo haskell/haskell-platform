@@ -10,11 +10,7 @@ and above (including 64 bit), Intel only, via BitTorrent.  Please consider using
 
 The Haskell Platform Mac OS X, 10.6 and above:  
 
-* <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-i386-rc1.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 32 bit GHC)</a>
-
-10.6 systems with 64-bit capable processors can choose to install this version instead:
-
-* <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-x86_64-rc1.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 64 bit GHC)</a>
+* <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-i386-rc3.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 32 bit GHC)</a>
 
 After downloading, simply double click the package icon to start the installer, and follow the instructions.
 
@@ -29,6 +25,13 @@ Note: Xcode 3.0 or later is required prior to installation. Xcode can be install
 
 [The Haskell Platform]: index.html
 [Learn more]: contents.html
+
+**Experimental 64 bit support**
+
+On Mac OS X 10.6 systems with 64-bit capable processors, an experimental
+64 bit GHC environment is provided. Please let us know what you think:
+
+* <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/Haskell%20Platform%202011.2.0.0-x86_64-rc2.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 64 bit GHC)</a>
 
 <!--
 **Build from Source**
