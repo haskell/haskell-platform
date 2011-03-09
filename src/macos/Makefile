@@ -199,7 +199,7 @@ $(HP_POST_SCRIPT):
 	echo "#!/bin/sh" > $@
 	echo "for conf in $(TARGET_PLATFORM_REGISTRATIONS)/*" >> $@
 	echo "do" >> $@
-	echo "    /usr/bin/ghc-pkg register \$$conf" >> $@
+	echo "    /usr/bin/ghc-pkg register --force \$$conf" >> $@
 	echo "done" >> $@
 	echo "ln -sf $(TARGET_HASKELL)/bin/* /usr/bin" >> $@
 
