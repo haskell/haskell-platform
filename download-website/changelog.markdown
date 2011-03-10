@@ -14,26 +14,26 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
 
 ***Libraries***
 
- * [ghc] 7.0.1
+ * [ghc] 7.0.2
  * [array] 0.3.0.2
- * [base] 4.3.0.2
- * [bytestring] 0.9.1.8
- * [Cabal] 1.10.0.0
+ * [base] 4.3.1.0
+ * [bytestring] 0.9.1.10
+ * [Cabal] 1.10.1.0
  * [containers] 0.4.0.0
  * [directory] 1.1.0.0
  * [extensible-exceptions] 0.1.1.2
  * [filepath] 1.2.0.0
  * [haskell2010] 1.0.0.0
- * [haskell98] 1.1.0.0
+ * [haskell98] 1.1.0.1
  * [hpc] 0.5.0.6
  * [old-locale] 1.0.0.2
  * [old-time] 1.0.0.6
  * [pretty] 1.0.1.2
- * [process] 1.0.1.4
+ * [process] 1.0.1.5
  * [random] 1.0.0.3
  * [template-haskell] 2.5.0.0
  * [time] 1.2.0.3
- * [unix] 2.4.1.0 or [Win32] 2.2.0.1
+ * [unix] 2.4.2.0 or [Win32] 2.2.0.1
  * [cgi] 3001.1.7.4
  * [fgl] 5.4.2.3
  * [GLUT] 2.1.2.1
@@ -48,7 +48,7 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
  * [QuickCheck] 2.4.0.1
  * [regex-base] 0.93.2
  * [regex-compat] 0.93.1
- * [regex-posix] 0.94.2
+ * [regex-posix] 0.94.4
  * [stm] 2.2.0.1
  * [syb] 0.3
  * [xhtml] 3000.2.0.1
@@ -60,7 +60,7 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
 
 ***Programs and Tools***
 
- * [cabal-install] 0.8.2
+ * [cabal-install] 0.10.2
  * [alex] 2.3.5
  * [happy] 1.18.6
  * [haddock] 2.8.0
@@ -86,23 +86,25 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
  * [template-haskell] 2.4.0.1   to 2.5.0.0
  * [time]             1.1.4     to 1.2.0.3
  * [unix]           2.4.0.2     to 2.4.1.0
- * [cgi]            3001.1.7.3 to 3001.1.7.4
- * [haskell-src]    1.0.1.3 to 1.0.1.4
- * [deepseq]        1.1.0.0 to 1.1.0.2
- * [HTTP]           4000.0.9 to 4000.1.1
- * [HUnit]           1.2.2.1 to 1.2.2.3
- * [mtl]             1.1.0.2 to 2.0.1.0
- * [network]         2.2.1.7 to 2.3.0.2
- * [parallel]       2.2.0.1 to 3.1.0.1
- * [parsec]         2.1.0.1 to 3.1.1
- * [QuickCheck]     2.1.1.1 to 2.4.0.1
- * [regex-posix]    0.94.2 to 0.94.4
- * [stm]           2.1.2.1 to 2.2.0.1
- * Added text  0.11.0.5
- * Added transformers  0.2.2.0
- * [zlib]           0.5.2.0 to 0.5.3.1
- * [alex] 2.3.3 to 2.3.5
- * [happy] 1.18.5 to 1.18.6
+
+ *  [HTTP] 4000.0.9 to 4000.1.1
+ *  [HUnit] 1.2.2.1 to 1.2.2.3
+ *  [QuickCheck] 2.1.1.1 to 2.4.0.1
+ *  [alex] 2.3.3 to 2.3.5
+ *  [cabal-install] 0.8.2 to 0.10.2
+ *  [cgi] 3001.1.7.3 to 3001.1.7.4
+ *  [deepseq] 1.1.0.0 to 1.1.0.2
+ *  [happy] 1.18.5 to 1.18.6
+ *  [haskell-src] 1.0.1.3 to 1.0.1.4
+ *  [mtl] 1.1.0.2 to 2.0.1.0
+ *  [network] 2.2.1.7 to 2.3.0.2
+ *  [parallel] 2.2.0.1 to 3.1.0.1
+ *  [parsec] 2.1.0.1 to 3.1.1
+ *  [regex-posix] 0.94.2 to 0.94.4
+ *  [stm] 2.1.2.1 to 2.2.0.1
+ *  [text] added.
+ *  [transformers] added.
+ *  [zlib] 0.5.2.0 to 0.5.3.1
 
 [base]: http://hackage.haskell.org/package/base
 [array]: http://hackage.haskell.org/package/array
