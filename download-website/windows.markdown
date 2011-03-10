@@ -11,7 +11,7 @@ Please consider using the torrent for a faster download:
 
 The Windows installer for the 2011.2.0.0 Haskell Platform:
 
-* <a href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/HaskellPlatform-2011.2.0.0-rc2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
+* <a href="http://lambda.galois.com/hp-tmp/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
 
 After downloading:
 

@@ -48,7 +48,7 @@
 For Unix systems (including Mac OS X), there is a source installer.
 
 ![](http://hackage.haskell.org/platform/icons/source.png)
-<a href="http://lambda.galois.com/hp-tmp/2011.2.0.0-rc/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.2.0.0.tar.gz</a>
+<a href="http://lambda.galois.com/hp-tmp/2011.2.0.0/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.2.0.0.tar.gz</a>
 
 You need GHC 7.0.2 installed before building the platform. You can get this from your distro or
 you can get a [GHC 7.0.2 generic binary].
