@@ -100,7 +100,7 @@ build_pkg () {
 
   if test "${NAME}" \!= "haskell-platform"; then
     tell ./Setup haddock ${VERBOSE} ${HADDOCK_FLAG} \
-      || die "Generating the ${PKG} package documentation failed"
+      || echo "Generating the ${PKG} package documentation failed"
   fi
   cd ../..
 }

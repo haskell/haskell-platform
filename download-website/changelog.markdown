@@ -4,7 +4,7 @@
 Changelog for the Haskell Platform
 -------------------
 
-2011.1.0.0
+2011.2.0.0
 ----------
 
 **Contents of the Haskell Platform** 
