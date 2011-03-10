@@ -147,7 +147,7 @@ for pkg in `cat packages/platform.packages`; do
     true
   else
     echo '**************************************************'
-    echo "Building ${PKG}"
+    echo "Building ${pkg}"
     build_pkg "${pkg}"
   fi
 done
