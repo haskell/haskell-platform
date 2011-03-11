@@ -5,7 +5,6 @@ html, body, div{
 
 body{
 	background:url(images/background.jpg) #ffffff;
-	background-size:cover;
 	background-repeat:no-repeat;
 	font-family:Helvetica, Arial, sans-serif;
 	font-size:.95em

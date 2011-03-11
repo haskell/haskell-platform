@@ -257,7 +257,7 @@ rich set of features for programmers to use:
 [regex-posix]: http://hackage.haskell.org/package/regex-posix
 [stm]: http://hackage.haskell.org/package/stm
 [time]: http://hackage.haskell.org/package/time
-[text]: http://hackage.haskell.org/package/time
+[text]: http://hackage.haskell.org/package/text
 [xhtml]: http://hackage.haskell.org/package/xhtml
 [zlib]: http://hackage.haskell.org/package/zlib
 [HTTP]: http://hackage.haskell.org/package/HTTP
