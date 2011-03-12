@@ -1,6 +1,12 @@
 % Haskell Platform for Windows
 %
 
+-------------------------------
+< [Home]
+-------------------------------
+
+[Home]: index.html
+
 <!--
 The Windows installer for 2010.2.0.0 Haskell Platform, via BitTorrent.
 Please consider using the torrent for a faster download:
@@ -11,20 +17,12 @@ Please consider using the torrent for a faster download:
 
 The Windows installer for the 2011.2.0.0 Haskell Platform:
 
-* <a href="http://lambda.galois.com/hp-tmp/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>
+* **<a href="http://lambda.galois.com/hp-tmp/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>**
 
 After downloading:
 
 * Run the setup.exe program
 * Follow the install instructions as prompted.
-
-**More info...**
-
-* [The Haskell Platform] home...
-* [Learn more] about the Haskell Platform.
-
-[The Haskell Platform]: index.html
-[Learn more]: contents.html
 
 **Older Releases**
 

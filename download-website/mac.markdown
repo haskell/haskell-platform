@@ -1,6 +1,12 @@
 % Haskell Platform for OSX
 %
 
+-------------------------------
+< [Home]
+-------------------------------
+
+[Home]: index.html
+
 <!--
 The Haskell Platform installer for Mac OS X Leopard (10.5), Snow Leopard
 and above (including 64 bit), Intel only, via BitTorrent.  Please consider using the torrent for a faster download:
@@ -10,21 +16,13 @@ and above (including 64 bit), Intel only, via BitTorrent.  Please consider using
 
 The Haskell Platform Mac OS X 10.6 (Snow Leopard) and above:  
 
-* <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0/Haskell%20Platform%202011.2.0.0-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 32 bit GHC)</a>
+* **<a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0/Haskell%20Platform%202011.2.0.0-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell for Mac OS X 10.6 (Intel, 32 bit GHC)</a>**
 
 After downloading, simply double click the package icon to start the installer, and follow the instructions.
 
 Note: Xcode 3.0 or later is required prior to installation. Xcode can be installed from your Mac OS X installation DVD or downloaded from [Apple's developer website](http://developer.apple.com).
 
 <i>For Mac OS X 10.5 please use the 2010.2.0.0 installer, below.</i>
-
-**More info...**
-
-* [The Haskell Platform] home...
-* [Learn more] about the Haskell Platform.
-
-[The Haskell Platform]: index.html
-[Learn more]: contents.html
 
 **Experimental 64 bit support**
 
