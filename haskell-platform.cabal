@@ -1,5 +1,5 @@
 name:                haskell-platform
-version:             2011.2.0.0
+version:             2011.2.0.1
 homepage:            http://haskell.org/platform
 license:             BSD3
 license-file:        LICENSE
@@ -23,7 +23,7 @@ description:
 
 cabal-version:       >= 1.6
 build-type:          Custom
-tested-with:         GHC ==7.0.2
+tested-with:         GHC ==7.0.3
 
 library
   build-depends:
@@ -75,7 +75,7 @@ library
     deepseq                     ==1.1.0.2,
 
     -- 2011.1 proposals:
-    text                        ==0.11.0.5,
+    text                        ==0.11.0.6,
     transformers                ==0.2.2.0,
     mtl                         ==2.0.1.0
 
