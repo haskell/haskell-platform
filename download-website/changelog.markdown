@@ -4,7 +4,7 @@
 Changelog for the Haskell Platform
 -------------------
 
-2011.2.0.0
+2011.2.0.1
 ----------
 
 **Contents of the Haskell Platform** 
@@ -14,7 +14,7 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
 
 ***Libraries***
 
- * [ghc] 7.0.2
+ * [ghc] 7.0.3
  * [array] 0.3.0.2
  * [base] 4.3.1.0
  * [bytestring] 0.9.1.10
@@ -55,7 +55,7 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
  * [zlib] 0.5.3.1
  * [HTTP] 4000.1.1
  * [deepseq] 1.1.0.2
- * [text] 0.11.0.5
+ * [text] 0.11.0.6
  * [transformers] 0.2.2.0
 
 ***Programs and Tools***
@@ -67,44 +67,8 @@ as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platf
 
 **Package version changes since last release**
 
- * [ghc]            6.12.3      to 7.0.2 
- * [base]           4.2.0.2     to 4.3.0.2
- * [array]          0.3.0.1     to 0.3.0.2
- * [bytestring]     0.9.1.7     to 0.9.1.8
- * [containers]     0.3.0.0     to 0.4.0.0
- * [directory]      1.0.1.1     to 1.1.0.0
- * [extensible-exceptions]  0.1.1.1 to 0.1.1.2
- * [filepath]       1.1.0.4     to 1.2.0.0
- * Added [haskell2010]
- * [haskell98]      1.0.1.1     to 1.1.0.0
- * [hpc]            0.5.0.5     to 0.5.0.6
- * [old-time]       1.0.0.5     to 1.0.0.6
- * [pretty]         1.0.1.1     to 1.0.1.2
- * [process]        1.0.1.3     to 1.0.1.4
- * [random]         1.0.0.2     to 1.0.0.3
- * [syb]            0.1.0.2     to 0.3
- * [template-haskell] 2.4.0.1   to 2.5.0.0
- * [time]             1.1.4     to 1.2.0.3
- * [unix]           2.4.0.2     to 2.4.1.0
-
- *  [HTTP] 4000.0.9 to 4000.1.1
- *  [HUnit] 1.2.2.1 to 1.2.2.3
- *  [QuickCheck] 2.1.1.1 to 2.4.0.1
- *  [alex] 2.3.3 to 2.3.5
- *  [cabal-install] 0.8.2 to 0.10.2
- *  [cgi] 3001.1.7.3 to 3001.1.7.4
- *  [deepseq] 1.1.0.0 to 1.1.0.2
- *  [happy] 1.18.5 to 1.18.6
- *  [haskell-src] 1.0.1.3 to 1.0.1.4
- *  [mtl] 1.1.0.2 to 2.0.1.0
- *  [network] 2.2.1.7 to 2.3.0.2
- *  [parallel] 2.2.0.1 to 3.1.0.1
- *  [parsec] 2.1.0.1 to 3.1.1
- *  [regex-posix] 0.94.2 to 0.94.4
- *  [stm] 2.1.2.1 to 2.2.0.1
- *  [text] added.
- *  [transformers] added.
- *  [zlib] 0.5.2.0 to 0.5.3.1
+ * [ghc]  7.0.2       to 7.0.3 
+ * [text] 0.11.0.5 to 0.11.0.6
 
 [base]: http://hackage.haskell.org/package/base
 [array]: http://hackage.haskell.org/package/array

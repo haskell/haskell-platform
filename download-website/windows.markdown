@@ -15,9 +15,9 @@ Please consider using the torrent for a faster download:
 
 -->
 
-The Windows installer for the 2011.2.0.0 Haskell Platform:
+The Windows installer for the 2011.2.0.1 Haskell Platform:
 
-* **<a href="http://lambda.galois.com/hp-tmp/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>**
+* **<a href="http://lambda.galois.com/hp-tmp/2011.2.0.1/HaskellPlatform-2011.2.0.1-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Download Haskell for Windows</a>**
 
 After downloading:
 
@@ -28,6 +28,7 @@ After downloading:
 
 Older releases of the Haskell Platform are available:
 
+* <a id="download" href="http://lambda.haskell.org/hp-tmp/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2011.2.0.0</a>, for Windows, March 2011.
 * <a id="download" href="http://lambda.haskell.org/hp-tmp/2010.2.0.0/HaskellPlatform-2010.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2010.2.0.0</a>, for Windows, July 2010.
 * <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/HaskellPlatform-2010.1.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2010.1.0.0</a>, for Windows, March 2010.
 * <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">HP 2009.2.0.2</a>, for Windows, July 2009.
