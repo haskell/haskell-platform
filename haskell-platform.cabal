@@ -1,5 +1,5 @@
 name:                haskell-platform
-version:             2011.2.0.1
+version:             2011.3.0.0
 homepage:            http://haskell.org/platform
 license:             BSD3
 license-file:        LICENSE
@@ -21,9 +21,9 @@ description:
     * happy
     * haddock
 
-cabal-version:       >= 1.6
+cabal-version:       >= 1.8
 build-type:          Custom
-tested-with:         GHC ==7.0.3
+tested-with:         GHC ==7.0.4
 
 library
   build-depends:
@@ -54,28 +54,28 @@ library
     -- Libraries in addition to what GHC provides:
     -- Note: newer versions of cgi need monad-catchio.
     cgi                         ==3001.1.7.4,
-    fgl                         ==5.4.2.3,
+    fgl                         ==5.4.2.4,
     GLUT                        ==2.1.2.1,
     haskell-src                 ==1.0.1.4,
     html                        ==1.0.1.2,
-    HUnit                       ==1.2.2.3,
-    network                     ==2.3.0.2,
+    HUnit                       ==1.2.4.2,
+    network                     ==2.3.0.5,
     OpenGL                      ==2.2.3.0,
     parallel                    ==3.1.0.1,
     parsec                      ==3.1.1,
-    QuickCheck                  ==2.4.0.1,
+    QuickCheck                  ==2.4.1.1,
     regex-base                  ==0.93.2,
-    regex-compat                ==0.93.1,
-    regex-posix                 ==0.94.4,
+    regex-compat                ==0.95.1,
+    regex-posix                 ==0.95.1,
     stm                         ==2.2.0.1,
-    syb                         ==0.3,
-    xhtml                       ==3000.2.0.1,
+    syb                         ==0.3.3,
+    xhtml                       ==3000.2.0.4,
     zlib                        ==0.5.3.1,
-    HTTP                        ==4000.1.1,
+    HTTP                        ==4000.1.2,
     deepseq                     ==1.1.0.2,
 
     -- 2011.1 proposals:
-    text                        ==0.11.0.6,
+    text                        ==0.11.1.5,
     transformers                ==0.2.2.0,
     mtl                         ==2.0.1.0
 
