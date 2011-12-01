@@ -13,7 +13,8 @@ DIRS := $(BUILD)
 SPEC_CABAL := ../../haskell-platform.cabal
 
 GHC_VERSION := $(subst ==,,$(word 3,$(shell grep '^tested-with:' $(SPEC_CABAL))))
-GHC_ARCH := i386
+#GHC_ARCH := i386
+GHC_ARCH := x86_64
 PLATFORM_VERSION := $(word 2,$(shell grep '^version:' $(SPEC_CABAL)))
 
 # Locations are paths to things that are installed. There are three versions
@@ -202,6 +203,7 @@ $(HP_POST_SCRIPT):
 	echo "    /usr/bin/ghc-pkg register --force \$$conf" >> $@
 	echo "done" >> $@
 	echo "ln -sf $(TARGET_HASKELL)/bin/* /usr/bin" >> $@
+	echo "/usr/bin/uninstall-hs install-check" $(GHC_VERSION) " Installer" >> $@
 
 scripts: $(HP_POST_SCRIPT)
 clean-scripts:
@@ -267,20 +269,31 @@ clean: clean-doc
 ### Final polish of the tree
 ###
 $(eval $(call location,PLATFORM_BIN,PLATFORM_BASE,bin))
-	
-polish: doc package
+
+polish-bin:
 	-rm -rf $(IMAGE_PLATFORM_BIN)
 	mkdir -p $(IMAGE_PLATFORM_BIN)
 	cd $(IMAGE_PLATFORM_BIN) && ln -s ../lib/*/bin/* .
 	-rm $(IMAGE_PLATFORM_BIN)/*-tests
+
+polish-cabal: polish-bin
 	mv $(IMAGE_PLATFORM_BIN)/cabal $(IMAGE_PLATFORM_BIN)/cabal.real
 	cp cabal.wrap $(IMAGE_PLATFORM_BIN)/cabal.wrap
 	chmod +x $(IMAGE_PLATFORM_BIN)/cabal.wrap
 	cd $(IMAGE_PLATFORM_BIN) && ln -s cabal.wrap cabal
+
+UNINST_PROG = $(IMAGE_PLATFORM_BIN)/uninstall-hs
+$(UNINST_PROG): polish-bin | UninstallHS.hs
+	$(WITH_DB) $(WITH_PATH) ghc --make -O -fforce-recomp -o $@ UninstallHS.hs
+	strip $@
+
+polish-symlinks:
 	-rm $(IMAGE_HASKELL)/current $(IMAGE_HASKELL)/bin $(IMAGE_HASKELL)/doc
 	cd $(IMAGE_HASKELL) && ln -sf ghc-$(GHC_VERSION) current
 	cd $(IMAGE_HASKELL) && ln -sf current/bin bin
 	cd $(IMAGE_HASKELL) && ln -sf current/doc doc
+
+polish: doc package polish-bin polish-cabal polish-symlinks $(UNINST_PROG)
 
 .PHONY: polish
 
@@ -294,6 +307,7 @@ $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	#/Developer/usr/bin/packagemaker --doc Platform.pmdoc --verbose --out $@
 	@echo "About to change permissions of root. You will need to authorize:"
 	sudo chown -R -P root:admin $(IMAGE_ROOT)
+	sudo chmod -R go=u-w $(IMAGE_ROOT)
 	@echo "Build from PackageMaker please..."
 	rm -f Platform.pmdoc/*-contents.xml
 	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
