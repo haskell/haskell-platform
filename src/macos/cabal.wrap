@@ -4,10 +4,11 @@ update_cabal_config() {
     cabal_dir=~/.cabal
     cabal_config=${cabal_dir}/config
     cabal_config_new=${cabal_config}.platform
+    cabal_config_newer=`find ${cabal_config_new} -newer $0 2>/dev/null`
     
     user_haskell_dir=~/Library/Haskell
     
-    if [ \! -e ${cabal_config_new} ]
+    if [ -z "${cabal_config_newer}" ]
     then
         mkdir -m 755 ${cabal_dir} &>/dev/null
         mkdir -m 755 ${user_haskell_dir} &>/dev/null

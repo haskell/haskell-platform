@@ -30,7 +30,7 @@ import System.FilePath ((</>), joinPath, splitDirectories, takeDirectory,
 import System.IO (hPutStrLn, stderr)
 import System.Posix.Directory (removeDirectory)
 import System.Posix.Files (createSymbolicLink, getSymbolicLinkStatus,
-    isSymbolicLink, isDirectory, readSymbolicLink, removeLink)
+    isSymbolicLink, isDirectory, readSymbolicLink, removeLink, rename)
 import System.Process (readProcess)
 
 
@@ -404,11 +404,32 @@ removeFile opts fp = do
 -- | Symlink a file. Like shell command "ln -sf".
 -- If file is a symlinks, removes the symlink, not what it points to.
 symlinkFile :: Options -> FilePath -> FilePath -> IO ()
-symlinkFile opts dest fp = case (optRemove opts) of
-    OptDryRun -> return ()
-    OptScript -> putStrLn ("ln -sf " ++ dest ++ " " ++ fp)
-    OptRemove -> safely fp $ removeLink fp >> createSymbolicLink dest fp
-    
+symlinkFile opts dest fp = do
+    when (optReportRemove opts) $
+        putStrLn (fp ++ "@ update to -> " ++ dest)
+    case (optRemove opts) of
+        OptDryRun -> return ()
+        OptScript -> putStrLn ("ln -sf " ++ dest ++ " " ++ fp)
+        OptRemove -> safely fp $ removeLink fp >> createSymbolicLink dest fp
+
+-- | Archive a file, by giving it a suffix with a unique integer attached
+archiveFile :: Options -> String -> FilePath -> IO ()
+archiveFile opts suffix fp = do
+    dest <- findFreeArchive 0
+    when (optReportRemove opts) $
+        putStrLn (fp ++ " rename to -> " ++ dest)
+    case (optRemove opts) of
+        OptDryRun -> return ()
+        OptScript -> putStrLn ("mv " ++ fp ++ " " ++ dest)
+        OptRemove -> safely fp $ rename fp dest
+  where
+    findFreeArchive n = do
+        let dest = fp ++ suffix ++ "." ++ show n
+        dfe <- doesFileExist dest
+        if dfe
+            then findFreeArchive (n + 1)
+            else return dest
+
 -- | For each framework, update the Current symlink if the version it points
 -- to will be removed, or remove the whole framework if nothing will be left.
 updateFrameworks :: Options -> VersionTest -> IO ()
@@ -433,9 +454,7 @@ updateFrameworks opts rt = when (rt /= VersionAll) $
                 removeFile opts curr
                 message opts $ "** " ++ fp ++
                     " is not empty, but has no more versions. Consder removing."
-            (_, ((_,newDest):_)) -> do     -- update to maximal remaining version
-                when (optReportRemove opts) $
-                    putStrLn (curr ++ "@ update to -> " ++ newDest)
+            (_, ((_,newDest):_)) ->  -- update to maximal remaining version
                 symlinkFile opts newDest curr
     
     willRemove = maybe False (versionTest rt) . partVersion
@@ -508,6 +527,15 @@ remove opts rt fps = do
             \-- To generate a script to remove these files, \
                 \run the command again with --script\n"
 
+-- | Remove all Haskell versions, and the top level directories.
+removeAll :: Options -> IO ()
+removeAll opts = do
+    runFind cabalConfigs >>= mapM_ (archiveFile opts ".orig" . snd)
+    findAll >>= remove opts VersionAll
+  where
+    cabalConfigs = path "/Users" >>> star >>> path ".cabal/config" >>> exists
+
+
 
 main :: IO ()
 main = getArgs >>= parseOptions >>= uncurry main'
@@ -523,7 +551,7 @@ main' opts args = do
         
       ["all"] -> do
         removePlan "all Haskell directories"
-        removeAll
+        removeAll opts
         
       ["test"] -> do
         main' testOpts []
@@ -559,7 +587,5 @@ main' opts args = do
     
     removeVersionsThat rt =
         findVersionsThat rt >>= remove opts rt . concat . Map.elems
-
-    removeAll = findAll >>= remove opts VersionAll
 
     testOpts = opts { optVerbose = True, optRemove = OptDryRun }
