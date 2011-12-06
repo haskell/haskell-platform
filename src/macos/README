@@ -17,11 +17,12 @@ You should have a file there named seomthing like
 5) Run
     make ghc
 
-6) If you are building the 32-bit version, Edit the ghc script in:
+6) Edit the ghc script in:
     dist/root/Library/Frameworks/GHC.framework/Versions/7.0.4-i386/usr/bin/ghc-7.0.4 
 Modify the last line to include this option, just before "${1+"$@"}" ending:
-    -optl"-Wl,-read_only_relocs,suppress"
-
+32-bit:    -optl"-Wl,-read_only_relocs,suppress"
+64-bit:    -optl"-Wl,-no_pie"
+    
 7) Update your cabal package list:
     cabal update
 
@@ -45,12 +46,7 @@ system. If things fail during this step, you'll probably have to remove
 10) Build the finall installer:
     make installer
 
-This will ask you for your password so it can sudo the tree to root. When PackageMaker starts up, if this is a 64-bit build, add the a requirement to the
-distribution itself of 64-bit instructions available with suitable message like:
-
-    This is the 64-bit distribution of Haskell Platform. This machine does
-    not support 64-bit instructions.
-
-Now click Build... and choose a suitable name and location for the result.
+This will ask you for your password so it can sudo the tree to root. Then it
+will launch PackageMaker.Now click Build... and choose a suitable name and location for the result.
 
 11) Go have some tea.

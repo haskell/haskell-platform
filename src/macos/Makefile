@@ -6,15 +6,17 @@
 
 all: help
 
+# architecture to build
+GHC_ARCH := i386
+#GHC_ARCH := x86_64
+
 # location where the build and assembly of the image is performed
-BUILD := dist
+BUILD := dist-$(GHC_ARCH)
 DIRS := $(BUILD)
 
 SPEC_CABAL := ../../haskell-platform.cabal
 
 GHC_VERSION := $(subst ==,,$(word 3,$(shell grep '^tested-with:' $(SPEC_CABAL))))
-#GHC_ARCH := i386
-GHC_ARCH := x86_64
 PLATFORM_VERSION := $(word 2,$(shell grep '^version:' $(SPEC_CABAL)))
 
 # Locations are paths to things that are installed. There are three versions
@@ -308,6 +310,7 @@ $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	@echo "About to change permissions of root. You will need to authorize:"
 	sudo chown -R -P root:admin $(IMAGE_ROOT)
 	sudo chmod -R go=u-w $(IMAGE_ROOT)
+	ln -sf $(BUILD) dist
 	@echo "Build from PackageMaker please..."
 	rm -f Platform.pmdoc/*-contents.xml
 	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
