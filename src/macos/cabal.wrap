@@ -11,12 +11,7 @@ update_cabal_config() {
     if [ -z "${cabal_config_newer}" ]
     then
         mkdir -m 755 ${cabal_dir} &>/dev/null
-        mkdir -m 755 ${user_haskell_dir} &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/bin &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/logs &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/repo-cache &>/dev/null
-        
-        
+
         cat > ${cabal_config_new} <<CONFIG_END
 -- This is the configuration file for the 'cabal' command line tool.
 
@@ -115,11 +110,17 @@ install-dirs global
   -- haddockdir: \$htmldir
 
 CONFIG_END
+    fi
+
+    if [ \! -e ${cabal_config} ]
+    then
+        mkdir -m 755 ${user_haskell_dir} &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/bin &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/logs &>/dev/null
+        mkdir -m 755 ${user_haskell_dir}/repo-cache &>/dev/null
         
-        if [ \! -e ${cabal_config} ]
-        then
-            cp ${cabal_config_new} ${cabal_config}
-            cat <<NOTICE_END
+        cp ${cabal_config_new} ${cabal_config}
+        cat <<NOTICE_END
 
 **********************************************************************
 
@@ -145,8 +146,7 @@ CONFIG_END
 **********************************************************************
 
 NOTICE_END
-            /Library/Haskell/bin/cabal.real update  
-        fi
+        /Library/Haskell/bin/cabal.real update  
     fi
 }
 
