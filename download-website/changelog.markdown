@@ -4,71 +4,66 @@
 Changelog for the Haskell Platform
 -------------------
 
-2011.2.0.1
+2011.4.0.0
 ----------
 
 **Contents of the Haskell Platform** 
 
 The contents of the Haskell Platform are specified
-as [this Cabal file](http://code.galois.com/darcs/haskell-platform/haskell-platform.cabal).
+as [this Cabal file](http://code.haskell.org/haskell-platform/haskell-platform.cabal).
 
 ***Libraries***
 
- * [ghc] 7.0.3
- * [array] 0.3.0.2
- * [base] 4.3.1.0
- * [bytestring] 0.9.1.10
- * [Cabal] 1.10.1.0
- * [containers] 0.4.0.0
- * [directory] 1.1.0.0
- * [extensible-exceptions] 0.1.1.2
- * [filepath] 1.2.0.0
- * [haskell2010] 1.0.0.0
- * [haskell98] 1.1.0.1
- * [hpc] 0.5.0.6
- * [old-locale] 1.0.0.2
- * [old-time] 1.0.0.6
- * [pretty] 1.0.1.2
- * [process] 1.0.1.5
- * [random] 1.0.0.3
- * [template-haskell] 2.5.0.0
- * [time] 1.2.0.3
- * [unix] 2.4.2.0 or [Win32] 2.2.0.1
- * [cgi] 3001.1.7.4
- * [fgl] 5.4.2.3
- * [GLUT] 2.1.2.1
- * [haskell-src] 1.0.1.4
- * [html] 1.0.1.2
- * [HUnit] 1.2.2.3
- * [mtl] 2.0.1.0,
- * [network] 2.3.0.2
- * [OpenGL] 2.2.3.0
- * [parallel] 3.1.0.1
- * [parsec] 3.1.1
- * [QuickCheck] 2.4.0.1
- * [regex-base] 0.93.2
- * [regex-compat] 0.93.1
- * [regex-posix] 0.94.4
- * [stm] 2.2.0.1
- * [syb] 0.3
- * [xhtml] 3000.2.0.1
- * [zlib] 0.5.3.1
- * [HTTP] 4000.1.1
- * [deepseq] 1.1.0.2
- * [text] 0.11.0.6
- * [transformers] 0.2.2.0
+ * [ghc] 7.0.4
+ * [array]
+ * [base]
+ * [bytestring]
+ * [Cabal]
+ * [containers]
+ * [directory]
+ * [extensible-exceptions]
+ * [filepath]
+ * [haskell2010]
+ * [haskell98]
+ * [hpc]
+ * [old-locale]
+ * [old-time]
+ * [pretty]
+ * [process]
+ * [random]
+ * [template-haskell]
+ * [time]
+ * [unix] or [Win32]
+ * [cgi]
+ * [fgl]
+ * [GLUT]
+ * [haskell-src]
+ * [html]
+ * [HUnit]
+ * [mtl]
+ * [network]
+ * [OpenGL]
+ * [parallel]
+ * [parsec]
+ * [QuickCheck]
+ * [regex-base]
+ * [regex-compat]
+ * [regex-posix]
+ * [stm]
+ * [syb]
+ * [xhtml]
+ * [zlib]
+ * [HTTP]
+ * [deepseq]
+ * [text]
+ * [transformers]
 
 ***Programs and Tools***
 
- * [cabal-install] 0.10.2
- * [alex] 2.3.5
- * [happy] 1.18.6
- * [haddock] 2.8.0
-
-**Package version changes since last release**
-
- * [ghc]  7.0.2       to 7.0.3 
- * [text] 0.11.0.5 to 0.11.0.6
+ * [cabal-install]
+ * [alex]
+ * [happy]
+ * [haddock]
 
 [base]: http://hackage.haskell.org/package/base
 [array]: http://hackage.haskell.org/package/array
