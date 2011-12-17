@@ -14,7 +14,7 @@ h1 {
 	margin:9% auto 100 auto;
 	text-align:center;
 	font-size:2.0em;
-	color: #a42b4f;
+	color: #729ac3;
 	box-shadow: #000;
 }
 
@@ -37,7 +37,7 @@ h1 {
 }
 #info .title{
 	font-size:1.5em;
-	color: #a42b4f;
+	color: #729ac3;
 }
 #info .points {
 	width:18em;
@@ -51,11 +51,11 @@ h1 {
 }
 a{
 	text-decoration: none;
-	color:#e95f83;
+	color:#6284af;
 }
 a:hover{
 	text-decoration: none;
-	color: #ff979a;
+	color: #144e96;
 }
 img{
 	border:0;
