@@ -118,7 +118,7 @@ Packages and Documentation
 
 * [Read the documentation]
 
-[Read the documentation]: http://lambda.haskell.org/hp-tmp/docs/2011.2.0.0/start.html
+[Read the documentation]: http://lambda.haskell.org/platform/doc/current/start.html
 
 
 
