@@ -11,11 +11,11 @@ h1.title {
     line-height: 103px;
     background: url(images/Haskell-Logo-Boxed.png) no-repeat center left;
     padding: 0 0 0 120px;
-    font-size:2em;color:#660BAB;
+    font-size:2em;color: #144e96;
     vertical-align: middle;
 }
 
 img { border: 0; }
 
-a{color:#660BAB;}
-a:hover{color:#a767d5;}
+a{color:#144e96;}
+a:hover{color:color:#6284af;}
