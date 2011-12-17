@@ -7,9 +7,9 @@
 
 [Home]: index.html
 
-**<a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.1/Haskell%20Platform%202011.2.0.1-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell Platform 2011.4.0.0 i386</a>** (32 bit, 10.6 or later)
+**<a href="http://lambda.haskell.org/platform/download/2011.4.0.0/Haskell%20Platform%202011.4.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell Platform 2011.4.0.0 32 bit</a>** (10.6 or later)
 
-**<a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.1/Haskell%20Platform%202011.2.0.1-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell Platform 2011.4.0.0 x86_64</a>** (64 bit, 10.6 or later)
+**<a href="http://lambda.haskell.org/platform/download/2011.4.0.0/Haskell%20Platform%202011.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Download Haskell Platform 2011.4.0.0 64 bit</a>** (10.6 or later)
 
 After downloading:
 
@@ -31,11 +31,12 @@ After downloading:
 Older releases of the Haskell Platform are available:
 
 * **2011**
-    * <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.1/Haskell%20Platform%202011.2.0.1-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">HP 2011.2.0.1</a> 10.6, 32 bit, April 2011
-    * <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.1/Haskell%20Platform%202011.2.0.1-x86_64.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">HP 2011.2.0.1</a> 10.6, 64 bit, April 2011
-    * <a id="download" href="http://lambda.galois.com/hp-tmp/2011.2.0.0/Haskell%20Platform%202011.2.0.0-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old');">HP 2011.2.0.0</a>, 10.6, 32 bit, March 2011
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.1/Haskell%20Platform%202011.2.0.1-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2011.2.0.1</a> 10.6, 32 bit, April 2011
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.1/Haskell%20Platform%202011.2.0.1-x86_64.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2011.2.0.1</a> 10.6, 64 bit, April 2011
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.0/Haskell%20Platform%202011.2.0.0-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old');">HP 2011.2.0.0</a>, 10.6, 32 bit, March 2011
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.0/Haskell%20Platform%202011.2.0.0-x86_64.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old');">HP 2011.2.0.0</a>, 10.6, 64 bit, March 2011
 * **2010**
-    * <a id="download" href="http://lambda.haskell.org/hp-tmp/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg"    onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.2.0.0</a>, 10.5, 32 bit, July 2010
-    * <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.1-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.1.0.0</a>, 10.5, 32 bit, March 2010
+    * <a href="http://lambda.haskell.org/platform/download/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg"    onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.2.0.0</a>, 10.5, 32 bit, July 2010
+    * <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.1-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2010.1.0.0</a>, 10.5, 32 bit, March 2010
 * **2009**
-    * <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2009.2.0.2</a>, 10.5, 32 bit, July 2009
+    * <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">HP 2009.2.0.2</a>, 10.5, 32 bit, July 2009

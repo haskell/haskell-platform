@@ -39,12 +39,12 @@
 For Unix systems (including Mac OS X), there is a source installer.
 
 ![](http://hackage.haskell.org/platform/icons/source.png)
-<a href="http://lambda.galois.com/hp-tmp/2011.2.0.1/haskell-platform-2011.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.2.0.1.tar.gz</a>
+<a href="http://lambda.haskell.org/platform/download/2011.4.0.0/haskell-platform-2011.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2011.4.0.0.tar.gz</a>
 
-You need GHC 7.0.3 installed before building the platform. You can get this from your distro or
-you can get a [GHC 7.0.3 generic binary].
+You need GHC 7.0.4 installed before building the platform. You can get this from your distro or
+you can get a [GHC 7.0.4 generic binary].
 
-[GHC 7.0.3 generic binary]: http://haskell.org/ghc/download_ghc_7_0_3.html#distros
+[GHC 7.0.4 generic binary]: http://haskell.org/ghc/download_ghc_7_0_4.html#distros
 
 To install from source download and unpack the installer, then (possibly with 'sudo'):
 
@@ -77,10 +77,14 @@ To install, unpack the cabal tarball, and run:
 
 Older releases of the Haskell Platform are available:
 
-* <a id="download" href="http://hackage.haskell.org/platform/2011.2.0.0/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2011.2.0.0</a> source, March 2011.
-* <a id="download" href="http://hackage.haskell.org/platform/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.2.0.0</a> source, July 2010.
-* <a id="download" href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.1.0.0</a> source, March 2010.
-* <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0.2</a> source, July 2009.
-* <a id="download" href="http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform-2009.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0.1</a> source, June 2009.
-* <a id="download" href="http://hackage.haskell.org/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0</a> source, May 2009.
+* **2011**
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.1/haskell-platform-2011.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2011.2.0.1</a> source, April 2011
+    * <a href="http://lambda.haskell.org/platform/download/2011.2.0.0/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2011.2.0.0</a> source, March 2011
+* **2010**
+    * <a href="http://hackage.haskell.org/platform/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.2.0.0</a> source, July 2010
+    * <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2010.1.0.0</a> source, March 2010
+* **2009**
+    * <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0.2</a> source, July 2009
+    * <a href="http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform-2009.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0.1</a> source, June 2009
+    * <a href="http://hackage.haskell.org/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">HP 2009.2.0</a> source, May 2009
 

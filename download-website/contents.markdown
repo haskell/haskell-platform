@@ -36,11 +36,11 @@ Platform (see the [Changelog]):
 Compiler and Runtime
 --------
 
-**[GHC] 7.0.3**
+**[GHC] 7.0.4**
 
 The state-of-the-art optimizing native code compiler for Haskell.
 
-**[GHCi] 7.0.3**
+**[GHCi] 7.0.4**
 
 A bytecode interpreter and interactive REPL environment for Haskell
 
