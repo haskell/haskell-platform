@@ -453,7 +453,7 @@ updateFrameworks opts rt = when (rt /= VersionAll) $
             (_, []) -> do  -- no versions will remain, but something will
                 removeFile opts curr
                 message opts $ "** " ++ fp ++
-                    " is not empty, but has no more versions. Consder removing."
+                    " is not empty, but has no more versions. Consider removing."
             (_, ((_,newDest):_)) ->  -- update to maximal remaining version
                 symlinkFile opts newDest curr
     
@@ -561,7 +561,7 @@ main' opts args = do
         main' testOpts ["all"]
         
       ["thru", v] -> withVersion v $ \ver -> do
-        removePlan $ "version " ++ show ver ++ " and eariler"
+        removePlan $ "version " ++ show ver ++ " and earlier"
         removeVersionsThat (VersionThru ver)
         
       ["only", v] -> withVersion v $ \ver -> do
