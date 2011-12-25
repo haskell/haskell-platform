@@ -7,7 +7,7 @@
 
 [Home]: index.html
 
-**Community-supported versions of the Haskell Platform on Linux**
+**Community-supported versions of the Haskell Platform on Linux and Unix**
 
 ---------                                                               ---------                                                               ---------                                                              
 ![](http://hackage.haskell.org/platform/icons/ubuntu.png) [Ubuntu]      ![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]      ![](http://hackage.haskell.org/platform/icons/fedora.png) [Fedora]   
