@@ -1,7 +1,32 @@
+ [] Start a NOTES file for the release
  
- * update list of libraries shipped with GHC.
+ [] Update package versions
+     * Libraries shipped with GHC.
         http://haskell.org/haskellwiki/Libraries_released_with_GHC
- * update list of external libraries to latest stable version.
+        -or-
+        from an expanded GHC source package
+          find . -name tests -prune -type f -o  -name '*.cabal'
+            | xargs grep -i version: | grep -v -i cabal-version
+            
+        [] update haskell-platform.cabal
+        [] update src/gneric/tarball/packages/core.packages
+        
+     * External libraries to latest stable version
+        * set up to build macos, and run
+            make rewrap
+        * copy over haskell-platform.cabal to an empty directory
+        * remove all the version constraints on non-GHC packages
+        * uncomment all the version constraints on the GHC packages
+        * set as appropriate:
+            DIST=../hp-github/src/macos/dist-i386
+        * run
+            PATH=$DIST/bin:$PATH cabal instal \
+                --only-dependencies --upgrade-dependencies\
+                --package-db=$DIST/package.conf.d --dry-run
+        * this will solve for a consistent set of versions!
+        
+        [] update haskell-platform.cabal
+        
  * check and follow up on changes to visible packages.
  * check unix package builds
     * tarball/packages/core.packages has to be updated from .cabal file
@@ -17,31 +42,6 @@
  - update content on lambda.galois.com
  # push web page with new urls.
  # publish reddit links with CDN.
-
-------------------------------------------------------------------------
-= 2010.1.0 release = 
-
-Package changes:
-
- # Added extensible-exceptions: don't list.
- # Remove packedstring
- # Time moves back into the base set.
- # Not upgrading to parsec 3!
- # Not adding OpenGL 2.4, 
-        -- would add OpenGLRaw >=1.1.0.0, GLURaw >=1.1.0.0,
-                        StateVar -any, ObjectName -any, Tensor -any
- # Ship a newer haddock? No.
- # Added deepseq to the HP.
-
- # Due to ghc's dependency on Cabal, we can't upgrade Cabal as part of
-     the HP build.
-         + Bug in Cabal, meaning local package db's were dropped.
-                - work around: manually register.
-         + Bug in Cabal on Windows -- wait for 6.12.2
- 
- # New update to cabal-install coming.
- # Policy: Modify script to include only --global packages in a global install,
-     and always include --user packages in user installs
 
 ------------------------------------------------------------------------
 = Site =
