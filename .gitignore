@@ -1,1 +1,5 @@
+*.o
+*.hi
+src/generic/Build
+src/generic/haskell-platform-*
 src/macos/dist*

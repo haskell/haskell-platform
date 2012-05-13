@@ -1,8 +1,8 @@
 To build the Haskell Platform for Mac OS X:
 
 1) If you have the proper GHC installer package:
-    create a subdirectory "dist" here
-    move or sym-link the package into dist
+    create a subdirectory "dist-i386" or "dist-x86_64 here
+    move or sym-link the package into it
 You should have a file there named seomthing like
     GHC-7.0.4-i386.pkg
     GHC-7.0.4-x86_64.pkg

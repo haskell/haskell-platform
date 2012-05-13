@@ -64,20 +64,16 @@ main = do
     --
     -- Too sleepy. Future: solve this via the cabal library
     --
-    system $ "cabal install --dry-run --reinstall " ++ (
+    let cmd = "cabal install --dry-run --reinstall " ++ (
                         intercalate " " [ package
                                 | (_, package) <- urls
                     ] ) ++ " > platform.packages.raw"
+    --writeFile "platform.packages.cmd" cmd
+    system cmd
     src <- readFile "platform.packages.raw"
 
     let programs = drop 2 $ lines src
-
-    -- happy depends on mtl.
-    let ls' = case partition ("happy" `isPrefixOf`) programs of ([h],rest) -> h : rest
-    let ls'' = case partition ("mtl" `isPrefixOf`) ls' of ([h],rest) -> h : rest
-    let ls  = case partition ("transformers" `isPrefixOf`) ls'' of ([h],rest) -> h : rest
-
-    writeFile "platform.packages" (unlines ls) -- move happy to top of list.
+    writeFile "platform.packages" (unlines programs)
 
     removeFile "platform.packages.raw"
     setCurrentDirectory pwd
