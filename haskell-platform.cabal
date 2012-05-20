@@ -75,7 +75,7 @@ library
     syb                         ==0.3.6.1,
     text                        ==0.11.2.0,
     transformers                ==0.3.0.0,
-    xhtml                       ==3000.2.0.5,
+    xhtml                       ==3000.2.1,
     zlib                        ==0.5.3.3
 
   -- Depending on programs does not work, they are not registered
