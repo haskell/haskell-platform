@@ -39,7 +39,7 @@ Version Changes
     -- additional HP libraries
     cgi                     3001.1.7.4 --> 3001.1.7.4 (same)
     fgl                     5.4.2.4    --> 5.4.2.4 (same)
-    GLUT                    2.1.2.1    --> 2.1.2.1 (same)
+    GLUT                    2.1.2.1    --> 2.1.2.2
     haskell-src             1.0.1.4    --> 1.0.1.5
     html                    1.0.1.2    --> 1.0.1.2 (same)
     HTTP                    4000.1.2   --> 4000.2.3

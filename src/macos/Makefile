@@ -125,9 +125,10 @@ GENERIC_SOURCE_TREE := ../generic/haskell-platform-$(PLATFORM_VERSION)
 GENERIC_PACKAGE_LIST := $(GENERIC_SOURCE_TREE)/packages/platform.packages
 BUILD_SOURCE_TREE := $(BUILD)/source
 BUILD_PACKAGE_LIST := $(BUILD_SOURCE_TREE)/packages/platform.packages
+WITH_EXTRA := COPYFILE_DISABLE=true
 
 $(GENERIC_PACKAGE_LIST):
-	cd ../generic && $(WITH_DB) $(WITH_PATH) sh prepare.sh
+	cd ../generic && $(WITH_DB) $(WITH_PATH) $(WITH_EXTRA) sh prepare.sh
 
 $(BUILD_PACKAGE_LIST): $(GENERIC_PACKAGE_LIST)
 	cp -r $(GENERIC_SOURCE_TREE)/ $(BUILD_SOURCE_TREE)
