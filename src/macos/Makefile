@@ -107,7 +107,7 @@ $(foreach prog,$(GHC_PROGS),\
 
 $(BUILD_PACKAGE_DB)/package.cache: | $(IMAGE_GHC_FRAMEWORK)
 	for conf in $(IMAGE_GHC_PACKAGE_DB)/*.conf; do \
-	  sed -e 's:$(TARGET_GHC_FRAMEWORK):$(IMAGE_GHC_FRAMEWORK_ABS):' $$conf > $(BUILD_PACKAGE_DB)/`basename $$conf`; \
+	  sed -e '/haddock-html/!s:$(TARGET_GHC_FRAMEWORK):$(IMAGE_GHC_FRAMEWORK_ABS):' $$conf > $(BUILD_PACKAGE_DB)/`basename $$conf`; \
 	done
 	$(BUILD_BIN)/ghc-pkg --package-conf $(BUILD_PACKAGE_DB) recache
 
@@ -124,7 +124,9 @@ clean: clean-rewrap
 GENERIC_SOURCE_TREE := ../generic/haskell-platform-$(PLATFORM_VERSION)
 GENERIC_PACKAGE_LIST := $(GENERIC_SOURCE_TREE)/packages/platform.packages
 BUILD_SOURCE_TREE := $(BUILD)/source
-BUILD_PACKAGE_LIST := $(BUILD_SOURCE_TREE)/packages/platform.packages
+BUILD_SOURCE_PACKAGES := $(BUILD_SOURCE_TREE)/packages
+BUILD_SOURCE_PACKAGES_ABS := $(abspath $(BUILD_SOURCE_PACKAGES))
+BUILD_PACKAGE_LIST := $(BUILD_SOURCE_PACKAGES)/platform.packages
 WITH_EXTRA := COPYFILE_DISABLE=true
 
 $(GENERIC_PACKAGE_LIST):
@@ -179,17 +181,18 @@ clean: clean-build
 
 
 $(eval $(call location,PLATFORM_REGISTRATIONS,PLATFORM_LIB,registrations))
+PACKAGE_STAMP := $(BUILD_SOURCE_TREE)/package.stamp
 
-$(IMAGE_PLATFORM_REGISTRATIONS): $(BUILD_STAMP)
+$(PACKAGE_STAMP): $(BUILD_STAMP)
 	-rm -rf $(IMAGE_PLATFORM_REGISTRATIONS)
 	-mkdir -p $(IMAGE_PLATFORM_REGISTRATIONS)
 	$(SRC_RUN) scripts/package.sh $(IMAGE_ROOT_ABS) $(IMAGE_PLATFORM_REGISTRATIONS_ABS)
 	@touch $@
 
-package: build $(IMAGE_PLATFORM_REGISTRATIONS)
+package: build $(PACKAGE_STAMP)
 clean-package:
-	-rm -rf $(IMAGE_PLATFORM_REGISTRATIONS)
-	
+	-rm -rf $(IMAGE_PLATFORM_REGISTRATIONS) $(PACKAGE_STAMP)
+
 clean: clean-package
 .PHONY: package clean-package
 
@@ -207,6 +210,8 @@ $(HP_POST_SCRIPT):
 	echo "done" >> $@
 	echo "ln -sf $(TARGET_HASKELL)/bin/* /usr/bin" >> $@
 	echo "/usr/bin/uninstall-hs install-check" $(GHC_VERSION) " Installer" >> $@
+	echo "/usr/bin/patch-ghc-settings" >> $@
+	chmod +x $@
 
 scripts: $(HP_POST_SCRIPT)
 clean-scripts:
@@ -260,10 +265,19 @@ $(IMAGE_INDEX_HTML): $(HP_POST_SCRIPT)
 
 $(IMAGE_START_HTML): start.html
 	cp $< $@
-	
-doc: ghc package scripts $(IMAGE_INDEX_HTML) $(IMAGE_START_HTML)
+
+DOC_FIX_STAMP := $(BUILD_SOURCE_TREE)/docfix.stamp
+SOURCE_LINK_PATTERN := $(BUILD_SOURCE_PACKAGES_ABS)/\([^/]*\)/dist/doc/html/[^/]*
+TARGET_LINK_REPLACEMENT := $(TARGET_PLATFORM_LIB)/\1/doc/html
+
+$(DOC_FIX_STAMP): $(PACKAGE_STAMP) $(IMAGE_INDEX_HTML)
+	find $(IMAGE_PLATFORM_BASE) -name '*.html' -print0 \
+	  | xargs -0 -n 1 sed -i '' -e 's=$(SOURCE_LINK_PATTERN)=$(TARGET_LINK_REPLACEMENT)=g'
+	@touch $@
+
+doc: ghc package scripts $(IMAGE_INDEX_HTML) $(IMAGE_START_HTML) $(DOC_FIX_STAMP)
 clean-doc:
-	-rm -rf $(IMAGE_DOC_BASE)
+	-rm -rf $(IMAGE_DOC_BASE) $(DOC_FIX_STAMP)
 clean: clean-doc
 .PHONY: doc clean-doc
 
@@ -290,13 +304,18 @@ $(UNINST_PROG): polish-bin | UninstallHS.hs
 	$(WITH_DB) $(WITH_PATH) ghc --make -O -fforce-recomp -o $@ UninstallHS.hs
 	strip $@
 
+PATCH_PROG = $(IMAGE_PLATFORM_BIN)/patch-ghc-settings
+$(PATCH_PROG): polish-bin | PatchSettings.hs
+	$(WITH_DB) $(WITH_PATH) ghc --make -O -fforce-recomp -o $@ PatchSettings.hs
+	strip $@
+
 polish-symlinks:
 	-rm $(IMAGE_HASKELL)/current $(IMAGE_HASKELL)/bin $(IMAGE_HASKELL)/doc
 	cd $(IMAGE_HASKELL) && ln -sf ghc-$(GHC_VERSION) current
 	cd $(IMAGE_HASKELL) && ln -sf current/bin bin
 	cd $(IMAGE_HASKELL) && ln -sf current/doc doc
 
-polish: doc package polish-bin polish-cabal polish-symlinks $(UNINST_PROG)
+polish: doc package polish-bin polish-cabal polish-symlinks $(UNINST_PROG) $(PATCH_PROG)
 
 .PHONY: polish
 
