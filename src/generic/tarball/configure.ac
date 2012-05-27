@@ -163,9 +163,6 @@ TRY_COMPILE_GHC([main = print "Hello world!"],,
   [(On Debian-based systems this package is called libgmp3-dev.)]))
 AC_MSG_RESULT([yes])
 
-
-if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
-AC_MSG_CHECKING([the ghc core packages are all installed])
 # Cache the list of packages:
 # This sets up our initial environment, and we include both global and
 # user packages if it is a ${USER_INSTALL} install
@@ -174,6 +171,9 @@ echo " ` ${GHC_PKG} list --simple-output ` " > packages/installed.packages
 else
 echo " ` ${GHC_PKG} list --simple-output --global ` " > packages/installed.packages
 fi
+
+if test "${ALLOW_UNSUPPORTED_GHC}" = "NO"; then
+AC_MSG_CHECKING([the ghc core packages are all installed])
 
 # Is this exact version of the package already installed?
 is_pkg_installed () {
