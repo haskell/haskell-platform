@@ -4,8 +4,8 @@ To build the Haskell Platform for Mac OS X:
     create a subdirectory "dist-i386" or "dist-x86_64 here
     move or sym-link the package into it
 You should have a file there named seomthing like
-    GHC-7.0.4-i386.pkg
-    GHC-7.0.4-x86_64.pkg
+    GHC-7.4.1-i386.pkg
+    GHC-7.4.1-x86_64.pkg
 
 2) Edit the makefile so that GHC_ARCH is set to the architecture you're building
 
@@ -17,12 +17,12 @@ You should have a file there named seomthing like
 5) Run
     make ghc
 
-6) Edit the ghc script in:
-    dist/root/Library/Frameworks/GHC.framework/Versions/7.0.4-i386/usr/bin/ghc-7.0.4 
-Modify the last line to include this option, just before "${1+"$@"}" ending:
-32-bit:    -optl"-Wl,-read_only_relocs,suppress"
-64-bit:    -optl"-Wl,-no_pie"
-    
+6) Edit the ghc settings file in:
+    dist/root/Library/Frameworks/GHC.framework/Versions/7.4.1-i386/usr/lib/ghc-7.4.1
+Make sure that the entries for "C compiler command" and "ar command" are:
+ ("C compiler command", "/usr/bin/gcc"),
+ ("ar command", "/usr/bin/ar"),
+
 7) Update your cabal package list:
     cabal update
 

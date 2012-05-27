@@ -210,9 +210,7 @@ $(HP_POST_SCRIPT):
 	echo "done" >> $@
 	echo "ln -sf $(TARGET_HASKELL)/bin/* /usr/bin" >> $@
 	echo "/usr/bin/uninstall-hs install-check" $(GHC_VERSION) " Installer" >> $@
-	echo "/usr/bin/patch-ghc-settings $(TARGET_GHC_FRAMEWORK)/Versions/Current/usr/lib/ghc-$(GHC_VERSION)/settings" >> $@
 	chmod +x $@
-
 scripts: $(HP_POST_SCRIPT)
 clean-scripts:
 	-rm -rf $(HP_POST_SCRIPT)
@@ -330,11 +328,12 @@ $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	@echo "About to change permissions of root. You will need to authorize:"
 	sudo chown -R -P root:admin $(IMAGE_ROOT)
 	sudo chmod -R go=u-w $(IMAGE_ROOT)
-	ln -sf $(BUILD) dist
+	rm -rf dist
+	ln -s $(BUILD) dist
 	@echo "Build from PackageMaker please..."
 	rm -f Platform.pmdoc/*-contents.xml
 	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
-	
+
 installer: $(INSTALLER_PACKAGE)
 clean-installer:
 	-rm $(INSTALLER_PACKAGE)
