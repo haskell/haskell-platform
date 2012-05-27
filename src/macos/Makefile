@@ -210,7 +210,7 @@ $(HP_POST_SCRIPT):
 	echo "done" >> $@
 	echo "ln -sf $(TARGET_HASKELL)/bin/* /usr/bin" >> $@
 	echo "/usr/bin/uninstall-hs install-check" $(GHC_VERSION) " Installer" >> $@
-	echo "/usr/bin/patch-ghc-settings" >> $@
+	echo "/usr/bin/patch-ghc-settings $(TARGET_GHC_FRAMEWORK)/Versions/Current/usr/lib/ghc-$(GHC_VERSION)/settings" >> $@
 	chmod +x $@
 
 scripts: $(HP_POST_SCRIPT)
