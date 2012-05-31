@@ -70,6 +70,28 @@ img{
 	border:0;
 }
 
+li {
+    position: relative;
+}
+li:hover {
+    background: #fffcd4;
+}
+.versions {
+	width: 13em;
+    font-size: 80%;
+    position: absolute;
+    left: 16em;
+}
+.versions em {
+	color: #888;
+	display: inline-block;
+	width: 5em;
+	font-style: normal;
+}
+.versions em + em {
+	color: #000;
+}
+
 a, h1,
 .summer a,
 .summer h1,
