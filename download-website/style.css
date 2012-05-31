@@ -16,13 +16,11 @@ h1.title {
     line-height: 103px;
     background: url(images/Haskell-Logo-Boxed.png) no-repeat center left;
     padding: 0 0 0 120px;
-    font-size:2em;color: #144e96;
+    font-size:2em;
     vertical-align: middle;
 }
 
 body#index {
-	background:url(images/background.jpg) #ffffff;
-	background-repeat:no-repeat;
 	font-size:.95em;
 	width: inherit;
 	margin: 0;
@@ -32,7 +30,6 @@ body#index {
 	margin:9% auto 100 auto;
 	text-align:center;
 	font-size:2.0em;
-	color: #144e96;
 	box-shadow: #000;
 }
 
@@ -55,7 +52,6 @@ body#index {
 }
 #info .title{
 	font-size:1.5em;
-	color: #144e96;
 }
 #info .points {
 	width:18em;
@@ -67,14 +63,53 @@ body#index {
 	right:10%;
 	text-align:right;
 }
-a{
+a, a:hover {
 	text-decoration: none;
-	color:#144e96;
-}
-a:hover{
-	text-decoration: none;
-	color:#6284af;
 }
 img{
 	border:0;
+}
+
+a, h1,
+.summer a,
+.summer h1,
+.summer #info .title {
+	color: #1c3a4b;
+}
+.summer a:hover {
+	color:#2090cd;
+}
+body#index.summer {
+	background:url(images/background-summer.jpg) #f15008;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+/* a, h1, */
+.spring a,
+.spring h1,
+.spring #info .title {
+	color: #660BAB;
+}
+.spring a:hover {
+	color:#a767d5;
+}
+body#index.spring {
+	background:url(images/background-spring.jpg) #ffffff;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+/* a, h1, */
+.winter a,
+.winter h1,
+.winter #info .title {
+	color: #144e96;
+}
+.winter a:hover {
+	color:#6284af;
+}
+body#index.winter {
+	background:url(images/background-winter.jpg) #ffffff;
+	background-repeat:no-repeat;
 }
