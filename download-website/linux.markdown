@@ -20,7 +20,7 @@
 [Fedora]: https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance
 [Arch Linux]: http://www.archlinux.org/packages/extra/i686/haskell-platform/
 [Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
-[NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc6104.haskellPlatform_2011_4_0_0
+[NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages_ghc741.haskellPlatform
 [OpenBSD]: http://openports.se/meta/haskell-platform
 [FreeBSD]: http://www.freshports.org/devel/hs-haskell-platform/
 [Mint]: http://community.linuxmint.com/software/view/haskell-platform
