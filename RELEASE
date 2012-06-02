@@ -1,5 +1,37 @@
+= Timeline =
+
+T-8 weeks
+  * e-mail lists & package maintainers:
+    - announcing timeline for release
+    - requesting package maintainers to suggest stable version for platform
+    - list open issues for list and committee to resolve
+    - solicit new issues
+
+T-6 weeks
+  * publish trial version list
+  * triage trac list
+  * establish open issues (closing call for new ones)
+
+T-4 weeks
+  * rc1 of installers
+
+T-2 weeks
+  * rc2 of installers
+  * last call on open issues w/suggested closings
+
+T-1 weeks
+  * rc3 of installers if needed
+
+T0
+  * release!
+
+
+= Process =
+
  [] Start a NOTES file for the release
- 
+  [] archive changelog.markdown to changelog-xxxx.markdown
+  [] reset changelog.markdown for new versions
+
  [] Update package versions
      * Libraries shipped with GHC.
         http://haskell.org/haskellwiki/Libraries_released_with_GHC
@@ -7,10 +39,10 @@
         from an expanded GHC source package
           find . -name tests -prune -type f -o  -name '*.cabal'
             | xargs grep -i version: | grep -v -i cabal-version
-            
+
         [] update haskell-platform.cabal
         [] update src/gneric/tarball/packages/core.packages
-        
+
      * External libraries to latest stable version
         * set up to build macos, and run
             make rewrap
@@ -24,16 +56,16 @@
                 --only-dependencies --upgrade-dependencies\
                 --package-db=$DIST/package.conf.d --dry-run
         * this will solve for a consistent set of versions!
-        
+
         [] update haskell-platform.cabal
-        
+
  * check and follow up on changes to visible packages.
  * check unix package builds
     * tarball/packages/core.packages has to be updated from .cabal file
     * update configure.ac with version number
     * update required GHC version
  * bump version number in .cabal file
- # put up .cabal file 
+ # put up .cabal file
 
  # check clean room builds
  # check windows installer
@@ -46,17 +78,33 @@
 ------------------------------------------------------------------------
 = Site =
 
+[] Edit info in upper-right of index.html
+[] Update release schedule for current and next release on wiki:
+   http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
+[] add a new section to prior.markdown for previously current release
+  [] move the download links there
+[] on lambda.haskell.org
+  [] create /var/www/ploatform/download/<version>
+  [] copy installers there
+  [] create md5sum.txt:
+    md5sum [hH]* > md5sum.txt
+[] update windows.markdown, mac.markdown, and linux.markdown
+  [] update the download link
+  [] update the number of the release
+  [] for linux, update the link to GHC binary download page
+[] update the GHC version and info on contents.markdown
+[] make the doc
+
  * Generate contents page inclusion.
  * Generate documentation.
  * Move from em measurements to px.
- # Add links to old versions on wiki
  * List maintainer on the web page.
  * Heads in 'learn more' link to TOC.
  * Links should head back up to the main page.
 
  * Arch Haskell HP upload
 
-= Future = 
+= Future =
 
  * chrome 'download' redirects you to the 'thank you' + help page
  * obtain scripts for Windows and Mac installers.

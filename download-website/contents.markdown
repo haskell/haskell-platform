@@ -36,11 +36,11 @@ Platform (see the [Changelog]):
 Compiler and Runtime
 --------
 
-**[GHC] 7.0.4**
+**[GHC] 7.4.1**
 
 The state-of-the-art optimizing native code compiler for Haskell.
 
-**[GHCi] 7.0.4**
+**[GHCi] 7.4.1**
 
 A bytecode interpreter and interactive REPL environment for Haskell
 
@@ -104,13 +104,9 @@ coverage information and statistics for Haskell. Code coverage
 information can tell you how good your test suite is, or what part of
 your code is executing at any given time.
 
-[GHC]: http://haskell.org/ghc
 [GHCi]: http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html
 [The GHCi debugger]: http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html
 [The GHC parallel runtime]: http://www.haskell.org/ghc/docs/latest/html/users_guide/lang-parallel.html
-[Happy]: http://haskell.org/happy
-[Alex]: http://haskell.org/alex
-[Haddock]: http://haskell.org/haddock
 [Cabal]: http://haskell.org/cabal/
 
 Packages and Documentation
@@ -121,50 +117,53 @@ Packages and Documentation
 [Read the documentation]: http://lambda.haskell.org/platform/doc/current/start.html
 
 
+[ghc]: http://haskell.org/ghc
 
-[base]: http://hackage.haskell.org/package/base
-[extensible-exceptions]: http://hackage.haskell.org/package/extensible-exceptions
 [array]: http://hackage.haskell.org/package/array
+[base]: http://hackage.haskell.org/package/base
 [bytestring]: http://hackage.haskell.org/package/bytestring
 [Cabal]: http://hackage.haskell.org/package/Cabal
 [containers]: http://hackage.haskell.org/package/containers
+[deepseq]: http://hackage.haskell.org/package/deepseq
 [directory]: http://hackage.haskell.org/package/directory
+[extensible-exceptions]: http://hackage.haskell.org/package/extensible-exceptions
 [filepath]: http://hackage.haskell.org/package/filepath
+[haskell2010]: http://hackage.haskell.org/package/haskell2010
 [haskell98]: http://hackage.haskell.org/package/haskell98
 [hpc]: http://hackage.haskell.org/package/hpc
 [old-locale]: http://hackage.haskell.org/package/old-locale
 [old-time]: http://hackage.haskell.org/package/old-time
-[packedstring]: http://hackage.haskell.org/package/packedstring
 [pretty]: http://hackage.haskell.org/package/pretty
 [process]: http://hackage.haskell.org/package/process
-[random]: http://hackage.haskell.org/package/random
-[syb]: http://hackage.haskell.org/package/syb
 [template-haskell]: http://hackage.haskell.org/package/template-haskell
+[time]: http://hackage.haskell.org/package/time
 [unix]: http://hackage.haskell.org/package/unix
-[win32]: http://hackage.haskell.org/package/Win32
+[Win32]: http://hackage.haskell.org/package/Win32
 [cgi]: http://hackage.haskell.org/package/cgi
 [fgl]: http://hackage.haskell.org/package/fgl
-[parsec]: http://hackage.haskell.org/package/parsec
 [GLUT]: http://hackage.haskell.org/package/GLUT
 [haskell-src]: http://hackage.haskell.org/package/haskell-src
 [html]: http://hackage.haskell.org/package/html
+[HTTP]: http://hackage.haskell.org/package/HTTP
 [HUnit]: http://hackage.haskell.org/package/HUnit
 [mtl]: http://hackage.haskell.org/package/mtl
 [network]: http://hackage.haskell.org/package/network
 [OpenGL]: http://hackage.haskell.org/package/OpenGL
 [parallel]: http://hackage.haskell.org/package/parallel
+[parsec]: http://hackage.haskell.org/package/parsec
 [QuickCheck]: http://hackage.haskell.org/package/QuickCheck
+[random]: http://hackage.haskell.org/package/random
 [regex-base]: http://hackage.haskell.org/package/regex-base
 [regex-compat]: http://hackage.haskell.org/package/regex-compat
 [regex-posix]: http://hackage.haskell.org/package/regex-posix
 [stm]: http://hackage.haskell.org/package/stm
-[time]: http://hackage.haskell.org/package/time
+[syb]: http://hackage.haskell.org/package/syb
 [text]: http://hackage.haskell.org/package/text
+[transformers]: http://hackage.haskell.org/package/transformers
 [xhtml]: http://hackage.haskell.org/package/xhtml
 [zlib]: http://hackage.haskell.org/package/zlib
-[HTTP]: http://hackage.haskell.org/package/HTTP
-[deepseq]: http://hackage.haskell.org/package/deepseq
-[Hackage]: http://hackage.haskell.org
-[haskell2010]: http://hackage.haskell.org/package/haskell2010
-[Win32]: http://hackage.haskell.org/package/Win32
-[transformers]: http://hackage.haskell.org/package/transformers
+
+[cabal-install]: http://hackage.haskell.org/package/cabal-install
+[alex]: http://haskell.org/alex
+[happy]: http://haskell.org/happy
+[haddock]: http://haskell.org/haddock
