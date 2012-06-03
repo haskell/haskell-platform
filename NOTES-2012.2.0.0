@@ -3,7 +3,7 @@
 == Changes in Source Control ==
 == Changes for Mac ==
 
-[] Xcode 4.3 support (#194, #186, #163)
+[x] Xcode 4.3 support (#194, #186, #163)
 
     -- tested on:
         10.5.8 w/Xcode 3.1.4 (won't run due to the way GHC is built)
@@ -12,23 +12,15 @@
         10.7.4 w/Xcode 4.2
         10.7.4 w/Xcode 4.3.2 (w/command line tools)
 
-[] plan of action
+[x] plan of action
     -- installer:
         /usr/bin/gcc
             -> good to go
-        /Applications/Xcode.app
-        /Developer/Applications/Xcode.app
-            -> "install command line tools via Xcode", fail
-        otherwise
-            -> "install commmand line tools from ...", fail
-
-    -- patcher:
-        just look for /usr/bin & /Developer/usr/bin in that order
 
 
 == Things to Do ==
-[] package up doc for website
-[] upload doc
+[x] package up doc for website
+[x] upload doc
 
-[] update timeline in wiki: http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
+[x] update timeline in wiki: http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
 

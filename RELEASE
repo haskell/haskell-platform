@@ -75,6 +75,10 @@ T0
  # push web page with new urls.
  # publish reddit links with CDN.
 
+ * in the future
+   * the .cabal file should spec the GHC packages (rather than commented out)
+     but these should be under a "manual" flag to allow use with non-HP GHC's
+
 ------------------------------------------------------------------------
 = Site =
 
@@ -84,7 +88,7 @@ T0
 [] add a new section to prior.markdown for previously current release
   [] move the download links there
 [] on lambda.haskell.org
-  [] create /var/www/ploatform/download/<version>
+  [] create /var/www/platform/download/<version>
   [] copy installers there
   [] create md5sum.txt:
     md5sum [hH]* > md5sum.txt
@@ -94,6 +98,38 @@ T0
   [] for linux, update the link to GHC binary download page
 [] update the GHC version and info on contents.markdown
 [] make the doc
+  [] install the platform on a machine
+  [] cd /Library/Haskell/doc
+  [] tar czvLf ~/hp-doc-<ver>.tgz *
+  [] untar that somewhere and clean it up:
+    [] find packages -name 'bin' -o -name 'lib' | xargs rm -rf
+    [] remove mac stuff from start.html
+    [] retar it back up
+  [] get that tarball onto lambda
+[] update current links on lambda:
+  [] /var/www/platform/docs/current
+  [] /var/www/platform/download/current
+
+
+= Locations =
+
+* web site:
+  darcs.haskell.org (galois' machine)
+  /srv/www/hackage.haskell.org/public_html/platform
+  -- in future this should be at --
+  lambda.haskell.org
+  /srv/web/haskell.org/platform
+
+* downloads:
+  lambda.haskell.org
+  /var/www/platform/download/<release>
+
+* on-line doc tree:
+  lambda.haskell.org
+  /var/www/platform/doc/<release>
+
+
+= Older Notes =
 
  * Generate contents page inclusion.
  * Generate documentation.
