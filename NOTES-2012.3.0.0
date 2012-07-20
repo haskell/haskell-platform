@@ -1,0 +1,13 @@
+= Release 2012.3 =
+
+== Changes in Source Control ==
+text 10.2.2.0 -> 10.2.2.2, fixed: integer-simple incompatible with text.
+
+== Changes for Mac ==
+
+== Things to Do ==
+[x] package up doc for website
+[x] upload doc
+
+[x] update timeline in wiki: http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
+

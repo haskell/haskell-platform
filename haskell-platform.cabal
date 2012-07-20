@@ -23,7 +23,7 @@ description:
 
 cabal-version:       >= 1.8
 build-type:          Custom
-tested-with:         GHC ==7.4.1
+tested-with:         GHC ==7.4.2
 
 library
   build-depends:
@@ -73,7 +73,7 @@ library
     regex-posix                 ==0.95.1,
     stm                         ==2.3,
     syb                         ==0.3.6.1,
-    text                        ==0.11.2.0,
+    text                        ==0.11.2.2,
     transformers                ==0.3.0.0,
     xhtml                       ==3000.2.1,
     zlib                        ==0.5.3.3
