@@ -1,0 +1,10 @@
+
+[] revert to happy 1.18.9 if 1.18.10 doesn't build
+
+[] Versions issues:
+    [] cgi - haven't heard from maintainer, anything newer than version in
+        platform (3000.1.7.4) requires new packages
+    [] html - haven't heard from maintainer, but no new versions exist
+    [] GLUT & OpenGL - maintainer isn't sure that re-worked versions can
+        be prepared in time
+
