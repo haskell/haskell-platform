@@ -50,7 +50,7 @@ as [this Cabal file](https://github.com/haskell/haskell-platform/blob/master/has
  * [HTTP]                    <span class="versions">_4000.2.3_    ⟶ _4000.2.5_</span>
  * [HUnit]                   <span class="versions">_1.2.4.2_     ⟶ _1.2.5.1_</span>
  * [mtl]                     <span class="versions">_2.1.1_       ⟶ _2.1.2_</span>
- * [network]                 <span class="versions">_2.3.0.13_    ⟶ _2.4.0.1_</span>
+ * [network]                 <span class="versions">_2.3.0.13_    ⟶ _2.3.1.0_</span>
  * [OpenGL]                  <span class="versions">_(same)_      ⟶ _2.2.3.1_</span>
  * [parallel]                <span class="versions">_3.2.0.2_     ⟶ _3.2.0.3_</span>
  * [parsec]                  <span class="versions">_3.1.2_       ⟶ _3.1.3_</span>

@@ -63,7 +63,7 @@ library
     HTTP                        ==4000.2.5,
     HUnit                       ==1.2.5.1,
     mtl                         ==2.1.2,
-    network                     ==2.4.0.1,
+    network                     ==2.3.1.0,
     OpenGL                      ==2.2.3.1,
     parallel                    ==3.2.0.3,
     parsec                      ==3.1.3,
@@ -79,7 +79,11 @@ library
     transformers                ==0.3.0.0,
     vector                      ==0.10,
     xhtml                       ==3000.2.1,
-    zlib                        ==0.5.4.0
+    zlib                        ==0.5.4.0,
+
+    -- Libraries that are needed to support the above,
+    -- though are not officially part of the platform
+    primitive                   ==0.5
 
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
