@@ -9,6 +9,10 @@
 
 **Community-supported versions of the Haskell Platform on Linux and Unix**
 
+These distributions offer the Haskell Platform in their package repositories.
+You can easily install the Haskell Platform through your distribution's native
+package manager.
+
 ---------                                                               ---------                                                               ---------
 ![](http://hackage.haskell.org/platform/icons/ubuntu.png) [Ubuntu]      ![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]      ![](http://hackage.haskell.org/platform/icons/fedora.png) [Fedora]
 ![](http://hackage.haskell.org/platform/icons/arch.png) [Arch Linux]    ![](http://hackage.haskell.org/platform/icons/gentoo.png) [Gentoo]      ![](http://hackage.haskell.org/platform/icons/nixos.png) [NixOS]
