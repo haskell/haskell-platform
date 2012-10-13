@@ -1,6 +1,4 @@
 
-[] revert to happy 1.18.9 if 1.18.10 doesn't build
-
 [] Versions issues:
     [] cgi - haven't heard from maintainer, anything newer than version in
         platform (3000.1.7.4) requires new packages
@@ -26,3 +24,34 @@
 
 * Still need the PatchSettings.hs program
 
+
+
+TODO
+----
+[] update vector and primitive versions
+[] main .cabal file should not have versions commented out
+   [] this will require a separate list of packages that need
+      to be part of the source release
+[] fix to build.hs (ticket #195)
+[] build instructions in the tarball (ticket #207)
+[] merge in shared library patch (ticket #198)
+
+MAC TODO
+--------
+[] mac cabal script needs to quote things with $HOME or ~ in them
+[] If the cabal command is "update" then the wrapper script shouldn't do an
+   update the first time through!
+[] sign Mac installers (ticket #203)
+[] where is the GLUT documents (ticket #202)
+
+
+WEB TODO
+--------
+[] update language to indicate that 64-bit needs Xcode 4.1 or later
+   (see ticket #199)
+[] update language to indicate that arch should match the arch used
+   for mac ports or brew (ticket #210)
+[] add centos distribution link (ticket #206)
+[] make it clear that HP is in some distros package system
+   [] merge in pull request #7
+[] pretty up and update release timetable page (ticket #131)
