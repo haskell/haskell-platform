@@ -77,13 +77,13 @@ library
     syb                         ==0.3.7,
     text                        ==0.11.2.3,
     transformers                ==0.3.0.0,
-    vector                      ==0.10,
+    vector                      ==0.10.0.1,
     xhtml                       ==3000.2.1,
     zlib                        ==0.5.4.0,
 
     -- Libraries that are needed to support the above,
     -- though are not officially part of the platform
-    primitive                   ==0.5
+    primitive                   ==0.5.0.1
 
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
