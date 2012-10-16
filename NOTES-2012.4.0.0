@@ -28,7 +28,8 @@
 
 TODO
 ----
-[] update vector and primitive versions
+[x] update vector and primitive versions
+[x] remove Build.hs - it did all its work by shelling out anyway!
 [] main .cabal file should not have versions commented out
    [] this will require a separate list of packages that need
       to be part of the source release

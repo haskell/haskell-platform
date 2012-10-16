@@ -41,7 +41,6 @@ T0
             | xargs grep -i version: | grep -v -i cabal-version
 
         [] update haskell-platform.cabal
-        [] update src/generic/tarball/packages/core.packages
 
      * External libraries to latest stable version
         * set up to build macos, and run
@@ -61,7 +60,6 @@ T0
 
  * check and follow up on changes to visible packages.
  * check unix package builds
-    * tarball/packages/core.packages has to be updated from .cabal file
     * update configure.ac with version number
     * update required GHC version
  * bump version number in .cabal file
