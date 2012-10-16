@@ -123,7 +123,7 @@ done
 
 # State what we found.
 echo
-echo -n "Found:"
+echo "Found:"
 
 if test -z "${already_installed}" ; then
 echo "None."
@@ -132,9 +132,9 @@ echo "${already_installed}"
 fi
 
 echo
-echo -n "New packages to install: "
+echo "New packages to install: "
 
-if test -z "${will_installed}" ; then
+if test -z "${will_install}" ; then
 echo "None! All done."
 else
 echo "${will_install}"
