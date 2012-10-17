@@ -35,7 +35,7 @@ do
 done
 
 cabal install --dry-run --reinstall ${SRC_PKGS} \
-    | tail +3 > "${IMAGE_DIR}/packages/platform.packages"
+    | tail +3 | cut -d ' ' -f 1 > "${IMAGE_DIR}/packages/platform.packages"
 
 
 PLATFORM_PACKAGE_ID="haskell-platform-${PLATFORM_VERSION}"
@@ -48,7 +48,8 @@ packageIDs core > "${IMAGE_DIR}/packages/core.packages"
 
 cp tarball/scripts/*.sh               "${IMAGE_DIR}/scripts/"
 cp tarball/scripts/config.*           "${IMAGE_DIR}/scripts/"
-cp tarball/configure.ac tarball/aclocal.m4 tarball/Makefile "${IMAGE_DIR}/"
+cp tarball/configure.ac tarball/aclocal.m4 tarball/Makefile tarball/README \
+                                      "${IMAGE_DIR}/"
 chmod +x "${IMAGE_DIR}/scripts/"*.sh
 chmod +x "${IMAGE_DIR}/scripts/config.guess" "${IMAGE_DIR}/scripts/config.sub"
 

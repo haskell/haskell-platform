@@ -33,8 +33,9 @@ TODO
 [] main .cabal file should not have versions commented out
    [] this will require a separate list of packages that need
       to be part of the source release
-[] fix to build.hs (ticket #195)
-[] build instructions in the tarball (ticket #207)
+[x] fix to build.hs (ticket #195)
+[x] bugs in build.sh (ticket #197)
+[x] build instructions in the tarball (ticket #207)
 [] merge in shared library patch (ticket #198)
 
 MAC TODO
@@ -43,7 +44,7 @@ MAC TODO
 [] If the cabal command is "update" then the wrapper script shouldn't do an
    update the first time through!
 [] sign Mac installers (ticket #203)
-[] where is the GLUT documents (ticket #202)
+[] where are the GLUT documents (ticket #202)
 
 
 WEB TODO
@@ -56,3 +57,6 @@ WEB TODO
 [] make it clear that HP is in some distros package system
    [] merge in pull request #7
 [] pretty up and update release timetable page (ticket #131)
+
+
+[] close tickets: 195, 197, 207
