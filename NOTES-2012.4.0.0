@@ -30,9 +30,10 @@ TODO
 ----
 [x] update vector and primitive versions
 [x] remove Build.hs - it did all its work by shelling out anyway!
-[] main .cabal file should not have versions commented out
-   [] this will require a separate list of packages that need
+[x] main .cabal file should not have versions commented out
+   [x] this will require a way to extract the list of packages that need
       to be part of the source release
+   [x] why not also extract the list of packages needed for core.packages
 [x] fix to build.hs (ticket #195)
 [x] bugs in build.sh (ticket #197)
 [x] build instructions in the tarball (ticket #207)
