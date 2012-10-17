@@ -36,7 +36,7 @@ TODO
 [x] fix to build.hs (ticket #195)
 [x] bugs in build.sh (ticket #197)
 [x] build instructions in the tarball (ticket #207)
-[] merge in shared library patch (ticket #198)
+[x] merge in shared library patch (ticket #198)
 
 MAC TODO
 --------
@@ -59,4 +59,4 @@ WEB TODO
 [] pretty up and update release timetable page (ticket #131)
 
 
-[] close tickets: 195, 197, 207
+[] close tickets: 195, 197, 198, 207
