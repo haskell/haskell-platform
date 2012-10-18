@@ -41,8 +41,8 @@ TODO
 
 MAC TODO
 --------
-[] mac cabal script needs to quote things with $HOME or ~ in them
-[] If the cabal command is "update" then the wrapper script shouldn't do an
+[x] mac cabal script needs to quote things with $HOME or ~ in them (ticket #192)
+[x] If the cabal command is "update" then the wrapper script shouldn't do an
    update the first time through!
 [] sign Mac installers (ticket #203)
 [] where are the GLUT documents (ticket #202)
@@ -60,4 +60,4 @@ WEB TODO
 [] pretty up and update release timetable page (ticket #131)
 
 
-[] close tickets: 195, 197, 198, 207
+[] close tickets: 192, 195, 197, 198, 207

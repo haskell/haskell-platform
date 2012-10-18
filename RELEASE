@@ -62,6 +62,7 @@ T0
  * check unix package builds
     * update configure.ac with version number
     * update required GHC version
+    * update README w/GHC version
  * bump version number in .cabal file
  # put up .cabal file
 
