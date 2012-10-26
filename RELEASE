@@ -41,7 +41,6 @@ T0
             | xargs grep -i version: | grep -v -i cabal-version
 
         [] update haskell-platform.cabal
-        [] update src/gneric/tarball/packages/core.packages
 
      * External libraries to latest stable version
         * set up to build macos, and run
@@ -61,9 +60,9 @@ T0
 
  * check and follow up on changes to visible packages.
  * check unix package builds
-    * tarball/packages/core.packages has to be updated from .cabal file
     * update configure.ac with version number
     * update required GHC version
+    * update README w/GHC version
  * bump version number in .cabal file
  # put up .cabal file
 
@@ -144,3 +143,12 @@ T0
 
  * chrome 'download' redirects you to the 'thank you' + help page
  * obtain scripts for Windows and Mac installers.
+
+ * a better format for Change List:
+   * clear indications for new / major update / minor update / same / dropped
+   * someway to include release notes from the packages themselves
+   * more automation for the generation of this information
+     (currently too much manual process)
+   * historical change lists should be in web site
+     (rather than just repo history)
+

@@ -1,0 +1,63 @@
+
+[] Versions issues:
+    [] cgi - haven't heard from maintainer, anything newer than version in
+        platform (3000.1.7.4) requires new packages
+    [] html - haven't heard from maintainer, but no new versions exist
+    [] GLUT & OpenGL - maintainer isn't sure that re-worked versions can
+        be prepared in time
+
+* Mac users with 10.7 or later and newer Xcode will probably have to install
+  autoconf as it is no longer part of the command line tools
+
+* Needed to down-rev to network-2.3.1.0 from network-2.4.0.1
+  since cabal-install 0.14.0 had an upper bound on network < 2.4
+
+* Needed to add primitive==0.5 to haskell-platform.cabal
+  so the package will be included in the source tarball
+
+* GHC includes these non-HP packages:
+    bin-package-db-0.0.0.0/
+    binary-0.5.1.0/
+    ghc-prim-0.2.0.0/
+    hoopl-3.8.7.3/
+    integer-gmp-0.4.0.0/
+
+* Still need the PatchSettings.hs program
+
+
+
+TODO
+----
+[x] update vector and primitive versions
+[x] remove Build.hs - it did all its work by shelling out anyway!
+[x] main .cabal file should not have versions commented out
+   [x] this will require a way to extract the list of packages that need
+      to be part of the source release
+   [x] why not also extract the list of packages needed for core.packages
+[x] fix to build.hs (ticket #195)
+[x] bugs in build.sh (ticket #197)
+[x] build instructions in the tarball (ticket #207)
+[x] merge in shared library patch (ticket #198)
+
+MAC TODO
+--------
+[x] mac cabal script needs to quote things with $HOME or ~ in them (ticket #192)
+[x] If the cabal command is "update" then the wrapper script shouldn't do an
+   update the first time through!
+[] sign Mac installers (ticket #203)
+[] where are the GLUT documents (ticket #202)
+
+
+WEB TODO
+--------
+[] update language to indicate that 64-bit needs Xcode 4.1 or later
+   (see ticket #199)
+[] update language to indicate that arch should match the arch used
+   for mac ports or brew (ticket #210)
+[] add centos distribution link (ticket #206)
+[] make it clear that HP is in some distros package system
+   [] merge in pull request #7
+[] pretty up and update release timetable page (ticket #131)
+
+
+[] close tickets: 192, 195, 197, 198, 207

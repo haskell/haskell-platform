@@ -1,0 +1,59 @@
+Haskell Platform
+http://www.haskell.org/platform/
+================================
+
+This is the source tarball for Haskell Platform. It contains the source and
+build files for all the packages that make up the platform, beyond those that
+come with GHC.
+
+If your OS has a pre-built distribution of Haskell Platform, that is likely to
+be a much easier way than building the platform yourself. The Haskell Platform
+web site (see above URL) contains builds for Mac OS X and Windows that include
+everything you need, including GHC.
+
+The web site also contains links for those Linux distributions for which there
+is a pre-build version. In most cases, that version of the platform is availble
+through the normal package manager for the distribution, rather than directly
+from the Haskell Platform web site.
+
+
+
+Preparation
+-----------
+You will need to have GHC 7.4.2 installed prior to building the platform.
+Please see:
+    http://www.haskell.org/ghc/download_ghc_7_4_2
+
+Note that the warning at top will tell you to consider installing the
+platform instead. If you've gotten this far, you can ignore that.
+
+You can use a different version of GHC, but it may not work.
+
+
+You will also need the developer packages for various standard system libraries,
+such as zlib and GLUT. Exactly which packages you need will differ based on
+the OS distribution you use. In general, if you get an error during the build
+process that a library is missing, look it up in your package manager. You will
+need both the library and the development package for the library.
+
+
+Build and Install
+-----------------
+In this directory, run:
+
+    ./configure
+
+This is standard autoconf, so options like --prefix will work. Run with --help
+to see all the options. In particular, if you are using a different versino of
+GHC, you'll need to add --enable-unsupported-ghc-version.
+
+Now build the packages:
+
+    make
+
+Finally, to install everything, use
+
+    make install
+
+Note that you will probably have to run this command 'sudo'.
+

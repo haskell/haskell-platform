@@ -2,17 +2,17 @@
 
 update_cabal_config() {
     cabal_dir=~/.cabal
-    cabal_config=${cabal_dir}/config
-    cabal_config_new=${cabal_config}.platform
-    cabal_config_newer=`find ${cabal_config_new} -newer $0 2>/dev/null`
-    
+    cabal_config="${cabal_dir}/config"
+    cabal_config_new="${cabal_config}.platform"
+    cabal_config_newer=`find "${cabal_config_new}" -newer $0 2>/dev/null`
+
     user_haskell_dir=~/Library/Haskell
-    
+
     if [ -z "${cabal_config_newer}" ]
     then
-        mkdir -m 755 ${cabal_dir} &>/dev/null
+        mkdir -m 755 "${cabal_dir}" &>/dev/null
 
-        cat > ${cabal_config_new} <<CONFIG_END
+        cat > "${cabal_config_new}" <<CONFIG_END
 -- This is the configuration file for the 'cabal' command line tool.
 
 -- The available configuration options are listed below.
@@ -29,7 +29,7 @@ update_cabal_config() {
 
 -- === Built executables will be installed in:
 --     ~/Library/Haskell/bin
--- 
+--
 -- You may wish to place this on your PATH by adding the following
 -- line to your ~/.bash_profile:
 --     export PATH="\$HOME/Library/Haskell/bin:\$PATH"
@@ -37,7 +37,7 @@ update_cabal_config() {
 -- === When documentation is built, a master index to all documentation
 -- will be placed in:
 --     ~/Library/Haskell/doc/index.html
--- 
+--
 -- You may wish to bookmark that file
 
 
@@ -51,8 +51,8 @@ world-file: ${user_haskell_dir}/logs/world
 -- with-compiler:
 -- with-hc-pkg:
 -- scratchdir:
--- program-prefix: 
--- program-suffix: 
+-- program-prefix:
+-- program-suffix:
 -- library-vanilla: True
 library-profiling: True
 -- shared: False
@@ -89,10 +89,10 @@ install-dirs user
   prefix: ${user_haskell_dir}/\$compiler/lib/\$pkgid
   -- bindir: \$prefix/bin
   -- libdir: \$prefix/lib
-  libsubdir:  
+  libsubdir:
   -- libexecdir: \$prefix/libexec
   -- datadir: \$prefix/share
-  datasubdir: 
+  datasubdir:
   docdir: \$prefix/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
@@ -101,10 +101,10 @@ install-dirs global
   prefix: /Library/Haskell/\$compiler/lib/\$pkgid
   -- bindir: \$prefix/bin
   -- libdir: \$prefix/lib
-  libsubdir:  
+  libsubdir:
   -- libexecdir: \$prefix/libexec
   -- datadir: \$prefix/share
-  datasubdir: 
+  datasubdir:
   docdir: \$prefix/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
@@ -112,14 +112,14 @@ install-dirs global
 CONFIG_END
     fi
 
-    if [ \! -e ${cabal_config} ]
+    if [ \! -e "${cabal_config}" ]
     then
-        mkdir -m 755 ${user_haskell_dir} &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/bin &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/logs &>/dev/null
-        mkdir -m 755 ${user_haskell_dir}/repo-cache &>/dev/null
-        
-        cp ${cabal_config_new} ${cabal_config}
+        mkdir -m 755 "${user_haskell_dir}" &>/dev/null
+        mkdir -m 755 "${user_haskell_dir}/bin" &>/dev/null
+        mkdir -m 755 "${user_haskell_dir}/logs" &>/dev/null
+        mkdir -m 755 "${user_haskell_dir}/repo-cache" &>/dev/null
+
+        cp "${cabal_config_new}" "${cabal_config}"
         cat <<NOTICE_END
 
 **********************************************************************
@@ -132,12 +132,12 @@ CONFIG_END
 
     You may wish to place this on your PATH by adding the following
     line to your ~/.bash_profile:
-    
+
     export PATH="\$HOME/Library/Haskell/bin:\$PATH"
 
 === When documentation is built, a master index to all documentation
     will be placed in:
-    
+
     ${user_haskell_dir}/doc/index.html
 
     You may wish to bookmark that file once it gets built (after the
@@ -146,7 +146,12 @@ CONFIG_END
 **********************************************************************
 
 NOTICE_END
-        /Library/Haskell/bin/cabal.real update  
+
+        if [ \! \( $# -eq 1 -a "$1" == "update" \) ]
+        then
+            # if this isn't an update command, do that first
+            /Library/Haskell/bin/cabal.real update
+        fi
     fi
 }
 

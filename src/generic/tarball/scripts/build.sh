@@ -74,6 +74,12 @@ build_pkg () {
   if test "${ENABLE_PROFILING}" = "YES"; then
     CABAL_PROFILING_FLAG="--enable-library-profiling"
   fi
+  if test "${ENABLE_SHARED}" = "YES"; then
+    CABAL_SHARED_FLAG="--enable-shared"
+
+    # Work around for Cabal's inability to pass this option
+    GHC_PKG_FLAG_SHARED="--ghc-option=-package-conf=../../${PACKAGE_DB}"
+  fi
 
   # Work around for Cabal 1.8.0.2 not registering properly
   GHC_PKG_FLAG=--ghc-pkg-option=--package-conf="../../${PACKAGE_DB}" 
@@ -88,8 +94,9 @@ build_pkg () {
   tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} --with-hsc2hs=${HSC2HS} \
     ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} \
-    ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} \
-    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} ${GHC_PKG_FLAG} ${USER_PKG_FLAG} \
+    ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} ${CABAL_SHARED_FLAG} \
+    ${EXTRA_CONFIGURE_OPTS} ${VERBOSE} \
+    ${GHC_PKG_FLAG} ${GHC_PKG_FLAG_SHARED} ${USER_PKG_FLAG} \
     || die "Configuring the ${PKG} package failed"
 
   tell ./Setup build ${VERBOSE} \
@@ -123,7 +130,7 @@ done
 
 # State what we found.
 echo
-echo -n "Found:"
+echo "Found:"
 
 if test -z "${already_installed}" ; then
 echo "None."
@@ -132,9 +139,9 @@ echo "${already_installed}"
 fi
 
 echo
-echo -n "New packages to install: "
+echo "New packages to install: "
 
-if test -z "${will_installed}" ; then
+if test -z "${will_install}" ; then
 echo "None! All done."
 else
 echo "${will_install}"

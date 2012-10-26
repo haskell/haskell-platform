@@ -1,9 +1,9 @@
-AC_INIT([haskell-platform],[2012.2.0.0])
+AC_INIT([haskell-platform],[2012.4.0.0])
 AC_CONFIG_AUX_DIR([scripts])
 
 #TODO: have these numbers generated from the .cabal file
-REQUIRED_GHC_VER=7.4.1
-ACCEPTABLE_GHC_VER=7.4.1
+REQUIRED_GHC_VER=7.4.2
+ACCEPTABLE_GHC_VER=7.4.2
 
 echo '**************************************************'
 echo '*'
@@ -102,6 +102,25 @@ AC_ARG_ENABLE(profiling,
    esac
   ],
   [ENABLE_PROFILING=YES]
+)
+
+# Not building shared libraries by default.
+AC_ARG_ENABLE(shared,
+[AC_HELP_STRING([--enable-shared],
+                [Build shared versions of libraries for dynamic linking. (default=disable)])],
+  [case "${enableval}" in
+     yes)
+       ENABLE_SHARED=YES
+       ;;
+     no)
+       ENABLE_SHARED=NO
+       ;;
+     *)
+       AC_MSG_ERROR([The --enable-shared value should be "yes" or "no"])
+       ;;
+   esac
+  ],
+  [ENABLE_SHARED=NO]
 )
 
 
@@ -250,6 +269,7 @@ AC_SUBST([PERL])
 
 AC_SUBST([USER_INSTALL])
 AC_SUBST([ENABLE_PROFILING])
+AC_SUBST([ENABLE_SHARED])
 AC_SUBST([ALLOW_UNSUPPORTED_GHC])
 
 AC_OUTPUT
