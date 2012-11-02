@@ -1,0 +1,26 @@
+This is the announcement template for the message I send to haskell-platform@
+--
+Subject: Windows installer $VERSION $RCNUM
+
+Hi all,
+
+I've uploaded the $RCNUMTH $VERSION release candidate installer to
+
+http://code.haskell.org/~refold/HaskellPlatform-$VERSION-$RCNUM-setup.exe
+
+MD5: ???
+SHA1:
+
+What's new in $VERSION-$RCNUM:
+
+   * ???
+   * ???
+   * ???
+
+Known issues:
+
+   See http://trac.haskell.org/haskell-platform/wiki/Windows
+
+Unless someone finds serious bugs in this RC, it can be released unchanged.
+
+Enjoy!
