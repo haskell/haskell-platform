@@ -24,6 +24,15 @@
 
 * Still need the PatchSettings.hs program
 
+* sign with:
+  productsign --sign 'Developer ID Installer: Mark Lentczner' xxx.pkg xxx-signed.pkg
+* check wtih:
+  spctl -a -v --type install xxx-signed.pkg
+
+* installing one same GHC version over existing (even if archs are different):
+  - causes failures in the postinstall.sh where the links for docs fail as they are not -sf
+  - uninstall-hs doesn't catch this
+
 
 
 TODO
@@ -44,9 +53,9 @@ MAC TODO
 [x] mac cabal script needs to quote things with $HOME or ~ in them (ticket #192)
 [x] If the cabal command is "update" then the wrapper script shouldn't do an
    update the first time through!
-[] sign Mac installers (ticket #203)
+[x] sign Mac installers (ticket #203)
+    [x] add instructions to makefile output
 [] where are the GLUT documents (ticket #202)
-
 
 WEB TODO
 --------
@@ -59,5 +68,3 @@ WEB TODO
    [] merge in pull request #7
 [] pretty up and update release timetable page (ticket #131)
 
-
-[] close tickets: 192, 195, 197, 198, 207

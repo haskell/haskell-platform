@@ -257,9 +257,9 @@ $(IMAGE_INDEX_HTML): $(HP_POST_SCRIPT)
 	  $$read --title="Haskell Platform"
 	# These can't be symlink'd in the image as they cause PackageMaker fits
 	# So symlink them in the post install script
-	echo "ln -s $(PKGS_PLAT_REL) $(TARGET_DOC_BASE)/packages" >> $(HP_POST_SCRIPT)
-	echo "ln -s $(PKGS_GHC_REL) $(TARGET_DOC_BASE)/ghc-doc" >> $(HP_POST_SCRIPT)
-	echo "ln -s $(PKGS_API_REL) $(TARGET_DOC_BASE)/ghc-api" >> $(HP_POST_SCRIPT)
+	echo "ln -sf $(PKGS_PLAT_REL) $(TARGET_DOC_BASE)/packages" >> $(HP_POST_SCRIPT)
+	echo "ln -sf $(PKGS_GHC_REL) $(TARGET_DOC_BASE)/ghc-doc" >> $(HP_POST_SCRIPT)
+	echo "ln -sf $(PKGS_API_REL) $(TARGET_DOC_BASE)/ghc-api" >> $(HP_POST_SCRIPT)
 
 $(IMAGE_START_HTML): start.html
 	cp $< $@
@@ -332,7 +332,10 @@ $(INSTALLER_PACKAGE): Platform.pmdoc ghc scripts polish
 	ln -s $(BUILD) dist
 	@echo "Build from PackageMaker please..."
 	rm -f Platform.pmdoc/*-contents.xml
-	open -a /Developer/Applications/Utilities/PackageMaker.app Platform.pmdoc
+	open -a PackageMaker.app Platform.pmdoc
+	@echo "After building, sign & check with:"
+	@echo "    productsign --sign 'Developer ID Installer: name' xxx.pkg xxx-signed.pkg"
+	@echo "    spctl -a -v --type install xxx-signed.pkg"
 
 installer: $(INSTALLER_PACKAGE)
 clean-installer:
