@@ -71,7 +71,7 @@ WEB TODO
 [] wiki page over at haskell.org is pretty lame
 [] contents.markdown is somewhat, er, lumpy
 
-[] change season
+[x] change season
 [x] update all version links
 [x] add prior versions
 
@@ -80,6 +80,7 @@ DEPLOY
 ------
 [] merge pre-release into master
 [] move all downloads into place (in new subdir)
+[] generate and install new docs on web server
 [] update website
 [] announce on
    [] haskell-platform, libraries, haskell, haskell-cafe mailing lists
