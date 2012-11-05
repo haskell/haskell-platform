@@ -13,11 +13,11 @@ These distributions offer the Haskell Platform in their package repositories.
 You can easily install the Haskell Platform through your distribution's native
 package manager.
 
----------                                                               ---------                                                               ---------
-![](http://hackage.haskell.org/platform/icons/ubuntu.png) [Ubuntu]      ![](http://hackage.haskell.org/platform/icons/debian.png) [Debian]      ![](http://hackage.haskell.org/platform/icons/fedora.png) [Fedora]
-![](http://hackage.haskell.org/platform/icons/arch.png) [Arch Linux]    ![](http://hackage.haskell.org/platform/icons/gentoo.png) [Gentoo]      ![](http://hackage.haskell.org/platform/icons/nixos.png) [NixOS]
-![](http://hackage.haskell.org/platform/icons/openbsd.png) [OpenBSD]    ![](http://hackage.haskell.org/platform/icons/freebsd.png) [FreeBSD]    ![](http://hackage.haskell.org/platform/icons/mint.png) [Mint]
----------                                                               ---------                                                               ---------
+---------                           ---------                           ---------
+![](icons/ubuntu.png) [Ubuntu]      ![](icons/debian.png) [Debian]      ![](icons/fedora.png) [Fedora]
+![](icons/arch.png) [Arch Linux]    ![](icons/gentoo.png) [Gentoo]      ![](icons/nixos.png) [NixOS]
+![](icons/openbsd.png) [OpenBSD]    ![](icons/freebsd.png) [FreeBSD]    ![](icons/mint.png) [Mint]
+---------                           ---------                           ---------
 
 [Ubuntu]: http://packages.ubuntu.com/haskell-platform
 [Debian]: http://packages.debian.org/haskell-platform
@@ -31,15 +31,18 @@ package manager.
 
 **Information for other systems**
 
----------                                                                 ---------                                                                  ---------
-![](http://hackage.haskell.org/platform/icons/opensuse.png) [openSUSE]    ![](http://hackage.haskell.org/platform/icons/mandriva.png) [Mandriva]
----------                                                                 ---------                                                                  ---------
+---------                             ---------
+![](icons/opensuse.png) [openSUSE]    ![](icons/mandriva.png) [Mandriva]
+---------                             ---------
+
+See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
 [Lucid]: https://launchpad.net/~justinbogner/+archive/haskell-platform
 [openSUSE]: https://build.opensuse.org/project/show?project=devel:languages:haskell
 [Mandriva]: http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell
+[justhub]: http://www.justhub.org/
 
 ----
 
@@ -47,7 +50,7 @@ package manager.
 
 Download the source tarball for Unix-like systems: here
 
- * ![](http://hackage.haskell.org/platform/icons/source.png)
+ * ![](icons/source.png)
 **<a href="http://lambda.haskell.org/platform/download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.2.0.0.tar.gz</a>**
 
 Get and install GHC 7.4.1 prior to building the platform:
@@ -73,8 +76,8 @@ If you already have a reasonable Haskell development environment with
 GHC 7.0.2 and cabal-install, you can build the platform from the Cabal
 package alone.
 
-![](http://hackage.haskell.org/platform/icons/cabal.png)
-<a href="http://hackage.haskell.org/platform/2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
+![](icons/cabal.png)
+<a href="2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
 
 To install, unpack the cabal tarball, and run:
 

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title>Haskell Platform for Linux</title>
   <link rel="stylesheet" href="style.css" type="text/css" />
@@ -19,22 +20,23 @@
 </tbody>
 </table>
 <p><strong>Community-supported versions of the Haskell Platform on Linux and Unix</strong></p>
+<p>These distributions offer the Haskell Platform in their package repositories. You can easily install the Haskell Platform through your distribution's native package manager.</p>
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/ubuntu.png" /> <a href="http://packages.ubuntu.com/haskell-platform">Ubuntu</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/debian.png" /> <a href="http://packages.debian.org/haskell-platform">Debian</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/fedora.png" /> <a href="https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance">Fedora</a></td>
+<td align="left"><img src="icons/ubuntu.png" /> <a href="http://packages.ubuntu.com/haskell-platform">Ubuntu</a></td>
+<td align="left"><img src="icons/debian.png" /> <a href="http://packages.debian.org/haskell-platform">Debian</a></td>
+<td align="left"><img src="icons/fedora.png" /> <a href="https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance">Fedora</a></td>
 </tr>
 <tr class="even">
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/arch.png" /> <a href="http://www.archlinux.org/packages/extra/i686/haskell-platform/">Arch Linux</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/gentoo.png" /> <a href="http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform">Gentoo</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/nixos.png" /> <a href="http://hydra.nixos.org/job/nixpkgs/trunk/haskellPlatform">NixOS</a></td>
+<td align="left"><img src="icons/arch.png" /> <a href="http://www.archlinux.org/packages/extra/i686/haskell-platform/">Arch Linux</a></td>
+<td align="left"><img src="icons/gentoo.png" /> <a href="http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform">Gentoo</a></td>
+<td align="left"><img src="icons/nixos.png" /> <a href="http://hydra.nixos.org/job/nixpkgs/trunk/haskellPlatform">NixOS</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/openbsd.png" /> <a href="http://openports.se/meta/haskell-platform">OpenBSD</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/freebsd.png" /> <a href="http://www.freshports.org/devel/hs-haskell-platform/">FreeBSD</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/mint.png" /> <a href="http://community.linuxmint.com/software/view/haskell-platform">Mint</a></td>
+<td align="left"><img src="icons/openbsd.png" /> <a href="http://openports.se/meta/haskell-platform">OpenBSD</a></td>
+<td align="left"><img src="icons/freebsd.png" /> <a href="http://www.freshports.org/devel/hs-haskell-platform/">FreeBSD</a></td>
+<td align="left"><img src="icons/mint.png" /> <a href="http://community.linuxmint.com/software/view/haskell-platform">Mint</a></td>
 </tr>
 </tbody>
 </table>
@@ -42,17 +44,17 @@
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/opensuse.png" /> <a href="https://build.opensuse.org/project/show?project=devel:languages:haskell">openSUSE</a></td>
-<td align="left"><img src="http://hackage.haskell.org/platform/icons/mandriva.png" /> <a href="http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell">Mandriva</a></td>
-<td align="left"></td>
+<td align="left"><img src="icons/opensuse.png" /> <a href="https://build.opensuse.org/project/show?project=devel:languages:haskell">openSUSE</a></td>
+<td align="left"><img src="icons/mandriva.png" /> <a href="http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell">Mandriva</a></td>
 </tr>
 </tbody>
 </table>
+<p>See also: <em><a href="http://www.justhub.org/">justhub</a></em>, for REHL, CentOS, Scientific Linux, and Fedora spport</p>
 <hr />
 <h2 id="build-from-source">Build from source</h2>
 <p>Download the source tarball for Unix-like systems: here</p>
 <ul>
-<li><img src="http://hackage.haskell.org/platform/icons/source.png" /> <strong><a href="http://lambda.haskell.org/platform/download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.2.0.0.tar.gz</a></strong></li>
+<li><img src="icons/source.png" /> <strong><a href="http://lambda.haskell.org/platform/download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.2.0.0.tar.gz</a></strong></li>
 </ul>
 <p>Get and install GHC 7.4.1 prior to building the platform:</p>
 <ul>
@@ -61,8 +63,7 @@
 <p>Finally, unpack the Haskell Platform source tarball, and run (possibly with 'sudo'):</p>
 <pre><code>    ./configure
     make
-    make install
-</code></pre>
+    make install</code></pre>
 <p>You may pass <tt>--prefix</tt> flag to <tt>./configure</tt> to change the default install path.</p>
 <p>Complete <a href="http://www.vex.net/~trebla/haskell/haskell-platform.xhtml">instructions for installing from source</a> are available.</p>
 <!--
@@ -72,8 +73,8 @@ If you already have a reasonable Haskell development environment with
 GHC 7.0.2 and cabal-install, you can build the platform from the Cabal
 package alone.
 
-![](http://hackage.haskell.org/platform/icons/cabal.png)
-<a href="http://hackage.haskell.org/platform/2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
+![](icons/cabal.png)
+<a href="2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
 
 To install, unpack the cabal tarball, and run:
 
