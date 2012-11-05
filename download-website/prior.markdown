@@ -9,6 +9,14 @@
 
 Prior releases of Haskell Platform:
 
+# 2012 #
+
+**2012.2.0.0**, May 2012 ⟹
+  <a href="http://lambda.haskell.org/platform/download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a>
+- <a href="http://lambda.haskell.org/platform/download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a>
+- <a href="http://lambda.haskell.org/platform/download/2012.2.0.0/HaskellPlatform-2012.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a>
+- <a href="http://lambda.haskell.org/platform/download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a>
+
 # 2011 #
 
 **2011.4.0.0**, April 2011 ⟹

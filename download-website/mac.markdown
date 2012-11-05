@@ -10,9 +10,9 @@
 <img style="float:right;" src="images/OS_X-Logo.png" />
 Download the Mac OS X installer here:
 
-* **<a href="http://lambda.haskell.org/platform/download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2012.2.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)
+* **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2012.4.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)
 
-* **<a href="http://lambda.haskell.org/platform/download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2012.2.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)
+* **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2012.4.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)
 
 * <small>*Pick the 32-bit vesion, unless you have a specific reason to use the 64-bit version.*<br />
 The 32-bit one is slightly faster for most programs.<br />

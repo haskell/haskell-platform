@@ -61,10 +61,27 @@ WEB TODO
 --------
 [] update language to indicate that 64-bit needs Xcode 4.1 or later
    (see ticket #199)
-[] update language to indicate that arch should match the arch used
+[x] update language to indicate that arch should match the arch used
    for mac ports or brew (ticket #210)
-[] add centos distribution link (ticket #206)
-[] make it clear that HP is in some distros package system
-   [] merge in pull request #7
+[x] add centos distribution link (ticket #206)
+[x] make it clear that HP is in some distros package system
+   [x] merge in pull request #7
 [] pretty up and update release timetable page (ticket #131)
 
+[] wiki page over at haskell.org is pretty lame
+[] contents.markdown is somewhat, er, lumpy
+
+[] change season
+[x] update all version links
+[x] add prior versions
+
+
+DEPLOY
+------
+[] merge pre-release into master
+[] move all downloads into place (in new subdir)
+[] update website
+[] announce on
+   [] haskell-platform, libraries, haskell, haskell-cafe mailing lists
+   [] reddit
+[] update topic link in #haskell

@@ -51,11 +51,11 @@ See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
 Download the source tarball for Unix-like systems: here
 
  * ![](icons/source.png)
-**<a href="http://lambda.haskell.org/platform/download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.2.0.0.tar.gz</a>**
+**<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/haskell-platform-2012.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.4.0.0.tar.gz</a>**
 
-Get and install GHC 7.4.1 prior to building the platform:
+Get and install GHC 7.4.2 prior to building the platform:
 
- * [GHC 7.4.1](http://haskell.org/ghc/download_ghc_7_4_1.html)
+ * [GHC 7.4.2](http://haskell.org/ghc/download_ghc_7_4_2.html)
 
 Finally, unpack the Haskell Platform source tarball, and run (possibly with 'sudo'):
 
@@ -65,9 +65,9 @@ Finally, unpack the Haskell Platform source tarball, and run (possibly with 'sud
 
   You may pass <tt>--prefix</tt> flag to <tt>./configure</tt> to change the default install path.
 
-Complete [instructions for installing from source] are available.
+There is also a [README] file in the tarball with more detailed information on building.
 
-[instructions for installing from source]: http://www.vex.net/~trebla/haskell/haskell-platform.xhtml
+[README]: https://github.com/haskell/haskell-platform/blob/master/src/generic/tarball/README
 
 <!--
 **Build from cabal**

@@ -36,11 +36,11 @@ Platform (see the [Changelog]):
 Compiler and Runtime
 --------
 
-**[GHC] 7.4.1**
+**[GHC] 7.4.2**
 
 The state-of-the-art optimizing native code compiler for Haskell.
 
-**[GHCi] 7.4.1**
+**[GHCi] 7.4.2**
 
 A bytecode interpreter and interactive REPL environment for Haskell
 
@@ -118,50 +118,6 @@ Packages and Documentation
 
 
 [ghc]: http://haskell.org/ghc
-
-[array]: http://hackage.haskell.org/package/array
-[base]: http://hackage.haskell.org/package/base
-[bytestring]: http://hackage.haskell.org/package/bytestring
-[Cabal]: http://hackage.haskell.org/package/Cabal
-[containers]: http://hackage.haskell.org/package/containers
-[deepseq]: http://hackage.haskell.org/package/deepseq
-[directory]: http://hackage.haskell.org/package/directory
-[extensible-exceptions]: http://hackage.haskell.org/package/extensible-exceptions
-[filepath]: http://hackage.haskell.org/package/filepath
-[haskell2010]: http://hackage.haskell.org/package/haskell2010
-[haskell98]: http://hackage.haskell.org/package/haskell98
-[hpc]: http://hackage.haskell.org/package/hpc
-[old-locale]: http://hackage.haskell.org/package/old-locale
-[old-time]: http://hackage.haskell.org/package/old-time
-[pretty]: http://hackage.haskell.org/package/pretty
-[process]: http://hackage.haskell.org/package/process
-[template-haskell]: http://hackage.haskell.org/package/template-haskell
-[time]: http://hackage.haskell.org/package/time
-[unix]: http://hackage.haskell.org/package/unix
-[Win32]: http://hackage.haskell.org/package/Win32
-[cgi]: http://hackage.haskell.org/package/cgi
-[fgl]: http://hackage.haskell.org/package/fgl
-[GLUT]: http://hackage.haskell.org/package/GLUT
-[haskell-src]: http://hackage.haskell.org/package/haskell-src
-[html]: http://hackage.haskell.org/package/html
-[HTTP]: http://hackage.haskell.org/package/HTTP
-[HUnit]: http://hackage.haskell.org/package/HUnit
-[mtl]: http://hackage.haskell.org/package/mtl
-[network]: http://hackage.haskell.org/package/network
-[OpenGL]: http://hackage.haskell.org/package/OpenGL
-[parallel]: http://hackage.haskell.org/package/parallel
-[parsec]: http://hackage.haskell.org/package/parsec
-[QuickCheck]: http://hackage.haskell.org/package/QuickCheck
-[random]: http://hackage.haskell.org/package/random
-[regex-base]: http://hackage.haskell.org/package/regex-base
-[regex-compat]: http://hackage.haskell.org/package/regex-compat
-[regex-posix]: http://hackage.haskell.org/package/regex-posix
-[stm]: http://hackage.haskell.org/package/stm
-[syb]: http://hackage.haskell.org/package/syb
-[text]: http://hackage.haskell.org/package/text
-[transformers]: http://hackage.haskell.org/package/transformers
-[xhtml]: http://hackage.haskell.org/package/xhtml
-[zlib]: http://hackage.haskell.org/package/zlib
 
 [cabal-install]: http://hackage.haskell.org/package/cabal-install
 [alex]: http://haskell.org/alex
