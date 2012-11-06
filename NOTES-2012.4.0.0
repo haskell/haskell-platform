@@ -33,6 +33,7 @@
   - causes failures in the postinstall.sh where the links for docs fail as they are not -sf
   - uninstall-hs doesn't catch this
 
+* GHC central forgot the Cabal manual in 7.4.2's distribution - so we're missing it!
 
 
 TODO
@@ -59,14 +60,14 @@ MAC TODO
 
 WEB TODO
 --------
-[] update language to indicate that 64-bit needs Xcode 4.1 or later
+[x] update language to indicate that 64-bit needs Xcode 4.1 or later
    (see ticket #199)
 [x] update language to indicate that arch should match the arch used
    for mac ports or brew (ticket #210)
 [x] add centos distribution link (ticket #206)
 [x] make it clear that HP is in some distros package system
    [x] merge in pull request #7
-[] pretty up and update release timetable page (ticket #131)
+[x] pretty up and update release timetable page (ticket #131)
 
 [] wiki page over at haskell.org is pretty lame
 [] contents.markdown is somewhat, er, lumpy
@@ -76,13 +77,48 @@ WEB TODO
 [x] add prior versions
 
 
+[x] Edit info in upper-right of index.html
+[x] add a new section to prior.markdown for previously current release
+  [x] move the download links there
+
+[x] Update release schedule for current and next release on wiki:
+   http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
+[x] on lambda.haskell.org
+  [x] create /var/www/platform/download/<version>
+  [x] copy installers there
+  [x] create md5sum.txt:
+    md5sum [hH]* > md5sum.txt
+[x] update windows.markdown, mac.markdown, and linux.markdown
+  [x] update the download link
+  [x] update the number of the release
+  [x] for linux, update the link to GHC binary download page
+[x] update the GHC version and info on contents.markdown
+[x] make the doc
+  [x] install the platform on a machine
+  [x] cd /Library/Haskell/doc
+  [x] tar czvLf ~/hp-doc-<ver>.tgz *
+  [x] untar that somewhere and clean it up:
+    [x] find packages -name 'bin' -o -name 'lib' | xargs rm -rf
+    [x] remove mac stuff from start.html
+    [x] retar it back up
+  [x] get that tarball onto lambda
+[] update current links on lambda:
+  [] /var/www/platform/docs/current
+  [] /var/www/platform/download/current
+
+
 DEPLOY
 ------
+[x] move all downloads into place (in new subdir)
+[x] generate and install new docs on web server
 [] merge pre-release into master
-[] move all downloads into place (in new subdir)
-[] generate and install new docs on web server
 [] update website
 [] announce on
    [] haskell-platform, libraries, haskell, haskell-cafe mailing lists
    [] reddit
 [] update topic link in #haskell
+
+
+
+
+

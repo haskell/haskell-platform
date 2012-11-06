@@ -14,9 +14,11 @@ Download the Mac OS X installer here:
 
 * **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2012.4.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)
 
+<!--
 * <small>*Pick the 32-bit vesion, unless you have a specific reason to use the 64-bit version.*<br />
 The 32-bit one is slightly faster for most programs.<br />
 If you use **MacPorts**, **brew**, or other 3rd party libraries, see below.</small>
+-->
 
 After downloading:
 
@@ -32,7 +34,7 @@ After downloading:
 *The command line development tools are required prior to installation.*
 <br />If you have <tt>/usr/bin/gcc</tt> available in a shell, you should be good to go. If not:
 
-  * On OS 10.6, use Xcode 3.2 or later: Choose the "Customize…" button during installation and choose **UNIX Development**
+  * On OS 10.6, 32-bit, use Xcode 3.2 or later: Choose the "Customize…" button during installation and choose **UNIX Development**. 64-bit version requires Xcode 4.1 or later.
 
   * On OS 10.7, choose one of the following:
 

@@ -113,9 +113,6 @@ T0
 = Locations =
 
 * web site:
-  darcs.haskell.org (galois' machine)
-  /srv/www/hackage.haskell.org/public_html/platform
-  -- in future this should be at --
   lambda.haskell.org
   /srv/web/haskell.org/platform
 
@@ -129,20 +126,6 @@ T0
 
 
 = Older Notes =
-
- * Generate contents page inclusion.
- * Generate documentation.
- * Move from em measurements to px.
- * List maintainer on the web page.
- * Heads in 'learn more' link to TOC.
- * Links should head back up to the main page.
-
- * Arch Haskell HP upload
-
-= Future =
-
- * chrome 'download' redirects you to the 'thank you' + help page
- * obtain scripts for Windows and Mac installers.
 
  * a better format for Change List:
    * clear indications for new / major update / minor update / same / dropped
