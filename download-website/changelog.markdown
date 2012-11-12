@@ -14,7 +14,7 @@ as [this Cabal file](https://github.com/haskell/haskell-platform/blob/master/has
 
 ***Compiler***
 
- * [ghc]                     <span class="versions">_7.0.4_       ⟶ _7.4.2_</span>
+ * [ghc]                     <span class="versions">_7.4.1_       ⟶ _7.4.2_</span>
 
 ***Core Libraries, Provided with GHC***
 
