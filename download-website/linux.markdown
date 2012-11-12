@@ -51,7 +51,8 @@ See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
 Download the source tarball for Unix-like systems: here
 
  * ![](icons/source.png)
-**<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/haskell-platform-2012.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.4.0.0.tar.gz</a>**
+**<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/haskell-platform-2012.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.4.0.0.tar.gz</a>**  \
+<small>SHA-1: `7976508c50305969f64c721a1d095ae22efff8b7`</small>
 
 Get and install GHC 7.4.2 prior to building the platform:
 
