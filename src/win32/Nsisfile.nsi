@@ -80,7 +80,7 @@ FunctionEnd
 
 Function .onInstSuccess
   IfFileExists $SYSDIR\glut32.dll Done
-    MessageBox MB_YESNO "It looks like glut32.dll is not installed.  You will not be able to use the GLUT library. Do you want to copy glut32.dll to the system directory?" IDNO Done
+    MessageBox MB_YESNO "It looks like the GLUT library is not installed on your computer. Do you want to install GLUT?" IDNO Done
         SetOutPath "$SYSDIR\."
         File "${FILES_SOURCE_PATH}\etc\glut32.dll"
   Done:
