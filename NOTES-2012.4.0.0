@@ -102,20 +102,20 @@ WEB TODO
     [x] remove mac stuff from start.html
     [x] retar it back up
   [x] get that tarball onto lambda
-[] update current links on lambda:
-  [] /var/www/platform/docs/current
-  [] /var/www/platform/download/current
+[x] update current links on lambda:
+  [x] /var/www/platform/docs/current
+  [x] /var/www/platform/download/current
 
 
 DEPLOY
 ------
 [x] move all downloads into place (in new subdir)
 [x] generate and install new docs on web server
-[] merge pre-release into master
-[] update website
-[] announce on
-   [] haskell-platform, libraries, haskell, haskell-cafe mailing lists
-   [] reddit
+[x] merge pre-release into master
+[x] update website
+[x] announce on
+   [x] haskell-platform, libraries, haskell, haskell-cafe mailing lists
+   [x] reddit
 [] update topic link in #haskell
 
 
