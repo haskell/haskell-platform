@@ -47,6 +47,16 @@ PACKAGE_DB="packages/package.conf.inplace"
 [ -f "${PACKAGE_DB}" ] && rm "${PACKAGE_DB}"
 echo '[]' > "${PACKAGE_DB}"
 
+ORIG_GHC_PACKAGE_PATH="${GHC_PACKAGE_PATH}"
+unset GHC_PACKAGE_PATH
+if [ -z "${ORIG_GHC_PACKAGE_PATH}" ]
+then
+  CABAL_PKGDB=''
+else
+  CABAL_PKGDB="--package-db=${ORIG_GHC_PACKAGE_PATH}"
+  # N.B.: This won't work if it was really a path with 2 or more components.
+fi
+
 build_pkg () {
   PKG=$1
   NAME=${PKG%-*}
@@ -56,7 +66,8 @@ build_pkg () {
 
   [ -f Setup ] && rm Setup
 
-  tell ${GHC} --make Setup -o Setup -package "${CABAL_PKG_VER}" \
+  GHC_PACKAGE_PATH="${ORIG_GHC_PACKAGE_PATH}" \
+    tell ${GHC} --make Setup -o Setup -package "${CABAL_PKG_VER}" \
     || die "Compiling the Setup script failed"
   [ -x Setup ] || die "The Setup script does not exist or cannot be run"
 
@@ -82,7 +93,7 @@ build_pkg () {
   fi
 
   # Work around for Cabal 1.8.0.2 not registering properly
-  GHC_PKG_FLAG=--ghc-pkg-option=--package-conf="../../${PACKAGE_DB}" 
+  GHC_PKG_FLAG=--ghc-pkg-option=--package-conf="../../${PACKAGE_DB}"
 
   # Include the user package database if ${USER_INSTALL}
   if test "${USER_INSTALL}" = "YES"; then
@@ -91,7 +102,8 @@ build_pkg () {
       USER_PKG_FLAG=
   fi
 
-  tell ./Setup configure --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
+  tell ./Setup configure ${CABAL_PKGDB} \
+    --package-db="../../${PACKAGE_DB}" --prefix="${prefix}" \
     --with-compiler=${GHC} --with-hc-pkg=${GHC_PKG} --with-hsc2hs=${HSC2HS} \
     ${HAPPY_FLAG1} ${HAPPY_FLAG2} ${ALEX_FLAG} \
     ${CABAL_INSTALL_FLAG} ${CABAL_PROFILING_FLAG} ${CABAL_SHARED_FLAG} \
@@ -112,7 +124,7 @@ build_pkg () {
   cd ../..
 }
 
-# Let them know what we're doing 
+# Let them know what we're doing
 echo '**************************************************'
 echo "Scanning system for any installed Haskell Platform components..."
 already_installed=""

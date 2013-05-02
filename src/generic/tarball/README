@@ -20,9 +20,9 @@ from the Haskell Platform web site.
 
 Preparation
 -----------
-You will need to have GHC 7.4.2 installed prior to building the platform.
+You will need to have GHC 7.6.3 installed prior to building the platform.
 Please see:
-    http://www.haskell.org/ghc/download_ghc_7_4_2
+    http://www.haskell.org/ghc/download_ghc_7_6_3
 
 Note that the warning at top will tell you to consider installing the
 platform instead. If you've gotten this far, you can ignore that.
