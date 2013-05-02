@@ -67,7 +67,7 @@ as [this Cabal file](https://github.com/haskell/haskell-platform/blob/master/has
  * [split]                   <span class="versions">_0.2.1.1_     ⟶ _0.2.2_</span>
  * [stm]                     <span class="versions">_2.4_         ⟶ _2.4.2_</span>
  * [syb]                     <span class="versions">_0.3.7_       ⟶ _0.4.0_</span>
- * [text]                    <span class="versions">_0.11.2.3_    ⟶ _0.11.3.0_</span>
+ * [text]                    <span class="versions">_0.11.2.3_    ⟶ _0.11.3.1_</span>
  * [transformers]            <span class="versions">_(same)_      ⟶ _0.3.0.0_</span>
  * [unordered-containers]    <span class="versions">_(new)_       ⟶ _0.2.3.0_</span>
  * [vector]                  <span class="versions">_(same)_      ⟶ _0.10.0.1_</span>
