@@ -44,7 +44,7 @@ as [this Cabal file](https://github.com/haskell/haskell-platform/blob/master/has
  * [async]                   <span class="versions">_2.0.1.3_     ⟶ _2.0.1.4_</span>
  * [attoparsec]              <span class="versions">_(new)_       ⟶ _0.10.4.0_</span>
  * [case-insensitive]        <span class="versions">_(new)_       ⟶ _1.0.0.1_</span>
- * [cgi]                     <span class="versions">_(same)_      ⟶ _3001.1.7.4_</span>
+ * [cgi]                     <span class="versions">_(same)_      ⟶ _3001.1.7.5_</span>
  * [fgl]                     <span class="versions">_(same)_      ⟶ _5.4.2.4_</span>
  * [GLUT]                    <span class="versions">_2.1.2.1_     ⟶ _2.4.0.0_</span>
  * [GLURaw]                  <span class="versions">_(new)_       ⟶ _1.3.0.0_</span>
