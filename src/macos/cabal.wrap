@@ -147,14 +147,20 @@ CONFIG_END
 
 NOTICE_END
 
-        if [ \! \( $# -eq 1 -a "$1" == "update" \) ]
-        then
-            # if this isn't an update command, do that first
-            /Library/Haskell/bin/cabal.real update
-        fi
+        return 0
+    else
+        return 1
     fi
 }
 
-update_cabal_config
+if update_cabal_config
+then
+    if [ \! \( $# -eq 1 -a "$1" == "update" \) ]
+    then
+        # if this isn't an update command, do that first
+        /Library/Haskell/bin/cabal.real update
+    fi
+fi
+
 exec -a cabal /Library/Haskell/bin/cabal.real "$@"
 

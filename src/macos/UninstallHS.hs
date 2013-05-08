@@ -4,17 +4,18 @@ module Main where
 
 {-
     Uninstall.hs - a Haskell uninstaller for Mac OS X
-    
+
     This program is really far too big to be in a single file. However, I
     wanted it to be easily distributable and runnable, and so have kept it all
     together.
-    
-    - Mark Lentczner    
+
+    - Mark Lentczner
 -}
 
 import Prelude hiding ((.), id)
 import Control.Arrow
 import Control.Category
+import Control.Exception (catch, IOException)
 import Control.Monad ((>=>), msum, when)
 import Data.Char (isDigit)
 import Data.List (foldl', intercalate, isInfixOf, isPrefixOf, nub, sort)
@@ -48,8 +49,8 @@ parts d s = case break (== d) s of
 -- | Contents of a directory. Like getDirectoryContents, only a) safe, returning
 -- [] if there is a problem, and b) excludes "." and ".."
 contents :: FilePath -> IO [FilePath]
-contents fp = 
-    filter notSpecial `fmap` (getDirectoryContents fp `catch` (\_ -> return []))
+contents fp =
+    filter notSpecial `fmap` (getDirectoryContents fp `catchIO` (\_ -> return []))
   where
     notSpecial :: String -> Bool
     notSpecial n = not $ n `elem` [".", ".."]
@@ -68,13 +69,18 @@ simplifyPath = joinPath . simp [] . splitDirectories
   where
     simp    ys        []  = reverse ys
     simp    ys  ( ".":xs) = simp    ys  xs
-    simp (y:ys) ("..":xs) 
+    simp (y:ys) ("..":xs)
           | y /= ".."     = simp    ys  xs
-    simp    ys  (   x:xs) = simp (x:ys) xs 
-    
+    simp    ys  (   x:xs) = simp (x:ys) xs
+
+-- | A version of `catch` that catches `IOException`, and hence any exception
+-- at all.
+catchIO :: IO a -> (IOException -> IO a) -> IO a
+catchIO = catch
+
 --
 -- Version Numbers
--- 
+--
 
 type Major = Int
 type Minor = Int
@@ -87,7 +93,7 @@ instance Show Rev where
     show NoRev = ""
     show (DevRev p) = '.' : show p
     show (Patch p) = '.' : show p
-    
+
 instance Show Version where
   show (Version m n p x) = show m ++ '.' : show n ++ show p ++ x
 
@@ -107,7 +113,7 @@ version s = case vparts s of
         ("", x) -> ([], x)
         (n, ('.':r)) -> let (m, x) = vparts r in (read n:m, x)
         (n, x) -> ([read n], x)
-    
+
 ghcVersion :: String -> Maybe Version
 ghcVersion s = case parts '-' s of
     ("ghc":v:_) -> version v
@@ -248,7 +254,7 @@ findOrphanSymlinks removed = do
     let placesToLook =
             map path (pathDirs ++ [ "/usr/bin", "/usr/local/bin" ])
             ++ [ path "/Users" >>> star >>> path "Library/Haskell/bin" ]
-    (nub . map snd) `fmap` runFinds 
+    (nub . map snd) `fmap` runFinds
         (map (\p -> p >>> star >>> sym >>> test orphan) placesToLook)
   where
     sym :: Find a FilePath
@@ -320,7 +326,7 @@ optionsDescr =
     setHelp opts = opts { optHelp = True }
 
 parseOptions :: [String] -> IO (Options, [String])
-parseOptions argv = 
+parseOptions argv =
    case getOpt Permute optionsDescr argv of
       (o,n,[]  ) -> return (foldl' (flip ($)) defaultOpts o,n)
       (_,_,errs) -> usageFailure (concat errs)
@@ -363,7 +369,7 @@ message opts str = putStrLn $ messagePrefix ++ str
 --
 
 safely :: FilePath -> IO () -> IO ()
-safely fp = (`catch` (hPutStrLn stderr . fmt . show))
+safely fp = (`catchIO` (hPutStrLn stderr . fmt . show))
   where
     fmt msg = "** ERROR "
         ++ (if fp `isInfixOf` msg then "" else fp ++ ": ") ++ msg
@@ -376,7 +382,7 @@ removeDirectoryRecursive opts fp = do
     case (optRemove opts) of
         OptDryRun -> return ()
         OptScript -> putStrLn ("rm -rf " ++ fp)
-        OptRemove -> rmrf fp 
+        OptRemove -> rmrf fp
   where
     rmrf f = do
         st <- getSymbolicLinkStatus f
@@ -386,7 +392,7 @@ removeDirectoryRecursive opts fp = do
                 safely f $ removeDirectory f
             else
                 safely f $ removeLink f
-        
+
 -- | Remove a file. Like shell command "rm -f".
 -- If file is a symlinks, removes the symlink, not what it points to.
 removeFile :: Options -> FilePath -> IO ()
@@ -446,7 +452,7 @@ updateFrameworks opts rt = when (rt /= VersionAll) $
         let remainVers = reverse . sort . mapMaybe andVersion $ remain
 
         let curr = fp </> vp </> cp
-        currDest <- readSymbolicLink curr `catch` (\_ -> return "")
+        currDest <- readSymbolicLink curr `catchIO` (\_ -> return "")
         when (willRemove currDest) $ case (remain, remainVers) of
             ([], _) ->     -- nothing will remain, remove whole framework
                 removeDirectoryRecursive opts fp
@@ -456,7 +462,7 @@ updateFrameworks opts rt = when (rt /= VersionAll) $
                     " is not empty, but has no more versions. Consider removing."
             (_, ((_,newDest):_)) ->  -- update to maximal remaining version
                 symlinkFile opts newDest curr
-    
+
     willRemove = maybe False (versionTest rt) . partVersion
     willKeep cp fp = notDot fp && (fp /= cp) && (not $ willRemove fp)
     andVersion fp = (\v -> (v, fp)) `fmap` partVersion fp
@@ -543,48 +549,48 @@ main = getArgs >>= parseOptions >>= uncurry main'
 main' :: Options -> [String] -> IO ()
 main' opts args = do
     when (optHelp opts) $ usage >> exitSuccess
-    
+
     case args of
       [] -> do
         putStrLn "-- Versions found on this system"
         findVersionsThat VersionAll >>= showVersions opts
-        
+
       ["all"] -> do
         removePlan "all Haskell directories"
         removeAll opts
-        
+
       ["test"] -> do
         main' testOpts []
-        vers <- Map.keys `fmap` findVersions 
+        vers <- Map.keys `fmap` findVersions
         mapM_ (\v -> main' testOpts ["only", show v]) vers
         mapM_ (\v -> main' testOpts ["thru", show v]) vers
         main' testOpts ["all"]
-        
+
       ["thru", v] -> withVersion v $ \ver -> do
         removePlan $ "version " ++ show ver ++ " and earlier"
         removeVersionsThat (VersionThru ver)
-        
+
       ["only", v] -> withVersion v $ \ver -> do
         removePlan $ "just version " ++ show ver
         removeVersionsThat (VersionOnly ver)
-    
+
       ["install-check", v, a] -> withVersion v $ \ver -> do
         findVersionsThat (VersionUpto ver) >>= alertOlderVersions a
-      
+
       _ -> usageFailure "unregcognized args"
-    
+
   where
     removePlan s = message opts $ removePrefix ++ s
     removePrefix = case optRemove opts of
         OptDryRun -> "-- Would remove "
         _         -> "-- Removing "
-    
+
     withVersion v a =
         maybe (usageFailure "couldn't parse version") a $ version v
 
     findVersionsThat rt =
         Map.filterWithKey (const . versionTest rt) `fmap` findVersions
-    
+
     removeVersionsThat rt =
         findVersionsThat rt >>= remove opts rt . concat . Map.elems
 

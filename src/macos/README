@@ -1,21 +1,35 @@
 To build the Haskell Platform for Mac OS X:
 
-1) If you have the proper GHC installer package:
+1) Edit the makefile so that GHC_ARCH is set to the architecture you're building
+
+2) Be sure you have hscolour installed on your system, and on your path.
+
+3) Edit ../generic/tarball/scripts/build.sh and un-comment out the flag
+    HADDOCK_FLAG="--hyperlink-source"
+
+4a) If you have the proper GHC installer package:
     create a subdirectory "dist-i386" or "dist-x86_64 here
     move or sym-link the package into it
 You should have a file there named seomthing like
-    GHC-7.4.1-i386.pkg
-    GHC-7.4.1-x86_64.pkg
+    GHC-7.6.3-i386.pkg
+    GHC-7.6.3-x86_64.pkg
+Run
+    make unpack-ghc
 
-2) Edit the makefile so that GHC_ARCH is set to the architecture you're building
+4b) If you have a bindist of GHC
+    get the source tar ball too (!) and unpack it somewhere
+    cd into distrib/MacOS
+    Run:
+        ./mkinstaller xxxx/ghc-7.6.3-<arch>-apple-darwin.tar.bz2
+    This will take a long time and fail before compleating -- s'okay!
+    Run:
+        rm -rf dist-<arch>/root
+        mkdir -p dist-<arch>/root/Library
+        mkdir -p dist-<arch>/GHC-Package/ghc.pkg/Scripts
+        mv  /tmp/GHC.dst/Library/Frameworks dist-<arch>/root/Library
+        cp <src>/distrib/MacOS/installer-scripts/create-links  dist-<arch>/GHC-Package/ghc.pkg/Scripts
 
-3) Be sure you have hscolour installed on your system, and on your path.
-
-4) Edit ../generic/tarball/scripts/build.sh and un-comment out the flag
-    HADDOCK_FLAG="--hyperlink-source"
-
-5) Run
-    make ghc
+5) There is no step 5!
 
 6) Edit the ghc settings file in:
     dist/root/Library/Frameworks/GHC.framework/Versions/7.4.1-i386/usr/lib/ghc-7.4.1

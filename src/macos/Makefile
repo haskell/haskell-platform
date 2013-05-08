@@ -10,6 +10,9 @@ all: help
 GHC_ARCH := i386
 #GHC_ARCH := x86_64
 
+# build target required by xcode version of build tools
+export MACOSX_DEPLOYMENT_TARGET = 10.7
+
 # location where the build and assembly of the image is performed
 BUILD := dist-$(GHC_ARCH)
 DIRS := $(BUILD)
@@ -68,12 +71,11 @@ $(GHC_PKG):
 $(GHC_PAYLOAD): | $(GHC_PKG)
 	-rm -rf $(GHC_PACKAGE)
 	pkgutil --expand $(GHC_PKG) $(GHC_PACKAGE)
-	
-$(IMAGE_GHC_FRAMEWORK): | $(GHC_PAYLOAD)
+
+unpack-ghc: dirs | $(GHC_PAYLOAD)
 	-rm -rf $(IMAGE_GHC_FRAMEWORK)
 	gunzip < $(GHC_PAYLOAD) | (cd $(IMAGE_FRAMEWORKS) && cpio -i)
 
-ghc: dirs | $(IMAGE_GHC_FRAMEWORK)
 clean-ghc:
 	-rm -rf $(IMAGE_GHC_FRAMEWORK)
 	-rm -rf $(GHC_PACKAGE)
