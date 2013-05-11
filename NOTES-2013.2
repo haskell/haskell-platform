@@ -1,0 +1,50 @@
+NOTES-2013.2
+
+
+[] need to inform folks that I'm going to publish a database with their e-mail
+[] need a way to collect release notes
+[] what do we do about API changes? Should the HP have multiple versions of a
+    package? like when syb goes from 0.3.7 to 0.4.0 - that's an API change
+[] automated collection of package info? google form? web site?
+[] tests?!?!?!?!!!!
+
+[] library maintainer responsibilities?
+    - subscribe to haskell-platform@ or do we need a new address
+    - version number hygene
+    - working e-mail contact, provision for leaves
+    - release notes
+    - don't break the API
+    - don't change the API needlessly
+    - commitment to stability
+    - build no warnings... please?
+
+BUILD
+
+[] support for build from dist-build
+    [x] make file doesn't unpack without explicit target
+    [] should move dist build package building code into makefile(?)
+
+[x] something left a file named '*.conf' in the package.conf.d
+    which broke the source step - removing it got us a little closer
+    - didn't happen on rebuild, so not investigated
+
+[] craziness with GHC_PACKAGE_PATH in build.sh
+
+[x] why did platform.packages have extensible-exceptions-0.1.1.4?
+    ==> because cgi-3001.1.7.4. required it!
+
+
+[x] needed to add to the Makefile
+    export MACOSX_DEPLOYMENT_TARGET = 10.7
+
+[x] still have the bug that cabal update does it twice the first time
+    - fixed!
+
+[x] cabal doc is missing
+    [x] run the following (requires pandoc on PATH)
+    $ git clone --depth 5 --branch Cabal-v1.16.0 \
+            git://github.com/haskell/cabal.git cabal-1.16.0
+    $ cd cabal-1.16.0/Cabal
+    $ make users-guide
+    [x] result is in dist/doc/users-guide
+    [x] copy this as dist-<arch>/root/Library/Framekworks/GHC.framework/Versions/<ver>/usr/share/doc/ghc/html/Cabal

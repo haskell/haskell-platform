@@ -35,7 +35,7 @@ do
 done
 
 cabal install --dry-run --reinstall ${SRC_PKGS} \
-    | tail +3 | cut -d ' ' -f 1 > "${IMAGE_DIR}/packages/platform.packages"
+    | tail -n +3 | cut -d ' ' -f 1 > "${IMAGE_DIR}/packages/platform.packages"
 
 
 PLATFORM_PACKAGE_ID="haskell-platform-${PLATFORM_VERSION}"
