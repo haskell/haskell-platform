@@ -17,7 +17,7 @@ Download the Mac OS X installer here:
 <small>SHA-1: `f91fe05618494becc6b55d70c1f1cb20b02cecf0`</small>
 
 <!--
-* <small>*Pick the 32-bit vesion, unless you have a specific reason to use the 64-bit version.*<br />
+* <small>*Pick the 32-bit version, unless you have a specific reason to use the 64-bit version.*<br />
 The 32-bit one is slightly faster for most programs.<br />
 If you use **MacPorts**, **brew**, or other 3rd party libraries, see below.</small>
 -->
