@@ -12,14 +12,14 @@ web site (see above URL) contains builds for Mac OS X and Windows that include
 everything you need, including GHC.
 
 The web site also contains links for those Linux distributions for which there
-is a pre-build version. In most cases, that version of the platform is availble
+is a pre-build version. In most cases, that version of the platform is available
 through the normal package manager for the distribution, rather than directly
 from the Haskell Platform web site.
 
 
-
 Preparation
 -----------
+
 You will need to have GHC 7.4.2 installed prior to building the platform.
 Please see:
     http://www.haskell.org/ghc/download_ghc_7_4_2
@@ -28,7 +28,6 @@ Note that the warning at top will tell you to consider installing the
 platform instead. If you've gotten this far, you can ignore that.
 
 You can use a different version of GHC, but it may not work.
-
 
 You will also need the developer packages for various standard system libraries,
 such as zlib and GLUT. Exactly which packages you need will differ based on
@@ -39,12 +38,13 @@ need both the library and the development package for the library.
 
 Build and Install
 -----------------
+
 In this directory, run:
 
     ./configure
 
 This is standard autoconf, so options like --prefix will work. Run with --help
-to see all the options. In particular, if you are using a different versino of
+to see all the options. In particular, if you are using a different version of
 GHC, you'll need to add --enable-unsupported-ghc-version.
 
 Now build the packages:
@@ -55,5 +55,5 @@ Finally, to install everything, use
 
     make install
 
-Note that you will probably have to run this command 'sudo'.
+Note that you will probably have to run this command with 'sudo'.
 
