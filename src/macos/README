@@ -10,7 +10,7 @@ To build the Haskell Platform for Mac OS X:
 4a) If you have the proper GHC installer package:
     create a subdirectory "dist-i386" or "dist-x86_64 here
     move or sym-link the package into it
-You should have a file there named seomthing like
+You should have a file there named something like
     GHC-7.6.3-i386.pkg
     GHC-7.6.3-x86_64.pkg
 Run
@@ -33,6 +33,7 @@ Run
 
 6) Edit the ghc settings file in:
     dist/root/Library/Frameworks/GHC.framework/Versions/7.4.1-i386/usr/lib/ghc-7.4.1
+
 Make sure that the entries for "C compiler command" and "ar command" are:
  ("C compiler command", "/usr/bin/gcc"),
  ("ar command", "/usr/bin/ar"),
@@ -57,10 +58,12 @@ system. If things fail during this step, you'll probably have to remove
     make doc
     make polish
 
-10) Build the finall installer:
+10) Build the final installer:
     make installer
 
 This will ask you for your password so it can sudo the tree to root. Then it
-will launch PackageMaker.Now click Build... and choose a suitable name and location for the result.
+will launch PackageMaker. Now click Build... and choose a suitable name and
+location for the result.
 
 11) Go have some tea.
+
