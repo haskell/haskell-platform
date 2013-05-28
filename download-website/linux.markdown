@@ -51,12 +51,12 @@ See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
 Download the source tarball for Unix-like systems: here
 
  * ![](icons/source.png)
-**<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/haskell-platform-2012.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2012.4.0.0.tar.gz</a>**  \
-<small>SHA-1: `7976508c50305969f64c721a1d095ae22efff8b7`</small>
+**<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/haskell-platform-2013.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2013.2.0.0.tar.gz</a>**  \
+<small>SHA-1: `8669bb5add1826c0523fb130c095fb8bf23a30ce`</small>
 
-Get and install GHC 7.4.2 prior to building the platform:
+Get and install GHC 7.6.3 prior to building the platform:
 
- * [GHC 7.4.2](http://haskell.org/ghc/download_ghc_7_4_2.html)
+ * [GHC 7.6.3](http://www.haskell.org/ghc/download_ghc_7_6_3)
 
 Finally, unpack the Haskell Platform source tarball, and run (possibly with 'sudo'):
 
@@ -74,7 +74,7 @@ There is also a [README] file in the tarball with more detailed information on b
 **Build from cabal**
 
 If you already have a reasonable Haskell development environment with
-GHC 7.0.2 and cabal-install, you can build the platform from the Cabal
+GHC 7.0.2 or later and cabal-install, you can build the platform from the Cabal
 package alone.
 
 ![](icons/cabal.png)

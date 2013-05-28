@@ -10,11 +10,11 @@
 <img style="float:right;" src="images/OS_X-Logo.png" />
 Download the Mac OS X installer here:
 
-* **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2012.4.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)  \
-<small>SHA-1: `aade59af54a20b77bb5fc4d8ac740b69d0a63d05`</small>
+* **<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2013.2.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)  \
+<small>SHA-1: `15dd8762c9800308cb7cfdd16ea1a8e74988e06a`</small>
 
-* **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2012.4.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)  \
-<small>SHA-1: `f91fe05618494becc6b55d70c1f1cb20b02cecf0`</small>
+* **<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2013.2.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)  \
+<small>SHA-1: `89e6fb747816af69acabc5c04cee103257855614`</small>
 
 <!--
 * <small>*Pick the 32-bit vesion, unless you have a specific reason to use the 64-bit version.*<br />
@@ -38,19 +38,19 @@ After downloading:
 
   * On OS 10.6, 32-bit, use Xcode 3.2 or later: Choose the "Customize…" button during installation and choose **UNIX Development**. 64-bit version requires Xcode 4.1 or later.
 
-  * On OS 10.7, choose one of the following:
+  * On OS 10.7 or later, choose one of the following:
 
     * Download and install **Command Line Tools for Xcode**.
       Despite the name, you don't need Xcode installed!
 
-    * After installing Xcode 4.3, choose **Preferences**, then
+    * After installing Xcode (4.3 or later), choose **Preferences**, then
       pick the **Downloads** panel. There you can download and
       install the **Command Line Tools** as an optional component.
       This installs the same package as listed in the above option.
 
     * If you have Xcode prior to 4.3, depending on how you installed it,
       you may already have the command line tools. If not, consider the
-      first 10.7 option above.
+      first option above.
 
   * *The command line tools and/or Xcode can be downloaded for free
     from [Apple's developer website](http://developer.apple.com), you

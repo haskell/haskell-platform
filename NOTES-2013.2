@@ -48,3 +48,63 @@ BUILD
     $ make users-guide
     [x] result is in dist/doc/users-guide
     [x] copy this as dist-<arch>/root/Library/Framekworks/GHC.framework/Versions/<ver>/usr/share/doc/ghc/html/Cabal
+
+[x] Three packages didn't manage to build docs:
+    random, primitive, network
+
+    They all fail like this:
+
+    Data/Primitive/MachDeps.hs:15:0:
+         error: MachDeps.h: No such file or directory
+    Generating the primitive-0.5.0.1 package documentation failed
+
+    dist/build/Network/BSD.hs:23:0:
+         error: Typeable.h: No such file or directory
+    Generating the network-2.4.1.2 package documentation failed
+
+    [x] hand building them worked... so not sure what is going on:
+        BASE=/Users/markl/Projects/A/platform/hp-github/src/macos/dist-i386
+        cd $BASE/source/packages
+        for d in *
+        do test -f $d/dist/doc/html/${d%-*}/index.html || echo $d has no html doc
+        done
+        cd <pkg-dir>
+        GHC_PACKAGE_PATH=$BASE/package.conf.d PATH="$BASE/bin:$PATH" \
+            ./Setup haddock -v3 --hyperlink-source
+    [x] reubuilt doc index and installer
+
+
+
+
+= Site =
+
+[x] Edit info in upper-right of index.html
+[x] Update release schedule for current and next release on wiki:
+   http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
+[x] add a new section to prior.markdown for previously current release
+  [x] move the download links there
+[x] on lambda.haskell.org
+  [x] create /var/www/platform/download/<version>
+  [x] copy installers there
+  [x] create md5sum.txt:
+    md5sum [hH]* > md5sum.txt
+[x] update windows.markdown, mac.markdown, and linux.markdown
+  [x] update the download link
+  [x] update the number of the release
+  [x] for linux, update the link to GHC binary download page
+[x] update the GHC version and info on contents.markdown
+[] make the doc
+  [x] install the platform on a machine
+  [x] cd /Library/Haskell/doc
+  [x] tar czvLf ~/hp-doc-<ver>.tgz *
+  [x] untar that somewhere and clean it up:
+    [x] find packages -name 'bin' -o -name 'lib' | xargs rm -rf
+    [x] remove mac stuff from start.html
+    [x] retar it back up
+  [x] get that tarball onto lambda
+[] update current links on lambda:
+  [] /var/www/platform/docs/current
+  [] /var/www/platform/download/current
+
+
+

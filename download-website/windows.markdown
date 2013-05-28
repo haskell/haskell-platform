@@ -10,8 +10,8 @@
 <img style="float:right;" src="images/windows.png" />
 Download the Windows installer here:
 
-* **<a href="http://lambda.haskell.org/platform/download/2012.4.0.0/HaskellPlatform-2012.4.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Haskell Platform 2012.4.0.0 for Windows</a>**  \
-<small>SHA-1: `61e331b7f2ad6dd4a9bbc0295d40e719bf610207`</small>
+* **<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/HaskellPlatform-2013.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Haskell Platform 2013.2.0.0 for Windows</a>**  \
+<small>SHA-1: `fe9a4eee2fe8839eb3b240f15a2af229a110e37f`</small>
 
 
 After downloading:
