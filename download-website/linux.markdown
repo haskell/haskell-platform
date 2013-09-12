@@ -35,14 +35,14 @@ package manager.
 ![](icons/opensuse.png) [openSUSE]    ![](icons/mandriva.png) [Mandriva]
 ---------                             ---------
 
-See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
+See also: *[justhub]*, for RHEL, CentOS, Scientific Linux, and Fedora support
 
 [Jaunty]: http://sitr.us/2009/07/02/how-to-install-haskell-platform-on-ubuntu-jaunty.html
 [Karmic]: http://davidsiegel.org/haskell-platform-in-karmic-koala/
 [Lucid]: https://launchpad.net/~justinbogner/+archive/haskell-platform
 [openSUSE]: https://build.opensuse.org/project/show?project=devel:languages:haskell
 [Mandriva]: http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell
-[justhub]: http://www.justhub.org/
+[justhub]: http://justhub.org/
 
 ----
 
@@ -58,13 +58,13 @@ Get and install GHC 7.6.3 prior to building the platform:
 
  * [GHC 7.6.3](http://www.haskell.org/ghc/download_ghc_7_6_3)
 
-Finally, unpack the Haskell Platform source tarball, and run (possibly with 'sudo'):
+Finally, unpack the Haskell Platform source tarball, and run (possibly with <tt>sudo</tt>):
 
         ./configure
         make
         make install
 
-  You may pass <tt>--prefix</tt> flag to <tt>./configure</tt> to change the default install path.
+  You may pass the <tt>--prefix</tt> flag to <tt>./configure</tt> to change the default install path.
 
 There is also a [README] file in the tarball with more detailed information on building.
 
