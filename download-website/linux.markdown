@@ -42,7 +42,7 @@ See also: *[justhub]*, for REHL, CentOS, Scientific Linux, and Fedora spport
 [Lucid]: https://launchpad.net/~justinbogner/+archive/haskell-platform
 [openSUSE]: https://build.opensuse.org/project/show?project=devel:languages:haskell
 [Mandriva]: http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell
-[justhub]: http://www.justhub.org/
+[justhub]: http://justhub.org/
 
 ----
 
