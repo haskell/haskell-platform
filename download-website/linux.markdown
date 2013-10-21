@@ -21,7 +21,7 @@ package manager.
 
 [Ubuntu]: http://packages.ubuntu.com/haskell-platform
 [Debian]: http://packages.debian.org/haskell-platform
-[Fedora]: https://admin.fedoraproject.org/community/?package=haskell-platform#package_maintenance
+[Fedora]: https://apps.fedoraproject.org/packages/haskell-platform
 [Arch Linux]: http://www.archlinux.org/packages/extra/i686/haskell-platform/
 [Gentoo]: http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform
 [NixOS]: http://hydra.nixos.org/job/nixpkgs/trunk/haskellPlatform
