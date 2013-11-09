@@ -29,6 +29,18 @@ After downloading:
 
 ----
 
+**Xcode 5 & OS X 10.9 (Mavericks)**
+
+Xcode 5 no longer includes *gcc*. GHC 7, whether installed directly or via
+Haskell Platform, can be made to work with this wrapper script:
+
+  1. Copy this script to <tt>/usr/bin</tt>, and make sure it is exectuable.
+  2. Run it <tt>sudo</tt>. (Running without <tt>sudo</tt> will tell you what it would do if you did.)
+
+  * Download here: <a href="ghc-clang-wrapper" style="color:#f60;">ghc-clang-wrapper</a> bash script
+
+----
+
 **Notes:**
 
 *Only one architecture (32-bit or 64-bit) can be installed at a time.*

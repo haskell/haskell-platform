@@ -25,7 +25,7 @@
 <li><p><strong><a href="http://lambda.haskell.org/platform/download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2013.2.0.0 for Mac OS X, 64 bit</a></strong> (10.6 or later) <br /><small>SHA-1: <code>89e6fb747816af69acabc5c04cee103257855614</code></small></p></li>
 </ul>
 <!--
-* <small>*Pick the 32-bit vesion, unless you have a specific reason to use the 64-bit version.*<br />
+* <small>*Pick the 32-bit version, unless you have a specific reason to use the 64-bit version.*<br />
 The 32-bit one is slightly faster for most programs.<br />
 If you use **MacPorts**, **brew**, or other 3rd party libraries, see below.</small>
 -->
@@ -34,6 +34,16 @@ If you use **MacPorts**, **brew**, or other 3rd party libraries, see below.</sma
 <ul>
 <li>Double click the package icon to start the installer.</li>
 <li>Follow the instructions.</li>
+</ul>
+<hr />
+<p><strong>Xcode 5 &amp; OS X 10.9 (Mavericks)</strong></p>
+<p>Xcode 5 no longer includes <em>gcc</em>. GHC 7, whether installed directly or via Haskell Platform, can be made to work with this wrapper script:</p>
+<ol style="list-style-type: decimal">
+<li>Copy this script to <tt>/usr/bin</tt>, and make sure it is exectuable.</li>
+<li>Run it <tt>sudo</tt>. (Running without <tt>sudo</tt> will tell you what it would do if you did.)</li>
+</ol>
+<ul>
+<li>Download here: <a href="ghc-clang-wrapper" style="color:#f60;">ghc-clang-wrapper</a> bash script</li>
 </ul>
 <hr />
 <p><strong>Notes:</strong></p>
