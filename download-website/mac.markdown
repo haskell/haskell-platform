@@ -10,10 +10,10 @@
 <img style="float:right;" src="images/OS_X-Logo.png" />
 Download the Mac OS X installer here:
 
-* **<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2013.2.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)  \
+* **<a href="download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2013.2.0.0 for Mac OS X, 32 bit</a>** (10.6 or later)  \
 <small>SHA-1: `15dd8762c9800308cb7cfdd16ea1a8e74988e06a`</small>
 
-* **<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2013.2.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)  \
+* **<a href="download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2013.2.0.0 for Mac OS X, 64 bit</a>** (10.6 or later)  \
 <small>SHA-1: `89e6fb747816af69acabc5c04cee103257855614`</small>
 
 <!--
@@ -84,7 +84,7 @@ Haskell Platform, can be made to work with this wrapper script:
 
 *For Mac OS X 10.5 please use the 2010.2.0.0 installer:*
 
-* <a href="http://lambda.haskell.org/platform/download/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Haskell Platform 2010.2.0.0 for Mac OS X, 10.5</a>
+* <a href="download/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Haskell Platform 2010.2.0.0 for Mac OS X, 10.5</a>
 
 --------
 

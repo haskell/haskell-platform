@@ -51,7 +51,7 @@ See also: *[justhub]*, for RHEL, CentOS, Scientific Linux, and Fedora support
 Download the source tarball for Unix-like systems: here
 
  * ![](icons/source.png)
-**<a href="http://lambda.haskell.org/platform/download/2013.2.0.0/haskell-platform-2013.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2013.2.0.0.tar.gz</a>**  \
+**<a href="download/2013.2.0.0/haskell-platform-2013.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2013.2.0.0.tar.gz</a>**  \
 <small>SHA-1: `8669bb5add1826c0523fb130c095fb8bf23a30ce`</small>
 
 Get and install GHC 7.6.3 prior to building the platform:

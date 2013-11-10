@@ -114,7 +114,7 @@ Packages and Documentation
 
 * [Read the documentation]
 
-[Read the documentation]: http://lambda.haskell.org/platform/doc/current/start.html
+[Read the documentation]: doc/2013.2.0.0/start.html
 
 
 [ghc]: http://haskell.org/ghc
