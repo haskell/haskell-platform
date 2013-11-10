@@ -37,7 +37,14 @@ Haskell Platform, can be made to work with this wrapper script:
   1. Copy this script to <tt>/usr/bin</tt>, and make sure it is exectuable.
   2. Run it <tt>sudo</tt>. (Running without <tt>sudo</tt> will tell you what it would do if you did.)
 
-  * Download here: <a href="ghc-clang-wrapper" style="color:#f60;">ghc-clang-wrapper</a> bash script
+  * Download here: <a href="ghc-clang-wrapper">ghc-clang-wrapper</a> bash script
+
+Xcode 5 supplies *clang* as the C compier, and with respect to pre-processing
+there are some "differences of interpretation" between it and *gcc*. These
+differences can affect some Haskell code that uses the <tt>CPP</TT> extension.
+An alternate approach for users with Xcode 5 is to install a *gcc* and direct
+GHC at that. See [this page](https://gist.github.com/cartazio/7131371) for
+instructions.
 
 ----
 

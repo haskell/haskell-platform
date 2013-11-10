@@ -64,7 +64,9 @@ body#index {
 	text-align:right;
 }
 a, a:hover {
+    color: #f77;
 	text-decoration: none;
+    border-bottom: 1px dashed #666;
 }
 img{
 	border:0;
@@ -72,9 +74,6 @@ img{
 
 li {
     position: relative;
-}
-li:hover {
-    background: #fffcd4;
 }
 .versions {
 	width: 13em;
@@ -92,12 +91,14 @@ li:hover {
 	color: #000;
 }
 
-a, h1,
+/* a, h1, */
 .summer a,
 .summer h1,
 .summer #info .title {
 	color: #1c3a4b;
+    border-bottom: none;
 }
+/* a:hover, */
 .summer a:hover {
 	color:#2090cd;
 }
@@ -112,6 +113,7 @@ body#index.summer {
 .spring h1,
 .spring #info .title {
 	color: #660BAB;
+    border-bottom: none;
 }
 .spring a:hover {
 	color:#a767d5;
@@ -127,6 +129,7 @@ body#index.spring {
 .winter h1,
 .winter #info .title {
 	color: #144e96;
+    border-bottom: none;
 }
 .winter a:hover {
 	color:#6284af;

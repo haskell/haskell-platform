@@ -43,8 +43,9 @@ If you use **MacPorts**, **brew**, or other 3rd party libraries, see below.</sma
 <li>Run it <tt>sudo</tt>. (Running without <tt>sudo</tt> will tell you what it would do if you did.)</li>
 </ol>
 <ul>
-<li>Download here: <a href="ghc-clang-wrapper" style="color:#f60;">ghc-clang-wrapper</a> bash script</li>
+<li>Download here: <a href="ghc-clang-wrapper">ghc-clang-wrapper</a> bash script</li>
 </ul>
+<p>Xcode 5 supplies <em>clang</em> as the C compier, and with respect to pre-processing there are some &quot;differences of interpretation&quot; between it and <em>gcc</em>. These differences can affect some Haskell code that uses the <tt>CPP</TT> extension. An alternate approach for users with Xcode 5 is to install a <em>gcc</em> and direct GHC at that. See <a href="https://gist.github.com/cartazio/7131371">this page</a> for instructions.</p>
 <hr />
 <p><strong>Notes:</strong></p>
 <p><em>Only one architecture (32-bit or 64-bit) can be installed at a time.</em></p>
