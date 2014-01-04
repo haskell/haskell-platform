@@ -22,12 +22,12 @@ die () {
 [ -n "$prefix" ] \
   || die "Expected prefix to have been defined in scripts/config"
 
-CABAL_PKG_VER="`grep Cabal packages/core.packages`"
-[ -n "${CABAL_PKG_VER}" ] \
-  || die "Expected Cabal as a preinstalled package"
-if test "${ALLOW_UNSUPPORTED_GHC}" = "YES"; then
+# CABAL_PKG_VER="`grep Cabal packages/core.packages`"
+# [ -n "${CABAL_PKG_VER}" ] \
+#   || die "Expected Cabal as a preinstalled package"
+# if test "${ALLOW_UNSUPPORTED_GHC}" = "YES"; then
 CABAL_PKG_VER="Cabal"
-fi
+# fi
 
 HAPPY_PKG_VER="`grep happy packages/platform.packages`"
 HAPPY_INPLACE="${HAPPY_PKG_VER}/dist/build/happy/happy"

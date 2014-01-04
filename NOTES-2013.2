@@ -106,5 +106,24 @@ BUILD
   [] /var/www/platform/docs/current
   [] /var/www/platform/download/current
 
+== November release: 20134.0.0 ==
 
+[] error while running make build:
+    Expected Cabal as a preinstalled package
+    -- this is from build.sh
+    -- commented out the check for now - but this needs to be reconciled with
+    -- having two Cabal packages in the platform
+
+[] have to remember to manually clean up the dist dirs if re-using them
+  [] mac Makefile should have a better clean routine
+
+[] GHC_PACKAGE_PATH can't be used in the cabal call to prepare.sh
+  -- cabal: Use of GHC's environment variable GHC_PACKAGE_PATH is incompatible
+     with Cabal. Use the flag --package-db to specify a package database (it can
+    be used multiple times).
+
+[] aeson requires dlist
+
+[] the prepare.sh script should really be a haskell program, and could do with
+  much better diagnostics - like checking of the set of packages is consistent
 

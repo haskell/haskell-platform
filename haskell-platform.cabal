@@ -1,5 +1,5 @@
 name:                haskell-platform
-version:             2013.2.0.0
+version:             2013.4.0.0
 homepage:            http://haskell.org/platform
 license:             BSD3
 license-file:        LICENSE
@@ -40,7 +40,6 @@ library
       array                     ==0.4.0.1,
       base                      ==4.6.0.1,
       bytestring                ==0.10.0.2,
-      Cabal                     ==1.16.0,
       containers                ==0.5.0.0,
       deepseq                   ==1.3.0.1,
       directory                 ==1.2.0.1,
@@ -66,23 +65,27 @@ library
     -- Libraries in addition to what GHC provides:
     -- Note: newer versions of cgi need monad-catchio.
     --                                          begin platform packages
+    aeson                       ==0.6.2.1,
     async                       ==2.0.1.4,
     attoparsec                  ==0.10.4.0,
-    case-insensitive            ==1.0.0.1,
+    blaze-builder               ==0.3.2.0,
+    Cabal                       ==1.18.1.2,
+    case-insensitive            ==1.1.0.1,
     cgi                         ==3001.1.7.5,
+    dlist                       ==0.5,
     fgl                         ==5.4.2.4,
-    GLUT                        ==2.4.0.0,
-    GLURaw                      ==1.3.0.0,
+    GLUT                        ==2.5.0.1,
+    GLURaw                      ==1.4.0.0,
     haskell-src                 ==1.0.1.5,
-    hashable                    ==1.1.2.5,
+    hashable                    ==1.2.1.0,
     html                        ==1.0.1.2,
-    HTTP                        ==4000.2.8,
+    HTTP                        ==4000.2.9,
     HUnit                       ==1.2.5.2,
     mtl                         ==2.1.2,
-    network                     ==2.4.1.2,
-    OpenGL                      ==2.8.0.0,
-    OpenGLRaw                   ==1.3.0.0,
-    parallel                    ==3.2.0.3,
+    network                     ==2.4.2.0,
+    OpenGL                      ==2.9.1.0,
+    OpenGLRaw                   ==1.4.0.0,
+    parallel                    ==3.2.0.4,
     parsec                      ==3.1.3,
     QuickCheck                  ==2.6,
     random                      ==1.0.1.1,
@@ -91,24 +94,24 @@ library
     regex-posix                 ==0.95.2,
     split                       ==0.2.2,
     stm                         ==2.4.2,
-    syb                         ==0.4.0,
+    syb                         ==0.4.1,
     text                        ==0.11.3.1,
     transformers                ==0.3.0.0,
     unordered-containers        ==0.2.3.0,
-    vector                      ==0.10.0.1,
+    vector                      ==0.10.9.1,
     xhtml                       ==3000.2.1,
     zlib                        ==0.5.4.1,
 
     -- Libraries that are needed to support the above,
     -- though are not officially part of the platform
-    primitive                   ==0.5.0.1
+    primitive                   ==0.5.1.0
 
   -- Depending on programs does not work, they are not registered
   -- We list them to help distro packaging.
   build-tools:
-    cabal-install               ==1.16.0.2,
-    alex                        ==3.0.5,
-    happy                       ==1.18.10
+    cabal-install               ==1.18.0.2,
+    alex                        ==3.1.0,
+    happy                       ==1.19.0
     --                                          end platform packages
     -- hscolour                 ==1.20.3   -- ???
     -- haddock                  ==2.13.2 -- need to use the one shipped with ghc

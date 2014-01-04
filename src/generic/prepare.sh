@@ -29,12 +29,19 @@ mkdir "${IMAGE_DIR}/packages"
 mkdir "${IMAGE_DIR}/scripts"
 
 SRC_PKGS=$(packageIDs platform)
+echo ${SRC_PKGS} > "${IMAGE_DIR}/packages/source.packages"
 for pkg in ${SRC_PKGS}
 do
     (cd "${IMAGE_DIR}/packages" && cabal unpack $pkg)
 done
 
-cabal install --dry-run --reinstall ${SRC_PKGS} \
+PKGD=""
+if [ -n "${GHC_PACKAGE_PATH}" ]; then
+  PKGD="--package-db ${GHC_PACKAGE_PATH}"
+  unset GHC_PACKAGE_PATH
+fi
+
+cabal install --dry-run --reinstall ${PKGD} ${SRC_PKGS} \
     | tail -n +3 | cut -d ' ' -f 1 > "${IMAGE_DIR}/packages/platform.packages"
 
 
