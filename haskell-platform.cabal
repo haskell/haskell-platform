@@ -65,24 +65,21 @@ library
     -- Libraries in addition to what GHC provides:
     -- Note: newer versions of cgi need monad-catchio.
     --                                          begin platform packages
-    aeson                       ==0.6.2.1,
     async                       ==2.0.1.4,
     attoparsec                  ==0.10.4.0,
-    blaze-builder               ==0.3.2.0,
     Cabal                       ==1.18.1.2,
     case-insensitive            ==1.1.0.1,
     cgi                         ==3001.1.7.5,
-    dlist                       ==0.5,
     fgl                         ==5.4.2.4,
-    GLUT                        ==2.5.0.1,
+    GLUT                        ==2.5.0.2,
     GLURaw                      ==1.4.0.0,
     haskell-src                 ==1.0.1.5,
     hashable                    ==1.2.1.0,
     html                        ==1.0.1.2,
-    HTTP                        ==4000.2.9,
+    HTTP                        ==4000.2.10,
     HUnit                       ==1.2.5.2,
     mtl                         ==2.1.2,
-    network                     ==2.4.2.0,
+    network                     ==2.4.2.2,
     OpenGL                      ==2.9.1.0,
     OpenGLRaw                   ==1.4.0.0,
     parallel                    ==3.2.0.4,
@@ -110,8 +107,8 @@ library
   -- We list them to help distro packaging.
   build-tools:
     cabal-install               ==1.18.0.2,
-    alex                        ==3.1.0,
-    happy                       ==1.19.0
+    alex                        ==3.1.3,
+    happy                       ==1.19.2
     --                                          end platform packages
     -- hscolour                 ==1.20.3   -- ???
     -- haddock                  ==2.13.2 -- need to use the one shipped with ghc
