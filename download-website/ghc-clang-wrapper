@@ -114,7 +114,7 @@ else
         then
             exec gcc $extraClangArgs `adjustPreprocessorLanguage "$@"`
         else
-            exec gcc $extraClangArgs "$@"
+            exec gcc $extraClangArgs "${@/-nodefaultlibs/}"
         fi
     else
         exec gcc "$@"
