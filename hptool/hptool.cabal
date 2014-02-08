@@ -1,0 +1,28 @@
+Name:            hptool
+Version:         0.1
+Author:          Mark Lentczner
+Maintainer:      mark@glyphic.com
+Category:        Utility
+Build-type:      Simple
+Cabal-version:   >=1.8
+Synopsis:        Haskell Platform Utility
+
+Data-files:
+  templates/*.mu
+
+Executable hptool
+  Main-is: Main.hs
+
+  hs-source-dirs: src
+
+  Build-depends:
+    Cabal,
+    base,
+    containers,
+    directory,
+    hastache,
+    shake,
+    split,
+    transformers
+
+  ghc-options: -Wall -fwarn-tabs

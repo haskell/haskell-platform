@@ -1,0 +1,204 @@
+THE NEW HP BUILD
+
+A single tool that can:
+    - check the proposed set of packages
+    - build the source tar ball (see below for definition)
+        - given either the current tool chain
+        - or the proposed one (should really be just cabal, yes?)
+    - build directly from the source packages
+        - using the current tool chain
+        - checking that it is what we expect (optionally ignorable)
+        - check if they are already installed
+            - either force / update / skip if they are
+    - install from source packages
+        - build (see above)
+        - if built, install
+    - build the Mac installer
+        - from the source packages (perhaps fetching if needed!)
+        - from a bindist of ghc (perhaps fetching if asked)
+        - checking that the bin dist is what we expect (optinoally ignorable)
+    - rebuild master haddock
+
+
+building a package
+------------------
+    - cd to the package source dir
+    - ghc Setup
+    - Setup configure w/million options
+    - Setup build
+    - Setup register --inplace
+    - Setup haddock
+
+installing a package
+--------------------
+    - cd to the package source dir
+    - Setup copy (package puts it in rootdir)
+    - Setup register (package registers in confdir)
+    - ghc-pkg update the conf (install only)
+
+
+the source package
+------------------
+    haskell-plaform-{version}/
+        packages/
+            xxxx-a.b.c.d            -- directory of unpacked source per package
+            haskell-platform-a.b.c.d
+                haskell-platform.cabal
+                Setup.hs            -- not sure if we need this
+                LICENSE
+        hptool/
+            the tool (in source form)
+        etc/
+            core.packages       -- packages in the core
+            source.packages     -- packages added by the platform
+            build.packages      -- packages in the platform, in build order
+
+
+tree layouts
+------------
+
+from HP repo
+------------
+    repo/
+        build/          ... when hptool is run
+        hptool/
+        packages/        ... placed by hand if needed for build
+        website/
+        files...
+
+from HP src tar ball
+--------------------
+    h-p-ver/
+        build/          ... when hptool is run
+        etc/
+        hptool/
+        packages/       ... sources from tarball
+        files...
+
+
+
+Parameters to the Build
+-----------------------
+hp version
+    ghc version (desired)
+    core packages (expected)
+    source packages
+
+ghc tarball
+    ghc version (actual)
+    ghc-(version)-(arch)-(vendor)-(os).tar.bz2
+        note: (os) can have dashes
+
+target OS
+    ghc prefix
+    lib prefix
+
+
+
+
+TO DO
+=====
+
+[ ] reverse order of nodes so platform.packages is nicer
+[ ] rename platform.packages -> build.packages  ???
+
+[ ] clean up main pseudo build targets
+    - just let the user say 'em directly
+    [ ] fix silliness with build-targt and targetDir being phoney
+
+[ ] clean up types
+    [ ] ? split out ghc release info from HP, and just reference it?
+    [ ] Include -or- Package ?
+    [ ] HpVer and GhcVer wrappers?
+    [ ] or just pass config to path builders?
+
+
+
+
+[ ] what to do about Haddock? it is just a tool (not a lib), but it
+    depends on a package, ghc-paths, which isn't part of the platform.
+    [ ] furthermore, that package encodes build paths into the exec!!!!
+    [ ] should we instead be using haddock from the ghc-bin-dist?
+
+
+[ ] make build dir be current workding directory
+    [ ] command line option for spec'ing where build dir is
+    [ ] default location for build dir
+    [ ] cd into build dir, and then eval all Rules / Actions from there
+
+
+[ ] missing bits from tarball
+    [ ] haskell-platform.cabal file
+    [ ] source of hptool itself?
+
+[ ] missing bits for target
+    [ ] scripts needed at install time
+        [ ] registration
+        [ ] bin link up
+        [ ] make this something that HP can use to set up the particular HP as the default
+
+    [ ] haddock master files
+
+[ ] mac polish
+    [ ] bin in /Library/Haskell/<ver>/bin
+    [ ] cabal.wrap
+    [ ] UninstallHS.hs (incorporate into hp-tool?)
+    [ ] /Library/Haskell/current/* sym links (include in patch script?)
+    [ ] final call out to PackageMaker
+        [ ] templatize those control files?
+
+[ ] haskell-platform itself is missing from platform.packages
+    [ ] does it need to be there? really?
+    [ ] does it need to be built?
+
+[ ] something is quite wrong with the marker system
+    [ ] delete the dir, but not the marker - things don't always rebuild
+    [ ] seems like sometimes things rebuild for no reason
+
+[ ] still a few path bits hard coded here and there
+    - see "../packages.conf.d" for example in Target.hs
+
+[ ] does generated haddock...
+    [ ] correctly reference other modules?
+    [ ] have hscolour'd source?
+
+[ ] generate hp.cabal from version data
+    [] pick a template system
+
+[ ] either don't untar the ghc bindist twice
+    or use resources to ensure that we don't ghcInstall in parallel
+
+[ ] hscolour?
+    [ ] check for presence
+    [ ] include in platform?
+
+[ ] fix inconsistency about if the cp destination is the dir,
+    or the dir to hold the dir
+
+[ ] hptool command to see if there are newer versions of packages (?)
+
+[ ] several calls to head that should probably check and produce
+    better error messages
+
+Shake Thoughts
+--------------
+[] building dirs needs better support
+[] when you build something, you must build it afresh!
+    [] and then never modify it
+    [] these requirements come to light when building dirs
+[] global Rules() make it hard to be modular
+    [] if package A has rules for type foo
+    and package B & C need foos, then both can't call the function
+    in A that provides the rules
+
+[] because need takes a list, and you only get parallelism if you
+    supply all needs at once, it is hard to modularlize targets
+    that are based on some hidden info
+
+[] addPath isn't useful because command and friends use createProcess
+    which looks up the executable in the current environment, not the
+    modified environment that will be accompany the final execution
+
+[] copyFile' should putNormal?
+
+[] staunch seems to give up early?
