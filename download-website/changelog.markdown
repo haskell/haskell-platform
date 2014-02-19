@@ -22,7 +22,7 @@ as [this Cabal file](https://github.com/haskell/haskell-platform/blob/master/has
  * [base]                    <span class="versions">_4.5.1.0_     ⟶ _4.6.0.1_</span>
  * [bytestring]              <span class="versions">_0.9.2.1_     ⟶ _0.10.0.2_</span>
  * [Cabal]                   <span class="versions">_1.14.0_      ⟶ _1.16.0_</span>
- * [containers]              <span class="versions">_0.4.2.1_     ⟶ _0.4.2.1_</span>
+ * [containers]              <span class="versions">_0.4.2.1_     ⟶ _0.5.0.0_</span>
  * [deepseq]                 <span class="versions">_1.3.0.0_     ⟶ _1.3.0.0_</span>
  * [directory]               <span class="versions">_1.1.0.2_     ⟶ _1.2.0.1_</span>
  * [extensible-exceptions]   <span class="versions">_0.1.1.4_     ⟶ _(removed)_</span>
