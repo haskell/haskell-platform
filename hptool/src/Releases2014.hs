@@ -1,6 +1,7 @@
 module Releases2014 where
 
 import PlatformDB
+import Types
 
 hp2014_1_0_0 :: Release
 hp2014_1_0_0 =

@@ -5,7 +5,6 @@ module Target
 
 import Control.Applicative ((<$>))
 import Control.Monad (forM_, when)
-import Data.Version (Version, showVersion)
 import Development.Shake
 import Development.Shake.FilePath
 
@@ -14,19 +13,20 @@ import Dirs
 import GhcDist
 import Paths
 import PlatformDB
+import Types
 import Utils
 
 
-targetRules :: Version -> Rules ()
+targetRules :: HpVersion -> Rules ()
 targetRules hpVer = do
     buildRules
     installRules hpVer
     targetDir ~> do
         hpRel <- askHp
-        let hp = releaseToHp hpRel
-            packages = map includeToPackage $ platformPackages hpRel
+        let hpVer' = relVersion hpRel
+            packages = platformPackages hpRel
 
-        need $ [ dir ghcTargetDir ] ++ map (dir . packageTargetDir hp) packages
+        need $ dir ghcTargetDir : map (dir . packageTargetDir hpVer') packages
 
 
 buildRules :: Rules ()
@@ -90,7 +90,7 @@ buildAction buildDir hpRel = do
         cabal "haddock" ["--hyperlink-source"]  -- TODO(mzero): make optional
 
   where
-    prefix = "/Library/Haskell/" ++ hpVer ++ "/lib/$pkgid"
+    prefix = "/Library/Haskell/" ++ show hpVer ++ "/lib/$pkgid"
     happyExe = packageBuildDir happyVer </> "dist/build/happy/happy"
     happyTemplateDir = packageBuildDir happyVer
     alexExe = packageBuildDir alexVer </> "dist/build/alex/alex"
@@ -98,7 +98,7 @@ buildAction buildDir hpRel = do
     cabalInstallDir = undefined
     doProfiling = True
     doShared = True
-    hpVer = showVersion $ relVersion hpRel
+    hpVer = relVersion hpRel
 
     confOpts needsAlex needsHappy =
         [ "--prefix=" ++ prefix ]
@@ -116,20 +116,20 @@ buildAction buildDir hpRel = do
 
     alexVer = findPackage "alex"
     happyVer = findPackage "happy"
-    findPackage s = case filter ((==s) . incPackage) . relPackages $ hpRel of
-        (i:_) -> includeToPackage i
+    findPackage s = case filter ((==s) . pkgName) . allPackages $ hpRel of
+        (p:_) -> p
         [] -> error $ "Can't find needed package " ++ s ++ " in HP."
 
 
 
 
-installRules :: Version -> Rules ()
+installRules :: HpVersion -> Rules ()
 installRules hpVer = do
-    packageTargetDir hp PackageWildCard */> \targetPkgDir -> do
-        let pkg = read $ takeFileName targetPkgDir
+    packageTargetDir hpVer PackageWildCard */> \targetPkgDir -> do
+        let pkg = read $ takeFileName targetPkgDir :: Package
         let buildDir = packageBuildDir pkg
         let confFile = packageTargetConf pkg
-        let regDir = registrationTargetDir hp
+        let regDir = registrationTargetDir hpVer
         let regFile = regDir </> show pkg
         need [ dir buildDir ]
         makeDirectory regDir
@@ -140,8 +140,5 @@ installRules hpVer = do
         if hasReg
             then command_ [] "cp" [confFile, regFile]
             else command_ [] "rm" ["-f", regFile]
-  where
-    hp = Hp hpVer
-
 
 

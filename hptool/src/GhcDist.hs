@@ -5,7 +5,6 @@ module GhcDist
   where
 
 import Data.List (intercalate)
-import Data.Version
 import Development.Shake
 import Development.Shake.FilePath
 import System.Environment (getEnvironment)
@@ -45,7 +44,7 @@ ghcDistRules = do
   where
     targetPrefix = osxPrefix
     osxPrefix conf = "/Library/Frameworks/GHC.framework/Versions/"
-                     ++ (showVersion $ ghcVersion conf) ++ '-' : ghcArch conf
+                     ++ (show $ ghcVersion conf) ++ '-' : ghcArch conf
 
 
 -- TODO(mzero): need a way to get the os specific target path out!

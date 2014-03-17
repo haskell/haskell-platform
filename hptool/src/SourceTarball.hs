@@ -8,6 +8,7 @@ import Config
 import Dirs
 import Paths
 import PlatformDB
+import Types
 import Utils
 
 sourceTarballRules :: FilePath -> Rules ()
@@ -22,7 +23,7 @@ sourceTarballRules srcTarFile = do
     packageListRule target pkgFn =
         target *> \out -> do
             hpRelease <- askHp
-            let pkgs = map includeToPackage $ pkgFn hpRelease
+            let pkgs = pkgFn hpRelease
             writeFileLinesChanged out (map show pkgs)
 
 
@@ -49,7 +50,7 @@ tarFileAction out hpRelease = do
     command_ [Cwd upDir]
         "tar" ["czf", out ® upDir, takeFileName topDir]
   where
-    hp = releaseToHp hpRelease
+    hp = relVersion hpRelease
 
     upDir = takeDirectory topDir
     topDir = hpSourceDir hp
@@ -58,4 +59,4 @@ tarFileAction out hpRelease = do
 
     lists = [listBuild, listCore, listSource]
 
-    sources = map includeToPackage $ platformPackages hpRelease
+    sources = platformPackages hpRelease

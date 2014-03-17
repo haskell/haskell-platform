@@ -99,33 +99,16 @@ target OS
 TO DO
 =====
 
+[ ] fix up Config
+    [ ] refactor Config type
+    [ ] remove unused and broken askHpVersion
+
 [ ] reverse order of nodes so platform.packages is nicer
 [ ] rename platform.packages -> build.packages  ???
 
 [ ] clean up main pseudo build targets
     - just let the user say 'em directly
     [ ] fix silliness with build-targt and targetDir being phoney
-
-[ ] clean up types
-    [ ] ? split out ghc release info from HP, and just reference it?
-    [ ] Include -or- Package ?
-    [ ] HpVer and GhcVer wrappers?
-    [ ] or just pass config to path builders?
-
-
-
-
-[ ] what to do about Haddock? it is just a tool (not a lib), but it
-    depends on a package, ghc-paths, which isn't part of the platform.
-    [ ] furthermore, that package encodes build paths into the exec!!!!
-    [ ] should we instead be using haddock from the ghc-bin-dist?
-
-
-[ ] make build dir be current workding directory
-    [ ] command line option for spec'ing where build dir is
-    [ ] default location for build dir
-    [ ] cd into build dir, and then eval all Rules / Actions from there
-
 
 [ ] missing bits from tarball
     [ ] haskell-platform.cabal file
@@ -139,6 +122,16 @@ TO DO
 
     [ ] haddock master files
 
+
+[ ] what to do about Haddock? it is just a tool (not a lib), but it
+    depends on a package, ghc-paths, which isn't part of the platform.
+    [ ] furthermore, that package encodes build paths into the exec!!!!
+    [ ] should we instead be using haddock from the ghc-bin-dist?
+
+[ ] change how IncludeType encodes GHC-ness:
+    IncGhc & IncGhcLib ---> IncGhc IncludeType
+    - this way, we can include tools from GHC
+
 [ ] mac polish
     [ ] bin in /Library/Haskell/<ver>/bin
     [ ] cabal.wrap
@@ -151,6 +144,26 @@ TO DO
     [ ] does it need to be there? really?
     [ ] does it need to be built?
 
+
+[ ] does generated haddock...
+    [ ] correctly reference other modules?
+    [ ] have hscolour'd source?
+
+[ ] hscolour?
+    [ ] check for presence
+    [ ] include in platform?
+
+[ ] invocation script
+    [ ] support older host cabal w/o sandboxing
+    [ ] exec hptool
+    [ ] perhaps add an option to hptool to spec original name so errors
+        read better
+
+[ ] make build dir be current workding directory
+    [ ] command line option for spec'ing where build dir is
+    [ ] default location for build dir
+    [ ] cd into build dir, and then eval all Rules / Actions from there
+
 [ ] something is quite wrong with the marker system
     [ ] delete the dir, but not the marker - things don't always rebuild
     [ ] seems like sometimes things rebuild for no reason
@@ -158,19 +171,8 @@ TO DO
 [ ] still a few path bits hard coded here and there
     - see "../packages.conf.d" for example in Target.hs
 
-[ ] does generated haddock...
-    [ ] correctly reference other modules?
-    [ ] have hscolour'd source?
-
-[ ] generate hp.cabal from version data
-    [] pick a template system
-
 [ ] either don't untar the ghc bindist twice
     or use resources to ensure that we don't ghcInstall in parallel
-
-[ ] hscolour?
-    [ ] check for presence
-    [ ] include in platform?
 
 [ ] fix inconsistency about if the cp destination is the dir,
     or the dir to hold the dir
@@ -179,6 +181,9 @@ TO DO
 
 [ ] several calls to head that should probably check and produce
     better error messages
+
+[ ] ? split out ghc release info from HP, and just reference it?
+
 
 Shake Thoughts
 --------------

@@ -1,7 +1,6 @@
 module Main where
 
 import Control.Monad (forM_)
-import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
 
@@ -13,6 +12,7 @@ import Paths
 import PlatformDB
 import Releases2014
 import SourceTarball
+import Types
 import Target
 
 main :: IO ()
@@ -54,7 +54,7 @@ main = shakeArgsWith opts [] main'
     opts = shakeOptions
 
     hpRelease = hp2014_1_0_0
-    hpFullName = "haskell-platform-" ++ showVersion (relVersion hpRelease)
+    hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tgz"
 
 
@@ -63,7 +63,7 @@ buildRules hpRelease srcTarFile = do
     "build-source" ~> need [srcTarFile]
     "build-target" ~> need [targetDir]
     "build-local" ~> need [dir ghcLocalDir]
-    forM_ (map includeToPackage $ platformPackages hpRelease) $ \pkg -> do
+    forM_ (platformPackages hpRelease) $ \pkg -> do
         let full = "build-package-" ++ show pkg
         let short = "build-package-" ++ pkgName pkg
         short ~> need [full]

@@ -15,12 +15,11 @@ module Config
 import Control.Applicative ((<$>))
 import Data.List (intercalate)
 import Data.List.Split (splitOn)
-import Data.Version (Version)
 import Development.Shake
 import Development.Shake.Classes
 import Development.Shake.FilePath
 
-import PlatformDB
+import Types
 import Utils (version)
 
 
@@ -29,7 +28,7 @@ import Utils (version)
 -- the configuration of the HP build.
 data GhcConfig = GhcConfig
     { ghcBinDistTarFile :: FilePath
-    , ghcVersion :: Version
+    , ghcVersion :: GhcVersion
     , ghcArch :: String             -- ex.: "arm", "i386", "x86_64", etc.
     , ghcOsVendor :: String         -- ex.: "apple", "solaris", "unknown"
     , ghcOs :: String               -- ex.: "freebsd", "linux", "darwin"
@@ -48,7 +47,7 @@ fromBinDistTarFile fp =
     base = (if takeExtension base0 == ".tar" then dropExtension else id) base0
     parts = splitOn "-" base
     (prefix : verStr : ghcArch : ghcOsVendor : ghcOs : remainder) = parts
-    ghcVersion = version verStr
+    ghcVersion = GhcVersion $ version verStr
     ghcOsDistribution = intercalate "-" remainder
     ok = (length parts >= 5) && (prefix == "ghc")
 

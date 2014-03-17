@@ -1,27 +1,16 @@
 module PlatformDB
-    ( PackageName,
-      IncludeType,
-      Include(..), incFullname,
-      Release(..),
-
-      release,
+    ( release,
       incGHC, incGHCLib, incLib, incTool,
       notWindows, onlyWindows,
 
+      allPackages,
       corePackages,
       platformPackages,
     ) where
 
-import Data.Version (Version, showVersion)
 
+import Types
 import Utils (version)
-
-type PackageName = String
-
-data IncludeType = IncGHC | IncGHCLib | IncLib | IncTool
-                 | IncIfWindows IncludeType
-                 | IncIfNotWindows IncludeType
-  deriving (Eq, Read, Show)
 
 -- | Is this include part of the GHC release?
 partOfGHC :: IncludeType -> Bool
@@ -31,31 +20,13 @@ partOfGHC (IncIfWindows i) = partOfGHC i
 partOfGHC (IncIfNotWindows i) = partOfGHC i
 partOfGHC _ = False
 
-data Include = Include
-    { incType :: IncludeType
-    , incPackage :: PackageName
-    , incVersion :: Version
-    }
-  deriving (Read, Show)
-
--- | The include name in the form package-version
-incFullname :: Include -> String
-incFullname inc = incPackage inc ++ '-' : showVersion (incVersion inc)
-
--- | A release of the platform
-data Release = Release
-    { relVersion :: Version
-    , relPackages :: [ Include ]
-    }
-  deriving (Read, Show)
-
 -- | Construct a release
 release :: String -> [Include] -> Release
-release vstr incs = Release (version vstr) incs
+release vstr incs = Release (HpVersion $ version vstr) incs
 
 
 buildInc :: IncludeType -> PackageName -> String -> Include
-buildInc inc name vstr = Include inc name $ version vstr
+buildInc inc name vstr = (inc, Package name $ version vstr)
 
 -- | An include entry for the version of GHC itself
 incGHC :: String -> Include
@@ -77,19 +48,26 @@ incTool = buildInc IncTool
 -- | Modify an include for being part of the platform only on non-windows
 -- distributions.
 notWindows :: Include -> Include
-notWindows inc = inc { incType = IncIfNotWindows $ incType inc }
+notWindows (it, pkg) = (IncIfNotWindows it, pkg)
 
 -- | Modify an include for being part of the platform only on windows
 -- distributions.
 onlyWindows :: Include -> Include
-onlyWindows inc = inc { incType = IncIfWindows $ incType inc }
+onlyWindows (it, pkg) = (IncIfWindows it, pkg)
 
 
+packagesByIncludeFilter :: (IncludeType -> Bool) -> Release -> [Package]
+packagesByIncludeFilter f = map snd . filter (f . fst) . relIncludes
+
+-- | All packages in the release
+allPackages :: Release -> [Package]
+allPackages = packagesByIncludeFilter $ const True
 
 -- | Includes that are part of the core (expected to come with GHC)
-corePackages :: Release -> [Include]
-corePackages = filter (partOfGHC . incType) . relPackages
+corePackages :: Release -> [Package]
+corePackages = packagesByIncludeFilter partOfGHC
 
 -- | Includes that come from the platform (added beyond the GHC default)
-platformPackages :: Release -> [Include]
-platformPackages = filter (not . partOfGHC . incType) . relPackages
+platformPackages :: Release -> [Package]
+platformPackages = packagesByIncludeFilter (not . partOfGHC)
+

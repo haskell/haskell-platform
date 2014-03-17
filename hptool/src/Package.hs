@@ -14,6 +14,7 @@ import Dirs
 import GhcDist
 import Paths
 import PlatformDB
+import Types
 import Utils
 
 
@@ -39,7 +40,7 @@ packageRules = do
 
     listBuild *> \out -> do
         hpRel <- askHp
-        let pkgs = map includeToPackage $ platformPackages hpRel
+        let pkgs = platformPackages hpRel
         need $ map packageDepsFile pkgs
         nodes <- mapM buildNode pkgs
         writeFileLinesChanged out $ flattenSCCs $ stronglyConnComp nodes
@@ -73,8 +74,8 @@ installAction depFile hpRel = do
         ] ++ map ("--constraint=" ++) constraints
 
     constraints =
-        map (\i -> incPackage i ++ "==" ++ showVersion (incVersion i)) $
-            relPackages hpRel
+        map (\p -> pkgName p ++ "==" ++ showVersion (pkgVersion p)) $
+            allPackages hpRel
 
     decode out = case drop 1 $ lines out of
         ("All the requested packages are already installed:":_) ->
@@ -87,5 +88,5 @@ installAction depFile hpRel = do
                             ++ unwords (filter (not . (`elem` packages)) deps)
         _ -> Left out
 
-    packages = map (show . includeToPackage) $ relPackages hpRel
+    packages = map show $ allPackages hpRel
 
