@@ -17,12 +17,12 @@ sourceTarballRules srcTarFile = do
     packageListRule listSource platformPackages
 
     srcTarFile *> \out -> do
-        hpRelease <- askHp
+        hpRelease <- askHpRelease
         tarFileAction out hpRelease
   where
     packageListRule target pkgFn =
         target *> \out -> do
-            hpRelease <- askHp
+            hpRelease <- askHpRelease
             let pkgs = pkgFn hpRelease
             writeFileLinesChanged out (map show pkgs)
 

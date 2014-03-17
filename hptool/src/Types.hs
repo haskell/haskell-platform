@@ -8,6 +8,7 @@ module Types
     , IncludeType(..)
     , Include
     , Release(..)
+    , BuildConfig(..)
     )
   where
 
@@ -84,5 +85,20 @@ type Include = (IncludeType, Package)
 data Release = Release
     { relVersion :: HpVersion
     , relIncludes :: [Include]
+    }
+  deriving (Read, Show)
+
+-- | The configuration of a build. These are the parameters of the build that
+-- specify what type of system this build of Haskell Platform is for. It
+-- includes architecture and OS information. It also includes the versions of
+-- HP and GHC used, as on most platforms, these versions used in the formation
+-- of where on the target system the various components are located.
+data BuildConfig = BuildConfig
+    { bcHpVersion :: HpVersion
+    , bcGhcVersion :: GhcVersion
+    , bcArch :: String             -- ex.: "arm", "i386", "x86_64", etc.
+    , bcOsVendor :: String         -- ex.: "apple", "solaris", "unknown"
+    , bcOs :: String               -- ex.: "freebsd", "linux", "darwin"
+    , bcOsDistribution :: String   -- ex.: "deb7", "mavericks"
     }
   deriving (Read, Show)

@@ -22,7 +22,7 @@ targetRules hpVer = do
     buildRules
     installRules hpVer
     targetDir ~> do
-        hpRel <- askHp
+        hpRel <- askHpRelease
         let hpVer' = relVersion hpRel
             packages = platformPackages hpRel
 
@@ -32,7 +32,7 @@ targetRules hpVer = do
 buildRules :: Rules ()
 buildRules = do
     packageBuildDir PackageWildCard */> \buildDir -> do
-        hpRel <- askHp
+        hpRel <- askHpRelease
         buildAction buildDir hpRel
 
 buildAction :: FilePath -> Release -> Action ()

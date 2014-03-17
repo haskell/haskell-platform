@@ -1,12 +1,9 @@
 {-# LANGUAGE DeriveDataTypeable, GeneralizedNewtypeDeriving, RecordWildCards #-}
 
 module Config
-    ( askHp
-    , askHpVersion
-
-    , GhcConfig(..)
-    , askGhcConfig
+    ( askHpRelease
     , askGhcBinDistTarFile
+    , askBuildConfig
 
     , addConfigOracle
     )
@@ -23,89 +20,69 @@ import Types
 import Utils (version)
 
 
--- | The configuration of GHC used for this build.
--- This is entirely specified by the GHC bindist used, and in turn determines
--- the configuration of the HP build.
-data GhcConfig = GhcConfig
-    { ghcBinDistTarFile :: FilePath
-    , ghcVersion :: GhcVersion
-    , ghcArch :: String             -- ex.: "arm", "i386", "x86_64", etc.
-    , ghcOsVendor :: String         -- ex.: "apple", "solaris", "unknown"
-    , ghcOs :: String               -- ex.: "freebsd", "linux", "darwin"
-    , ghcOsDistribution :: String   -- ex.: "deb7", "mavericks"
-    }
-  deriving (Show)
-
-fromBinDistTarFile :: FilePath -> GhcConfig
-fromBinDistTarFile fp =
-    if ok then GhcConfig {..}
-          else error $ "fromBinDistTarFile name unparseable: " ++ base
-  where
-    ghcBinDistTarFile = fp
-        -- example: ghc-7.8.0.20140228-x86_64-apple-darwin-lion.tar.bz2
-    base0 = dropExtension $ takeFileName fp
-    base = (if takeExtension base0 == ".tar" then dropExtension else id) base0
-    parts = splitOn "-" base
-    (prefix : verStr : ghcArch : ghcOsVendor : ghcOs : remainder) = parts
-    ghcVersion = GhcVersion $ version verStr
-    ghcOsDistribution = intercalate "-" remainder
-    ok = (length parts >= 5) && (prefix == "ghc")
-
 {-
-Release is not used directly in the oracles because writing all the required
-instances is possible but lengthly, and Version is missing instances for both
-Hashable and Binary. It is easier to just rely on the generated instances of
-Show and Read for, and use String in the oracle.
+Release and BuildConfig are not used directly in the oracles because writing all
+the required instances is possible but lengthly, and Version is missing
+instances for both Hashable and Binary. It is easier to just rely on the
+generated instances of Show and Read for these, and use String in the oracle.
 -}
 
-newtype PlatformQ = PlatformQ ()
+newtype HpReleaseQ = HpReleaseQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
 
 -- | Provide the Platform release information
 -- The release information will be tracked as a dependency
 
-askHp :: Action Release
-askHp = read <$> askOracle (PlatformQ ())
+askHpRelease :: Action Release
+askHpRelease = read <$> askOracle (HpReleaseQ ())
 
 
-newtype PlatformVersionQ = PlatformVersionQ ()
+newtype GhcBinDistTarFileQ = GhcBinDistTarFileQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
 
--- | Provide the Platform version
--- The version number will be tracked as a dependency
-
-askHpVersion :: Action Release
-askHpVersion = read <$> askOracle (PlatformVersionQ ())
-
-
--- | Provide the GHC configuration.
--- This configuration will be tracked as a dependency.
-askGhcConfig :: Action GhcConfig
-askGhcConfig = fromBinDistTarFile <$> askGhcBinDistTarFile
-
-
-newtype BinDistTarFileQ = BinDistTarFileQ ()
-    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
-
--- | Provide the bindist tarfile.
+-- | Provide the bindist tar file.
 -- The filepath will be tracked as a dependency.
 askGhcBinDistTarFile :: Action FilePath
 askGhcBinDistTarFile = do
-    tarFile <- askOracle $ BinDistTarFileQ ()
+    tarFile <- askOracle $ GhcBinDistTarFileQ ()
     need [tarFile]
     return tarFile
 
 
+newtype BuildConfigQ = BuildConfigQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
+-- | Provide the Platform release information
+-- The release information will be tracked as a dependency
+
+askBuildConfig :: Action BuildConfig
+askBuildConfig = read <$> askOracle (BuildConfigQ ())
 
 
 addConfigOracle :: Release -> FilePath -> Rules ()
-addConfigOracle hp tarfile = do
+addConfigOracle hpRel tarFile = do
     _ <- addOracle $
-            \(PlatformQ _) -> return $ show hp
+            \(HpReleaseQ _) -> return $ show hpRel
     _ <- addOracle $
-            \(PlatformVersionQ _) -> return $ show $ relVersion hp
+            \(GhcBinDistTarFileQ _) -> return tarFile
     _ <- addOracle $
-            \(BinDistTarFileQ _) -> return tarfile
+            \(BuildConfigQ _) -> either fail (return . show) buildConfig
     return ()
+  where
+    buildConfig = extractBuildConfig hpRel tarFile
 
 
+extractBuildConfig :: Release -> FilePath -> Either String BuildConfig
+extractBuildConfig hpRel tarFile =
+    if ok then Right $ BuildConfig {..}
+          else Left $ "extractBuildConfig tar file unparseable: " ++ base
+  where
+    -- example tarFile: ghc-7.8.0.20140228-x86_64-apple-darwin-lion.tar.bz2
+    base0 = dropExtension $ takeFileName tarFile
+    base = (if takeExtension base0 == ".tar" then dropExtension else id) base0
+    parts = splitOn "-" base
+    (prefix : verStr : bcArch : bcOsVendor : bcOs : remainder) = parts
+    bcGhcVersion = GhcVersion $ version verStr
+    bcOsDistribution = intercalate "-" remainder
+    bcHpVersion = relVersion hpRel
+    ok = (length parts >= 5) && (prefix == "ghc")

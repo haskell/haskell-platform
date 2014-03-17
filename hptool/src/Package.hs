@@ -35,11 +35,11 @@ packageRules = do
                 command_ [Cwd destDir] "mv" [show pkg, "source"]
 
     packageDepsFile PackageWildCard *> \depFile -> do
-        hpRel <- askHp
+        hpRel <- askHpRelease
         installAction depFile hpRel
 
     listBuild *> \out -> do
-        hpRel <- askHp
+        hpRel <- askHpRelease
         let pkgs = platformPackages hpRel
         need $ map packageDepsFile pkgs
         nodes <- mapM buildNode pkgs

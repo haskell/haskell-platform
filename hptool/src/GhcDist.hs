@@ -12,14 +12,15 @@ import System.Environment (getEnvironment)
 import Config
 import Dirs
 import Paths
+import Types
 import Utils
 
-ghcInstall :: FilePath -> (GhcConfig -> FilePath) -> Maybe FilePath -> Rules ()
+ghcInstall :: FilePath -> (BuildConfig -> FilePath) -> Maybe FilePath -> Rules ()
 ghcInstall destDir prefix dest = do
     destDir */> \_ -> do
-        conf <- askGhcConfig
-        let tarFile = ghcBinDistTarFile conf
-            distDir = ghcBinDistDir $ ghcVersion conf
+        tarFile <- askGhcBinDistTarFile
+        conf <- askBuildConfig
+        let distDir = ghcBinDistDir $ bcGhcVersion conf
             untarDir = takeDirectory distDir
             destArg = maybe [] (\d -> ["DESTDIR=" ++ d ® distDir]) dest
 
@@ -44,7 +45,7 @@ ghcDistRules = do
   where
     targetPrefix = osxPrefix
     osxPrefix conf = "/Library/Frameworks/GHC.framework/Versions/"
-                     ++ (show $ ghcVersion conf) ++ '-' : ghcArch conf
+                     ++ (show $ bcGhcVersion conf) ++ '-' : bcArch conf
 
 
 -- TODO(mzero): need a way to get the os specific target path out!
