@@ -17,7 +17,7 @@ import Data.Char (isDigit)
 import Data.List (intercalate)
 import Data.Version (Version, showVersion, parseVersion)
 import Text.ParserCombinators.ReadP (ReadP,
-    char, endBy1, munch, readP_to_S, satisfy)
+    char, endBy1, munch, readP_to_S, satisfy, skipSpaces)
 
 
 type PackageName = String
@@ -31,6 +31,7 @@ data Package = Package { pkgName :: PackageName, pkgVersion :: Version }
 
 readPackageP :: ReadP Package
 readPackageP = do
+    skipSpaces  -- derived Read instances expect all types to do this!
     parts <- endBy1 ((:) <$> satisfy lead <*> munch more) (char '-')
     ver <- parseVersion
     return $ Package (intercalate "-" parts) ver
