@@ -43,10 +43,10 @@ main = shakeArgsWith opts [] main'
 
 
     doBuild tarfile ws = do
-        addConfigOracle hpRelease tarfile
+        buildConfig <- addConfigOracle hpRelease tarfile
         ghcDistRules
         packageRules
-        targetRules (relVersion hpRelease)
+        targetRules buildConfig
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile
         want ws

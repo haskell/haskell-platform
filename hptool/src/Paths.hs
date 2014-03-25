@@ -6,7 +6,7 @@ module Paths
     , packageSourceDir, packageBuildDir, packageDepsFile
     , packageDepsDB, packageInplaceConf, packageTargetConf
     , extractPackage
-    , PackageWildCard(..), PackagePattern
+    , PackageWildCard(..), PackagePattern(..)
 
     , ghcBinDistDir, ghcLocalDir
 
@@ -18,8 +18,7 @@ module Paths
     , listBuild, listCore, listSource
 
     , targetDir
-    , ghcTargetDir, hpTargetDir, packageTargetDir
-    , registrationTargetDir
+    , ghcVirtualTarget, hpVirtualTarget
 
     , productDir
 
@@ -106,17 +105,12 @@ listSource = listsDir </> "source.packages"
 targetDir :: FilePath
 targetDir = buildRoot </> "target"
 
-ghcTargetDir :: FilePath
-ghcTargetDir = targetDir </> "Library/Frameworks/GHC.framework"
+ghcVirtualTarget :: String
+ghcVirtualTarget = "target-ghc"
 
-hpTargetDir :: HpVersion -> FilePath
-hpTargetDir hpVer = targetDir </> "Library/Haskell" </> show hpVer
+hpVirtualTarget :: String
+hpVirtualTarget = "target-hp"
 
-packageTargetDir :: (PackagePattern p) => HpVersion -> p -> FilePath
-packageTargetDir hpVer p = hpTargetDir hpVer </> "lib" </> packagePattern p
-
-registrationTargetDir :: HpVersion -> FilePath
-registrationTargetDir hpVer = hpTargetDir hpVer </> "lib" </> "registrations"
 
 
 -- | Final products are placed here

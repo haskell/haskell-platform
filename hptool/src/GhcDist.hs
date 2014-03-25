@@ -4,6 +4,7 @@ module GhcDist
     )
   where
 
+import Control.Applicative ((<$>))
 import Data.List (intercalate)
 import Development.Shake
 import Development.Shake.FilePath
@@ -11,44 +12,47 @@ import System.Environment (getEnvironment)
 
 import Config
 import Dirs
+import OS
 import Paths
 import Types
 import Utils
 
-ghcInstall :: FilePath -> (BuildConfig -> FilePath) -> Maybe FilePath -> Rules ()
-ghcInstall destDir prefix dest = do
-    destDir */> \_ -> do
-        tarFile <- askGhcBinDistTarFile
-        conf <- askBuildConfig
-        let distDir = ghcBinDistDir $ bcGhcVersion conf
-            untarDir = takeDirectory distDir
-            destArg = maybe [] (\d -> ["DESTDIR=" ++ d ® distDir]) dest
+ghcInstall :: FilePath -> Maybe (BuildConfig -> FilePath) -> Action FilePath
+ghcInstall base mfPrefix = do
+    tarFile <- askGhcBinDistTarFile
+    conf <- askBuildConfig
+    let distDir = ghcBinDistDir $ bcGhcVersion conf
+        untarDir = takeDirectory distDir
+        (prefix, destDir) = layout (($ conf) <$> mfPrefix)
+        destArg = maybe [] (\_ -> ["DESTDIR=" ++ base ® distDir]) mfPrefix
 
-        makeDirectory untarDir
+    makeDirectory untarDir
 
-        command_ [Cwd untarDir]
-            "tar" ["-jxf", tarFile ® untarDir]
+    command_ [Cwd untarDir]
+        "tar" ["-jxf", tarFile ® untarDir]
 
-        configCmd <- liftIO $ absolutePath $ distDir </> "configure"
-        absPrefix <- liftIO $ absolutePath $ prefix conf
+    configCmd <- liftIO $ absolutePath $ distDir </> "configure"
+    absPrefix <- liftIO $ absolutePath $ prefix
 
-        command_ [Cwd distDir]
-            configCmd ["--prefix=" ++ absPrefix]
-        command_ [Cwd distDir]
-            "make" (["install"] ++ destArg)
+    command_ [Cwd distDir]
+        configCmd ["--prefix=" ++ absPrefix]
+    command_ [Cwd distDir]
+        "make" (["install"] ++ destArg)
 
+    return destDir
+  where
+    layout Nothing = (base, base)
+    layout (Just p) = (p, base </+> p)
 
 ghcDistRules :: Rules ()
 ghcDistRules = do
-    ghcInstall ghcLocalDir (const ghcLocalDir) Nothing
-    ghcInstall ghcTargetDir targetPrefix (Just targetDir)
+    ghcLocalDir */> \_ -> do
+        ghcInstall ghcLocalDir Nothing >> return ()
+    ghcVirtualTarget ~/> do
+        ghcInstall targetDir (Just targetPrefix) >>= return . Just
   where
-    targetPrefix = osxPrefix
-    osxPrefix conf = "/Library/Frameworks/GHC.framework/Versions/"
-                     ++ (show $ bcGhcVersion conf) ++ '-' : bcArch conf
+    targetPrefix = osGhcPrefix . osFromConfig
 
-
--- TODO(mzero): need a way to get the os specific target path out!
 -- TODO(mzero): need a way to ensure that multiple uses of bindist don't
 --              happen in parallel
 

@@ -207,3 +207,7 @@ Shake Thoughts
 [] copyFile' should putNormal?
 
 [] staunch seems to give up early?
+
+
+[] would love a command line option: just print the known targets and oracles
+[] would love an command line option that prints an explaination for each thing

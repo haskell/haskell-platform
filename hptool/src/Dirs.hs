@@ -1,5 +1,5 @@
 module Dirs
-    ( (*/>), dir )
+    ( (*/>), dir, (~/>), vdir )
  where
 
 import Development.Shake
@@ -64,3 +64,36 @@ markerToDir m = case strip markerRoot m of
     strip _ _                    = badMarker
     badMarker = error $ "markerToDir: bad marker path " ++ m
 
+
+-- | Define a virtual directory rule.
+-- This defines a rule for how to build a directory of things. It is useful when
+-- the directory isn't known in advance, and/or when multiple rules will place
+-- things in the same directory.
+--
+-- The target of this rule should be just an abstract name for the target, since
+-- the actual directory isn't known. The underlying target will be a marker
+-- marker file.
+--
+-- If the action returns Just dir, the files under that dir will be made
+-- dependencies of this target.
+(~/>) :: String -> Action (Maybe FilePath) -> Rules ()
+vTarget ~/> act =
+    vMarker *> \outMarker -> do
+        mOutDir <- act
+        xs <- case mOutDir of
+            Nothing -> return []
+            Just outDir -> do
+                exists <- doesDirectoryExist outDir
+                if exists
+                    then getDirectoryFiles "" [outDir ++ "//*"]
+                    else return []
+        need xs
+        writeFileChanged outMarker $ unlines xs
+  where
+    vMarker = vdir vTarget
+
+-- | Use this in calls to need on paths that are virtual directories.
+vdir :: FilePath -> FilePath
+vdir v = markerRoot </> "virt" </> v
+
+infix 1 ~/>

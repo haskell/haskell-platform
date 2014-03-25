@@ -50,6 +50,14 @@ fp `relativeToDir` dp = case (isRelative fp, isRelative dp) of
 infix 6 ®
 
 
+-- | Place one path "under" another. If the second path is absolute, then it
+-- is placed as if it were rooted in the first. If the second path is relative
+-- then this is the same as (</>)
+(</+>) :: FilePath -> FilePath -> FilePath
+base </+> rel | isAbsolute rel = base ++ rel
+              | otherwise      = base </> rel
+infixr 5 </+>
+
 -- | Return a path, made absoulte relative to the current directory.
 -- If the path is already absolute, then it is returned directly.
 absolutePath :: FilePath -> IO FilePath

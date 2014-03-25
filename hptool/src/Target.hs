@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Target
     ( targetRules
     )
@@ -11,43 +13,38 @@ import Development.Shake.FilePath
 import Config
 import Dirs
 import GhcDist
+import OS
 import Paths
 import PlatformDB
 import Types
 import Utils
 
 
-targetRules :: HpVersion -> Rules ()
-targetRules hpVer = do
+targetRules :: BuildConfig -> Rules ()
+targetRules bc = do
     buildRules
-    installRules hpVer
+    installRules bc
     targetDir ~> do
         hpRel <- askHpRelease
-        let hpVer' = relVersion hpRel
-            packages = platformPackages hpRel
+        bc' <- askBuildConfig
+        let packages = platformPackages hpRel
+            packageTargetDir = osPackageTargetDir $ osFromConfig bc'
 
-        need $ dir ghcTargetDir : map (dir . packageTargetDir hpVer') packages
+        need $ vdir ghcVirtualTarget
+               : map (dir . (targetDir </+>) . packageTargetDir) packages
 
 
 buildRules :: Rules ()
 buildRules = do
     packageBuildDir PackageWildCard */> \buildDir -> do
         hpRel <- askHpRelease
-        buildAction buildDir hpRel
+        bc <- askBuildConfig
+        buildAction buildDir hpRel bc
 
-buildAction :: FilePath -> Release -> Action ()
-buildAction buildDir hpRel = do
-        let pkg = extractPackage buildDir
-        let sourceDir = packageSourceDir pkg
-        let depsDB = packageDepsDB pkg
-
+buildAction :: FilePath -> Release -> BuildConfig -> Action ()
+buildAction buildDir hpRel bc = do
         need [ dir sourceDir ]
 
-        let isAlexOrHappy = pkgName pkg `elem` ["alex", "happy"]
-        let usesTool pats =
-                if not isAlexOrHappy
-                    then (not . null) <$> getDirectoryFiles sourceDir pats
-                    else return False   -- don't depend on yourself!
         needsAlex <- usesTool ["//*.x", "//*.lx"]
         needsHappy <- usesTool ["//*.y", "//*.ly"]
 
@@ -90,7 +87,19 @@ buildAction buildDir hpRel = do
         cabal "haddock" ["--hyperlink-source"]  -- TODO(mzero): make optional
 
   where
-    prefix = "/Library/Haskell/" ++ show hpVer ++ "/lib/$pkgid"
+    pkg = extractPackage buildDir
+    sourceDir = packageSourceDir pkg
+    depsDB = packageDepsDB pkg
+
+    isAlexOrHappy = pkgName pkg `elem` ["alex", "happy"]
+    usesTool pats =
+        if not isAlexOrHappy
+            then (not . null) <$> getDirectoryFiles sourceDir pats
+            else return False   -- don't depend on yourself!
+
+    packageTargetDir = osPackageTargetDir $ osFromConfig bc
+
+    prefix = packageTargetDir pkg
     happyExe = packageBuildDir happyVer </> "dist/build/happy/happy"
     happyTemplateDir = packageBuildDir happyVer
     alexExe = packageBuildDir alexVer </> "dist/build/alex/alex"
@@ -98,7 +107,6 @@ buildAction buildDir hpRel = do
     cabalInstallDir = undefined
     doProfiling = True
     doShared = True
-    hpVer = relVersion hpRel
 
     confOpts needsAlex needsHappy =
         [ "--prefix=" ++ prefix ]
@@ -123,22 +131,15 @@ buildAction buildDir hpRel = do
 
 
 
-installRules :: HpVersion -> Rules ()
-installRules hpVer = do
-    packageTargetDir hpVer PackageWildCard */> \targetPkgDir -> do
+installRules :: BuildConfig -> Rules ()
+installRules bc = do
+    targetDir </+> osPackageTargetDir PackageWildCard */> \targetPkgDir -> do
         let pkg = read $ takeFileName targetPkgDir :: Package
         let buildDir = packageBuildDir pkg
-        let confFile = packageTargetConf pkg
-        let regDir = registrationTargetDir hpVer
-        let regFile = regDir </> show pkg
         need [ dir buildDir ]
-        makeDirectory regDir
-
-        let cabal c as = localCommand [Cwd buildDir] "cabal" $ c : as :: Action ()
-        cabal "copy" ["--destdir=" ++ targetDir ® buildDir]
-        hasReg <- doesFileExist confFile
-        if hasReg
-            then command_ [] "cp" [confFile, regFile]
-            else command_ [] "rm" ["-f", regFile]
-
+        localCommand' [Cwd buildDir]
+            "cabal" ["copy", "--destdir=" ++ targetDir ® buildDir]
+        osPackageInstallAction pkg
+  where
+    OS{..} = osFromConfig bc
 

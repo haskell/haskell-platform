@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveDataTypeable, GeneralizedNewtypeDeriving, RecordWildCards #-}
+{-# LANGUAGE ConstraintKinds, DeriveDataTypeable, GeneralizedNewtypeDeriving,
+             RecordWildCards #-}
 
 module Config
     ( askHpRelease
@@ -9,16 +10,23 @@ module Config
     )
     where
 
-import Control.Applicative ((<$>))
 import Data.List (intercalate)
 import Data.List.Split (splitOn)
 import Development.Shake
 import Development.Shake.Classes
 import Development.Shake.FilePath
+import Development.Shake.Rule (ShakeValue)
 
 import Types
-import Utils (version)
+import Utils (readMaybe, version)
 
+
+readOracle :: (ShakeValue q, Read a) => String -> q -> Action a
+readOracle name q = do
+    s <- askOracle q
+    maybe (error $ msg s) return $ readMaybe reads s
+  where
+    msg s = "readOracle failed to parse " ++ name ++ " from " ++ show s
 
 {-
 Release and BuildConfig are not used directly in the oracles because writing all
@@ -34,7 +42,7 @@ newtype HpReleaseQ = HpReleaseQ ()
 -- The release information will be tracked as a dependency
 
 askHpRelease :: Action Release
-askHpRelease = read <$> askOracle (HpReleaseQ ())
+askHpRelease = readOracle "HpRelease" (HpReleaseQ ())
 
 
 newtype GhcBinDistTarFileQ = GhcBinDistTarFileQ ()
@@ -56,10 +64,10 @@ newtype BuildConfigQ = BuildConfigQ ()
 -- The release information will be tracked as a dependency
 
 askBuildConfig :: Action BuildConfig
-askBuildConfig = read <$> askOracle (BuildConfigQ ())
+askBuildConfig = readOracle "BuildConfig" (BuildConfigQ ())
 
 
-addConfigOracle :: Release -> FilePath -> Rules ()
+addConfigOracle :: Release -> FilePath -> Rules BuildConfig
 addConfigOracle hpRel tarFile = do
     _ <- addOracle $
             \(HpReleaseQ _) -> return $ show hpRel
@@ -67,7 +75,7 @@ addConfigOracle hpRel tarFile = do
             \(GhcBinDistTarFileQ _) -> return tarFile
     _ <- addOracle $
             \(BuildConfigQ _) -> either fail (return . show) buildConfig
-    return ()
+    either fail return buildConfig
   where
     buildConfig = extractBuildConfig hpRel tarFile
 
