@@ -99,13 +99,6 @@ target OS
 TO DO
 =====
 
-[ ] fix up Config
-    [ ] refactor Config type
-    [ ] remove unused and broken askHpVersion
-
-[ ] reverse order of nodes so platform.packages is nicer
-[ ] rename platform.packages -> build.packages  ???
-
 [ ] clean up main pseudo build targets
     - just let the user say 'em directly
     [ ] fix silliness with build-targt and targetDir being phoney
@@ -140,10 +133,33 @@ TO DO
     [ ] final call out to PackageMaker
         [ ] templatize those control files?
 
-[ ] haskell-platform itself is missing from platform.packages
+[ ] either don't untar the ghc bindist twice
+    or use resources to ensure that we don't ghcInstall in parallel
+    or use the new wrapper & new pkg-db technique from the old mac build
+
+-=-
+
+
+[ ] haskell-platform itself is missing from build.packages
     [ ] does it need to be there? really?
     [ ] does it need to be built?
 
+[ ] should the platfrom be taking the following from the GHC dist:
+    registered in pkg db, not part of platfrom, but could be?
+        - binary-0.7.1.0
+        - ghc-7.8.x
+        - ghc-prim-0.3.1.0
+        - hoopl-3.10.0.0
+    registered in pkg db, but shouldn't be part of the platform:
+        - bin-package-db-0.0.0.0
+        - integer-gmp-0.5.1.0
+        - rts-1.0
+    not registered in pkg db or part of platfrom, but shipped
+        - haskeline-0.7.1.2
+        - terminfo-0.4.0.0
+        - xhtml-3000.2.1
+    shiped with ghc
+        - haddock
 
 [ ] does generated haddock...
     [ ] correctly reference other modules?
@@ -170,9 +186,6 @@ TO DO
 
 [ ] still a few path bits hard coded here and there
     - see "../packages.conf.d" for example in Target.hs
-
-[ ] either don't untar the ghc bindist twice
-    or use resources to ensure that we don't ghcInstall in parallel
 
 [ ] fix inconsistency about if the cp destination is the dir,
     or the dir to hold the dir

@@ -5,6 +5,7 @@ module Package
 
 import Control.Applicative ((<$>))
 import Data.Graph (flattenSCCs, stronglyConnComp)
+import Data.Ord (Down(..))
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
@@ -47,7 +48,9 @@ packageRules = do
   where
     buildNode p = do
         ns <- map (pkgName . read) <$> (readFileLines $ packageDepsFile p)
-        return (show p, pkgName p, ns)
+        return (show p, Down $ pkgName p, map Down ns)
+            -- Having the package names reverse sort as graph keys makes the SCC
+            -- components come out closer to normal sort order. Go figure!
 
 
 installAction :: FilePath -> Release -> Action ()

@@ -98,7 +98,7 @@ listsDir :: FilePath
 listsDir = buildRoot </> "lists"
 
 listBuild, listCore, listSource :: FilePath
-listBuild  = listsDir </> "platform.packages"
+listBuild  = listsDir </> "build.packages"
 listCore   = listsDir </> "core.packages"
 listSource = listsDir </> "source.packages"
 
