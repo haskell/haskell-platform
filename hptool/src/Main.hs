@@ -18,38 +18,28 @@ import Target
 main :: IO ()
 main = shakeArgsWith opts [] main'
   where
-    main' [] (tarfile:what) = case wanted what of
-        Nothing -> usage
-        Just ws -> return $ Just $ doBuild tarfile ws
+    main' [] (tarfile:what) = return $ Just $ do
+        allRules tarfile
+        want $ if null what then ["build-all"] else what
     main' _ _ = usage
 
-    wanted [] = Just ["build-all"]
-    wanted ["src"] = Just ["build-source"]
-    wanted ["target"] = Just ["build-target"]
-    wanted ["pkg", pkg] = Just ["build-package-" ++ pkg]
-    wanted ["local"] = Just ["build-local"]
-    wanted ["path", path] = Just [path]
-    wanted _ = Nothing
-
     usage = do
-        putStrLn "usage: hptool [opts] <ghc-bindist.tar.bz> [target]\n\
+        putStrLn "usage: hptool [opts] <ghc-bindist.tar.bz> [target...]\n\
                  \  where target is one of:\n\
-                 \    src           -- build the source tar ball\n\
-                 \    target        -- build the target tree\n\
-                 \    pkg <pkg>     -- build the package\n\
-                 \    local         -- build the local GHC environment\n\
-                 \    -nothing-     -- if empty, build it all\n"
+                 \    build-all           -- build everything (default)\n\
+                 \    build-source        -- build the source tar ball\n\
+                 \    build-target        -- build the target tree\n\
+                 \    build-package-<pkg> -- build the package (name or name-ver)\n\
+                 \    build-local         -- build the local GHC environment\n"
         return Nothing
 
-
-    doBuild tarfile ws = do
+    allRules tarfile = do
         buildConfig <- addConfigOracle hpRelease tarfile
         ghcDistRules
         packageRules
         targetRules buildConfig
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile
-        want ws
 
     opts = shakeOptions
 
@@ -68,5 +58,6 @@ buildRules hpRelease srcTarFile = do
         let short = "build-package-" ++ pkgName pkg
         short ~> need [full]
         full ~> need [dir $ packageBuildDir pkg]
-    "build-all" ~> mapM_ (need . (:[])) ["build-source", "build-target"]
-  where
+    "build-all" ~> do  -- separate need call so built in order
+        need ["build-source"]
+        need ["build-target"]

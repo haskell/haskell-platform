@@ -99,10 +99,6 @@ target OS
 TO DO
 =====
 
-[ ] clean up main pseudo build targets
-    - just let the user say 'em directly
-    [ ] fix silliness with build-targt and targetDir being phoney
-
 [ ] missing bits from tarball
     [ ] haskell-platform.cabal file
     [ ] source of hptool itself?
@@ -197,6 +193,9 @@ TO DO
 
 [ ] ? split out ghc release info from HP, and just reference it?
 
+[ ] fix oddness of targetDir being phoney
+
+
 
 Shake Thoughts
 --------------
@@ -224,3 +223,6 @@ Shake Thoughts
 
 [] would love a command line option: just print the known targets and oracles
 [] would love an command line option that prints an explaination for each thing
+
+[] would be nice if there was
+    knowsHow :: FilePath -> Rule Bool
