@@ -6,19 +6,14 @@ module PlatformDB
       allPackages,
       corePackages,
       platformPackages,
+
+      packagesByIncludeFilter,
+      isGhc, isWindows, isNotWindows, isLib, isTool
     ) where
 
 
 import Types
 import Utils (version)
-
--- | Is this include part of the GHC release?
-partOfGHC :: IncludeType -> Bool
-partOfGHC IncGHC = True
-partOfGHC IncGHCLib = True
-partOfGHC (IncIfWindows i) = partOfGHC i
-partOfGHC (IncIfNotWindows i) = partOfGHC i
-partOfGHC _ = False
 
 -- | Construct a release
 release :: String -> [Include] -> Release
@@ -65,9 +60,32 @@ allPackages = packagesByIncludeFilter $ const True
 
 -- | Includes that are part of the core (expected to come with GHC)
 corePackages :: Release -> [Package]
-corePackages = packagesByIncludeFilter partOfGHC
+corePackages = packagesByIncludeFilter isGhc
 
 -- | Includes that come from the platform (added beyond the GHC default)
 platformPackages :: Release -> [Package]
-platformPackages = packagesByIncludeFilter (not . partOfGHC)
+platformPackages = packagesByIncludeFilter (not . isGhc)
 
+-- | Tests of Include
+isGhc, isWindows, isNotWindows, isLib, isTool :: IncludeType -> Bool
+isGhc IncGHC = True
+isGhc IncGHCLib = True
+isGhc i = isIncRecurse isGhc i
+
+isWindows (IncIfWindows _) = True
+isWindows _ = False
+
+isNotWindows (IncIfNotWindows _) = True
+isNotWindows _ = False
+
+isLib IncGHCLib = True
+isLib IncLib = True
+isLib i = isIncRecurse isLib i
+
+isTool IncTool = True
+isTool i = isIncRecurse isTool i
+
+isIncRecurse :: (IncludeType -> Bool) -> IncludeType -> Bool
+isIncRecurse p (IncIfWindows i) = p i
+isIncRecurse p (IncIfNotWindows i) = p i
+isIncRecurse _ _ = False

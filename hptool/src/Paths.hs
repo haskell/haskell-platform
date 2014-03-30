@@ -16,6 +16,7 @@ module Paths
 
     , listsDir
     , listBuild, listCore, listSource
+    , hpCabalFile
 
     , targetDir
     , ghcVirtualTarget, hpVirtualTarget
@@ -101,6 +102,9 @@ listBuild, listCore, listSource :: FilePath
 listBuild  = listsDir </> "build.packages"
 listCore   = listsDir </> "core.packages"
 listSource = listsDir </> "source.packages"
+
+hpCabalFile :: FilePath
+hpCabalFile = buildRoot </> "haskell-platform.cabal"
 
 targetDir :: FilePath
 targetDir = buildRoot </> "target"

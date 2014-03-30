@@ -8,10 +8,26 @@ Cabal-version:   >=1.8
 Synopsis:        Haskell Platform Utility
 
 Data-files:
-  templates/*.mu
+  templates/*.cabal.mu
 
 Executable hptool
   Main-is: Main.hs
+  Other-Modules:
+    Config,
+    Dirs
+    GhcDist,
+    Main,
+    OS,
+    OS.Internal,
+    OS.Mac,
+    Package,
+    Paths,
+    PlatformDB,
+    Releases2014,
+    SourceTarball,
+    Target,
+    Types,
+    Utils
 
   hs-source-dirs: src
 
@@ -20,9 +36,10 @@ Executable hptool
     base,
     containers,
     directory,
-    hastache,
+    hastache >=0.6.0,
     shake,
     split,
+    text,
     transformers
 
   ghc-options: -Wall -fwarn-tabs

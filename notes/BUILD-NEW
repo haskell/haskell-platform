@@ -99,10 +99,6 @@ target OS
 TO DO
 =====
 
-[ ] missing bits from tarball
-    [ ] haskell-platform.cabal file
-    [ ] source of hptool itself?
-
 [ ] missing bits for target
     [ ] scripts needed at install time
         [ ] registration
@@ -194,6 +190,9 @@ TO DO
 [ ] ? split out ghc release info from HP, and just reference it?
 
 [ ] fix oddness of targetDir being phoney
+
+[ ] location of templates and hptool source for tarball are hardcoded
+    -- see SourceTarball.hs: hptoolSourceDir & cabalTemplate
 
 
 
