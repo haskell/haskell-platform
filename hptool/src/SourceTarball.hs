@@ -39,7 +39,7 @@ tarFileAction out hpRelease = do
     need $ concat
         [ map (dir . packageSourceDir) sources
         , lists
-        , [hpCabalFile, ghcLocalDir]
+        , [hpCabalFile, dir ghcLocalDir]
         ]
 
     removeDirectoryRecursive topDir

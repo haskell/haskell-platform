@@ -13,6 +13,7 @@ import Development.Shake.FilePath
 import Config
 import Dirs
 import GhcDist
+import HaddockMaster
 import OS
 import Paths
 import PlatformDB
@@ -31,6 +32,7 @@ targetRules bc = do
             packageTargetDir = osPackageTargetDir $ osFromConfig bc'
 
         need $ vdir ghcVirtualTarget
+               : dir (haddockDocDir bc')
                : map (dir . (targetDir </+>) . packageTargetDir) packages
 
 

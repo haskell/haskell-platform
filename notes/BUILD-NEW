@@ -117,13 +117,19 @@ TO DO
     IncGhc & IncGhcLib ---> IncGhc IncludeType
     - this way, we can include tools from GHC
 
+[ ] PatchSettings.hs should test for and install ghc-clang-wrapper if
+    needed
+
 [ ] mac polish
-    [ ] bin in /Library/Haskell/<ver>/bin
-    [ ] cabal.wrap
-    [ ] UninstallHS.hs (incorporate into hp-tool?)
+    [ ] sym link files in /Library/Haskell/<ver>/bin to /L/H/bin
+    [ ] cp cabal.wrap to /L/H/bin
+    [ ] cp ghc-clang-wrapper to /L/H/bin
+    [ ] compile UninstallHS.hs into /L/H/bin
+    [ ] compile PatchSettings.hs into /L/H/bin
     [ ] /Library/Haskell/current/* sym links (include in patch script?)
     [ ] final call out to PackageMaker
         [ ] templatize those control files?
+    [ ] -optP-P hack
 
 [ ] either don't untar the ghc bindist twice
     or use resources to ensure that we don't ghcInstall in parallel
@@ -194,6 +200,9 @@ TO DO
 [ ] location of templates and hptool source for tarball are hardcoded
     -- see SourceTarball.hs: hptoolSourceDir & cabalTemplate
 
+[ ] normalize the way package DBs are spec'd:
+    [ ] --package-db=global or --global?
+    [ ] is --package-db=clear needed?
 
 
 Shake Thoughts

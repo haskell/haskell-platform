@@ -7,6 +7,7 @@ import Development.Shake.FilePath
 import Config
 import Dirs
 import GhcDist
+import HaddockMaster
 import Package
 import Paths
 import PlatformDB
@@ -38,6 +39,7 @@ main = shakeArgsWith opts [] main'
         ghcDistRules
         packageRules
         targetRules buildConfig
+        haddockMasterRules buildConfig
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile
 
