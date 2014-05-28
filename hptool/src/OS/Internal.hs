@@ -53,7 +53,7 @@ genericOS BuildConfig{..} = OS{..}
     osPackageTargetDir p = osHpPrefix </> "lib" </> packagePattern p
     osPackageInstallAction p = do
         let confFile = packageTargetConf p
-        let regDir = osHpPrefix </> "etc" </> "registrations"
+        let regDir = targetDir </+> osHpPrefix </> "etc" </> "registrations"
         let regFile = regDir </> show p
         makeDirectory regDir
         hasReg <- doesFileExist confFile
