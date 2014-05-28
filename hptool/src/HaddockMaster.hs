@@ -32,10 +32,10 @@ haddockMasterRules bc =
 haddocMasterAction :: FilePath -> Release -> BuildConfig -> Action ()
 haddocMasterAction outdir hpRel bc = do
     need $ vdir ghcVirtualTarget
-           : map (dir . targetPkgDir) (platformPackages hpRel)
+           : map (dir . targetPkgDir) platformLibs
 
-    ghcInterfaces <- mapM ghcInfo $ corePackages hpRel
-    hpInterfaces <- mapM hpInfo $ platformPackages hpRel
+    ghcInterfaces <- mapM ghcInfo coreLibs
+    hpInterfaces <- mapM hpInfo $ platformLibs
     localCommand' [] "haddock"
         (baseArgs ++ map readArg (ghcInterfaces ++ hpInterfaces))
   where
@@ -45,6 +45,10 @@ haddocMasterAction outdir hpRel bc = do
                , "--title=\"Haskell Platform\""
                ]
     readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
+
+    coreLibs = packagesByIncludeFilter (\i -> isLib i && isGhc i) hpRel
+    platformLibs =
+            packagesByIncludeFilter (\i -> isLib i && not (isGhc i)) hpRel
 
     fieldHtml = "haddock-html"
     fieldIntf = "haddock-interfaces"

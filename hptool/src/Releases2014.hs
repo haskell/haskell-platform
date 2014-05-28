@@ -34,7 +34,7 @@ hp2014_1_0_0 =
         , incLib "case-insensitive"         "1.1.0.3"
 --        , incLib "cgi"                      "3001.1.7.5" -- no longer builds
 --        , incLib "dlist"                    "0.7.0.1" -- if we include it
-        , incLib "fgl"                      "5.4.2.4"
+        , incLib "fgl"                      "5.5.0.1"
         , incLib "GLUT"                     "2.5.1.1"
         , incLib "GLURaw"                   "1.4.0.1"
         , incLib "haskell-src"              "1.0.1.6"
@@ -63,7 +63,7 @@ hp2014_1_0_0 =
         , incLib "xhtml"                    "3000.2.1"
         , incLib "zlib"                     "0.5.4.1"
 
-        , incTool "cabal-install"           "1.18.0.3"
+        , incTool "cabal-install"           "1.18.0.4"
         , incTool "alex"                    "3.1.3"
         , incTool "happy"                   "1.19.3"
 
