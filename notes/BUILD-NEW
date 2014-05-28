@@ -94,6 +94,12 @@ target OS
     lib prefix
 
 
+OS X build
+----------
+The definitive answer to how to use the command line tools for installers:
+    http://stackoverflow.com/questions/11487596/making-os-x-installer-packages-like-a-pro-xcode4-developer-id-mountain-lion-re/11487658#11487658
+
+
 
 
 TO DO

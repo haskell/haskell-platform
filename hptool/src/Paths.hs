@@ -21,6 +21,7 @@ module Paths
     , targetDir
     , ghcVirtualTarget, hpVirtualTarget
 
+    , installerPartsDir
     , productDir
 
     , sourceRoot
@@ -116,6 +117,9 @@ hpVirtualTarget :: String
 hpVirtualTarget = "target-hp"
 
 
+-- | Intermediate parts of the installer are placed here
+installerPartsDir :: FilePath
+installerPartsDir = buildRoot </> "installer-parts"
 
 -- | Final products are placed here
 productDir :: FilePath

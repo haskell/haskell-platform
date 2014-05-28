@@ -142,6 +142,10 @@ installRules bc = do
         localCommand' [Cwd buildDir]
             "cabal" ["copy", "--destdir=" ++ targetDir ® buildDir]
         osPackageInstallAction pkg
+
+    osProduct *> \_ -> do
+        need [targetDir]
+        osProductAction
   where
     OS{..} = osFromConfig bc
 

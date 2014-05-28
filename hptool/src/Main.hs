@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Main where
 
 import Control.Monad (forM_)
@@ -8,6 +10,7 @@ import Config
 import Dirs
 import GhcDist
 import HaddockMaster
+import OS
 import Package
 import Paths
 import PlatformDB
@@ -41,7 +44,7 @@ main = shakeArgsWith opts [] main'
         targetRules buildConfig
         haddockMasterRules buildConfig
         sourceTarballRules srcTarFile
-        buildRules hpRelease srcTarFile
+        buildRules hpRelease srcTarFile buildConfig
 
     opts = shakeOptions
 
@@ -50,10 +53,11 @@ main = shakeArgsWith opts [] main'
     srcTarFile = productDir </> hpFullName <.> "tgz"
 
 
-buildRules :: Release -> FilePath -> Rules()
-buildRules hpRelease srcTarFile = do
+buildRules :: Release -> FilePath -> BuildConfig -> Rules()
+buildRules hpRelease srcTarFile bc = do
     "build-source" ~> need [srcTarFile]
     "build-target" ~> need [targetDir]
+    "build-product" ~> need [osProduct]
     "build-local" ~> need [dir ghcLocalDir]
     forM_ (platformPackages hpRelease) $ \pkg -> do
         let full = "build-package-" ++ show pkg
@@ -62,4 +66,8 @@ buildRules hpRelease srcTarFile = do
         full ~> need [dir $ packageBuildDir pkg]
     "build-all" ~> do  -- separate need call so built in order
         need ["build-source"]
-        need ["build-target"]
+        need ["build-product"]
+  where
+    OS{..} = osFromConfig bc
+
+

@@ -32,6 +32,14 @@ data OS = OS
         -- | Extra action to install the package from the build dir to the
         -- target image.
     ,   osPackageInstallAction :: Package -> Action ()
+
+        -- | Final, OS specific, product. Usually a tarball or installer.
+        -- Should be located in productDir
+    ,   osProduct :: FilePath
+
+        -- | Action that builds the final product.
+        -- The target will already have been depended on
+    ,   osProductAction :: Action ()
     }
 
 
@@ -52,5 +60,9 @@ genericOS BuildConfig{..} = OS{..}
         if hasReg
             then command_ [] "cp" [confFile, regFile]
             else command_ [] "rm" ["-f", regFile]
+    osProduct = productDir </> "generic.tar.gz"
+    osProductAction =
+        command_ [Cwd buildRoot]
+            "tar" ["czf", osProduct ® buildRoot, targetDir ® buildRoot]
 
 
