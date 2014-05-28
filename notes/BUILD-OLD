@@ -1,0 +1,140 @@
+THE ORIGINAL HP BUILD
+
+prepare.sh
+----------
+* extracts HP version from h-p.cabal
+packageIDs() - extracts "pkg-ver" for a section of h-p.cabal
+* checks that cabal is installed
+* makes directory tree:
+    haskell-plaform-{version}/
+        packages/
+        scripts/
+* srcPkgs = packageIDs platform
+* write srcPkgs list > h-p-{v}/packages/source.packages
+* for each srcPkgs
+    cabal unpack in h-p-{v}/packages
+* compute package order via cabal
+    > h-p-{v}/packages/platform.packages
+* write h-p-{v} > h-p-{v}/packages/platform.packages
+* make dir
+    haskell-plaform-{version}/
+        packages/
+            haskell-plaform-{version}/
+* copy h-p.cabal, Setup.hs, LICENSE there
+* packageIDs core > h-p-{v}/packages/core.packages
+* copy srcipts/*.sh, scripts/config.*  to h-p-{v}/scripts
+* copy config/aclocal stuff to h-p-{v}
+* autoreconf in the h-p-{v} dir
+* tar up h-p-{v}
+
+configure.ac
+------------
+checks that GHC version matches HP expectation (unless check disabled by user)
+checks that GHC works
+builds packages/installed.packages
+    ghc-pkg list --simple-output (--gobal) > packages/installed.packages
+checks that each of the core.packages packages match the installed.packages
+    (unless disabled by user)
+checks for presence of zlib, OpenGL, and GLUT
+sets up these variables in scripts/config
+    PLATFORM_VERSION=@PACKAGE_VERSION@
+    PACKAGE_TARNAME=@PACKAGE_TARNAME@
+
+    prefix=@prefix@
+    exec_prefix=@exec_prefix@
+    libdir=@libdir@
+    bindir=@bindir@
+    datarootdir=@datarootdir@
+    datadir=@datadir@
+    docdir=@docdir@
+
+    GHC=@GHC@
+    GHC_PKG=@GHC_PKG@
+    HSC2HS=@HSC2HS@
+    PERL=@PERL@             <-- not used
+
+    ALLOW_UNSUPPORTED_GHC=@ALLOW_UNSUPPORTED_GHC@
+    USER_INSTALL=@USER_INSTALL@
+    ENABLE_PROFILING=@ENABLE_PROFILING@
+    ENABLE_SHARED=@ENABLE_SHARED@
+
+
+Makefile
+--------
+offers three useful targets:
+    build - invokes scripts/build.sh
+    install - depends on build, invokes scripts/install.sh
+    clean - cleans up all dist dirs in each package src dir
+
+scripts/common.sh
+-----------------
+two small utilities
+    tell() - print out a command, and then execute it
+    is_pkg_installed() - grep through the installed.packages file
+
+
+scripts/build.sh
+----------------
+* funny cabal version check
+* hand create (!) and empty package db in packages/package.conf.inplace
+* build_pkg():
+    * cd to the package source dir
+    * ghc Setup
+    * Setup configure w/million options
+    * Setup build
+    * Setup register --inplace
+    * Setup haddock
+* for platform.packages, see and report which are already installed,
+    and which will be installed
+* for platform.packages, if not installed, build_pkg()
+
+scripts/install.sh & scripts/package.sh
+---------------------------------------
+* install/package_pkg():
+    * cd to the package source dir
+    * Setup copy (package puts it in rootdir)
+    * Setup register (package registers in confdir)
+    * ghc-pkg update the conf (install only)
+* for all platform.packages, if not installed already, then install/package_pkg()
+
+
+What the old GHC distrib/MacOS packager did:
+--------------------------------------------
+Starting with a bindist named in the form:
+    ghc-A.B.C.D-ARCH-apple-darwin.tar.bz2
+        -- where .D is optional
+
+    GHC_UNPACKS_INTO = GHC-A.B.C.D
+    FRAMEWORK_VERSION = A.B.C.D-ARCH
+    PROJECT_VERSION = "%02d%02d%02d.%08d" % (A,B,C,D)
+
+    PACKAGE_NAME = GHC-A.B.C.D-ARCH.pkg
+
+    CONTENTS_FOLDER_PATH = GHC.framework/Versions/$FRAMEWORK_VERSION
+
+    DSTROOT = root of where the staging is going to be done
+
+
+eventual location:
+    /Library/Frameworks/GHC.framework/Versions/A.B.C.D-ARCH
+
+clean up, done before and after packaging:
+    clean() {
+        rm -rf "$GHC_UNPACKS_INTO"
+    }
+
+the build & install
+    buildAndInstall() {
+        tar -jxf "$BINDIST" \
+        && cd "$GHC_UNPACKS_INTO" \
+        && ./configure \
+        --prefix="/Library/Frameworks/$CONTENTS_FOLDER_PATH/usr" \
+        --with-gcc=/usr/bin/gcc \
+        --with-gcc-4.2=/usr/bin/gcc \
+        && make install DESTDIR="$DSTROOT
+    }
+
+
+
+
+

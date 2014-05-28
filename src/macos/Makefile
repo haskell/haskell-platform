@@ -28,7 +28,7 @@ PLATFORM_VERSION := $(word 2,$(shell grep '^version:' $(SPEC_CABAL)))
 #   IMAGE_<foo>     - a path in the image of the target system, on this build system
 #   IMAGE_<foo>_ABS - absolute path to same
 
-_REL_ROOT := 
+_REL_ROOT :=
 TARGET_ROOT := /
 IMAGE_ROOT := $(BUILD)/root
 IMAGE_ROOT_ABS := $(abspath $(IMAGE_ROOT))
@@ -290,7 +290,7 @@ $(eval $(call location,PLATFORM_BIN,PLATFORM_BASE,bin))
 polish-bin:
 	-rm -rf $(IMAGE_PLATFORM_BIN)
 	mkdir -p $(IMAGE_PLATFORM_BIN)
-	cd $(IMAGE_PLATFORM_BIN) && ln -s ../lib/*/bin/* .
+	cd $(IMAGE_PLATFORM_BIN) && ln -sf ../lib/*/bin/* .
 	-rm $(IMAGE_PLATFORM_BIN)/*-tests
 
 polish-cabal: polish-bin
@@ -366,7 +366,7 @@ help:
 
 dirs: $(DIRS)
 .PHONY: dirs
-	
+
 $(DIRS):
 	-mkdir -p $@
 

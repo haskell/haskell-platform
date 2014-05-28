@@ -1,0 +1,66 @@
+Haskell Platform
+----------------
+
+NOTE: Mar. 2014 - We are in the middle of transitioning to a wholly new build
+system for the platform. This README gives preliminary notes on how to use it,
+but expect a bumpy ride!
+
+
+BUILDING
+--------
+The platform is now built by a program called hptool, included in this repo.
+That tool is a shake based build system that creates both the traditional
+haskell-platform source tarball, and can build a complete, hermetic build of
+the platform for use in building OS installer packages.
+
+To boot-strap the build, the current system must have a working GHC installed,
+and cabal with sandbox support installed (generally 1.18.0 or later)[1] You also
+need a GHC bindist bz2 tarball that matches the platform[2].
+
+Then simply, run this:
+
+   ./platform.sh $PATH_TO_GHC_BINDIST_TARBALL
+
+This will build the hptool itself, and then use that tool to build first the
+platform source tarball, and finally the hermetic build of all the platform
+packages.[3]
+
+
+[1] You can fiddle with ./platform.sh and remove the need for the sandbox if
+you really want to build with an earlier cabal.
+
+[2] Currently, the version of GHC isn't really checked, so any close bindist
+should work. In particular, the RC2 for 7.8 works.
+
+[3] This build is currently incomplete. In particular it doesn't include
+haddock, has a fixed layout as used on OS X, and doesn't have any of the
+supporting scripts needed at installation time.
+
+
+DIRECTORIES
+-----------
+    build/                  -- where hptool does it's work
+      ghc-bindist/
+        local/              -- a local installation of GHC used for building
+      package/              -- staging area for each package
+      product/              -- src tarball ends up here
+      src-tarball/          -- staging area for what goes in the src tarball
+      target/               -- staging area for the built platform
+    download-website/
+    hptool/
+    notes/
+    packages/               -- place sources for packages that are not yet on
+                               hackage in here
+    src/                    -- the original platform build system and scripts
+
+
+WORK IN PROGRESS
+----------------
+This is currently a work in progress. See notes/BUILD-NEW for lots of thoughts,
+notes, and to dos for the new build.
+
+If you are a packager for an OS, then adding details for what needs to get done
+to "prep" the target image for the OS would be great. As soon as a method for
+adding steps specific to each OS is added, then we can add that to the tool,
+too.
+

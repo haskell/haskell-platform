@@ -1,5 +1,11 @@
 *.o
 *.hi
+.cabal-sandbox
+cabal.sandbox.config
+.shake.database
+build/
+hptool/dist/
+packages/
 src/generic/Build
 src/generic/haskell-platform-*
 src/macos/dist*
