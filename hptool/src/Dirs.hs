@@ -1,5 +1,5 @@
 module Dirs
-    ( (*/>), dir, (~/>), vdir )
+    ( (*/>), dir, (~/>), vdir, needContents )
  where
 
 import Development.Shake
@@ -36,6 +36,12 @@ infix 1 */>
 -- | Use this in calls to need on paths that are directories.
 dir :: FilePath -> FilePath
 dir = dirToMarker
+
+
+-- | Create a dependency on the static contents of a directory. Use this to
+-- depend on a set of files that can't be built, but are just supplied inputs.
+needContents :: FilePath -> Action ()
+needContents d = getDirectoryFiles d ["//*"] >> return ()
 
 
 -- Marker files for dirs are kept off to the side, under the buildRoot.

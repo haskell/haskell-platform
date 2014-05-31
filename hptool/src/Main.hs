@@ -100,6 +100,7 @@ buildRules hpRelease srcTarFile bc = do
     "build-all" ~> do  -- separate need call so built in order
         need ["build-source"]
         need ["build-product"]
+    osRules hpRelease bc
   where
     OS{..} = osFromConfig bc
 

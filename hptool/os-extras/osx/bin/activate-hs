@@ -1,0 +1,381 @@
+#!/bin/sh
+
+quiet=no
+verbose=no
+dryrun=no
+list=no
+
+version=""          # forgiving user input version
+
+hpVersion=""        # like "2014.2.0.0"
+ghcVersion=""       # like "7.8.3"
+arch=""             # "i386" or "x86_64"
+
+hpDirname=""        # "2014.2.0.0-x86_64" or older form "ghc-7.6.3"
+ghcDirname=""       # "7.8.3-x86_64"
+
+hpInstallDir="/Library/Haskell"
+ghcInstallDir="/Library/Frameworks/GHC.framework/Versions"
+
+msg=""
+
+findItems() {
+    ( cd "$1" && ls -d -1 ${2:-*} ) 2>/dev/null
+}
+
+###
+### Version and Arch Mechanics
+###
+
+extractVersions() {
+    # takes a very liberal set of formats, and figures out the version info:
+    #   ver         ghc version
+    #   ver-arch    ghc version and arch, also dirname in GHC installs
+    #                   and newer HP installs
+    #   ghc-ver     dirnames used in older HP installs
+    # in each case, ver can be x.y or x.y.z
+
+    hpVersion=""
+    ghcVersion=""
+    arch=""
+    msg=""
+
+    input="${1#ghc-}"   # remove ghc- prefix if present
+    case "$input" in
+        *-*)    arch="${input#*-}"
+                input="${input%-*}"
+                ;;
+    esac
+
+    case "$input" in
+        7.6.3)      ghcVersion="$input" ; hpVersion="2013.2.0.0" ;;
+        7.4.2)      ghcVersion="$input" ; hpVersion="2012.4.0.0" ;;
+        7.4.1)      ghcVersion="$input" ; hpVersion="2012.2.0.0" ;;
+        7.0.4)      ghcVersion="$input" ; hpVersion="2011.4.0.0" ;;
+        7.0.3)      ghcVersion="$input" ; hpVersion="2011.2.0.0" ;;
+        [67].*)     ghcVersion="$input" ;;
+
+        *)          msg="Can't parse $input as a GHC version"
+                    return 1
+                    ;;
+    esac
+
+    # see if there is an installed version w/bigger number
+    for d in $( findItems "$ghcInstallDir" "$ghcVersion"'*' ) ; do
+        ghcVersion="${d%-*}"   # last one will be highest!
+        if [ -z "$arch" ] ; then
+            arch="${d#*-}"
+        fi
+    done
+
+    if [ -z "$arch" ] ; then
+        msg="Can't determine architecture, please specify one (i386 or x86_64)"
+        return 1
+    fi
+
+    ghcDirname="$ghcVersion-$arch"
+    ghcRoot="$ghcInstallDir/$ghcDirname"
+
+    if [ \! -d "$ghcRoot" ] ; then
+        msg="GHC $ghcVersion $arch not found in $ghcInstallDir"
+        return 1
+    fi
+
+    # see if there is an installed platform to match
+    if [ -d "$hpInstallDir/ghc-$ghcVersion" ] ; then
+        # old style platform install
+        hpDirname="ghc-$ghcVersion"
+        hpRoot="$hpInstallDir/$hpDirname"
+        for r in $( findItems "$hpRoot/lib/registrations" 'haskell-platform-*.conf' ) ; do
+            q="${r#haskell-platform-}"
+            hpVersion="${q%.conf}"
+        done
+    elif [ -d "$hpInstallDir/$ghcVersion-$arch" ] ; then
+        hpDirname="$ghcVersion-$arch"
+        hpRoot="$hpInstallDir/$hpDirname"
+        for v in $( findItems "$hpRoot" 'version-*' ) ; do
+            hpVersion="${v#version-}"
+        done
+    else
+        hpVersion="--none--"
+        hpDirname=""
+        hpRoot=""
+    fi
+
+    return 0
+}
+
+
+###
+### Decode arguments
+###
+
+usage() {
+    echo "$0 -l"
+    echo "$0 [-q | -v] [-n] [ version [ arch ] ]"
+    echo "    -l | --list       just list installed versions"
+    echo "    -q | --quiet      supress informational output"
+    echo "    -v | --verbose    print actions as they are taken"
+    echo "    -n | --dryrun     don't actually do anything (implies -v)"
+    echo ""
+    echo "    version     ex. 7.8.3, defaults to latest"
+    echo "    arch        i386 or x86_64, defaults to what's installed"
+}
+
+originalArgs="$*"
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+        -l|--list)      list=yes ;;
+        -q|--quiet)     quiet=yes ; verbose=no ;;
+        -v|--verbose)   quiet=no ; verbose=yes ;;
+        -n|--dryrun)    dryrun=yes ;;
+        -f|--force)     force=yes ;;
+        -\?|--help)     usage ; exit 0 ;;
+        -*)             echo "Unknown flag $1" ; usage ; exit 1 ;;
+        *)  if [ -z "$version" ] ; then
+                version="$1"
+            elif [ -z "$arch" ] ; then
+                arch="$1"
+            else
+                echo "Too many non-option arguments" ; usage ; exit 1
+            fi
+            ;;
+    esac
+    shift
+done
+
+if [ "$list" = "yes" ] ; then
+    for version in $( findItems "$ghcInstallDir" ) ; do
+        if extractVersions $version ; then
+            if [ -n "$hpRoot" ] ; then
+                echo "$ghcVersion-$arch - with platform $hpVersion"
+                if [ "$verbose" = "yes" ] ; then
+                    echo "    ghc      at $ghcRoot"
+                    echo "    platform at $hpRoot"
+                fi
+            else
+                echo "$ghcVersion $arch - no platform"
+                if [ "$verbose" = "yes" ] ; then
+                    echo "    ghc      at $ghcRoot"
+                fi
+            fi
+        fi
+    done
+    exit 0
+fi
+
+
+###
+### Validate haskell platform version
+###
+
+if [ -z "$version" ] ; then
+    version=$( ( for d in $( findItems "$ghcInstallDir" ) ; \
+                 do extractVersions "$d" && echo "$ghcVersion" ; \
+                 done ) \
+               | sort -t '.' -n | tail -1 )
+fi
+
+if extractVersions $version ; then
+    ok="yes"
+else
+    if [ -z "$version" ] ; then
+        echo "No GHC or Platform versions installed in /Library"
+    else
+        echo "$msg"
+    fi
+    exit 1
+fi
+
+if [ \! -d "$hpRoot" -a "$quiet" = "no" ] ; then
+    echo "Warning: No corresponding Haskell Platform found"
+fi
+
+
+
+###
+### Check for Xcode command line tools
+###
+
+if [ \! \( -f /usr/bin/gcc -a -x /usr/bin/gcc \) ] ; then
+    echo "There is no compiler installed at /usr/bin/gcc"
+    echo "Install Xcode's command line tools, or another compiler tool chain."
+    exit 1
+fi
+
+
+###
+### Root check
+###
+
+
+if [ "$dryrun" = "no" -a `id -u` -ne 0 ]
+then
+    echo "You must be root to activate a particular Haskell Platform."
+    echo "Please rerun this command sudo:"
+    echo "    sudo $0 $originalArgs"
+    exit 1
+fi
+
+
+###
+### Get ready to actually do stuff
+###
+
+if [ "$dryrun" = "yes" -a "$verbose" = "yes" ] ; then
+    echo "Dry run mode enabled, would have run the following commands:"
+fi
+
+run() {
+    if [ "$verbose" = "yes" ] ; then
+        echo "    $*"
+    fi
+    if [ "$dryrun" = "no" ] ; then
+        "$@"
+    fi
+}
+
+symLink() {
+    run rm -rf "$2"
+    run ln -sf "$1" "$2"
+}
+
+symLinkInto() {
+    run ln -sf "$@"
+}
+
+###
+### Fix up bits in platform tree
+###
+
+if [ -d "$hpRoot" ] ; then
+    symLinkInto $hpRoot/lib/*/bin/* $hpRoot/bin
+    if [ -x $hpRoot/bin/cabal.wrap ]
+    then
+        run mv $hpRoot/bin/cabal $hpRoot/bin/cabal.real
+        symLink cabal.wrap $hpRoot/bin/cabal
+    fi
+
+    symLink ../lib $hpRoot/doc/packages
+    symLink $ghcRoot/usr/share/doc/ghc/html $hpRoot/doc/ghc-doc
+    symLink $ghcRoot/usr/share/doc/ghc/html/libraries/ghc-$ghcVersion $hpRoot/doc/ghc-api
+fi
+
+###
+### Repoint current links
+###
+
+symLink $ghcDirname /Library/Frameworks/GHC.framework/Versions/Current
+
+if [ -d "$hpRoot" ] ; then
+    symLink $hpDirname /Library/Haskell/current
+    symLink current/bin /Library/Haskell/bin
+    symLink current/doc /Library/Haskell/doc
+fi
+
+###
+### Set up /usr
+###
+
+symLinkInto $ghcRoot/usr/bin/* /usr/bin
+symLinkInto $ghcRoot/usr/share/man/man1/* /usr/share/man/man1
+symLinkInto $ghcRoot/usr/share/doc/ghc /usr/share/doc
+
+if [ -d "$hpRoot" ] ; then
+    symLinkInto $hpRoot/bin/* /usr/bin
+fi
+
+
+###
+### Patch settings file
+
+extractSetting() {
+    sed -n -e "/$1/"'s/.*, *"\(.*\)").*/\1/p' $settingsFile
+}
+updateSetting() {
+    run sed -e "/$1/"'s/, *".*"/, "'"$2"'"/' -i '.bak' $settingsFile
+}
+determineCompiler() {
+    case "$( "$1" --version 2>/dev/null )" in
+        *clang*)    echo clang ;;
+        *gcc*)      echo gcc ;;
+        *cpphs*)    echo cpphs ;;
+        *)          echo unknown ;;
+    esac
+}
+
+settingsFile="$ghcRoot/usr/lib/ghc-$ghcVersion/settings"
+if [ -f "$settingsFile" ] ; then
+    if grep -q '"Haskell CPP flags"' "$settingsFile" ; then
+        cmd=$( extractSetting "Haskell CPP command" )
+        case "$( determineCompiler $cmd )" in
+            clang)  cppArgs="-E -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs" ;;
+            gcc)    cppArgs="-E -undef -traditional" ;;
+            hscpp)  cppArgs="--cpp -traditional" ;;
+            *)  if [ "$quiet" = "no" ] ; then
+                    echo "Unrecgonized Haskell CPP command $cmd"
+                    echo "Leaving Haskell CPP flags unchanged in settings"
+                fi
+                ;;
+        esac
+        if [ -n "$cppArgs" ] ; then
+            updateSetting "Haskell CPP flags" "$cppArgs"
+        fi
+    else
+        cmd=$( extractSetting "C compiler command" )
+        if [ "$( determineCompiler $cmd )" = "clang" ] ; then
+            wrapperCmd=/usr/bin/ghc-clang-wrapper
+            if [ -f "$wrapperCmd" -a -e "$wrapperCmd" ] ; then
+                updateSetting "C compiler command" "$wrapperCmd"
+            else
+                echo "The compiler is clang, but $wrapperCmd isn't installed"
+                echo "Older GHCs may not work unless this is installed"
+                echo "Install $wrapperCmd and re-run this script"
+            fi
+        fi
+    fi
+else
+    if [ "$( determineCompiler /usr/bin/gcc )" = "clang" ] ; then
+        echo "The compiler is clang, but ghc $ghcVersion is old"
+        echo "and has no settings file to change the compiler."
+        echo "There is no simple work around."
+    fi
+fi
+
+
+###
+### Register platform packages
+###
+
+if [ -d "$hpRoot" ] ; then
+    for conf in $hpRoot/lib/registrations/*
+    do
+        run /usr/bin/ghc-pkg register --verbose=0 --force $conf 2>/dev/null
+    done
+fi
+
+
+###
+### Report
+###
+
+if [ "$quiet" = "no" ] ; then
+    if [ "$dryrun" = "no" ] ; then
+        verb="now set to"
+    else
+        verb="would be set to"
+    fi
+    echo
+    echo "Haskell $verb:"
+    echo "    GHC      $ghcVersion"
+    echo "    Arch.    $arch"
+    echo "    Platform $hpVersion"
+
+    if [ "$dryrun" = "no" ] ; then
+        echo ""
+        echo "View documentation with this command:"
+        echo "    open /Library/Haskell/doc/start.html"
+    fi
+fi

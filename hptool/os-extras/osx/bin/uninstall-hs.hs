@@ -429,6 +429,7 @@ archiveFile opts suffix fp = do
         OptScript -> putStrLn ("mv " ++ fp ++ " " ++ dest)
         OptRemove -> safely fp $ rename fp dest
   where
+    findFreeArchive :: Int -> IO FilePath
     findFreeArchive n = do
         let dest = fp ++ suffix ++ "." ++ show n
         dfe <- doesFileExist dest
@@ -491,11 +492,11 @@ showVersions opts m = do
         \-- To remove only a single version:     $ only VERSION\n\n"
 
 alertOlderVersions :: String -> Map.Map Version [FilePath] -> IO ()
-alertOlderVersions app m = when (not $ Map.null m) $ do
+alertOlderVersions appl m = when (not $ Map.null m) $ do
     _ <- readProcess "osascript" [] alert
     return ()
   where
-    alert = "tell application \"" ++ app ++ "\"\n\
+    alert = "tell application \"" ++ appl ++ "\"\n\
             \\tactivate\n\
             \\tdisplay alert \"Older Versions\" message \"" ++ msg ++ "\"\n\
             \end tell\n"

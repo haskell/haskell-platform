@@ -27,6 +27,7 @@ haddockMasterRules bc =
         hpRel <- askHpRelease
         bc' <- askBuildConfig
         haddocMasterAction outdir hpRel bc'
+        osDocAction (osFromConfig bc')
 
 
 haddocMasterAction :: FilePath -> Release -> BuildConfig -> Action ()

@@ -89,7 +89,7 @@ p {
     <div id="content" class="with-sidebar">
       <h1>Haskell Platform for Mac OS X</h1>
       <p>Welcome to Haskell Platform. The platform consists of the Glasgow Haskell Compiler (GHC) and an extensive set of standard libraries and utilities with full documentation.</p>
-      
+
       <h2>Documentation</h2>
       <ul>
         <li>
@@ -105,7 +105,8 @@ p {
           <p>Documentation for the GHC API.</p>
         </li>
         <li>
-          <p><a href="ghc-doc/Cabal/index.html">Cabal</a></p>
+          <!-- <p><a href="ghc-doc/Cabal/index.html">Cabal</a></p> -->
+          <p><a href="http://www.haskell.org/cabal/users-guide/">Cabal</a></p>
           <p>An infrastructure for building and distributing Haskell software.</p>
         </li>
         <li>
@@ -113,7 +114,7 @@ p {
           <p>A tool for automatically generating documentation from annotated Haskell source code.</p>
         </li>
       </ul>
-      
+
       <h2>What is Installed</h2>
       <p>On Mac OS X, the Haskell Platform is installed in two major pieces: GHC and Haskell Platform. They are installed respectively in:</p>
       <p class="paths">/Library/Frameworks/GHC.framework
@@ -124,9 +125,9 @@ p {
       <p>This and prior versions of GHC and Haskell Platform can be found and then easily removed with the uninstallation command line utility:</p>
       <p class="paths">/Library/Haskell/bin/uninstall-hs</p>
       <p>Simply run it for more information.</p>
-      
+
       <h2>Configuring Cabal</h2>
-      <p>The <tt>cabal</tt> command manages the building and installation of packages, both your own, and those it can fetch from the Hackage repository.</p> 
+      <p>The <tt>cabal</tt> command manages the building and installation of packages, both your own, and those it can fetch from the Hackage repository.</p>
       <p>The first time you run <tt>cabal</tt>, a Mac specific configuration is written into the <tt>~/.cabal</tt> directory.</p>
       <ul>
         <li><p>If this is the first time you have ever run <tt>cabal</tt>, it will be made your active configuration.</p></li>
@@ -135,7 +136,7 @@ p {
       <p>The configuration sets up <tt>cabal</tt> to install packages with the same layout as those installed with the Platform. Packages installed per user (<tt>--user</tt>, the default) are placed in a parallel tree in <tt>~/Library/Haskell</tt>.</p>
       <p><b>N.B.</b> Built executables will be symlink'd into <tt>~/Library/Haskell/bin</tt>, you probably want to add that to your <tt>$PATH</tt> by adding this line to your <tt>~/.bash_profile</tt>:
       <p class="paths">export PATH="$HOME/Library/Haskell/bin:$PATH"</p>
-      
+
       <div id="sidebar">
       <div class="module">
       <h2>Community</h2>

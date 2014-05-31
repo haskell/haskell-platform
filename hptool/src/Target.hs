@@ -28,13 +28,14 @@ targetRules bc = do
     targetDir ~> do
         hpRel <- askHpRelease
         bc' <- askBuildConfig
+        let OS{..} = osFromConfig bc'
         let packages = platformPackages hpRel
-            packageTargetDir = osPackageTargetDir $ osFromConfig bc'
 
         need $ vdir ghcVirtualTarget
                : dir (haddockDocDir bc')
-               : map (dir . (targetDir </+>) . packageTargetDir) packages
+               : map (dir . (targetDir </+>) . osPackageTargetDir) packages
 
+        osTargetAction
 
 buildRules :: Rules ()
 buildRules = do
@@ -146,10 +147,6 @@ installRules bc = do
         localCommand' [Cwd buildDir]
             "cabal" ["copy", "--destdir=" ++ targetDir ® buildDir]
         osPackageInstallAction pkg
-
-    osProduct *> \_ -> do
-        need [targetDir]
-        osProductAction
   where
     OS{..} = osFromConfig bc
 

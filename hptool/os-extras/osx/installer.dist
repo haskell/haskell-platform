@@ -42,10 +42,7 @@
     <script>
 <![CDATA[
 function find_gcc() {
-  var a = system.files.fileExistsAtPath('/usr/bin/gcc');
-  var b = system.files.fileExistsAtPath('/Developer/usr/bin/gcc');
-  var c = system.files.fileExistsAtPath('/Applications/Xcode.app/Contents/Developer/usr/bin/gcc');
-  var r = a || b || c;
+  var r = system.files.fileExistsAtPath('/usr/bin/gcc');
 
   if (!r) {
     my.result.type = 'Warn';

@@ -99,6 +99,23 @@ OS X build
 The definitive answer to how to use the command line tools for installers:
     http://stackoverflow.com/questions/11487596/making-os-x-installer-packages-like-a-pro-xcode4-developer-id-mountain-lion-re/11487658#11487658
 
+Versions to test:
+    Yosemite
+    OS X 10.10 update 1.0 & Xcode 6.0b
+
+    Mavericks
+    OS X 10.9.3 & Xcode 5.1.1
+
+    Mountain Lion
+    OS X 10.8.5 & Xcode 4.5.2
+
+    Lion
+    OS X 10.7.5 & Xcode 4.2
+    OS X 10.7.5 & Xcode 4.3.2
+
+    Snow Leopard
+    OS X 10.6.8 & Xcode 3.2.6
+
 
 
 
@@ -108,53 +125,44 @@ TO DO
 
 -- A List --
 
-[ ] missing bits for target
-    [ ] scripts needed at install time
-        [ ] registration
-        [ ] bin link up
-        [ ] make this something that HP can use to set up the particular HP as the default
-
-    [ ] haddock master files
-
-
 [ ] what to do about Haddock? it is just a tool (not a lib), but it
     depends on a package, ghc-paths, which isn't part of the platform.
     [ ] furthermore, that package encodes build paths into the exec!!!!
     [ ] should we instead be using haddock from the ghc-bin-dist?
 
-[ ] change how IncludeType encodes GHC-ness:
-    IncGhc & IncGhcLib ---> IncGhc IncludeType
-    - this way, we can include tools from GHC
+[x] fix start.html's Cabal manual link to point at the web(?)
+    http://www.haskell.org/cabal/users-guide
 
-[ ] PatchSettings.hs should test for and install ghc-clang-wrapper if
-    needed
+[x] mac polish
+    [x] cp cabal.wrap to /L/H/bin
+    [x] cp ghc-clang-wrapper to /L/H/bin
+    [x] cp activate.sh to /L/H/bin
+    [x] compile UninstallHS.hs into /L/H/bin
+    [x] compile PatchSettings.hs into /L/H/bin
+    [x] start.html into /L/H/doc
 
-[ ] mac polish
-    [ ] sym link files in /Library/Haskell/<ver>/bin to /L/H/bin
-    [ ] cp cabal.wrap to /L/H/bin
-    [ ] cp ghc-clang-wrapper to /L/H/bin
-    [ ] compile UninstallHS.hs into /L/H/bin
-    [ ] compile PatchSettings.hs into /L/H/bin
-    [ ] /Library/Haskell/current/* sym links (include in patch script?)
-    [ ] final call out to PackageMaker
-        [ ] templatize those control files?
-    [ ] -optP-P hack
+[+] mac scripts
+    [x] ghc-version file
+    [ ] uninstallHS handle new version directory naming
+    [x] activate.hs set HP CPP Flags
+    [x] fix postinstall to call activate.sh
+    [ ] update start.html
+    [x] normalize names of all the scripts
+    [x] /L/H/bin & doc symlinks
+    [x] postinstall, open start.html as $USER
+
+
+-- B List --
 
 [ ] either don't untar the ghc bindist twice
     or use resources to ensure that we don't ghcInstall in parallel
     or use the new wrapper & new pkg-db technique from the old mac build
-
--- B List --
-
-[ ] The steps in OS/Mac.hs osProductAction could be made a set of dependencies
-    and rules. This would require allowing an OS to introduce new Rules. This
-    might help, as some of these steps are lengthly and don't need to be
-    repeated all the time.
-
-[-] When the web site is built, it is done as a single action with dependencies
-    on all the source files in website/. This means that chaning any file in
-    there rebuilds the entire site. This is probably okay, as otherwise we have
-    to deal with file deletions (which is very hard), and the build is quick.
+    [ ] if possible, break out installing the GHC for the target and the GHC
+        for local use into two different targets, into two different modules.
+        In this way, os specific code can use the local GHC - since at present
+        building the target GHC requires os specific code and so makes a
+        circular module dependency if it also tries to use localCompile'.
+        (see compileToBin in hptool/src/OS/Mac.hs)
 
 [ ] haskell-platform itself is missing from build.packages
     [ ] does it need to be there? really?
@@ -184,6 +192,21 @@ TO DO
 [ ] hscolour?
     [ ] check for presence
     [ ] include in platform?
+
+[ ] postinstall script for mac should be templatized
+
+
+-- C List --
+
+[-] When the web site is built, it is done as a single action with dependencies
+    on all the source files in website/. This means that chaning any file in
+    there rebuilds the entire site. This is probably okay, as otherwise we have
+    to deal with file deletions (which is very hard), and the build is quick.
+
+
+[ ] change how IncludeType encodes GHC-ness:
+    IncGhc & IncGhcLib ---> IncGhc IncludeType
+    - this way, we can include tools from GHC
 
 [ ] invocation script
     [ ] support older host cabal w/o sandboxing
@@ -221,6 +244,23 @@ TO DO
 [ ] normalize the way package DBs are spec'd:
     [ ] --package-db=global or --global?
     [ ] is --package-db=clear needed?
+
+[ ] should the mac build ship compiled versions of .hs files in
+    hptool/os-extras/osx/bin? They are about 1MB each, stripped. They can be
+    run w/o compiling... if a working runhaskell is installed. This could be
+    problematic as both are there to help when things are not right.
+    [ ] perhaps combine these into a single executable, and then things won't
+        be so worrisome?
+
+[ ] Cabal manual source is now in markdown, not docbook
+    (see in the GHC tree, libraries/Cabal/Cabal/doc)
+    This means the GHC build process no longer builds it - and so it is no
+    longer in the bindist, and hence not in the Mac installer.
+    Somewhere, somthing should run pandoc on this and build the doc.
+    [ ] failing that, get Cabal to put up versioned copies of the manual on the
+    web, and templatize start.html to include a link to the particular version.
+
+[ ] templatize start.html to include the version (at least)
 
 
 Shake Thoughts

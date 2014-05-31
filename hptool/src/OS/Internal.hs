@@ -10,6 +10,7 @@ import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
 
+import Dirs
 import Paths
 import Types
 import Utils
@@ -33,13 +34,19 @@ data OS = OS
         -- target image.
     ,   osPackageInstallAction :: Package -> Action ()
 
+        -- | Extra actions run after GHC and the packages have been assembled
+        -- into the target image.
+    ,   osTargetAction :: Action ()
+
+        -- | Extra actions run after haddock has built the master doc
+    ,   osDocAction :: Action ()
+
         -- | Final, OS specific, product. Usually a tarball or installer.
         -- Should be located in productDir
     ,   osProduct :: FilePath
 
-        -- | Action that builds the final product.
-        -- The target will already have been depended on
-    ,   osProductAction :: Action ()
+        -- | Rules for building the product and anything from osTargetExtraNeeds
+    ,   osRules :: Release -> BuildConfig -> Rules ()
     }
 
 
@@ -60,9 +67,12 @@ genericOS BuildConfig{..} = OS{..}
         if hasReg
             then command_ [] "cp" [confFile, regFile]
             else command_ [] "rm" ["-f", regFile]
+    osTargetAction = return ()
+    osDocAction = return ()
     osProduct = productDir </> "generic.tar.gz"
-    osProductAction =
-        command_ [Cwd buildRoot]
-            "tar" ["czf", osProduct ® buildRoot, targetDir ® buildRoot]
+    osRules _hpRelease _bc =
+        osProduct */> \out ->
+            command_ [Cwd buildRoot]
+                "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
 
 
