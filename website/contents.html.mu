@@ -1,16 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>The Haskell Platform</title>
-  <link rel="stylesheet" href="style.css" type="text/css" />
-  <link rel="SHORTCUT ICON" href="images/Haskell-Logo-Boxed-32.png"/>
+    {{> header}}
+    <title>The Haskell Platform: Contents</title>
 </head>
 <body>
 <div id="header">
-<h1 class="title">The Haskell Platform</h1>
+<h1 class="title">The Haskell Platform: Contents</h1>
 </div>
 <h2 id="haskell-batteries-included">Haskell: Batteries Included</h2>
 <p><a href="index.html">The Haskell Platform</a> is a comprehensive, robust development environment for programming in <a href="http://haskell.org">Haskell</a>. For new users the platform makes it trivial to get up and running with a full Haskell development environment. For experienced developers, the platform provides a comprehensive, standard base for commercial and open source Haskell development that maximises interoperability and stability of your code.</p>
@@ -52,14 +47,6 @@
 <ul>
 <li><a href="doc/2013.2.0.0/start.html">Read the documentation</a></li>
 </ul>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15375175-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+{{> footer}}
 </body>
 </html>

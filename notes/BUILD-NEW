@@ -104,6 +104,9 @@ The definitive answer to how to use the command line tools for installers:
 
 TO DO
 =====
+    key: [ ] = open, [x] = done, [+] = in progress, [-] = won't do (probably)
+
+-- A List --
 
 [ ] missing bits for target
     [ ] scripts needed at install time
@@ -141,8 +144,17 @@ TO DO
     or use resources to ensure that we don't ghcInstall in parallel
     or use the new wrapper & new pkg-db technique from the old mac build
 
--=-
+-- B List --
 
+[ ] The steps in OS/Mac.hs osProductAction could be made a set of dependencies
+    and rules. This would require allowing an OS to introduce new Rules. This
+    might help, as some of these steps are lengthly and don't need to be
+    repeated all the time.
+
+[-] When the web site is built, it is done as a single action with dependencies
+    on all the source files in website/. This means that chaning any file in
+    there rebuilds the entire site. This is probably okay, as otherwise we have
+    to deal with file deletions (which is very hard), and the build is quick.
 
 [ ] haskell-platform itself is missing from build.packages
     [ ] does it need to be there? really?

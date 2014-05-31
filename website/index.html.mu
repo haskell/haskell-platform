@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="google-site-verification" content="KFhh-iqh15f1K__DXytygJcA-cWpB5tzPA53_Zp8rMQ" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Download Haskell</title>
-    <link rel="stylesheet" type="text/css" href="style.css" >
-    <link rel="SHORTCUT ICON" href="images/Haskell-Logo-Boxed-32.png"/>
+      {{> header}}
+      <title>Download Haskell</title>
   </head>
   <body id="index" class="spring">
 
@@ -106,7 +103,7 @@
 
      <div id="timeline">
         <p>
-            Current release: <a href="changelog.html">2013.2.0.0</a>
+            Current release: <a href="changelog.html">{{hpVersion}}</a>
         </p>
         <p>
             <b>New packages</b>
@@ -134,14 +131,6 @@
     </div>
 
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15375175-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+    {{> footer}}
   </body>
 </html>

@@ -1,12 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>Haskell Platform for Linux</title>
-  <link rel="stylesheet" href="style.css" type="text/css" />
-  <link rel="SHORTCUT ICON" href="images/Haskell-Logo-Boxed-32.png"/>
+    {{> header}}
+    <title>Haskell Platform for Linux</title>
 </head>
 <body>
 <div id="header">
@@ -83,14 +78,6 @@ To install, unpack the cabal tarball, and run:
 
 <hr />
 <p><a href="prior.html">Prior releases</a></p>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15375175-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+{{> footer}}
 </body>
 </html>

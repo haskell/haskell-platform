@@ -1,1 +1,0 @@
-<link rel="SHORTCUT ICON" href="images/Haskell-Logo-Boxed-32.png"/>

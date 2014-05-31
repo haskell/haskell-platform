@@ -22,6 +22,7 @@ module Paths
     , ghcVirtualTarget, hpVirtualTarget
 
     , installerPartsDir
+    , websiteDir
     , productDir
 
     , sourceRoot
@@ -125,7 +126,9 @@ installerPartsDir = buildRoot </> "installer-parts"
 productDir :: FilePath
 productDir = buildRoot </> "product"
 
-
+-- | Where the built website is placed
+websiteDir :: FilePath
+websiteDir = productDir </> "website"
 
 
 -- | Sources intended to override those up on hackage go here

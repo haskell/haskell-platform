@@ -18,6 +18,7 @@ import Releases2014
 import SourceTarball
 import Types
 import Target
+import Website
 
 main :: IO ()
 main = shakeArgsWith opts [] main'
@@ -34,7 +35,8 @@ main = shakeArgsWith opts [] main'
                  \    build-source        -- build the source tar ball\n\
                  \    build-target        -- build the target tree\n\
                  \    build-package-<pkg> -- build the package (name or name-ver)\n\
-                 \    build-local         -- build the local GHC environment\n"
+                 \    build-local         -- build the local GHC environment\n\
+                 \    build-website       -- build the website\n"
         return Nothing
 
     allRules tarfile = do
@@ -45,6 +47,7 @@ main = shakeArgsWith opts [] main'
         haddockMasterRules buildConfig
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile buildConfig
+        websiteRules "website"
 
     opts = shakeOptions
 
@@ -59,6 +62,7 @@ buildRules hpRelease srcTarFile bc = do
     "build-target" ~> need [targetDir]
     "build-product" ~> need [osProduct]
     "build-local" ~> need [dir ghcLocalDir]
+    "build-website" ~> need [dir websiteDir]
     forM_ (platformPackages hpRelease) $ \pkg -> do
         let full = "build-package-" ++ show pkg
         let short = "build-package-" ++ pkgName pkg

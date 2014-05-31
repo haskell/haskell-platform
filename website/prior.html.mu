@@ -1,12 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>Haskell Platform Prior Versions</title>
-  <link rel="stylesheet" href="style.css" type="text/css" />
-  <link rel="SHORTCUT ICON" href="images/Haskell-Logo-Boxed-32.png"/>
+    {{> header}}
+    <title>Haskell Platform Prior Versions</title>
 </head>
 <body>
 <div id="header">
@@ -34,14 +29,6 @@
 <p><strong>2009.2.0.2</strong> - July 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
 <p><strong>2009.2.0.1</strong> - June 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0.1/HaskellPlatform-2009.2.0.1-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform-2009.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
 <p><strong>2009.2.0</strong> - May 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : " http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15375175-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+{{> footer}}
 </body>
 </html>
