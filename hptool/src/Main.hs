@@ -53,7 +53,7 @@ main = shakeArgsWith opts [] main'
 
     hpRelease = hp2014_1_0_0
     hpFullName = show $ relVersion hpRelease
-    srcTarFile = productDir </> hpFullName <.> "tgz"
+    srcTarFile = productDir </> hpFullName <.> "tar.gz"
 
 
 buildRules :: Release -> FilePath -> BuildConfig -> Rules()
