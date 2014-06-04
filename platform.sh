@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HPTOOL=hptool/dist/build/hptool/hptool
+HPTOOL=hptool/.cabal-sandbox/bin/hptool
 
 if [ \! \( -e $HPTOOL -a -x $HPTOOL \) ]
 then
