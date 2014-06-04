@@ -28,8 +28,9 @@ ghcInstall base mfPrefix = do
 
     makeDirectory untarDir
 
+    let extract = if takeExtension tarFile == ".xz" then "-Jxf" else "-jxf"
     command_ [Cwd untarDir]
-        "tar" ["-jxf", tarFile ® untarDir]
+        "tar" [extract, tarFile ® untarDir]
 
     configCmd <- liftIO $ absolutePath $ distDir </> "configure"
     absPrefix <- liftIO $ absolutePath $ prefix
