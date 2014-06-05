@@ -29,7 +29,7 @@ ghcInstall base mfPrefix = do
     makeDirectory untarDir
 
     command_ [Cwd untarDir]
-        "tar" ["-jxf", tarFile ® untarDir]
+        "tar" ["xf", tarFile ® untarDir]
 
     configCmd <- liftIO $ absolutePath $ distDir </> "configure"
     absPrefix <- liftIO $ absolutePath $ prefix
