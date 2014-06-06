@@ -5,6 +5,8 @@ module Main where
 import Control.Monad (forM_)
 import Development.Shake
 import Development.Shake.FilePath
+import System.Console.GetOpt
+import qualified System.Info (os, arch)
 
 import Config
 import Dirs
@@ -20,16 +22,32 @@ import Types
 import Target
 import Website
 
+data Flags = Info deriving Eq
+
+flags :: [OptDescr (Either a Flags)]
+flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
+                     "Show info on what gets included in this HP release"
+        ]
+
 main :: IO ()
-main = shakeArgsWith opts [] main'
+main = shakeArgsWith opts flags main'
   where
     main' [] (tarfile:what) = return $ Just $ do
         allRules tarfile
         want $ if null what then ["build-all"] else what
-    main' _ _ = usage
+    main' flgs _ = if Info `elem` flgs then info else usage
+
+    info = do
+        putStrLn $ "This hptool is built to construct " ++ hpFullName ++ "\n\
+                   \  for the " ++
+                   System.Info.os ++ " " ++ System.Info.arch ++ " platform.\n\
+                   \The HP constructed will contain the following:\n\n"
+                   ++ unlines (whatIsIncluded hpRelease)
+        return Nothing
 
     usage = do
-        putStrLn "usage: hptool [opts] <ghc-bindist.tar.bz> [target...]\n\
+        putStrLn "usage: hptool --info\n\
+                 \       hptool [opts] <ghc-bindist.tar.bz> [target...]\n\
                  \  where target is one of:\n\
                  \    build-all           -- build everything (default)\n\
                  \    build-source        -- build the source tar ball\n\
@@ -55,6 +73,17 @@ main = shakeArgsWith opts [] main'
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tgz"
 
+
+whatIsIncluded :: Release -> [String]
+whatIsIncluded = map concat . map includeToString . relIncludes where
+    includeToString (IncGHC, p)      = "GHC:    " : [show p]
+    includeToString (IncGHCLib, p)   = "GHCLib: " : [show p]
+    includeToString (IncLib, p)      = "LIB:    " : [show p]
+    includeToString (IncTool, p)     = "TOOL:   " : [show p]
+    includeToString (IncIfWindows it, p) =
+                                       "IfWindows:    " : includeToString (it,p)
+    includeToString (IncIfNotWindows it, p) =
+                                       "IfNotWindows: " : includeToString (it,p)
 
 buildRules :: Release -> FilePath -> BuildConfig -> Rules()
 buildRules hpRelease srcTarFile bc = do
