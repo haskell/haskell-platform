@@ -11,6 +11,7 @@ pushd hscolour
 cabal sandbox init
 cabal install hscolour-1.20.3
 sudo cp .cabal-sandbox/bin/HsColour /usr/local/bin/
+popd
 
 # Get GHC bin tarball
 wget http://www.haskell.org/ghc/dist/$GHC_VER/$GHC_TARBALL
