@@ -1,7 +1,6 @@
 #!/bin/bash
 
-GHC_VER=7.8.2
-GHC_TARBALL=ghc-7.8.2-x86_64-unknown-linux-deb7.tar.xz
+GHC_TARBALL="$1"
 
 set -ev
 
@@ -14,4 +13,4 @@ sudo cp .cabal-sandbox/bin/HsColour /usr/local/bin/
 popd
 
 # Get GHC bin tarball
-wget http://www.haskell.org/ghc/dist/$GHC_VER/$GHC_TARBALL
+wget http://projects.haskell.org/haskell-platform/$GHC_TARBALL
