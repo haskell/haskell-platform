@@ -14,8 +14,9 @@ haskell-platform source tarball, and can build a complete, hermetic build of
 the platform for use in building OS installer packages.
 
 To boot-strap the build, the current system must have a working GHC installed,
-and cabal with sandbox support installed (generally 1.18.0 or later)[1] You also
-need a GHC bindist bz2 tarball that matches the platform[2].
+and cabal with sandbox support installed (generally 1.18.0 or later)[1], and an
+HsColour executable must be in your PATH (current recommended version is
+1.20.3). You also need a GHC bindist tarball that matches the platform[2].
 
 Then simply, run this:
 
