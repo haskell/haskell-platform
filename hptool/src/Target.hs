@@ -62,6 +62,7 @@ buildAction buildDir hpRel bc = do
 
         command_ [] "cp" ["-pR", sourceDir, buildDir]
 
+        ghcPkgVerbosity <- shakeToGhcPkgVerbosity
         removeDirectoryRecursive depsDB
         localCommand' [] "ghc-pkg" ["init", depsDB]
         forM_ deps $ \d -> do
@@ -71,10 +72,13 @@ buildAction buildDir hpRel bc = do
                 localCommand' [] "ghc-pkg"
                     [ "register"
                     , "--package-db=" ++ depsDB
+                    , "--verbose=" ++ show ghcPkgVerbosity
                     , inplace
                     ]
 
-        let cabal c as = localCommand' [Cwd buildDir] "cabal" $ c : as
+        cabalVerbosity <- shakeToCabalVerbosity
+        let cabal c as = localCommand' [Cwd buildDir] "cabal" $
+                             c : ("--verbose=" ++ show cabalVerbosity) : as
         when (not isAlexOrHappy) $
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated

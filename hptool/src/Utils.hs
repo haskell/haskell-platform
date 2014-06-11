@@ -2,7 +2,8 @@ module Utils where
 
 import Data.Maybe (listToMaybe)
 import Data.Version (Version, parseVersion)
-import Development.Shake (Action, command_, liftIO, writeFileChanged)
+import Development.Shake (Action, command_, getVerbosity, liftIO,
+                          Verbosity(..), writeFileChanged)
 import Development.Shake.FilePath
 import Text.ParserCombinators.ReadP (readP_to_S)
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
@@ -76,3 +77,26 @@ makeDirectory fp = liftIO $ createDirectoryIfMissing True fp
 writeFileLinesChanged :: FilePath -> [String] -> Action ()
 writeFileLinesChanged fp = writeFileChanged fp . unlines
 
+-- ghc-pkg command line verbosity ranges from 0..2, with 1 the default
+shakeToGhcPkgVerbosity :: Action Int
+shakeToGhcPkgVerbosity = do
+    sV <- getVerbosity
+    return $ case sV of
+                 Silent     -> 0
+                 Quiet      -> 0
+                 Normal     -> 1
+                 Loud       -> 1
+                 Chatty     -> 2
+                 Diagnostic -> 2
+
+-- cabal command line verbosity ranges from 0..3, with 1 the default
+shakeToCabalVerbosity :: Action Int
+shakeToCabalVerbosity = do
+    sV <- getVerbosity
+    return $ case sV of
+                 Silent     -> 0
+                 Quiet      -> 0
+                 Normal     -> 1
+                 Loud       -> 2
+                 Chatty     -> 3
+                 Diagnostic -> 3
