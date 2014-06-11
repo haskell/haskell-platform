@@ -1,0 +1,4 @@
+language: haskell
+ghc: 7.6
+install: ./travis-setup.sh
+script: ./platform.sh ghc-7.8.2-x86_64-unknown-linux-deb7.tar.xz
