@@ -8,7 +8,7 @@ hp2014_1_0_0 =
     release "2014.1.0.0"
         [ incGHC                            "7.8.2"
         , incGHCLib "array"                 "0.5.0.0"
-        , incGHCLib "base"                  "4.7.0.0"
+        , incGHCLib "base"                  "4.7.0.1"
         , incGHCLib "bytestring"            "0.10.4.0"
         , incGHCLib "Cabal"                 "1.18.1.3"
         , incGHCLib "containers"            "0.5.5.1"
