@@ -6,6 +6,7 @@ module GhcDist
 
 import Control.Applicative ((<$>))
 import Data.List (intercalate, isInfixOf)
+import Data.Maybe (fromMaybe, listToMaybe)
 import Development.Shake
 import Development.Shake.FilePath
 import System.Environment (getEnvironment)
@@ -17,6 +18,25 @@ import Paths
 import Types
 import Utils
 
+data CPPCommand = CPP_clang
+                | CPP_gcc
+                | CPP_cpphs
+                deriving (Show, Eq, Ord, Enum, Bounded)
+
+type GHCSettings = [(String, String)]
+
+cppCommandName :: CPPCommand -> String
+cppCommandName cpp = case cpp of
+    CPP_clang -> "clang"
+    CPP_gcc   -> "gcc"
+    CPP_cpphs -> "cpphs"
+
+cppCommandFlags :: CPPCommand -> String
+cppCommandFlags cpp = case cpp of
+    CPP_clang -> "-P -E -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs"
+    CPP_gcc   -> "-E -undef -traditional"
+    CPP_cpphs -> "--cpp -traditional"
+
 ghcInstall :: FilePath -> Maybe (BuildConfig -> FilePath) -> Action FilePath
 ghcInstall base mfPrefix = do
     tarFile <- askGhcBinDistTarFile
@@ -25,6 +45,7 @@ ghcInstall base mfPrefix = do
         untarDir = takeDirectory distDir
         (prefix, destDir) = layout (($ conf) <$> mfPrefix)
         destArg = maybe [] (\_ -> ["DESTDIR=" ++ base ® distDir]) mfPrefix
+        settingsFile = destDir </> "lib" </> show (bcGhcVersion conf) </> "settings"
 
     makeDirectory untarDir
 
@@ -39,34 +60,37 @@ ghcInstall base mfPrefix = do
     command_ [Cwd distDir]
         "make" (["install"] ++ destArg)
 
-    patchCPPSettings
-        (destDir </> "lib" </> show (bcGhcVersion conf) </> "settings")
+    settings <- readSettings settingsFile
+    Just cppCommand <- getCppCommand settings settingsFile
+    writeSettings settingsFile (updateCppFlags cppCommand settings)
 
     return destDir
   where
     layout Nothing = (base, base)
     layout (Just p) = (p, base </+> p)
 
-patchCPPSettings :: FilePath -> Action ()
-patchCPPSettings settingsFile = do
-    origSettings <- read <$> readFile' settingsFile
-    let Just cppCommand = lookup "Haskell CPP command" origSettings
-    (Stdout cppVersion, Stderr _) <- command [] cppCommand ["--version"]
-    let compiler = case filter (`isInfixOf` cppVersion) ["clang", "gcc", "cpphs"] of
-            (c : _) -> c
-            _       -> error $ "unknown Haskell CPP command " ++ cppCommand
-        replaceFlags (k, v) = case k of
-            "Haskell CPP flags"  -> (k, cppFlags compiler)
-            _                    -> (k, v)
-        settingsString = "[ " ++ intercalate "\n, " (map (show . replaceFlags) origSettings) ++ "\n]"
-    writeFileChanged settingsFile settingsString
+readSettings :: FilePath -> Action GHCSettings
+readSettings settingsFile = read <$> liftIO (readFile settingsFile)
 
-cppFlags :: String -> String
-cppFlags cpp = case cpp of
-      "clang" -> "-P -E -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs"
-      "gcc"   -> "-E -undef -traditional"
-      "cpphs" -> "--cpp -traditional"
-      _       -> error $ "unknown Haskell CPP command" ++ cpp
+updateCppFlags :: CPPCommand -> GHCSettings -> GHCSettings
+updateCppFlags cppCommand = map replaceFlags
+    where
+        replaceFlags (k, v) = case k of
+            "Haskell CPP flags"  -> (k, cppCommandFlags cppCommand)
+            _                    -> (k, v)
+
+writeSettings :: FilePath -> GHCSettings -> Action ()
+writeSettings settingsFile settings = writeFile' settingsFile $
+    "[ " ++ intercalate "\n, " (map show settings) ++ "\n]"
+
+getCppCommand :: GHCSettings -> FilePath -> Action (Maybe CPPCommand)
+getCppCommand settings settingsFile = do
+    let cppCommand = fromMaybe
+            (error $ "Haskell CPP command not found in " ++ settingsFile)
+            (lookup "Haskell CPP command" settings)
+    (Stdout cppVersion, Stderr _) <- command [] cppCommand ["--version"]
+    return . listToMaybe $
+        filter ((`isInfixOf` cppVersion) . cppCommandName) [minBound .. maxBound]
 
 ghcDistRules :: Rules ()
 ghcDistRules = do
