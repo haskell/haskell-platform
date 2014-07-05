@@ -125,10 +125,9 @@ TO DO
 
 -- A List --
 
-[ ] what to do about Haddock? it is just a tool (not a lib), but it
-    depends on a package, ghc-paths, which isn't part of the platform.
-    [ ] furthermore, that package encodes build paths into the exec!!!!
-    [ ] should we instead be using haddock from the ghc-bin-dist?
+[ ] We should be using the haddock from the bindist
+    [ ] There are reports that the Mac build has problems? find and test?
+    [ ] The Release data structure can't handle tools from GHC
 
 [x] fix start.html's Cabal manual link to point at the web(?)
     http://www.haskell.org/cabal/users-guide
@@ -142,17 +141,27 @@ TO DO
     [x] start.html into /L/H/doc
 
 [+] mac scripts
+    [ ] hp root should be /L/H/ghc-<ghcver>-<arch>
+    [ ] uninstallHS handle new version directory naming (with arch)
+    [ ] cabal.wrap
+        [ ] update the config.platform in the script
+        [ ] improve logic for updating the user's .config
+    [ ] update start.html
+    [ ] update check on install (from postinstall script)
     [x] ghc-version file
-    [ ] uninstallHS handle new version directory naming
     [x] activate.hs set HP CPP Flags
     [x] fix postinstall to call activate.sh
-    [ ] update start.html
     [x] normalize names of all the scripts
     [x] /L/H/bin & doc symlinks
     [x] postinstall, open start.html as $USER
 
 
 -- B List --
+
+[ ] haskell-platform itself is missing from build.packages
+    [ ] does it need to be there?
+    [ ] does it need to be built?
+    [ ] need to include windows stuff in .cabal file (missing now)
 
 [ ] either don't untar the ghc bindist twice
     or use resources to ensure that we don't ghcInstall in parallel
@@ -164,9 +173,26 @@ TO DO
         circular module dependency if it also tries to use localCompile'.
         (see compileToBin in hptool/src/OS/Mac.hs)
 
-[ ] haskell-platform itself is missing from build.packages
-    [ ] does it need to be there? really?
-    [ ] does it need to be built?
+[ ] does generated haddock...
+    [ ] correctly reference other modules?
+    [ ] have hscolour'd source?
+
+[ ] change how IncludeType encodes GHC-ness:
+    IncGhc & IncGhcLib ---> IncGhc IncludeType
+    - this way, we can include tools from GHC
+
+[ ] templatize /website pages
+    [ ] figure out how to pass download hash info
+    [ ] main download pages: mac, linux, windows
+    [ ] prior version page
+    [ ] replace change log with version grid
+        [ ] bring in other Release20xx.hs files
+    [ ] contents page
+
+-- C List --
+
+[ ] postinstall script for mac should be templatized
+[ ] templatize start.html to include the version (at least)
 
 [ ] should the platfrom be taking the following from the GHC dist:
     registered in pkg db, not part of platfrom, but could be?
@@ -185,28 +211,15 @@ TO DO
     shiped with ghc
         - haddock
 
-[ ] does generated haddock...
-    [ ] correctly reference other modules?
-    [ ] have hscolour'd source?
-
 [ ] hscolour?
     [ ] check for presence
     [ ] include in platform?
 
-[ ] postinstall script for mac should be templatized
-
-
--- C List --
 
 [-] When the web site is built, it is done as a single action with dependencies
     on all the source files in website/. This means that chaning any file in
     there rebuilds the entire site. This is probably okay, as otherwise we have
     to deal with file deletions (which is very hard), and the build is quick.
-
-
-[ ] change how IncludeType encodes GHC-ness:
-    IncGhc & IncGhcLib ---> IncGhc IncludeType
-    - this way, we can include tools from GHC
 
 [ ] invocation script
     [ ] support older host cabal w/o sandboxing
@@ -223,9 +236,6 @@ TO DO
     [ ] delete the dir, but not the marker - things don't always rebuild
     [ ] seems like sometimes things rebuild for no reason
 
-[ ] still a few path bits hard coded here and there
-    - see "../packages.conf.d" for example in Target.hs
-
 [ ] fix inconsistency about if the cp destination is the dir,
     or the dir to hold the dir
 
@@ -241,16 +251,12 @@ TO DO
 [ ] location of templates and hptool source for tarball are hardcoded
     -- see SourceTarball.hs: hptoolSourceDir & cabalTemplate
 
+[ ] still a few path bits hard coded here and there
+    - see "../packages.conf.d" for example in Target.hs
+
 [ ] normalize the way package DBs are spec'd:
     [ ] --package-db=global or --global?
     [ ] is --package-db=clear needed?
-
-[ ] should the mac build ship compiled versions of .hs files in
-    hptool/os-extras/osx/bin? They are about 1MB each, stripped. They can be
-    run w/o compiling... if a working runhaskell is installed. This could be
-    problematic as both are there to help when things are not right.
-    [ ] perhaps combine these into a single executable, and then things won't
-        be so worrisome?
 
 [ ] Cabal manual source is now in markdown, not docbook
     (see in the GHC tree, libraries/Cabal/Cabal/doc)
@@ -260,7 +266,6 @@ TO DO
     [ ] failing that, get Cabal to put up versioned copies of the manual on the
     web, and templatize start.html to include a link to the particular version.
 
-[ ] templatize start.html to include the version (at least)
 
 
 Shake Thoughts
