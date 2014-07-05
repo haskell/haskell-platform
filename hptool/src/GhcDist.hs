@@ -5,7 +5,7 @@ module GhcDist
   where
 
 import Control.Applicative ((<$>))
-import Data.List (intercalate)
+import Data.List (intercalate, isInfixOf)
 import Development.Shake
 import Development.Shake.FilePath
 import System.Environment (getEnvironment)
@@ -39,10 +39,34 @@ ghcInstall base mfPrefix = do
     command_ [Cwd distDir]
         "make" (["install"] ++ destArg)
 
+    patchCPPSettings
+        (destDir </> "lib" </> show (bcGhcVersion conf) </> "settings")
+
     return destDir
   where
     layout Nothing = (base, base)
     layout (Just p) = (p, base </+> p)
+
+patchCPPSettings :: FilePath -> Action ()
+patchCPPSettings settingsFile = do
+    origSettings <- read <$> readFile' settingsFile
+    let Just cppCommand = lookup "Haskell CPP command" origSettings
+    (Stdout cppVersion, Stderr _) <- command [] cppCommand ["--version"]
+    let compiler = case filter (`isInfixOf` cppVersion) ["clang", "gcc", "cpphs"] of
+            (c : _) -> c
+            _       -> error $ "unknown Haskell CPP command " ++ cppCommand
+        replaceFlags (k, v) = case k of
+            "Haskell CPP flags"  -> (k, cppFlags compiler)
+            _                    -> (k, v)
+        settingsString = "[ " ++ intercalate "\n, " (map (show . replaceFlags) origSettings) ++ "\n]"
+    writeFileChanged settingsFile settingsString
+
+cppFlags :: String -> String
+cppFlags cpp = case cpp of
+      "clang" -> "-P -E -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs"
+      "gcc"   -> "-E -undef -traditional"
+      "cpphs" -> "--cpp -traditional"
+      _       -> error $ "unknown Haskell CPP command" ++ cpp
 
 ghcDistRules :: Rules ()
 ghcDistRules = do
