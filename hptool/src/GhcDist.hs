@@ -18,6 +18,8 @@ import Paths
 import Types
 import Utils
 
+-- The ordering of these constructors is significant, it is used by
+-- getCppCommand's heuristics to figure out the cpp by --version output
 data CPPCommand = CPP_clang
                 | CPP_gcc
                 | CPP_cpphs
@@ -33,7 +35,7 @@ cppCommandName cpp = case cpp of
 
 cppCommandFlags :: CPPCommand -> String
 cppCommandFlags cpp = case cpp of
-    CPP_clang -> "-P -E -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs"
+    CPP_clang -> "-E -P -undef -traditional -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs"
     CPP_gcc   -> "-E -undef -traditional"
     CPP_cpphs -> "--cpp -traditional"
 
@@ -88,6 +90,9 @@ getCppCommand settings settingsFile = do
     let cppCommand = fromMaybe
             (error $ "Haskell CPP command not found in " ++ settingsFile)
             (lookup "Haskell CPP command" settings)
+    -- It's possible we could use a better heuristic here for cpphs, if that is
+    -- ever used in the future we may be able to simply look at the basename
+    -- of cppCommand.
     (Stdout cppVersion, Stderr _) <- command [] cppCommand ["--version"]
     return . listToMaybe $
         filter ((`isInfixOf` cppVersion) . cppCommandName) [minBound .. maxBound]

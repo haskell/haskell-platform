@@ -138,10 +138,12 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 , "--package-path", installerPartsDir
                 , out
                 ]
+            -- shell quoting
+            let q s = "'" ++ s ++ "'"
             putNormal $ "When ready to distribute, sign & check with:"
-            putNormal $ "    productsign --sign 'Developer ID Installer: name' "
-                             ++ osProduct ++ " " ++ signedProduct
-            putNormal $ "    spctl -a -v --type install " ++ signedProduct
+            putNormal $ "    productsign --sign 'Developer ID Installer:' "
+                             ++ q osProduct ++ " " ++ q signedProduct
+            putNormal $ "    spctl -a -v --type install " ++ q signedProduct
 
     (ghcPkgMajorVer, ghcPkgMinorVer) =
         let (maj,(m0:_)) = splitAt 3 $ versionBranch ghcVersion ++ repeat 0 in
