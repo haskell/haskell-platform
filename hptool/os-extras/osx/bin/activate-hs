@@ -63,10 +63,12 @@ extractVersions() {
     # see if there is an installed version w/bigger number
     for d in $( findItems "$ghcInstallDir" "$ghcVersion"'*' ) ; do
         ghcVersion="${d%-*}"   # last one will be highest!
-        if [ -z "$arch" ] ; then
-            arch="${d#*-}"
-        fi
+        ghcArch="${d#*-}"
     done
+
+    if [ -z "$arch" ] ; then
+        arch="${ghcArch}"
+    fi
 
     if [ -z "$arch" ] ; then
         msg="Can't determine architecture, please specify one (i386 or x86_64)"
@@ -90,8 +92,9 @@ extractVersions() {
             q="${r#haskell-platform-}"
             hpVersion="${q%.conf}"
         done
-    elif [ -d "$hpInstallDir/$ghcVersion-$arch" ] ; then
-        hpDirname="$ghcVersion-$arch"
+    elif [ -d "$hpInstallDir/ghc-$ghcVersion-$arch" ] ; then
+        # new style platform install
+        hpDirname="ghc-$ghcVersion-$arch"
         hpRoot="$hpInstallDir/$hpDirname"
         for v in $( findItems "$hpRoot" 'version-*' ) ; do
             hpVersion="${v#version-}"

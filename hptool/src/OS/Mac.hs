@@ -34,7 +34,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
     -- most people refer to the version of Haskell they have by the version of
     -- the compiler.
     osHpPrefix = "/Library/Haskell"
-                        </> versionAndArch ghcVersion
+                        </> "ghc-" ++ versionAndArch ghcVersion
     osGhcPrefix = "/Library/Frameworks/GHC.framework/Versions"
                         </> versionAndArch ghcVersion </> "usr"
 

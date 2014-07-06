@@ -82,32 +82,21 @@ catchIO = catch
 -- Version Numbers
 --
 
-type Major = Int
-type Minor = Int
-data Rev = DevRev Int | NoRev | Patch Int
+data Version = Version [Integer] String
   deriving (Eq, Ord)
-data Version = Version Major Minor Rev String
-  deriving (Eq, Ord)
-
-instance Show Rev where
-    show NoRev = ""
-    show (DevRev p) = '.' : show p
-    show (Patch p) = '.' : show p
 
 instance Show Version where
-  show (Version m n p x) = show m ++ '.' : show n ++ show p ++ x
-
+  show (Version ns x) = intercalate "." $
+                            map show ns ++ if null x then [] else [x]
 
 version :: String -> Maybe Version
 version s = case vparts s of
-    ([m], x) | m >= 600 && m < 800 -> Just $ Version (m `div` 100)
-                                                        (m `mod` 100) NoRev x
-             | otherwise           -> Nothing
+    ([], _)                         -> Nothing
+    ([m], x) | m >= 600 && m < 800  -> Just $ let (a, b) = m `divMod` 100 in
+                                                    Version [a, b] x
+             | otherwise            -> Nothing
         -- some old versions were installed in directories named "610" and "612"
-    ([m, n], x)                    -> Just $ Version m n NoRev x
-    ([m, n, p], x) | p > 19980000  -> Just $ Version m n (DevRev p) x
-                   | otherwise     -> Just $ Version m n (Patch p) x
-    _ -> Nothing
+    (ns, x)                         -> Just $ Version ns x
   where
     vparts s' = case span isDigit s' of
         ("", x) -> ([], x)
@@ -504,7 +493,7 @@ alertOlderVersions appl m = when (not $ Map.null m) $ do
           \Haskell Platform on this system.\r\
           \\r\
           \Run the command line tool uninstall-hs to \
-          \find out more and how to remove them."
+          \find out which and how to remove them."
 
 -- | Remove file paths and associated other files.
 -- Must be supplied the predicate used to select versions to remove so that the
