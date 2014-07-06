@@ -116,6 +116,10 @@ Versions to test:
     Snow Leopard
     OS X 10.6.8 & Xcode 3.2.6
 
+Why we can't support 10.6:
+
+    ld: targeted OS version does not support use of thread local variables in _GarbageCollect for architecture x86_64
+    collect2: ld returned 1 exit status
 
 
 
@@ -126,7 +130,7 @@ TO DO
 -- A List --
 
 [ ] We should be using the haddock from the bindist
-    [ ] There are reports that the Mac build has problems? find and test?
+    [x] There are reports that the Mac build has problems? find and test?
     [ ] The Release data structure can't handle tools from GHC
 
 [x] fix start.html's Cabal manual link to point at the web(?)
@@ -141,11 +145,11 @@ TO DO
     [x] start.html into /L/H/doc
 
 [+] mac scripts
-    [ ] hp root should be /L/H/ghc-<ghcver>-<arch>
-    [ ] uninstallHS handle new version directory naming (with arch)
-    [ ] cabal.wrap
-        [ ] update the config.platform in the script
-        [ ] improve logic for updating the user's .config
+    [x] hp root should be /L/H/ghc-<ghcver>-<arch>
+    [x] simplify ghc-clang-wrapper (no need to install itself)
+    [x] cabal.wrap
+        [x] update the config.platform in the script
+        [x] improve logic for updating the user's .config
     [ ] update start.html
     [ ] update check on install (from postinstall script)
     [x] ghc-version file
@@ -163,19 +167,10 @@ TO DO
     [ ] does it need to be built?
     [ ] need to include windows stuff in .cabal file (missing now)
 
-[ ] either don't untar the ghc bindist twice
-    or use resources to ensure that we don't ghcInstall in parallel
-    or use the new wrapper & new pkg-db technique from the old mac build
-    [ ] if possible, break out installing the GHC for the target and the GHC
-        for local use into two different targets, into two different modules.
-        In this way, os specific code can use the local GHC - since at present
-        building the target GHC requires os specific code and so makes a
-        circular module dependency if it also tries to use localCompile'.
-        (see compileToBin in hptool/src/OS/Mac.hs)
-
 [ ] does generated haddock...
     [ ] correctly reference other modules?
     [ ] have hscolour'd source?
+    [x] haddock doesn't build on a clang machine
 
 [ ] change how IncludeType encodes GHC-ness:
     IncGhc & IncGhcLib ---> IncGhc IncludeType
@@ -189,10 +184,22 @@ TO DO
         [ ] bring in other Release20xx.hs files
     [ ] contents page
 
--- C List --
-
 [ ] postinstall script for mac should be templatized
 [ ] templatize start.html to include the version (at least)
+[ ] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
+    - put in platform.sh ?
+
+-- C List --
+
+[ ] either don't untar the ghc bindist twice
+    or use resources to ensure that we don't ghcInstall in parallel
+    or use the new wrapper & new pkg-db technique from the old mac build
+    [ ] if possible, break out installing the GHC for the target and the GHC
+        for local use into two different targets, into two different modules.
+        In this way, os specific code can use the local GHC - since at present
+        building the target GHC requires os specific code and so makes a
+        circular module dependency if it also tries to use localCompile'.
+        (see compileToBin in hptool/src/OS/Mac.hs)
 
 [ ] should the platfrom be taking the following from the GHC dist:
     registered in pkg db, not part of platfrom, but could be?
@@ -266,7 +273,10 @@ TO DO
     [ ] failing that, get Cabal to put up versioned copies of the manual on the
     web, and templatize start.html to include a link to the particular version.
 
+[ ] uninstallHS does not distinguish multiple architectures of the same release
 
+[ ] the default cabal.conf should be generated from the cabal we're installing
+    and the incorporated into cabal.wrap (templatize it? read it from a file?)
 
 Shake Thoughts
 --------------
