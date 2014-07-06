@@ -3,16 +3,29 @@
 update_cabal_config() {
     cabal_dir=~/.cabal
     cabal_config="${cabal_dir}/config"
-    cabal_config_new="${cabal_config}.platform"
-    cabal_config_newer=`find "${cabal_config_new}" -newer $0 2>/dev/null`
+    cabal_config_platform="${cabal_config}.platform"
+    write_config="no"
+    write_config_platform="no"
+
+    if [ -f "${cabal_config}" ] ; then
+      newer=`find "${cabal_config_platform}" -newer "$0" 2>/dev/null`
+      if [ -z "${newer}" ] ; then
+        write_config_platform="yes"
+        if diff -b -B -q "${cabal_config}" "${cabal_config_platform}" >/dev/null 2>/dev/null ; then
+          write_config="yes"
+        fi
+      fi
+    else
+      write_config="yes"
+      write_config_platform="yes"
+    fi
 
     user_haskell_dir=~/Library/Haskell
 
-    if [ -z "${cabal_config_newer}" ]
-    then
+    if [ "${write_config_platform}" = "yes" ] ; then
         mkdir -m 755 "${cabal_dir}" &>/dev/null
 
-        cat > "${cabal_config_new}" <<CONFIG_END
+        cat > "${cabal_config_platform}" <<CONFIG_END
 -- This is the configuration file for the 'cabal' command line tool.
 
 -- The available configuration options are listed below.
@@ -55,10 +68,11 @@ world-file: ${user_haskell_dir}/logs/world
 -- program-suffix:
 -- library-vanilla: True
 library-profiling: True
--- shared: False
+-- shared:
+-- executable-dynamic: False
 -- executable-profiling: False
 -- optimization: True
--- library-for-ghci: True
+-- library-for-ghci: False
 -- split-objs: False
 -- executable-stripping: True
 -- user-install: True
@@ -66,22 +80,31 @@ library-profiling: True
 -- flags:
 -- extra-include-dirs:
 -- extra-lib-dirs:
--- constraint:
+extra-prog-path: ${user_haskell_dir}/bin
 -- tests: False
+-- library-coverage: False
+-- benchmarks: False
 -- cabal-lib-version:
+-- constraint:
 -- preference:
+-- solver: choose
 documentation: True
-doc-index-file: ${user_haskell_dir}/doc/index.html
--- upgrade-dependencies:
--- only-dependencies:
+-- doc-index-file: \$datadir/doc/index.html
+-- max-backjumps: 2000
+-- reorder-goals: False
+-- shadow-installed-packages: False
+-- strong-flags: False
+-- reinstall: False
+-- avoid-reinstalls: False
+-- force-reinstalls: False
+-- upgrade-dependencies: False
 root-cmd: sudo
 symlink-bindir: ${user_haskell_dir}/bin
 build-summary: ${user_haskell_dir}/logs/build.log
 -- build-log:
 remote-build-reporting: anonymous
--- one-shot:
--- username:
--- password:
+-- one-shot: False
+jobs: \$ncpus
 -- username:
 -- password:
 
@@ -96,6 +119,7 @@ install-dirs user
   docdir: \$prefix/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
+  -- sysconfdir: \$prefix/etc
 
 install-dirs global
   prefix: /Library/Haskell/\$compiler/lib/\$pkgid
@@ -108,19 +132,74 @@ install-dirs global
   docdir: \$prefix/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
+  -- sysconfdir: \$prefix/etc
+
+program-locations
+  -- alex-location:
+  -- ar-location:
+  -- c2hs-location:
+  -- cpphs-location:
+  -- ffihugs-location:
+  -- gcc-location:
+  -- ghc-location:
+  -- ghc-pkg-location:
+  -- greencard-location:
+  -- haddock-location:
+  -- happy-location:
+  -- hmake-location:
+  -- hpc-location:
+  -- hsc2hs-location:
+  -- hscolour-location:
+  -- hugs-location:
+  -- jhc-location:
+  -- ld-location:
+  -- lhc-location:
+  -- lhc-pkg-location:
+  -- nhc98-location:
+  -- pkg-config-location:
+  -- ranlib-location:
+  -- strip-location:
+  -- tar-location:
+  -- uhc-location:
+
+program-default-options
+  -- alex-options:
+  -- ar-options:
+  -- c2hs-options:
+  -- cpphs-options:
+  -- ffihugs-options:
+  -- gcc-options:
+  -- ghc-options:
+  -- ghc-pkg-options:
+  -- greencard-options:
+  -- haddock-options:
+  -- happy-options:
+  -- hmake-options:
+  -- hpc-options:
+  -- hsc2hs-options:
+  -- hscolour-options:
+  -- hugs-options:
+  -- jhc-options:
+  -- ld-options:
+  -- lhc-options:
+  -- lhc-pkg-options:
+  -- nhc98-options:
+  -- pkg-config-options:
+  -- ranlib-options:
+  -- strip-options:
+  -- tar-options:
+  -- uhc-options:
 
 CONFIG_END
-    fi
 
-    if [ \! -e "${cabal_config}" ]
-    then
-        mkdir -m 755 "${user_haskell_dir}" &>/dev/null
-        mkdir -m 755 "${user_haskell_dir}/bin" &>/dev/null
-        mkdir -m 755 "${user_haskell_dir}/logs" &>/dev/null
-        mkdir -m 755 "${user_haskell_dir}/repo-cache" &>/dev/null
+      if [ "${write_config}" = "yes" ] ; then
+          mkdir -m 755 "${user_haskell_dir}" &>/dev/null
+          mkdir -m 755 "${user_haskell_dir}/bin" &>/dev/null
+          mkdir -m 755 "${user_haskell_dir}/logs" &>/dev/null
+          mkdir -m 755 "${user_haskell_dir}/repo-cache" &>/dev/null
 
-        cp "${cabal_config_new}" "${cabal_config}"
-        cat <<NOTICE_END
+          cp "${cabal_config_platform}" "${cabal_config}"
+          cat <<NOTICE_END
 
 **********************************************************************
 
@@ -147,16 +226,32 @@ CONFIG_END
 
 NOTICE_END
 
-        return 0
-    else
-        return 1
+          return 0
+      else
+          cat <<NOTICE_END
+
+**********************************************************************
+
+=== An new default configuration for cabal has been written to
+    ${cabal_config_platform}
+
+=== You have an existing, custom configuration at
+    ${cabal_config}
+
+    You may want to switch the the new default configuration, or
+    incorporate parts of it into your configuration.
+
+**********************************************************************
+
+NOTICE_END
+
+          return 1
+      fi
     fi
 }
 
-if update_cabal_config
-then
-    if [ \! \( $# -eq 1 -a "$1" == "update" \) ]
-    then
+if update_cabal_config ; then
+    if [ \! \( $# -eq 1 -a "$1" == "update" \) ] ; then
         # if this isn't an update command, do that first
         /Library/Haskell/bin/cabal.real update
     fi
