@@ -12,6 +12,7 @@ import qualified Data.Text.Lazy.IO as TL
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
+import System.Directory (copyPermissions)
 import Text.Hastache
 import Text.Hastache.Context
 
@@ -132,6 +133,7 @@ copyExpanded' isDir ctx srcTop dstTop = copyTop srcTop dstTop
                         _ -> muPlainConf
         need [from]
         hastacheFile conf from ctx >>= liftIO . TL.writeFile to
+        liftIO $ copyPermissions from to
 
     muPlainConf = MuConfig
                 { muEscapeFunc = emptyEscape
