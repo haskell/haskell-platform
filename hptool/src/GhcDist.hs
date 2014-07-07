@@ -127,7 +127,7 @@ localCommand opts cmdName args = do
     let localCmd = absLocalBin </> cmdName
     useLocalCmd <- if '/' `elem` cmdName
                         then return False
-                        else doesFileExist localCmd
+                        else doesFileExist $ localCmd <.> exe
     command (localPath : opts) (if useLocalCmd then localCmd else cmdName) args
 
 localCommand' :: [CmdOption] -> String -> [String] -> Action ()
