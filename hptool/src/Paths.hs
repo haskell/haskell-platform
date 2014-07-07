@@ -21,7 +21,7 @@ module Paths
     , targetDir
     , ghcVirtualTarget, hpVirtualTarget
 
-    , installerPartsDir
+    , installerPartsDir, extrasDir
     , websiteDir
     , productDir
 
@@ -121,6 +121,10 @@ hpVirtualTarget = "target-hp"
 -- | Intermediate parts of the installer are placed here
 installerPartsDir :: FilePath
 installerPartsDir = buildRoot </> "installer-parts"
+
+-- | Template expanded copies of any os-extras are build here
+extrasDir :: FilePath
+extrasDir = buildRoot </> "extras"
 
 -- | Final products are placed here
 productDir :: FilePath

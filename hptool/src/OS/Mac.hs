@@ -13,6 +13,7 @@ import Development.Shake.FilePath
 import Dirs
 import OS.Internal
 import Paths
+import Templates
 import Types
 import Utils
 
@@ -60,7 +61,8 @@ macOsFromConfig BuildConfig{..} = OS{..}
         need [dir hpBinDir, versionFile, cabalFile ]
 
     osDocAction = do
-        docFiles <- getDirectoryFiles "" [osxExtras </> "doc/*"]
+        need [dir extrasDir]
+        docFiles <- getDirectoryFiles "" [extrasDir </> "doc/*"]
         forM_ docFiles $ \f -> do
             copyFile' f $ hpDocDir </> takeFileName f
 
@@ -77,15 +79,22 @@ macOsFromConfig BuildConfig{..} = OS{..}
     archBits "x86_64"   = " 64bit"
     archBits a          = ' ' : a
 
-    osxExtras = "hptool/os-extras/osx"
-    osxInstallScripts   = osxExtras </> "installer-scripts"
-    osxInstallResources = osxExtras </> "installer-resources"
-    osxInstallerDist    = osxExtras </> "installer.dist"
+    osxExtrasSrc = "hptool/os-extras/osx"
+        -- these will be template expanded (if needed) into extrasDir
+
+    osxInstallScripts   = extrasDir </> "installer-scripts"
+    osxInstallResources = extrasDir </> "installer-resources"
+    osxInstallerDist    = extrasDir </> "installer.dist"
 
     osRules _hpRelease _bc = do
+        extrasDir */> \dst -> do
+            ctx <- platformContext
+            copyExpandedDir ctx osxExtrasSrc dst
+
         hpBinDir */> \d -> do
             makeDirectory d
-            binFiles <- getDirectoryFiles "" [osxExtras </> "bin/*"]
+            need [dir extrasDir]
+            binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
             forM_ binFiles $ \f -> do
                 if takeExtension f == ".hs"
                     then compileToBin f $ d </> takeBaseName f
@@ -112,8 +121,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 ]
 
         hpPkgFile *> \out -> do
-            need [targetDir]  -- FIXME(mzero): could be more specific
-            needContents osxInstallScripts
+            need [targetDir, dir extrasDir]  -- FIXME(mzero): could be more specific
             command_ []
                 "pkgbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform.Libraries."
@@ -126,8 +134,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 ]
 
         osProduct *> \out -> do
-            need [ghcPkgFile, hpPkgFile, osxInstallerDist]
-            needContents osxInstallResources
+            need [ghcPkgFile, hpPkgFile, dir extrasDir]
             command_ []
                 "productbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform."

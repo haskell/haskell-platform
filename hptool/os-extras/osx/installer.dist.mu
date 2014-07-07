@@ -5,7 +5,7 @@
         require-scripts="true"
         />
 
-    <title>Haskell Platform 2014.1</title>
+    <title>Haskell Platform {{hpVersion}}</title>
     <background file="logo-color.png" mime-type="image/png"
         alignment="bottomleft"/>
 

@@ -1,4 +1,0 @@
-#!/bin/sh
-
-/Library/Haskell/2014.1.0.0-*/bin/activate-hs
-sudo -n -u $USER open /Library/Haskell/doc/start.html

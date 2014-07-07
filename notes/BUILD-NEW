@@ -144,14 +144,15 @@ TO DO
     [x] compile PatchSettings.hs into /L/H/bin
     [x] start.html into /L/H/doc
 
-[+] mac scripts
+[ ] update start.html
+
+[ ] mac scripts
     [x] hp root should be /L/H/ghc-<ghcver>-<arch>
     [x] simplify ghc-clang-wrapper (no need to install itself)
     [x] cabal.wrap
         [x] update the config.platform in the script
         [x] improve logic for updating the user's .config
-    [ ] update start.html
-    [ ] update check on install (from postinstall script)
+    [x] update check on install (from postinstall script)
     [x] ghc-version file
     [x] activate.hs set HP CPP Flags
     [x] fix postinstall to call activate.sh
@@ -184,8 +185,8 @@ TO DO
         [ ] bring in other Release20xx.hs files
     [ ] contents page
 
-[ ] postinstall script for mac should be templatized
-[ ] templatize start.html to include the version (at least)
+[x] postinstall script for mac should be templatized
+[x] templatize start.html to include the version (at least)
 [ ] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
     - put in platform.sh ?
 
