@@ -16,6 +16,7 @@ Executable hptool
     Config,
     Dirs
     GhcDist,
+    LocalCommand,
     Main,
     OS,
     OS.Internal,
