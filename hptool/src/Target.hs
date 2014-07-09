@@ -12,7 +12,7 @@ import Development.Shake.FilePath
 
 import Config
 import Dirs
-import GhcDist
+import LocalCommand
 import HaddockMaster
 import OS
 import Paths

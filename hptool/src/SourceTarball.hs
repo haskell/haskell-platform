@@ -6,7 +6,7 @@ import Development.Shake.FilePath
 
 import Config
 import Dirs
-import GhcDist
+import LocalCommand
 import Paths
 import PlatformDB
 import Templates
