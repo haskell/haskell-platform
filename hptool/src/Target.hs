@@ -77,9 +77,9 @@ buildAction buildDir hpRel bc = do
                     , inplace
                     ]
 
-        cabalVerbosity <- shakeToCabalVerbosity
+        cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
         let cabal c as = localCommand' [Cwd buildDir] "cabal" $
-                             c : ("--verbose=" ++ show cabalVerbosity) : as
+                             c : ("--verbose=" ++ cabalVerbosity) : as
         when (not isAlexOrHappy) $
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
