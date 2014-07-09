@@ -67,7 +67,7 @@ packageSourceDir, packageBuildDir, packageDepsFile,
 packageSourceDir    = packageBase "source"          -- package source
 packageBuildDir     = packageBase "build"           -- copy for building
 packageDepsFile     = packageBase "deps"            -- packages this depends on
-packageDepsDB       = packageBase "packages.conf.d" -- db for use during build
+packageDepsDB       = packageBase "package.conf.d"  -- db for use during build
 packageInplaceConf  = packageBase "inplace.conf"    -- local reg. for building
 packageTargetConf   = packageBase "target.conf"     -- reg. for target inst.
 

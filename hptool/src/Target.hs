@@ -118,7 +118,7 @@ buildAction buildDir hpRel bc = do
     confOpts needsAlex needsHappy =
         [ "--prefix=" ++ prefix ]
         ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]
-        ++ map ("--package-db="++) [ "clear", "global", "../packages.conf.d" ]
+        ++ map ("--package-db="++) [ "clear", "global", "../package.conf.d" ]
         ++ needsAlex ?: [ "--with-alex=" ++ alexExe ® buildDir ]
         ++ needsHappy ?: [ "--with-happy=" ++ happyExe ® buildDir
                          , "--happy-options=--template=" ++ happyTemplateDir ® buildDir
