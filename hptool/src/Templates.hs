@@ -1,12 +1,14 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module Templates
-    ( ContextMaker
+    ( ContextMaker, Expander
     , releaseContext, buildConfigContext, platformContext
+    , platformExpander
     , copyExpandedFile, copyExpandedDir
     )
   where
 
+import Control.Applicative ( (<$>) )
 import Control.Monad (forM_, unless)
 import qualified Data.Text.Lazy.IO as TL
 import Data.Version (showVersion)
@@ -87,11 +89,14 @@ buildConfigContext = do
     return $ asContext $ expandBuildConfig bc $ expandError
 
 platformContext :: ContextMaker
-platformContext = do
+platformContext =
+    asContext <$> platformExpander
+
+platformExpander :: (Monad m) => Action (Expander m)
+platformExpander = do
     bc <- askBuildConfig
     rls <- askHpRelease
-    return $ asContext $ expandBuildConfig bc $ expandRelease rls $ expandError
-
+    return $ expandBuildConfig bc $ expandRelease rls $ expandError
 
 templateDirname :: String
 templateDirname = "templates"

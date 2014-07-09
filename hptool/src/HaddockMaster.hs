@@ -9,7 +9,7 @@ import Development.Shake.FilePath
 
 import Config
 import Dirs
-import GhcDist
+import LocalCommand
 import OS
 import Paths
 import PlatformDB

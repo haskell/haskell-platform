@@ -12,7 +12,7 @@ import Development.Shake.FilePath
 
 import Config
 import Dirs
-import GhcDist
+import LocalCommand
 import HaddockMaster
 import OS
 import Paths
@@ -77,9 +77,9 @@ buildAction buildDir hpRel bc = do
                     , inplace
                     ]
 
-        cabalVerbosity <- shakeToCabalVerbosity
+        cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
         let cabal c as = localCommand' [Cwd buildDir] "cabal" $
-                             c : ("--verbose=" ++ show cabalVerbosity) : as
+                             c : ("--verbose=" ++ cabalVerbosity) : as
         when (not isAlexOrHappy) $
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
@@ -118,7 +118,7 @@ buildAction buildDir hpRel bc = do
     confOpts needsAlex needsHappy =
         [ "--prefix=" ++ prefix ]
         ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]
-        ++ map ("--package-db="++) [ "clear", "global", "../packages.conf.d" ]
+        ++ map ("--package-db="++) [ "clear", "global", "../package.conf.d" ]
         ++ needsAlex ?: [ "--with-alex=" ++ alexExe ® buildDir ]
         ++ needsHappy ?: [ "--with-happy=" ++ happyExe ® buildDir
                          , "--happy-options=--template=" ++ happyTemplateDir ® buildDir
