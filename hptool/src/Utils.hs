@@ -5,8 +5,10 @@ import Data.Version (Version, parseVersion)
 import Development.Shake (Action, command_, getVerbosity, liftIO,
                           Verbosity(..), writeFileChanged)
 import Development.Shake.FilePath
+import qualified Distribution.Verbosity as Cabal
 import Text.ParserCombinators.ReadP (readP_to_S)
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
+
 
 version :: String -> Version
 version s = case readMaybe (readP_to_S parseVersion) s of
@@ -89,14 +91,16 @@ shakeToGhcPkgVerbosity = do
                  Chatty     -> 2
                  Diagnostic -> 2
 
--- cabal command line verbosity ranges from 0..3, with 1 the default
-shakeToCabalVerbosity :: Action Int
+-- The cabal command line verbosity ranges from 0..3, with 1 the default.
+-- The Cabal API mirrors the cabal command line settings.  Use fromEnum
+-- to convert Cabal.Verbosity to an integer for use with the cabal tool.
+shakeToCabalVerbosity :: Action Cabal.Verbosity
 shakeToCabalVerbosity = do
     sV <- getVerbosity
     return $ case sV of
-                 Silent     -> 0
-                 Quiet      -> 0
-                 Normal     -> 1
-                 Loud       -> 2
-                 Chatty     -> 3
-                 Diagnostic -> 3
+                 Silent     -> Cabal.silent
+                 Quiet      -> Cabal.silent
+                 Normal     -> Cabal.normal
+                 Loud       -> Cabal.verbose
+                 Chatty     -> Cabal.deafening
+                 Diagnostic -> Cabal.deafening
