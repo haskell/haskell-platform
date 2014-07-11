@@ -9,6 +9,16 @@ Synopsis:        Haskell Platform Utility
 
 Data-files:
   templates/*.cabal.mu
+  if os(windows)
+    Data-files:
+      os-extras/distro-docs/*
+      os-extras/glut/*
+      os-extras/win/CreateInternetShortcut.nsh
+      os-extras/win/EnvVarUpdate.nsh
+      os-extras/win/LICENSE
+      os-extras/win/icons/*
+      os-extras/win/templates/*.mu
+      os-extras/win/welcome.bmp
 
 Executable hptool
   Main-is: Main.hs
@@ -29,12 +39,19 @@ Executable hptool
     Target,
     Types,
     Utils
+  if os(windows)
+    Other-Modules:
+      OS.Win.WinNsis,
+      OS.Win.WinPaths,
+      OS.Win.WinRules,
+      OS.Win.WinUtils
 
   hs-source-dirs: src
 
   Build-depends:
     Cabal,
     base,
+    bytestring,
     containers,
     directory,
     hastache >=0.6.0,

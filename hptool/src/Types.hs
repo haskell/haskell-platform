@@ -9,6 +9,8 @@ module Types
     , Include
     , Release(..)
     , BuildConfig(..)
+    , GhcInstallAction
+    , GhcInstall(..)
     )
   where
 
@@ -16,6 +18,7 @@ import Control.Applicative ((<$>), (<*>))
 import Data.Char (isDigit)
 import Data.List (intercalate)
 import Data.Version (Version, showVersion, parseVersion)
+import Development.Shake (Action)
 import Text.ParserCombinators.ReadP (ReadP,
     char, endBy1, munch, readP_to_S, satisfy, skipSpaces)
 
@@ -103,3 +106,15 @@ data BuildConfig = BuildConfig
     , bcOsDistribution :: String   -- ex.: "deb7", "mavericks"
     }
   deriving (Read, Show)
+
+-- | A function that is used for the actions after untar-ing GHC.
+-- The build configuration and file path of the untar-ed directory is
+-- provided, and the file path of the installed directory is returned.
+type GhcInstallAction = BuildConfig -> FilePath -> Action FilePath
+
+-- | After untar-ing GHC, some platforms require configure-make, while
+-- other platforms need other custom steps.
+data GhcInstall =
+    GhcInstallConfigure
+  | GhcInstallCustom GhcInstallAction
+

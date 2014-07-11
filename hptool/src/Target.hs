@@ -88,12 +88,17 @@ buildAction buildDir hpRel bc = do
         cabal "build" []
         cabal "register"
             ["--gen-pkg-config=" ++ packageTargetConf pkg ® buildDir]
+        osPackagePostRegister pkg
         cabal "register"
             ["--inplace"
             , "--gen-pkg-config=" ++ packageInplaceConf pkg ® buildDir]
-        cabal "haddock" ["--hyperlink-source"]  -- TODO(mzero): make optional
+        cabal "haddock" [ "--hyperlink-source"
+                        , "--with-haddock=" ++ haddockExe ® buildDir]
+              -- TODO(mzero): make haddock optional
 
   where
+    OS{..} = osFromConfig bc
+
     pkg = extractPackage buildDir
     sourceDir = packageSourceDir pkg
     depsDB = packageDepsDB pkg
@@ -104,16 +109,15 @@ buildAction buildDir hpRel bc = do
             then (not . null) <$> getDirectoryFiles sourceDir pats
             else return False   -- don't depend on yourself!
 
-    packageTargetDir = osPackageTargetDir $ osFromConfig bc
-
-    prefix = packageTargetDir pkg
+    prefix = osToCabalPrefix $ osPackageTargetDir pkg
     happyExe = packageBuildDir happyVer </> "dist/build/happy/happy"
     happyTemplateDir = packageBuildDir happyVer
     alexExe = packageBuildDir alexVer </> "dist/build/alex/alex"
+    haddockExe = ghcLocalDir </> "bin/haddock"
     haveCabalInstall = False
     cabalInstallDir = undefined
     doProfiling = True
-    doShared = True
+    doShared = osDoShared
 
     confOpts needsAlex needsHappy =
         [ "--prefix=" ++ prefix ]
@@ -144,6 +148,10 @@ installRules bc = do
         let pkg = read $ takeFileName targetPkgDir :: Package
         let buildDir = packageBuildDir pkg
         need [ dir buildDir ]
+        -- The reason to "copy" rather than "install" is to avoid actually
+        -- executing anything from within the targetDir, thus keeping it
+        -- pristine, just as it will be for the actual end-user when first
+        -- installed.
         localCommand' [Cwd buildDir]
             "cabal" ["copy", "--destdir=" ++ targetDir ® buildDir]
         osPackageInstallAction pkg

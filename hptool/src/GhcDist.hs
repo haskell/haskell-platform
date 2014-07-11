@@ -37,20 +37,30 @@ cppCommandFlags cpp = case cpp of
     CPP_gcc   -> "-E -undef -traditional"
     CPP_cpphs -> "--cpp -traditional"
 
-ghcInstall :: FilePath -> Maybe (BuildConfig -> FilePath) -> Action FilePath
-ghcInstall base mfPrefix = do
+
+ghcInstall :: GhcInstall ->
+              FilePath -> Maybe (BuildConfig -> FilePath) -> Action FilePath
+ghcInstall postUntarAction base mfPrefix = do
     tarFile <- askGhcBinDistTarFile
     conf <- askBuildConfig
     let distDir = ghcBinDistDir $ bcGhcVersion conf
         untarDir = takeDirectory distDir
-        (prefix, destDir) = layout (($ conf) <$> mfPrefix)
-        destArg = maybe [] (\_ -> ["DESTDIR=" ++ base ® distDir]) mfPrefix
-        settingsFile = destDir </> "lib" </> show (bcGhcVersion conf) </> "settings"
 
     makeDirectory untarDir
 
     command_ [Cwd untarDir]
         "tar" ["xf", tarFile ® untarDir]
+
+    case postUntarAction of
+        GhcInstallConfigure -> ghcInstallConfigure base mfPrefix conf distDir
+        GhcInstallCustom f  -> f conf distDir
+
+
+ghcInstallConfigure :: FilePath -> Maybe (BuildConfig -> FilePath) -> GhcInstallAction
+ghcInstallConfigure base mfPrefix conf distDir = do
+    let (prefix, destDir) = layout (($ conf) <$> mfPrefix)
+        destArg = maybe [] (\_ -> ["DESTDIR=" ++ base ® distDir]) mfPrefix
+        settingsFile = destDir </> "lib" </> show (bcGhcVersion conf) </> "settings"
 
     configCmd <- liftIO $ absolutePath $ distDir </> "configure"
     absPrefix <- liftIO $ absolutePath $ prefix
@@ -98,9 +108,11 @@ getCppCommand settings settingsFile = do
 ghcDistRules :: Rules ()
 ghcDistRules = do
     ghcLocalDir */> \_ -> do
-        ghcInstall ghcLocalDir Nothing >> return ()
+        postUntar <- osGhcLocalInstall . osFromConfig <$> askBuildConfig
+        ghcInstall postUntar ghcLocalDir Nothing >> return ()
     ghcVirtualTarget ~/> do
-        ghcInstall targetDir (Just targetPrefix) >>= return . Just
+        postUntar <- osGhcTargetInstall . osFromConfig <$> askBuildConfig
+        ghcInstall postUntar targetDir (Just targetPrefix) >>= return . Just
   where
     targetPrefix = osGhcPrefix . osFromConfig
 

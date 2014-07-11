@@ -27,8 +27,26 @@ data OS = OS
         -- | Where GHC will be installed
     ,   osGhcPrefix :: FilePath
 
+        -- | Platform-specific actions needed to finish the ghc-bindist/local
+        -- install step (and before any HP packages are built)
+    ,   osGhcLocalInstall :: GhcInstall
+
+        -- | Platform-specific actions needed to finish the target-ghc
+        -- install step
+    ,   osGhcTargetInstall :: GhcInstall
+
+        -- | Formats a path suitable for the native cabal's "--prefix" option
+    ,   osToCabalPrefix :: FilePath -> FilePath
+
         -- | Where each package is installed
     ,   osPackageTargetDir :: (PackagePattern p) => p -> FilePath
+
+        -- | Set True if GHC in this build supports creating shared libs
+    ,   osDoShared :: Bool
+
+        -- | Any action to take, after creation of the package conf file,
+        -- before the package's haddock files are created.
+    ,   osPackagePostRegister :: Package -> Action ()
 
         -- | Extra action to install the package from the build dir to the
         -- target image.
@@ -37,6 +55,10 @@ data OS = OS
         -- | Extra actions run after GHC and the packages have been assembled
         -- into the target image.
     ,   osTargetAction :: Action ()
+
+        -- | Directory relative to ghc install for package.conf.d
+        -- (e.g., "lib/7.8.2/package.conf.d")
+    ,   osGhcDbDir :: FilePath
 
         -- | Extra actions run after haddock has built the master doc
     ,   osDocAction :: Action ()
@@ -57,7 +79,12 @@ genericOS BuildConfig{..} = OS{..}
     GhcVersion{..} = bcGhcVersion
     osHpPrefix = "/usr/local/haskell-platform" </> showVersion hpVersion
     osGhcPrefix = "/usr/local/ghc" </> showVersion ghcVersion
+    osGhcLocalInstall = GhcInstallConfigure
+    osGhcTargetInstall = GhcInstallConfigure
+    osToCabalPrefix = id
     osPackageTargetDir p = osHpPrefix </> "lib" </> packagePattern p
+    osDoShared = True
+    osPackagePostRegister _ = return ()
     osPackageInstallAction p = do
         let confFile = packageTargetConf p
         let regDir = targetDir </+> osHpPrefix </> "etc" </> "registrations"
@@ -68,6 +95,7 @@ genericOS BuildConfig{..} = OS{..}
             then command_ [] "cp" [confFile, regFile]
             else command_ [] "rm" ["-f", regFile]
     osTargetAction = return ()
+    osGhcDbDir = "lib" </> show bcGhcVersion </> "package.conf.d"
     osDocAction = return ()
     osProduct = productDir </> "generic.tar.gz"
     osRules _hpRelease _bc =

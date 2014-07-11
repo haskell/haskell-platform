@@ -41,7 +41,13 @@ macOsFromConfig BuildConfig{..} = OS{..}
 
     hpTargetDir = targetDir </+> osHpPrefix
 
+    osGhcLocalInstall = GhcInstallConfigure
+    osGhcTargetInstall = GhcInstallConfigure
+    osToCabalPrefix = id
+
     osPackageTargetDir p = osHpPrefix </> "lib" </> packagePattern p
+    osDoShared = True
+    osPackagePostRegister _ = return ()
     osPackageInstallAction p = do
         let confFile = packageTargetConf p
         let regDir = hpTargetDir </> "lib" </> "registrations"
@@ -59,6 +65,8 @@ macOsFromConfig BuildConfig{..} = OS{..}
 
     osTargetAction = do
         need [dir hpBinDir, versionFile, cabalFile ]
+
+    osGhcDbDir = "lib" </> show bcGhcVersion </> "package.conf.d"
 
     osDocAction = do
         need [dir extrasDir]
