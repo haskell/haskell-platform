@@ -3,10 +3,10 @@ module Releases2014 where
 import PlatformDB
 import Types
 
-hp2014_1_0_0 :: Release
-hp2014_1_0_0 =
-    release "2014.1.0.0"
-        [ incGHC                            "7.8.2"
+hp2014_2_0_0 :: Release
+hp2014_2_0_0 =
+    release "2014.2.0.0"
+        [ incGHC                            "7.8.3"
         , incGHCLib "array"                 "0.5.0.0"
         , incGHCLib "base"                  "4.7.0.1"
         , incGHCLib "bytestring"            "0.10.4.0"
