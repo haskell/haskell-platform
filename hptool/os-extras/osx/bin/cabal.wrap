@@ -248,6 +248,8 @@ NOTICE_END
           return 1
       fi
     fi
+
+    return 1
 }
 
 if update_cabal_config ; then
