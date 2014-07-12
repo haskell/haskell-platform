@@ -47,9 +47,17 @@ haddocMasterAction outdir hpRel bc = do
                ]
     readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
 
-    coreLibs = packagesByIncludeFilter (\i -> isLib i && isGhc i) hpRel
+    -- Is this build targetting a Windows platform?
+    buildWin = (bcOs bc) == "mingw32"
+
+    isForOS i = okForAll || (isWindows i && buildWin) ||
+                (isNotWindows i && not buildWin)
+        where okForAll = not (isWindows i) && not (isNotWindows i)
+
+    coreLibs =
+        packagesByIncludeFilter (\i -> isForOS i && isLib i && isGhc i) hpRel
     platformLibs =
-            packagesByIncludeFilter (\i -> isLib i && not (isGhc i)) hpRel
+        packagesByIncludeFilter (\i -> isForOS i && isLib i && not (isGhc i)) hpRel
 
     fieldHtml = "haddock-html"
     fieldIntf = "haddock-interfaces"
@@ -57,7 +65,7 @@ haddocMasterAction outdir hpRel bc = do
     os = osFromConfig bc
 
     targetGhcDb = targetDir </+> osGhcPrefix os </> ghcDb
-    ghcDb = "lib" </> show (bcGhcVersion bc) </> "package.conf.d"
+    ghcDb = osGhcDbDir os
 
     targetPkgDir pkg = targetDir </+> osPackageTargetDir os pkg
 
