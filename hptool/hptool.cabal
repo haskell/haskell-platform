@@ -11,8 +11,6 @@ Data-files:
   templates/*.cabal.mu
   if os(windows)
     Data-files:
-      os-extras/distro-docs/*
-      os-extras/glut/*
       os-extras/win/CreateInternetShortcut.nsh
       os-extras/win/EnvVarUpdate.nsh
       os-extras/win/LICENSE
