@@ -3,6 +3,9 @@ module Releases2014 where
 import PlatformDB
 import Types
 
+releases2014 :: [Release]
+releases2014 = [hp2014_2_0_0]
+
 hp2014_2_0_0 :: Release
 hp2014_2_0_0 =
     release "2014.2.0.0"

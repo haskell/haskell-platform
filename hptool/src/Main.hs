@@ -16,7 +16,7 @@ import OS
 import Package
 import Paths
 import PlatformDB
-import Releases2014
+import Releases
 import SourceTarball
 import Types
 import Target
