@@ -46,7 +46,7 @@ buildRules = do
 
 buildAction :: FilePath -> Release -> BuildConfig -> Action ()
 buildAction buildDir hpRel bc = do
-        need [ dir sourceDir ]
+        need [ dir sourceDir, vdir ghcVirtualTarget ]
 
         needsAlex <- usesTool ["//*.x", "//*.lx"]
         needsHappy <- usesTool ["//*.y", "//*.ly"]
@@ -92,9 +92,14 @@ buildAction buildDir hpRel bc = do
         cabal "register"
             ["--inplace"
             , "--gen-pkg-config=" ++ packageInplaceConf pkg ® buildDir]
-        cabal "haddock" [ "--hyperlink-source"
-                        , "--with-haddock=" ++ haddockExe ® buildDir]
-              -- TODO(mzero): make haddock optional
+
+        cReadArgs <- haddockAllCoreReadArgs hpRel bc
+        pReadArgs <- haddockPlatformReadArgs deps
+        cabal "haddock" $
+            [ "--hyperlink-source"          -- TODO(mzero): make optional
+            , "--with-haddock=" ++ haddockExe ® buildDir
+            ]
+            ++ map (\s -> "--haddock-option=" ++ s) (cReadArgs ++ pReadArgs)
 
   where
     OS{..} = osFromConfig bc

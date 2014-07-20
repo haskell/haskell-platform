@@ -1,6 +1,8 @@
 module HaddockMaster
     ( haddockDocDir
     , haddockMasterRules
+    , haddockAllCoreReadArgs
+    , haddockPlatformReadArgs
     )
   where
 
@@ -26,73 +28,96 @@ haddockMasterRules bc =
     haddockDocDir bc */> \outdir -> do
         hpRel <- askHpRelease
         bc' <- askBuildConfig
-        haddocMasterAction outdir hpRel bc'
+        haddockMasterAction outdir hpRel bc'
         osDocAction (osFromConfig bc')
 
 
-haddocMasterAction :: FilePath -> Release -> BuildConfig -> Action ()
-haddocMasterAction outdir hpRel bc = do
+haddockMasterAction :: FilePath -> Release -> BuildConfig -> Action ()
+haddockMasterAction outdir hpRel bc = do
     need $ vdir ghcVirtualTarget
-           : map (dir . targetPkgDir) platformLibs
-
-    ghcInterfaces <- mapM ghcInfo coreLibs
-    hpInterfaces <- mapM hpInfo $ platformLibs
-    localCommand' [] "haddock"
-        (baseArgs ++ map readArg (ghcInterfaces ++ hpInterfaces))
+           : map (dir . targetPkgDir) (allPlatformLibs hpRel bc)
+    cReadArgs <- haddockAllCoreReadArgs hpRel bc
+    pReadArgs <- haddockAllPlatformReadArgs hpRel bc
+    localCommand' [] "haddock" (baseArgs ++ cReadArgs ++ pReadArgs)
   where
     baseArgs = [ "--odir=" ++ outdir
                , "--gen-index"
                , "--gen-contents"
                , "--title=\"Haskell Platform\""
                ]
-    readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
 
-    -- Is this build targetting a Windows platform?
-    buildWin = (bcOs bc) == "mingw32"
+    targetPkgDir pkg = targetDir </+> osPackageTargetDir (osFromConfig bc) pkg
 
-    isForOS i = okForAll || (isWindows i && buildWin) ||
-                (isNotWindows i && not buildWin)
-        where okForAll = not (isWindows i) && not (isNotWindows i)
 
-    coreLibs =
-        packagesByIncludeFilter (\i -> isForOS i && isLib i && isGhc i) hpRel
-    platformLibs =
-        packagesByIncludeFilter (\i -> isForOS i && isLib i && not (isGhc i)) hpRel
+haddockAllCoreReadArgs :: Release -> BuildConfig -> Action [String]
+haddockAllCoreReadArgs hpRel bc = do
+    mapM (ghcInfo bc) $ allCoreLibs hpRel bc
 
-    fieldHtml = "haddock-html"
-    fieldIntf = "haddock-interfaces"
+haddockAllPlatformReadArgs :: Release -> BuildConfig -> Action [String]
+haddockAllPlatformReadArgs hpRel bc =
+    haddockPlatformReadArgs $ allPlatformLibs hpRel bc
 
-    os = osFromConfig bc
+haddockPlatformReadArgs :: [Package] -> Action [String]
+haddockPlatformReadArgs = mapM (hpInfo)
 
-    targetGhcDb = targetDir </+> osGhcPrefix os </> ghcDb
-    ghcDb = osGhcDbDir os
 
-    targetPkgDir pkg = targetDir </+> osPackageTargetDir os pkg
 
-    ghcInfo pkg = do
-        p <- getFromGhcPkg fieldHtml pkg
-                ["--package-db=" ++ targetGhcDb]
-        i <- getFromGhcPkg fieldIntf pkg []
-        return (p,i)
+isForOS :: String -> IncludeType -> Bool
+isForOS os i = okForAll
+            || (isWindows i && buildWin)
+            || (isNotWindows i && not buildWin)
+  where
+    okForAll = not (isWindows i) && not (isNotWindows i)
+    buildWin = os == "mingw32" -- Is this build targetting a Windows platform?
 
-    hpInfo pkg = do
-        p <- getFromConfFile fieldHtml $ packageTargetConf pkg
-        i <- getFromConfFile fieldIntf $ packageInplaceConf pkg
-        return (p,i)
+allCoreLibs :: Release -> BuildConfig -> [Package]
+allCoreLibs hpRel bc =
+    packagesByIncludeFilter (\i -> isForOS (bcOs bc) i && isLib i && isGhc i) hpRel
 
-    getFromGhcPkg field pkg extra = do
+allPlatformLibs :: Release -> BuildConfig -> [Package]
+allPlatformLibs hpRel bc =
+    packagesByIncludeFilter (\i -> isForOS (bcOs bc) i && isLib i && not (isGhc i)) hpRel
+
+
+readArg :: (String, String) -> String
+readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
+
+
+ghcInfo :: BuildConfig -> Package -> Action String
+ghcInfo bc pkg = do
+    p <- getFromGhcPkg fieldHtml ["--package-db=" ++ targetGhcDb]
+    i <- getFromGhcPkg fieldIntf []
+    return $ readArg (p,i)
+  where
+    getFromGhcPkg field extra = do
         Stdout out <- localCommand [] "ghc-pkg" $
                             extra ++ ["field", pkgName pkg, field ]
-        extractField field out
+        either error return $ extractField field out
 
-    getFromConfFile field file = readFile' file >>= extractField field
+    targetGhcDb = targetDir </+> osGhcPrefix os </> osGhcDbDir os
+    os = osFromConfig bc
 
-    extractField field out = either error return . ex . lines $ out
-      where
-        ex [] = Left $ "Couldn't extract field " ++ field ++ " from:\n" ++ out
-        ex (l:ls) = case words l of
-            (k:vs) | k == fieldColon -> Right $ unwords vs
-            _ -> ex ls
+hpInfo :: Package -> Action String
+hpInfo pkg = do
+    p <- getFromConfFile fieldHtml $ packageTargetConf pkg
+    i <- getFromConfFile fieldIntf $ packageInplaceConf pkg
+    return $ readArg (p,i)
+  where
+    getFromConfFile field file =
+        readFile' file >>= either error return . extractField field
 
-        fieldColon = field ++ ":"
+
+fieldHtml, fieldIntf :: String
+fieldHtml = "haddock-html"
+fieldIntf = "haddock-interfaces"
+
+extractField :: String -> String -> Either String String
+extractField field out =  ex . lines $ out
+  where
+    ex [] = Left $ "Couldn't extract field " ++ field ++ " from:\n" ++ out
+    ex (l:ls) = case words l of
+        (k:vs) | k == fieldColon -> Right $ unwords vs
+        _ -> ex ls
+
+    fieldColon = field ++ ":"
 

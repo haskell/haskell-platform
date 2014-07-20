@@ -129,39 +129,44 @@ TO DO
 
 -- A List --
 
-[ ] We should be using the haddock from the bindist
-    [x] There are reports that the Mac build has problems? find and test?
-    [ ] The Release data structure can't handle tools from GHC
+-- General --
+[ ] haddock linkage from HP packages to GHC core packages is broken
+[ ] decision on QuickCheck?
 
-[x] fix start.html's Cabal manual link to point at the web(?)
-    http://www.haskell.org/cabal/users-guide
+-- Source Tarball --
+[ ] missing platform.sh scripts
+[ ] missing os-extras in hptool/src
 
-[x] mac polish
-    [x] cp cabal.wrap to /L/H/bin
-    [x] cp ghc-clang-wrapper to /L/H/bin
-    [x] cp activate.sh to /L/H/bin
-    [x] compile UninstallHS.hs into /L/H/bin
-    [x] compile PatchSettings.hs into /L/H/bin
-    [x] start.html into /L/H/doc
+-- Mac --
+[ ] start.html needs a once over updating
+[-] uninstall-hs should clean out /usr/local/bin symlinks (as it does with /usr/bin)
+    - it already does!
+    - the bug was removing non-symlink items in /usr/local/bin associated with
+      older installs... and we just don't know how to do this yet!
+[?] activate-hs should add -P for clang pre-processing
+    - bug found in Cabal
+    - adding -P for all preprocessing will suck
+    - no other good fix
+[ ] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
+    - put in platform.sh ?
 
-[ ] update start.html
+-- Windows --
+[ ] GLUT issue in ghci
 
-[ ] mac scripts
-    [x] hp root should be /L/H/ghc-<ghcver>-<arch>
-    [x] simplify ghc-clang-wrapper (no need to install itself)
-    [x] cabal.wrap
-        [x] update the config.platform in the script
-        [x] improve logic for updating the user's .config
-    [x] update check on install (from postinstall script)
-    [x] ghc-version file
-    [x] activate.hs set HP CPP Flags
-    [x] fix postinstall to call activate.sh
-    [x] normalize names of all the scripts
-    [x] /L/H/bin & doc symlinks
-    [x] postinstall, open start.html as $USER
+-- Website --
+[ ] templatize info on pages
+[ ] add build mode to bptool Main
+    - needs to take file of downloads & hashes
+
+
+
 
 
 -- B List --
+
+[ ] We should be using the haddock from the bindist
+    [x] There are reports that the Mac build has problems? find and test?
+    [ ] The Release data structure can't handle tools from GHC
 
 [ ] haskell-platform itself is missing from build.packages
     [ ] does it need to be there?
@@ -169,9 +174,7 @@ TO DO
     [ ] need to include windows stuff in .cabal file (missing now)
 
 [ ] does generated haddock...
-    [ ] correctly reference other modules?
     [ ] have hscolour'd source?
-    [x] haddock doesn't build on a clang machine
 
 [ ] change how IncludeType encodes GHC-ness:
     IncGhc & IncGhcLib ---> IncGhc IncludeType
@@ -184,11 +187,6 @@ TO DO
     [ ] replace change log with version grid
         [ ] bring in other Release20xx.hs files
     [ ] contents page
-
-[x] postinstall script for mac should be templatized
-[x] templatize start.html to include the version (at least)
-[ ] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
-    - put in platform.sh ?
 
 -- C List --
 
