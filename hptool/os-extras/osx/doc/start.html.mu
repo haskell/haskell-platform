@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Haskell Platform</title>
+    <title>Haskell Platform {{hpVersion}}</title>
     <link href="ocean.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
 body {
@@ -84,11 +84,11 @@ p {
   </head>
   <body>
     <div id="package-header">
-      <p class="caption">Haskell Platform</p>
+      <p class="caption">Haskell Platform  {{hpVersion}}</p>
     </div>
     <div id="content" class="with-sidebar">
-      <h1>Haskell Platform for Mac OS X</h1>
-      <p>Welcome to Haskell Platform. The platform consists of the Glasgow Haskell Compiler (GHC) and an extensive set of standard libraries and utilities with full documentation.</p>
+      <h1>Haskell Platform {{hpVersion}} for Mac OS X</h1>
+      <p>Welcome to Haskell Platform. The platform consists of the Glasgow Haskell Compiler (GHC {{ghcVersion}}) and an extensive set of standard libraries and utilities with full documentation.</p>
 
       <h2>Documentation</h2>
       <ul>
@@ -121,10 +121,12 @@ p {
       <br/>/Library/Haskell</p>
       <p>Executables are symlinked in <tt>/usr/bin</tt> and should be available in any shell.</p>
 
-      <h2>Uninstallation</h2>
+      <h2>Versions &amp; Uninstallation</h2>
       <p>This and prior versions of GHC and Haskell Platform can be found and then easily removed with the uninstallation command line utility:</p>
       <p class="paths">/Library/Haskell/bin/uninstall-hs</p>
-      <p>Simply run it for more information.</p>
+      <p>This release includes an experimental command line utility to switch between multiple installed versions of the platform:</p>
+      <p class="paths">/Library/Haskell/bin/activate-hs</p>
+      <p>Both utilities are safe to run with no arguments, and will give you more information when you do.</p>
 
       <h2>Configuring Cabal</h2>
       <p>The <tt>cabal</tt> command manages the building and installation of packages, both your own, and those it can fetch from the Hackage repository.</p>
