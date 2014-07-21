@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module HaddockMaster
     ( haddockDocDir
     , haddockMasterRules
@@ -6,6 +8,7 @@ module HaddockMaster
     )
   where
 
+import Control.Applicative ( liftA )
 import Development.Shake
 import Development.Shake.FilePath
 
@@ -36,8 +39,8 @@ haddockMasterAction :: FilePath -> Release -> BuildConfig -> Action ()
 haddockMasterAction outdir hpRel bc = do
     need $ vdir ghcVirtualTarget
            : map (dir . targetPkgDir) (allPlatformLibs hpRel bc)
-    cReadArgs <- haddockAllCoreReadArgs hpRel bc
-    pReadArgs <- haddockAllPlatformReadArgs hpRel bc
+    cReadArgs <- haddockAllCoreReadArgs outdir hpRel bc
+    pReadArgs <- haddockAllPlatformReadArgs outdir hpRel bc
     localCommand' [] "haddock" (baseArgs ++ cReadArgs ++ pReadArgs)
   where
     baseArgs = [ "--odir=" ++ outdir
@@ -49,16 +52,22 @@ haddockMasterAction outdir hpRel bc = do
     targetPkgDir pkg = targetDir </+> osPackageTargetDir (osFromConfig bc) pkg
 
 
-haddockAllCoreReadArgs :: Release -> BuildConfig -> Action [String]
-haddockAllCoreReadArgs hpRel bc = do
-    mapM (ghcInfo bc) $ allCoreLibs hpRel bc
+haddockAllCoreReadArgs :: FilePath -> Release -> BuildConfig -> Action [String]
+haddockAllCoreReadArgs baseDir hpRel bc = do
+    mapM (ghcInfo baseDir os) $ allCoreLibs hpRel bc
+  where
+    os = osFromConfig bc
 
-haddockAllPlatformReadArgs :: Release -> BuildConfig -> Action [String]
-haddockAllPlatformReadArgs hpRel bc =
-    haddockPlatformReadArgs $ allPlatformLibs hpRel bc
+haddockAllPlatformReadArgs :: FilePath -> Release -> BuildConfig
+                           -> Action [String]
+haddockAllPlatformReadArgs baseDir hpRel bc =
+    haddockPlatformReadArgs baseDir bc $ allPlatformLibs hpRel bc
 
-haddockPlatformReadArgs :: [Package] -> Action [String]
-haddockPlatformReadArgs = mapM (hpInfo)
+haddockPlatformReadArgs :: FilePath -> BuildConfig -> [Package]
+                        -> Action [String]
+haddockPlatformReadArgs baseDir bc = mapM (hpInfo baseDir os)
+  where
+    os = osFromConfig bc
 
 
 
@@ -83,9 +92,11 @@ readArg :: (String, String) -> String
 readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
 
 
-ghcInfo :: BuildConfig -> Package -> Action String
-ghcInfo bc pkg = do
-    p <- getFromGhcPkg fieldHtml ["--package-db=" ++ targetGhcDb]
+ghcInfo :: FilePath -> OS -> Package -> Action String
+ghcInfo baseDir OS{..} pkg = do
+    p <- liftA (osGhcPkgPathMunge baseDir)
+         . getFromGhcPkg fieldHtml $
+               ["--package-db=" ++ targetGhcDb] ++ osGhcPkgHtmlFieldExtras
     i <- getFromGhcPkg fieldIntf []
     return $ readArg (p,i)
   where
@@ -94,12 +105,12 @@ ghcInfo bc pkg = do
                             extra ++ ["field", pkgName pkg, field ]
         either error return $ extractField field out
 
-    targetGhcDb = targetDir </+> osGhcPrefix os </> osGhcDbDir os
-    os = osFromConfig bc
+    targetGhcDb = targetDir </+> osGhcPrefix </> osGhcDbDir
 
-hpInfo :: Package -> Action String
-hpInfo pkg = do
-    p <- getFromConfFile fieldHtml $ packageTargetConf pkg
+hpInfo :: FilePath -> OS -> Package -> Action String
+hpInfo baseDir OS{..} pkg = do
+    p <- liftA (osPlatformPkgPathMunge baseDir)
+         . getFromConfFile fieldHtml $ packageTargetConf pkg
     i <- getFromConfFile fieldIntf $ packageInplaceConf pkg
     return $ readArg (p,i)
   where

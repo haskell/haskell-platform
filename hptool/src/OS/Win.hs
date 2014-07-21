@@ -8,11 +8,11 @@ module OS.Win
 import Control.Monad ( void, when )
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as B8
+import qualified Data.Text as T
 import Development.Shake
 import Development.Shake.FilePath
 import qualified Distribution.InstalledPackageInfo as C
 import qualified Distribution.Package as C
-import qualified System.Directory ( doesDirectoryExist )
 
 import Dirs
 import LocalCommand
@@ -24,10 +24,12 @@ import Paths
 import Types
 import Utils
 
+
 winOsFromConfig :: BuildConfig -> OS
 winOsFromConfig BuildConfig{..} = os
   where
     os = OS{..}
+
     HpVersion{..} = bcHpVersion
     GhcVersion{..} = bcGhcVersion
 
@@ -46,13 +48,10 @@ winOsFromConfig BuildConfig{..} = os
             void $ winGhcInstall winGhcTargetDir bc distDir
             return ghcLocalDir
 
-    -- Cabal on Windows requires an absolute, native-format prefix.
-    toCabalPrefix = toNative . ("C:/" ++)
-    osToCabalPrefix = toCabalPrefix
-
     osPackageTargetDir p = winHpPrefix </> packagePattern p
 
-    -- The ghc-7.8.2 build for Windows does not have pre-built .dyn_hi files
+    -- The ghc-7.8.3 build for Windows does not have pre-built .dyn_hi files
+    -- (Revisit this in future versions)
     osDoShared = False
 
     osPackagePostRegister p = do
@@ -62,7 +61,7 @@ winOsFromConfig BuildConfig{..} = os
     osPackageInstallAction p = do
         putLoud $ "osPackageInstallAction: " ++ show p
 
-        -- First, "install" the packages into winTargetDir.
+        -- "install" the packages into winTargetDir.
         -- 
         -- This is not "installing"; this is simply "copying"; later on, we
         -- check consistency to be sure.  Furthermore, the Shake actions
@@ -81,29 +80,6 @@ winOsFromConfig BuildConfig{..} = os
                 pkgDbConf = winGhcTargetPackageDbDir </> pkgid <.> "conf"
             command_ [] "cp" ["-p", confFile, pkgDbConf]
 
-        -- Second, for this package, move the contents of the doc and bin
-        -- directories to $winTargetDir/lib/extralibs/{doc,bin}
-        let pkgDir = targetDir </+> osPackageTargetDir p
-            pkgDocS = pkgDir </> "doc"
-            pkgBinS = pkgDir </> "bin"
-
-        copyDirContents pkgDocS (winHpTargetDir </> "doc" </> show p)
-        copyDirContents pkgBinS (winHpTargetDir </> "bin")
-
-
-    -- We arrived in osPackageInstallAction due to a "cabal copy" and we
-    -- must complete that step before noting any files as dependencies.
-    -- Thus, since we will be moving some of these files right here,
-    -- use System.Directory to probe files and directories, to avoid
-    -- creating Shake dependencies on those moved locations
-    copyDirContents srcDir dstDir = do
-        let relDstDir = dstDir ® srcDir
-        putLoud $ "copyDirContents: " ++ show srcDir ++ " to " ++ relDstDir
-        whenM (liftIO $ System.Directory.doesDirectoryExist srcDir) $ do
-            makeDirectory dstDir
-            command_ [Cwd srcDir] "cp" ["-pR", "./", relDstDir]
-            removeDirectoryRecursive srcDir
-
     whenM :: (Monad m) => m Bool -> m () -> m ()
     whenM mp m = mp >>= \p -> when p m
 
@@ -114,6 +90,33 @@ winOsFromConfig BuildConfig{..} = os
         void $ getDirectoryFiles "" [targetDir ++ "//*"]
 
     osGhcDbDir = winGhcPackageDbDir
+
+    osGhcPkgHtmlFieldExtras = ["--no-expand-pkgroot"]
+
+
+    osPlatformPkgPathMunge base = flip relativeToDir base . expandPkgroot
+    osGhcPkgPathMunge base = flip relativeToDir base . expandTopdir
+
+    osPkgHtmlDir pkgid =
+        expandPkgroot . expandPrefix . expandPkgid . expandDocdir $
+            (htmldir osPkgInstallDirs)
+      where
+        expandPrefix = replace "$prefix" (targetDir </> osHpPrefix)
+        expandPkgid = replace "$pkgid" (show pkgid)
+        expandDocdir = replace "$docdir" (docdir osPkgInstallDirs)
+
+
+    -- On Windows, ghc uses $topdir; and when installed, this is
+    -- <installdir>/lib
+    expandTopdir = replace "$topdir" (targetDir </> "lib")
+
+    -- On Windows, HP conf files use ${pkgroot}; and when installed this is
+    -- <installdir>/lib
+    expandPkgroot = replace "${pkgroot}" (targetDir </> "lib")
+
+    replace srchT replc = T.unpack . T.replace srchT (T.pack replc) . T.pack
+
+
     osDocAction = return ()
 
     osProduct = winProductFile hpVersion bcArch
@@ -136,3 +139,16 @@ winOsFromConfig BuildConfig{..} = os
 
           -- Build installer now; makensis must be run in installerPartsDir
             command_ [Cwd installerPartsDir] "makensis" [nsisFileName]
+
+    osPkgInstallDirs =
+        PkgInstallDirs { prefixdir = const (toCabalPrefix osHpPrefix)
+                       -- , bindir = "$prefix/bin"
+                       -- , libdir = "$prefix"
+                       , libsubdir = "$pkgid"
+                       -- , libexecdir = "$prefix/$pkgid"
+                       -- , datadir = "$prefix"
+                       , datasubdir = "$pkgid"
+                       , docdir = "$prefix/doc/$pkgid"
+                       , htmldir = "$docdir/html"
+                       -- , sysconfdir = "$prefix/etc"
+                       }
