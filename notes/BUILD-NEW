@@ -130,15 +130,15 @@ TO DO
 -- A List --
 
 -- General --
-[ ] haddock linkage from HP packages to GHC core packages is broken
-[ ] decision on QuickCheck?
+[+] haddock linkage from HP packages to GHC core packages is broken
+[x] decision on QuickCheck?
 
 -- Source Tarball --
-[ ] missing platform.sh scripts
-[ ] missing os-extras in hptool/src
+[x] missing platform.sh scripts
+[x] missing os-extras in hptool/src
 
 -- Mac --
-[ ] start.html needs a once over updating
+[x] start.html needs a once over updating
 [-] uninstall-hs should clean out /usr/local/bin symlinks (as it does with /usr/bin)
     - it already does!
     - the bug was removing non-symlink items in /usr/local/bin associated with
@@ -147,8 +147,8 @@ TO DO
     - bug found in Cabal
     - adding -P for all preprocessing will suck
     - no other good fix
-[ ] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
-    - put in platform.sh ?
+[-] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
+    - add this once the method of handling OS and BuildConfig is fixed
 
 -- Windows --
 [ ] GLUT issue in ghci

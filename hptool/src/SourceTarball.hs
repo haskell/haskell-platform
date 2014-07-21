@@ -36,6 +36,7 @@ tarFileAction out hpRelease = do
         [ map (dir . packageSourceDir) sources
         , lists
         , [hpCabalFile, dir ghcLocalDir]
+        , topFiles
         ]
 
     removeDirectoryRecursive topDir
@@ -56,9 +57,19 @@ tarFileAction out hpRelease = do
 
     copyFile' hpCabalFile $ topDir </> takeFileName hpCabalFile
 
+    forM_ topFiles $ \f -> copyFile' f $ topDir </> f
+
     localCommand' [Cwd hptoolSourceDir]
         "cabal" [ "sdist"
                 , "--output-directory=" ++ hptoolDistDir ® hptoolSourceDir ]
+
+    -- this is a hack because adding os-extras to hptool's .cabal file would
+    -- be inordinately painful
+    command_ [] "cp"
+        [ "-pR"
+        , hptoolSourceDir </> "os-extras"
+        , hptoolDistDir
+        ]
 
     command_ [Cwd upDir]
         "tar" ["czf", out ® upDir, takeFileName topDir]
@@ -73,6 +84,12 @@ tarFileAction out hpRelease = do
     hptoolDistDir = topDir </> "hptool"
 
     lists = [listBuild, listCore, listSource]
+    topFiles =
+        [ "LICENSE"
+        , "platform.sh"
+        , "README"
+        , "windows-platform.sh"
+        ]
 
     sources = platformPackages hpRelease
 
