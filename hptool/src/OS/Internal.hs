@@ -35,9 +35,6 @@ data OS = OS
         -- install step
     ,   osGhcTargetInstall :: GhcInstall
 
-        -- | Formats a path suitable for the native cabal's "--prefix" option
-    ,   osToCabalPrefix :: FilePath -> FilePath
-
         -- | Where each package is installed
     ,   osPackageTargetDir :: (PackagePattern p) => p -> FilePath
 
@@ -60,6 +57,28 @@ data OS = OS
         -- (e.g., "lib/7.8.2/package.conf.d")
     ,   osGhcDbDir :: FilePath
 
+        -- | Additional switches/options for "ghc-pkg"
+        -- querying the 'haddock-html' field with ghc-pkg.
+    ,   osGhcPkgHtmlFieldExtras :: [String]
+
+        -- | If needed by the platform, make needed changes to the path
+        -- which will be used for the relative urls for platform packages
+        -- when referenced by other packages.  The first argument is the
+        -- base path, to which the 2nd argument should be made relative
+        -- (after munging).
+    ,   osPlatformPkgPathMunge :: FilePath -> HaddockPkgLoc -> HaddockPkgLoc
+
+        -- | If needed by the platform, make needed changes to the path
+        -- which will be used for the relative urls for GHC packages when
+        -- referenced by other packages.  The first argument is the
+        -- base path, to which the 2nd argument should be made relative
+        -- (after munging).
+    ,   osGhcPkgPathMunge :: FilePath -> HaddockPkgLoc -> HaddockPkgLoc
+
+        -- | Path, relative to targetDir, expanded for the given package,
+        -- where that package's html docs are installed.
+    ,   osPkgHtmlDir :: Package -> FilePath
+
         -- | Extra actions run after haddock has built the master doc
     ,   osDocAction :: Action ()
 
@@ -69,8 +88,10 @@ data OS = OS
 
         -- | Rules for building the product and anything from osTargetExtraNeeds
     ,   osRules :: Release -> BuildConfig -> Rules ()
-    }
 
+        -- | Extra arguments that are needed for "cabal configure"
+    ,   osPackageConfigureExtraArgs :: Package -> [String]
+    }
 
 genericOS :: BuildConfig -> OS
 genericOS BuildConfig{..} = OS{..}
@@ -81,7 +102,6 @@ genericOS BuildConfig{..} = OS{..}
     osGhcPrefix = "/usr/local/ghc" </> showVersion ghcVersion
     osGhcLocalInstall = GhcInstallConfigure
     osGhcTargetInstall = GhcInstallConfigure
-    osToCabalPrefix = id
     osPackageTargetDir p = osHpPrefix </> "lib" </> packagePattern p
     osDoShared = True
     osPackagePostRegister _ = return ()
@@ -96,6 +116,10 @@ genericOS BuildConfig{..} = OS{..}
             else command_ [] "rm" ["-f", regFile]
     osTargetAction = return ()
     osGhcDbDir = "lib" </> show bcGhcVersion </> "package.conf.d"
+    osGhcPkgHtmlFieldExtras = []
+    osPlatformPkgPathMunge = flip const
+    osGhcPkgPathMunge = flip const
+    osPkgHtmlDir pkg = osPackageTargetDir pkg </> "doc" </> "html"
     osDocAction = return ()
     osProduct = productDir </> "generic.tar.gz"
     osRules _hpRelease _bc =
@@ -104,4 +128,9 @@ genericOS BuildConfig{..} = OS{..}
             command_ [Cwd buildRoot]
                 "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
 
-
+    osPackageConfigureExtraArgs pkg =
+        [ "--prefix=" ++ osPackageTargetDir pkg
+        , "--libsubdir="
+        , "--datasubdir="
+        , "--docdir=$prefix/doc"
+        ]

@@ -1,11 +1,15 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module HaddockMaster
     ( haddockDocDir
     , haddockMasterRules
-    , haddockAllCoreReadArgs
-    , haddockPlatformReadArgs
+    , haddockAllCorePkgLocs
+    , haddockPlatformPkgLocs
+    , haddockReadArg
     )
   where
 
+import Control.Applicative ((<$>))
 import Development.Shake
 import Development.Shake.FilePath
 
@@ -36,8 +40,10 @@ haddockMasterAction :: FilePath -> Release -> BuildConfig -> Action ()
 haddockMasterAction outdir hpRel bc = do
     need $ vdir ghcVirtualTarget
            : map (dir . targetPkgDir) (allPlatformLibs hpRel bc)
-    cReadArgs <- haddockAllCoreReadArgs hpRel bc
-    pReadArgs <- haddockAllPlatformReadArgs hpRel bc
+    cReadArgs <- map (haddockReadArg . osGhcPkgPathMunge outdir)
+                 <$> haddockAllCorePkgLocs hpRel bc
+    pReadArgs <- map (haddockReadArg . osPlatformPkgPathMunge outdir)
+                 <$> haddockAllPlatformPkgLocs hpRel bc
     localCommand' [] "haddock" (baseArgs ++ cReadArgs ++ pReadArgs)
   where
     baseArgs = [ "--odir=" ++ outdir
@@ -46,20 +52,23 @@ haddockMasterAction outdir hpRel bc = do
                , "--title=\"Haskell Platform\""
                ]
 
-    targetPkgDir pkg = targetDir </+> osPackageTargetDir (osFromConfig bc) pkg
+    OS{..} = osFromConfig bc
+
+    targetPkgDir pkg = targetDir </+> osPackageTargetDir pkg
 
 
-haddockAllCoreReadArgs :: Release -> BuildConfig -> Action [String]
-haddockAllCoreReadArgs hpRel bc = do
-    mapM (ghcInfo bc) $ allCoreLibs hpRel bc
+haddockAllCorePkgLocs :: Release -> BuildConfig -> Action [HaddockPkgLoc]
+haddockAllCorePkgLocs hpRel bc = do
+    mapM (ghcInfo os) $ allCoreLibs hpRel bc
+  where
+    os = osFromConfig bc
 
-haddockAllPlatformReadArgs :: Release -> BuildConfig -> Action [String]
-haddockAllPlatformReadArgs hpRel bc =
-    haddockPlatformReadArgs $ allPlatformLibs hpRel bc
+haddockAllPlatformPkgLocs :: Release -> BuildConfig -> Action [HaddockPkgLoc]
+haddockAllPlatformPkgLocs hpRel bc =
+    haddockPlatformPkgLocs $ allPlatformLibs hpRel bc
 
-haddockPlatformReadArgs :: [Package] -> Action [String]
-haddockPlatformReadArgs = mapM (hpInfo)
-
+haddockPlatformPkgLocs :: [Package] -> Action [HaddockPkgLoc]
+haddockPlatformPkgLocs = mapM (hpInfo)
 
 
 isForOS :: String -> IncludeType -> Bool
@@ -71,37 +80,38 @@ isForOS os i = okForAll
     buildWin = os == "mingw32" -- Is this build targetting a Windows platform?
 
 allCoreLibs :: Release -> BuildConfig -> [Package]
-allCoreLibs hpRel bc =
-    packagesByIncludeFilter (\i -> isForOS (bcOs bc) i && isLib i && isGhc i) hpRel
+allCoreLibs hpRel bc = packagesByIncludeFilter
+    (\i -> isForOS (bcOs bc) i && isLib i && isGhc i) hpRel
 
 allPlatformLibs :: Release -> BuildConfig -> [Package]
-allPlatformLibs hpRel bc =
-    packagesByIncludeFilter (\i -> isForOS (bcOs bc) i && isLib i && not (isGhc i)) hpRel
+allPlatformLibs hpRel bc = packagesByIncludeFilter
+    (\i -> isForOS (bcOs bc) i && isLib i && not (isGhc i)) hpRel
 
 
-readArg :: (String, String) -> String
-readArg (p,i) = "--read-interface=" ++ p ++ "," ++ i
+haddockReadArg :: HaddockPkgLoc -> String
+haddockReadArg HaddockPkgLoc{..} =
+    "--read-interface=" ++ pkgLocHtml ++ "," ++ pkgLocIntf
 
 
-ghcInfo :: BuildConfig -> Package -> Action String
-ghcInfo bc pkg = do
-    p <- getFromGhcPkg fieldHtml ["--package-db=" ++ targetGhcDb]
+ghcInfo :: OS -> Package -> Action HaddockPkgLoc
+ghcInfo OS{..} pkg = do
+    p <- getFromGhcPkg fieldHtml $
+               ["--package-db=" ++ targetGhcDb] ++ osGhcPkgHtmlFieldExtras
     i <- getFromGhcPkg fieldIntf []
-    return $ readArg (p,i)
+    return $ HaddockPkgLoc p i
   where
     getFromGhcPkg field extra = do
         Stdout out <- localCommand [] "ghc-pkg" $
                             extra ++ ["field", pkgName pkg, field ]
         either error return $ extractField field out
 
-    targetGhcDb = targetDir </+> osGhcPrefix os </> osGhcDbDir os
-    os = osFromConfig bc
+    targetGhcDb = targetDir </+> osGhcPrefix </> osGhcDbDir
 
-hpInfo :: Package -> Action String
+hpInfo :: Package -> Action HaddockPkgLoc
 hpInfo pkg = do
     p <- getFromConfFile fieldHtml $ packageTargetConf pkg
     i <- getFromConfFile fieldIntf $ packageInplaceConf pkg
-    return $ readArg (p,i)
+    return $ HaddockPkgLoc p i
   where
     getFromConfFile field file =
         readFile' file >>= either error return . extractField field

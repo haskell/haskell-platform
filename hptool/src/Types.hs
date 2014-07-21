@@ -3,6 +3,7 @@
 module Types
     ( PackageName
     , Package(..)
+    , HaddockPkgLoc(..)
     , HpVersion(..)
     , GhcVersion(..)
     , IncludeType(..)
@@ -118,3 +119,7 @@ data GhcInstall =
     GhcInstallConfigure
   | GhcInstallCustom GhcInstallAction
 
+-- | Info retrieved from the package conf files: the first is
+-- the haddock-html field; the second is the haddock-interfaces field.
+data HaddockPkgLoc = HaddockPkgLoc { pkgLocHtml, pkgLocIntf :: String }
+    deriving (Show)

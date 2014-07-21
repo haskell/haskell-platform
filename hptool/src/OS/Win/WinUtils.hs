@@ -2,14 +2,16 @@ module OS.Win.WinUtils
     ( DirContents
     , getDirContents
     , getDirContentsR
-    , parseConfFile )
+    , parseConfFile
+    , toCabalPrefix
+    )
   where
 
 import Control.Applicative ( (<$>), liftA )
 import Control.Monad ( forM, unless )
 import Data.Either ( partitionEithers )
 import Development.Shake ( Action, putNormal )
-import Development.Shake.FilePath ( (</>) )
+import Development.Shake.FilePath ( toNative, (</>) )
 import qualified Distribution.InstalledPackageInfo as C
 import qualified System.Directory ( doesDirectoryExist, getDirectoryContents )
 
@@ -49,3 +51,6 @@ parseConfFile confFile conf =
                     (unlines . map show $ ws)
             return a
 
+-- Cabal on Windows requires an absolute, native-format prefix.
+toCabalPrefix :: FilePath -> FilePath
+toCabalPrefix = toNative . ("C:/" ++)
