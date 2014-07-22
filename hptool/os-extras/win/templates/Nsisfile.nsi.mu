@@ -9,6 +9,7 @@
 
   !Include "EnvVarUpdate.nsh"
   !Include "FileFunc.nsh"
+  !Include "StrFunc.nsh"
   !Include "LogicLib.nsh"
   !Include "MUI2.nsh"
   !Include "WordFunc.nsh"
@@ -75,7 +76,7 @@ CheckAdminDone:
   ;Win 64-bit support
 
 !macro do64Stuff
-  ; The NSIS installer is a 32-bit executable, but it do a 64-bit install.
+  ; The NSIS installer is a 32-bit executable, but it can do a 64-bit install.
 {{#build64bit}}
 ${If} ${RunningX64}
   ; If this is installing the 64-bit HP on 64-bit Windows, enable FSRedirection.
@@ -92,11 +93,59 @@ ${EndIf}
 !macroend
 
 ;--------------------------------
+;Warn about other HP installs
+
+!macro CheckForOthers loopN
+StrCpy $0 0
+loop${loopN}:
+  EnumRegKey $1 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall" $0
+  StrCmp $1 "" done${loopN}
+  ${StrStr} $2 $1 "HaskellPlatform-"
+  IntOp $0 $0 + 1
+  StrCmp $2 "" loop${loopN}
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "You have other/older versions of the Haskell Platform installed.$\n\
+$\n\
+Due to how the PATH environment variable is used (by cabal, etc.) to find the needed GHC toolset, currently only one Haskell Platform can be used at a time.  While it is possible to manually modify the PATH variable to work-around this, it is not recommended.$\n\
+$\n\
+Unless you uninstall those other version(s), the Haskell Platform ${PLATFORM_VERSION} will likely have problems due to conflicts over which GHC and tools are found on the PATH.$\n\
+$\n\
+It is recommended that you cancel installing the Haskell Platform ${PLATFORM_VERSION}, uninstall the other/older versions, then try again to install the Haskell Platform ${PLATFORM_VERSION}.$\n\
+$\n\
+Do you want to quit the installation now?" IDYES quit${loopN} IDNO CheckOtherInstallsDone
+
+quit${loopN}:
+  Quit
+
+done${loopN}:
+!macroend
+
+
+
+!macro CheckOtherInstalls
+
+{{#build64bit}}
+SetRegView 64
+!insertmacro CheckForOthers 1
+SetRegView 32
+{{/build64bit}}
+
+!insertmacro CheckForOthers 2
+
+{{#build64bit}}
+SetRegView 64
+{{/build64bit}}
+
+CheckOtherInstallsDone:
+!macroend
+
+
+;--------------------------------
 ;Callbacks
 
 Function .onInit
   !insertmacro do64Stuff
   !insertmacro CheckAdmin "installer"
+  !insertmacro CheckOtherInstalls
   SetShellVarContext all
 FunctionEnd
 

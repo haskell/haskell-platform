@@ -18,6 +18,7 @@ import Dirs
 import OS.Internal
 import OS.Win.WinNsis
 import OS.Win.WinPaths
+import OS.Win.WinUtils
 import Paths
 import Types
 import Utils
@@ -89,7 +90,7 @@ pkgrootConfFixup os confFile = do
         -- is portable.  n.b., not all packages have conf files.
         -- Ref: https://ghc.haskell.org/trac/ghc/ticket/3268
         --   implement the Cabal ${pkgroot} spec extension
-        let pkgRoot = T.pack $ osToCabalPrefix "lib"
+        let pkgRoot = T.pack $ toCabalPrefix "lib"
 
         (return . T.replace pkgRoot "${pkgroot}" . E.decodeUtf8) confStr
             >>= liftIO . B.writeFile confFile . E.encodeUtf8

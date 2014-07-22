@@ -43,7 +43,6 @@ macOsFromConfig BuildConfig{..} = OS{..}
 
     osGhcLocalInstall = GhcInstallConfigure
     osGhcTargetInstall = GhcInstallConfigure
-    osToCabalPrefix = id
 
     osPackageTargetDir p = osHpPrefix </> "lib" </> packagePattern p
     osDoShared = True
@@ -67,6 +66,11 @@ macOsFromConfig BuildConfig{..} = OS{..}
         need [dir hpBinDir, versionFile, cabalFile ]
 
     osGhcDbDir = "lib" </> show bcGhcVersion </> "package.conf.d"
+
+    osGhcPkgHtmlFieldExtras = []
+    osPlatformPkgPathMunge = flip const
+    osGhcPkgPathMunge = flip const
+    osPkgHtmlDir pkg = osPackageTargetDir pkg </> "doc" </> "html"
 
     osDocAction = do
         need [dir extrasDir]
@@ -167,6 +171,10 @@ macOsFromConfig BuildConfig{..} = OS{..}
     (hpPkgMajorVer, hpPkgMinorVer) =
         let (maj,(m1:m0:_)) = splitAt 2 $ versionBranch hpVersion ++ repeat 0 in
         (concatMap show maj, show $ 10*m1 + m0 + 1)
+
+    osPackageConfigureExtraArgs pkg =
+        [ "--prefix=" ++ osPackageTargetDir pkg ]
+        ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]
 
 
 compileToBin :: FilePath -> FilePath -> Action ()

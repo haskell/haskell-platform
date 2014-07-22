@@ -5,7 +5,7 @@ module Target
     )
   where
 
-import Control.Applicative ((<$>))
+import Control.Applicative ( (<$>), liftA )
 import Control.Monad (forM_, when)
 import Development.Shake
 import Development.Shake.FilePath
@@ -51,10 +51,13 @@ buildAction buildDir hpRel bc = do
         needsAlex <- usesTool ["//*.x", "//*.lx"]
         needsHappy <- usesTool ["//*.y", "//*.ly"]
 
-        deps <- do
-            deps0 <- map read <$> readFileLines (packageDepsFile pkg)
-            return $ deps0 ++ needsAlex ?: [alexVer]
-                           ++ needsHappy ?: [happyVer]
+        -- These are not *all* the dependencies; just those of the HP
+        -- packages, not those from GHC.  depsLibs is just the libraries,
+        -- while deps adds any HP packages which provide needed tools.
+        depsLibs <- map read <$> readFileLines (packageDepsFile pkg)
+        deps <-
+            return $ depsLibs ++ needsAlex ?: [alexVer]
+                              ++ needsHappy ?: [happyVer]
 
         putNormal $ show pkg ++ " needs " ++ unwords (map show deps)
         need $ map (dir . packageBuildDir) deps
@@ -93,8 +96,12 @@ buildAction buildDir hpRel bc = do
             ["--inplace"
             , "--gen-pkg-config=" ++ packageInplaceConf pkg ® buildDir]
 
-        cReadArgs <- haddockAllCoreReadArgs hpRel bc
-        pReadArgs <- haddockPlatformReadArgs deps
+        cReadArgs <- (liftA . map)
+                     (haddockReadArg . osGhcPkgPathMunge pkgHtmlDir)
+                     $ haddockAllCorePkgLocs hpRel bc
+        pReadArgs <- (liftA . map)
+                     (haddockReadArg . osPlatformPkgPathMunge pkgHtmlDir)
+                    $ haddockPlatformPkgLocs depsLibs
         cabal "haddock" $
             [ "--hyperlink-source"          -- TODO(mzero): make optional
             , "--with-haddock=" ++ haddockExe ® buildDir
@@ -114,7 +121,6 @@ buildAction buildDir hpRel bc = do
             then (not . null) <$> getDirectoryFiles sourceDir pats
             else return False   -- don't depend on yourself!
 
-    prefix = osToCabalPrefix $ osPackageTargetDir pkg
     happyExe = packageBuildDir happyVer </> "dist/build/happy/happy"
     happyTemplateDir = packageBuildDir happyVer
     alexExe = packageBuildDir alexVer </> "dist/build/alex/alex"
@@ -125,8 +131,7 @@ buildAction buildDir hpRel bc = do
     doShared = osDoShared
 
     confOpts needsAlex needsHappy =
-        [ "--prefix=" ++ prefix ]
-        ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]
+        osPackageConfigureExtraArgs pkg
         ++ map ("--package-db="++) [ "clear", "global", "../package.conf.d" ]
         ++ needsAlex ?: [ "--with-alex=" ++ alexExe ® buildDir ]
         ++ needsHappy ?: [ "--with-happy=" ++ happyExe ® buildDir
@@ -144,6 +149,7 @@ buildAction buildDir hpRel bc = do
         (p:_) -> p
         [] -> error $ "Can't find needed package " ++ s ++ " in HP."
 
+    pkgHtmlDir = osPkgHtmlDir pkg
 
 
 
