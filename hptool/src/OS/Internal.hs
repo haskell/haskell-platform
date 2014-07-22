@@ -2,7 +2,6 @@
 
 module OS.Internal
     ( OS(..)
-    , PkgInstallDirs(..)
     , genericOS
     )
   where
@@ -67,14 +66,14 @@ data OS = OS
         -- when referenced by other packages.  The first argument is the
         -- base path, to which the 2nd argument should be made relative
         -- (after munging).
-    ,   osPlatformPkgPathMunge :: FilePath -> FilePath -> FilePath
+    ,   osPlatformPkgPathMunge :: FilePath -> HaddockPkgLoc -> HaddockPkgLoc
 
         -- | If needed by the platform, make needed changes to the path
         -- which will be used for the relative urls for GHC packages when
         -- referenced by other packages.  The first argument is the
         -- base path, to which the 2nd argument should be made relative
         -- (after munging).
-    ,   osGhcPkgPathMunge :: FilePath -> FilePath -> FilePath
+    ,   osGhcPkgPathMunge :: FilePath -> HaddockPkgLoc -> HaddockPkgLoc
 
         -- | Path, relative to targetDir, expanded for the given package,
         -- where that package's html docs are installed.
@@ -90,35 +89,9 @@ data OS = OS
         -- | Rules for building the product and anything from osTargetExtraNeeds
     ,   osRules :: Release -> BuildConfig -> Rules ()
 
-        -- | The set of paths that are needed for "cabal configure"
-    ,   osPkgInstallDirs :: PkgInstallDirs
+        -- | Extra arguments that are needed for "cabal configure"
+    ,   osPackageConfigureExtraArgs :: Package -> [String] 
     }
-
-
--- | PkgInstallDirs holds all the various directory specs needed for
--- the "cabal configure" step used for each package of the HP.  It is
--- OS-dependent and the values of fields here represent the *installed*
--- locations (not the build locations), and, per the cabal-install
--- documentation (the sections of the cabal user's guide titled
--- "Paths in the simple build system" and "Prefix-independence") certain
--- macros are recognized by cabal (e.g., $prefix, $docdir, etc.) and thus
--- can be used as part of the values to the FilePath fields below (e.g.,
--- "$prefix/doc").  The field names here correspond to the command
--- line options of cabal (except for "prefix").
-data PkgInstallDirs = PkgInstallDirs
-    {
-        prefixdir    :: (PackagePattern p) => p -> FilePath
-    -- ,   bindir       :: FilePath -- The cabal default for these...
-    -- ,   libdir       :: FilePath -- ... seem to be fine
-    ,   libsubdir    :: FilePath
-    -- ,   libexecdir   :: FilePath --
-    -- ,   datadir      :: FilePath --
-    ,   datasubdir   :: FilePath
-    ,   docdir       :: FilePath
-    ,   htmldir      :: FilePath
-    -- ,   sysconfdir   :: FilePath --
-    }
-
 
 genericOS :: BuildConfig -> OS
 genericOS BuildConfig{..} = OS{..}
@@ -155,16 +128,6 @@ genericOS BuildConfig{..} = OS{..}
             command_ [Cwd buildRoot]
                 "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
 
-    osPkgInstallDirs =
-        PkgInstallDirs { prefixdir = osPackageTargetDir
-                       -- , bindir = "$prefix/bin"
-                       -- , libdir = "$prefix/lib"
-                       , libsubdir = "" -- don't use a subdir
-                       -- , libexecdir = "$prefix/libexec"
-                       -- , datadir = "$prefix/share"
-                       , datasubdir = "" -- don't use a subdir
-                       , docdir = "$prefix/doc"
-                       , htmldir = "$docdir/html"
-                       -- , sysconfdir = "$prefix/etc"
-                       }
-
+    osPackageConfigureExtraArgs pkg =
+        [ "--prefix=" ++ osPackageTargetDir pkg ]
+        ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]

@@ -172,18 +172,9 @@ macOsFromConfig BuildConfig{..} = OS{..}
         let (maj,(m1:m0:_)) = splitAt 2 $ versionBranch hpVersion ++ repeat 0 in
         (concatMap show maj, show $ 10*m1 + m0 + 1)
 
-    osPkgInstallDirs =
-        PkgInstallDirs { prefixdir = osPackageTargetDir
-                       -- , bindir = "$prefix/bin"
-                       -- , libdir = "$prefix/lib"
-                       , libsubdir = "" -- don't use a subdir
-                       -- , libexecdir = "$prefix/libexec"
-                       -- , datadir = "$prefix/share"
-                       , datasubdir = "" -- don't use a subdir
-                       , docdir = "$prefix/doc"
-                       , htmldir = "$docdir/html"
-                       -- , sysconfdir = "$prefix/etc"
-                       }
+    osPackageConfigureExtraArgs pkg =
+        [ "--prefix=" ++ osPackageTargetDir pkg ]
+        ++ [ "--libsubdir=", "--datasubdir=", "--docdir=$prefix/doc" ]
 
 
 compileToBin :: FilePath -> FilePath -> Action ()

@@ -93,17 +93,17 @@ winOsFromConfig BuildConfig{..} = os
 
     osGhcPkgHtmlFieldExtras = ["--no-expand-pkgroot"]
 
-
-    osPlatformPkgPathMunge base = flip relativeToDir base . expandPkgroot
-    osGhcPkgPathMunge base = flip relativeToDir base . expandTopdir
+    osPlatformPkgPathMunge base (HaddockPkgLoc (p,i)) =
+        HaddockPkgLoc (relativeToDir (expandPkgroot p) base, i)
+    osGhcPkgPathMunge base (HaddockPkgLoc (p,i)) =
+        HaddockPkgLoc (relativeToDir (expandTopdir p) base, i)
 
     osPkgHtmlDir pkgid =
-        expandPkgroot . expandPrefix . expandPkgid . expandDocdir $
-            (htmldir osPkgInstallDirs)
+        expandPkgroot . expandPrefix . expandPkgid . expandDocdir $ htmldir
       where
         expandPrefix = replace "$prefix" (targetDir </> osHpPrefix)
         expandPkgid = replace "$pkgid" (show pkgid)
-        expandDocdir = replace "$docdir" (docdir osPkgInstallDirs)
+        expandDocdir = replace "$docdir" docdir
 
 
     -- On Windows, ghc uses $topdir; and when installed, this is
@@ -140,15 +140,10 @@ winOsFromConfig BuildConfig{..} = os
           -- Build installer now; makensis must be run in installerPartsDir
             command_ [Cwd installerPartsDir] "makensis" [nsisFileName]
 
-    osPkgInstallDirs =
-        PkgInstallDirs { prefixdir = const (toCabalPrefix osHpPrefix)
-                       -- , bindir = "$prefix/bin"
-                       -- , libdir = "$prefix"
-                       , libsubdir = "$pkgid"
-                       -- , libexecdir = "$prefix/$pkgid"
-                       -- , datadir = "$prefix"
-                       , datasubdir = "$pkgid"
-                       , docdir = "$prefix/doc/$pkgid"
-                       , htmldir = "$docdir/html"
-                       -- , sysconfdir = "$prefix/etc"
-                       }
+    osPackageConfigureExtraArgs _ =
+        [ "--prefix=" ++ toCabalPrefix osHpPrefix ]
+        ++ [ "--libsubdir=$pkgid"
+           , "--datasubdir=$pkgid"
+           , "--docdir=" ++ docdir ]
+    htmldir = "$docdir/html"
+    docdir = "$prefix/doc/$pkgid"

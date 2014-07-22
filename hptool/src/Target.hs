@@ -5,7 +5,7 @@ module Target
     )
   where
 
-import Control.Applicative ((<$>))
+import Control.Applicative ( (<$>), liftA )
 import Control.Monad (forM_, when)
 import Development.Shake
 import Development.Shake.FilePath
@@ -96,8 +96,12 @@ buildAction buildDir hpRel bc = do
             ["--inplace"
             , "--gen-pkg-config=" ++ packageInplaceConf pkg ® buildDir]
 
-        cReadArgs <- haddockAllCoreReadArgs pkgHtmlDir hpRel bc
-        pReadArgs <- haddockPlatformReadArgs pkgHtmlDir bc depsLibs
+        cReadArgs <- (liftA . map)
+                     (haddockReadArg . osGhcPkgPathMunge pkgHtmlDir)
+                     $ haddockAllCorePkgLocs hpRel bc
+        pReadArgs <- (liftA . map)
+                     (haddockReadArg . osPlatformPkgPathMunge pkgHtmlDir)
+                    $ haddockPlatformPkgLocs depsLibs
         cabal "haddock" $
             [ "--hyperlink-source"          -- TODO(mzero): make optional
             , "--with-haddock=" ++ haddockExe ® buildDir
@@ -127,10 +131,7 @@ buildAction buildDir hpRel bc = do
     doShared = osDoShared
 
     confOpts needsAlex needsHappy =
-        [ "--prefix=" ++ prefixdir osPkgInstallDirs pkg ]
-        ++ [ "--libsubdir=" ++ libsubdir osPkgInstallDirs
-           , "--datasubdir=" ++ datasubdir osPkgInstallDirs
-           , "--docdir=" ++ docdir osPkgInstallDirs ]
+        osPackageConfigureExtraArgs pkg
         ++ map ("--package-db="++) [ "clear", "global", "../package.conf.d" ]
         ++ needsAlex ?: [ "--with-alex=" ++ alexExe ® buildDir ]
         ++ needsHappy ?: [ "--with-happy=" ++ happyExe ® buildDir

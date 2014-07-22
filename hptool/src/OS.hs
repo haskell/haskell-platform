@@ -1,6 +1,5 @@
 module OS
     ( OS(..)
-    , PkgInstallDirs(..)
     , osFromConfig
     )
   where
