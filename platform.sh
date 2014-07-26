@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 HPTOOL=hptool/dist/build/hptool/hptool
 
 if [ \! \( -e $HPTOOL -a -x $HPTOOL \) ]
