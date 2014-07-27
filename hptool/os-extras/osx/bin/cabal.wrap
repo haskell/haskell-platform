@@ -99,7 +99,7 @@ documentation: True
 -- force-reinstalls: False
 -- upgrade-dependencies: False
 root-cmd: sudo
-symlink-bindir: ${user_haskell_dir}/bin
+-- symlink-bindir:
 build-summary: ${user_haskell_dir}/logs/build.log
 -- build-log:
 remote-build-reporting: anonymous
@@ -109,27 +109,27 @@ jobs: \$ncpus
 -- password:
 
 install-dirs user
-  prefix: ${user_haskell_dir}/\$compiler/lib/\$pkgid
+  prefix: ${user_haskell_dir}
   -- bindir: \$prefix/bin
-  -- libdir: \$prefix/lib
-  libsubdir:
+  libdir: \$prefix/\$compiler-\$arch/lib
+  libsubdir: \$pkgid
   -- libexecdir: \$prefix/libexec
   -- datadir: \$prefix/share
-  datasubdir:
-  docdir: \$prefix/doc
+  datasubdir: \$compiler-\$arch/\$pkgid
+  docdir: \$prefix/\$compiler-\$arch/lib/\$pkgid/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
   -- sysconfdir: \$prefix/etc
 
 install-dirs global
-  prefix: /Library/Haskell/\$compiler/lib/\$pkgid
+  prefix: /Library/Haskell
   -- bindir: \$prefix/bin
-  -- libdir: \$prefix/lib
-  libsubdir:
+  libdir: \$prefix/\$compiler-\$arch/lib
+  libsubdir: \$pkgid
   -- libexecdir: \$prefix/libexec
   -- datadir: \$prefix/share
-  datasubdir:
-  docdir: \$prefix/doc
+  datasubdir: \$compiler-\$arch/\$pkgid
+  docdir: \$prefix/\$compiler-\$arch/lib/\$pkgid/doc
   -- htmldir: \$docdir/html
   -- haddockdir: \$htmldir
   -- sysconfdir: \$prefix/etc
@@ -199,7 +199,9 @@ CONFIG_END
           mkdir -m 755 "${user_haskell_dir}/repo-cache" &>/dev/null
 
           cp "${cabal_config_platform}" "${cabal_config}"
-          cat <<NOTICE_END
+
+          notice="${cabal_dir}/where-is-my-stuff.txt"
+          cat  > "${notice}" <<NOTICE_END
 
 **********************************************************************
 
@@ -225,7 +227,7 @@ CONFIG_END
 **********************************************************************
 
 NOTICE_END
-
+          cat "${notice}"
           return 0
       else
           cat <<NOTICE_END

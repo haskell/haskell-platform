@@ -254,14 +254,12 @@ symLinkInto() {
 ###
 
 if [ -d "$hpRoot" ] ; then
-    symLinkInto $hpRoot/lib/*/bin/* $hpRoot/bin
     if [ -x $hpRoot/bin/cabal.wrap ]
     then
         run mv $hpRoot/bin/cabal $hpRoot/bin/cabal.real
         symLink cabal.wrap $hpRoot/bin/cabal
     fi
 
-    symLink ../lib $hpRoot/doc/packages
     symLink $ghcRoot/usr/share/doc/ghc/html $hpRoot/doc/ghc-doc
     symLink $ghcRoot/usr/share/doc/ghc/html/libraries/ghc-$ghcVersion $hpRoot/doc/ghc-api
 fi

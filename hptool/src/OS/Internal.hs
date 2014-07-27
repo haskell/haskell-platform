@@ -128,9 +128,4 @@ genericOS BuildConfig{..} = OS{..}
             command_ [Cwd buildRoot]
                 "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
 
-    osPackageConfigureExtraArgs pkg =
-        [ "--prefix=" ++ osPackageTargetDir pkg
-        , "--libsubdir="
-        , "--datasubdir="
-        , "--docdir=$prefix/doc"
-        ]
+    osPackageConfigureExtraArgs _pkg = []

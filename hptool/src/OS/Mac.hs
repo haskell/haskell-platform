@@ -63,7 +63,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
     cabalFile = hpTargetDir </> "haskell-platform.cabal"
 
     osTargetAction = do
-        need [dir hpBinDir, versionFile, cabalFile ]
+        need [vdir hpBinDir, versionFile, cabalFile ]
 
     osGhcDbDir = "lib" </> show bcGhcVersion </> "package.conf.d"
 
@@ -103,14 +103,17 @@ macOsFromConfig BuildConfig{..} = OS{..}
             ctx <- platformContext
             copyExpandedDir ctx osxExtrasSrc dst
 
-        hpBinDir */> \d -> do
-            makeDirectory d
+        hpBinDir ~/> do
+            -- These items are being merged into the bin directory, which has
+            -- bin items from the packages, hence it is a virtual target dir.
+            makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
             forM_ binFiles $ \f -> do
                 if takeExtension f == ".hs"
-                    then compileToBin f $ d </> takeBaseName f
-                    else copyFile'    f $ d </> takeFileName f
+                    then compileToBin f $ hpBinDir </> takeBaseName f
+                    else copyFile'    f $ hpBinDir </> takeFileName f
+            return Nothing
 
         versionFile *> \out -> do
             writeFileChanged out $ unlines
@@ -172,13 +175,28 @@ macOsFromConfig BuildConfig{..} = OS{..}
         let (maj,(m1:m0:_)) = splitAt 2 $ versionBranch hpVersion ++ repeat 0 in
         (concatMap show maj, show $ 10*m1 + m0 + 1)
 
-    osPackageConfigureExtraArgs pkg =
-        [ "--prefix=" ++ osPackageTargetDir pkg
-        , "--libsubdir="
-        , "--datasubdir="
-        , "--docdir=$prefix/doc"
+    osPackageConfigureExtraArgs _pkg =
+        [ override "prefix"     "/usr/local"                    "/Library/Haskell/$compiler-$arch"
+        , stock    "bindir"     "$prefix/bin"
+        , stock    "libdir"     "$prefix/lib"
+        , override "libsubdir"  "$arch-$os-$compiler/$pkgid"    "$pkgid"
+        , stock    "libexecdir" "$prefix/libexec"
+        , stock    "datadir"    "$prefix/share"
+        , override "datasubdir" "$arch-$os-$compiler/$pkgid"    "$pkgid"
+        , override "docdir"     "$datadir/doc/$arch-$os-$compiler/$pkgid"
+                                                                "$prefix/lib/$pkgid/doc"
+        , stock    "htmldir"    "$docdir/html"
+        , stock    "haddockdir" "$htmldir"
+        , stock    "sysconfdir" "$prefix/etc"
         ]
-
+      where
+        stock    k  v0    = "--" ++ k ++ "=" ++ v0  -- the 1.18 default value
+        override k _v0 v1 = "--" ++ k ++ "=" ++ v1  -- our override
+        -- N.B.: Because the default cabal layout changed in 1.18, and because the
+        -- host cabal is used to build the packages, and it might be pre-1.18, we
+        -- need to specify every dir parameter explicitly.
+        --
+        -- See also the file notes/cabal-layouts
 
 compileToBin :: FilePath -> FilePath -> Action ()
 compileToBin src dst = do
