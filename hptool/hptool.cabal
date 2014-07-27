@@ -16,25 +16,30 @@ Executable hptool
     Config,
     Dirs
     GhcDist,
+    HaddockMaster,
     LocalCommand,
     Main,
     OS,
     OS.Internal,
     OS.Mac,
+    OS.Win
+    OS.Win.WinNsis,
+    OS.Win.WinPaths,
+    OS.Win.WinRules,
+    OS.Win.WinUtils,
     Package,
     Paths,
     PlatformDB,
+    Releases,
+    Releases2012,
+    Releases2013,
     Releases2014,
     SourceTarball,
     Target,
+    Templates,
     Types,
-    Utils
-  if os(windows)
-    Other-Modules:
-      OS.Win.WinNsis,
-      OS.Win.WinPaths,
-      OS.Win.WinRules,
-      OS.Win.WinUtils
+    Utils,
+    Website
 
   hs-source-dirs: src
 
