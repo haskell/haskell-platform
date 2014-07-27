@@ -35,7 +35,7 @@
     <installation-check script="find_gcc()"/>
     <volume-check script="true">
         <allowed-os-versions>
-            <os-version min="10.7"/>
+            <os-version min="10.6"/>
         </allowed-os-versions>
     </volume-check>
 
