@@ -130,23 +130,47 @@ TO DO
 -- A List --
 
 -- General --
-[+] haddock linkage from HP packages to GHC core packages is broken
-[x] decision on QuickCheck?
+[x] which built hptool does platform use?
+         -HPTOOL=hptool/dist/build/hptool/hptool
+         +HPTOOL=hptool/.cabal-sandbox/bin/hptool
+        https://github.com/haskell/haskell-platform/pull/104
 
 -- Source Tarball --
-[x] missing platform.sh scripts
-[x] missing os-extras in hptool/src
+[x] missing files from hptool.cabal
+   hptool/src/HaddockMaster.hs
+   hptool/src/OS/Win.hs
+   hptool/src/Releases.hs
+   hptool/src/Releases2012.hs
+   hptool/src/Releases2013.hs
+   hptool/src/Templates.hs
+   hptool/src/Website.hs
+   setup.hs
+
+[-] hptool missing LICENSE
+    - but the HP as a whole has one at the top level
+
+-- Generic *nix --
+[ ] --prefix option for linux build
+[ ] registration script for linux build
 
 -- Mac --
-[x] start.html needs a once over updating
+[-] cabal install Cabal-1.20.0.1 doesn't install the doc... why?
+    - becuase 1.20 branch of Cabal doesn't have the haddock/CPP fixes
+
+[+] cabal install acme-inator... updates master haddock index in
+    ~/L/H/ghc-7.8.3/lib/$pkgid/share/doc/index.html  -- with a literal $ !!!
+
+[x] installer needs to declare 10.6
+
+[x] revamp package layout yet again
+    - fix activate-hs
+    - fix how bin dir is built
+    - handle older host cabal that have other layout defaults
+
 [-] uninstall-hs should clean out /usr/local/bin symlinks (as it does with /usr/bin)
     - it already does!
     - the bug was removing non-symlink items in /usr/local/bin associated with
       older installs... and we just don't know how to do this yet!
-[?] activate-hs should add -P for clang pre-processing
-    - bug found in Cabal
-    - adding -P for all preprocessing will suck
-    - no other good fix
 [-] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
     - add this once the method of handling OS and BuildConfig is fixed
 
@@ -199,6 +223,15 @@ TO DO
         building the target GHC requires os specific code and so makes a
         circular module dependency if it also tries to use localCompile'.
         (see compileToBin in hptool/src/OS/Mac.hs)
+
+[ ] pre-build cabal install, and then use *that* cabal to build the packages.
+    This would be more "hermetic", but is difficult because cabal-install itself
+    requires a number of platform packages. If we knew the host cabal supported
+    sandboxing (as we will next time 'round), then we can build it in a sandbox,
+    installing the built versions of the platform packages it needs into the
+    sandbox, with the host cabal... produce a local cabal-install... and then
+    use that as the cabal for everything else (including itself). This is sort
+    of like the stage1 build of GHC!
 
 [ ] should the platfrom be taking the following from the GHC dist:
     registered in pkg db, not part of platfrom, but could be?
