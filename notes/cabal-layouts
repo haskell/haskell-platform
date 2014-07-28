@@ -1,0 +1,87 @@
+
+
+< 1.18 layout
+
+    <base>                          -- prefix
+        bin                         -- bindir
+        lib                         -- libdir, dynlibdir
+            $pkgid
+                $compiler           -- libsubdir (rel. to libdir)
+                    include         -- includedir
+            hugs
+                programs            -- progdir
+        libexec                     -- libexecdir
+        share                       -- datadir
+            $pkgid                  -- datasubdir (rel. to datadir)
+            doc
+                $pkgdid             -- docdir
+                    html            -- htmldir, haddockdir
+            man                     -- mandir
+
+
+
+>= 1.18 layout
+
+    <base>                          -- prefix
+        bin                         -- bindir
+        etc                         -- sysconfdir
+        lib                         -- libdir, dynlibdir
+            $arch-$os-$compiler
+                $pkgid              -- libsubdir (rel. to libdir)
+                    include         -- includedir
+            hugs
+                programs            -- progdir
+        libexec                     -- libexecdir
+        share                       -- datadir
+            $arch-$os-$compiler
+                $pkgid              -- datasubdir (rel. to datadir)
+            doc
+                $arch-$os-$compiler
+                    $pkgdid         -- docdir
+                        html        -- htmldir, haddockdir
+            man                     -- mandir
+
+
+
+
+for Mac OS X, based on 1.18
+
+for platform packages themselves, everything under $compiler-$arch
+
+    <base>
+        $compiler-$arch             -- prefix
+            bin                     -- bindir
+            etc                     -- sysconfdir
+            lib                     -- libdir, dynlibdir
+                $pkgid              -- libsubdir (rel. to libdir)
+                    include         -- includedir
+                    doc             -- docdir
+                        html        -- htmldir, haddockdir
+                hugs
+                    programs        -- progdir
+            libexec                 -- libexecdir
+            share                   -- datadir
+                $pkgid              -- datasubdir (rel. to datadir)
+                man                 -- mandir
+
+
+for user built packages (both global and local), executables, etc.
+are directly under <base>
+
+    <base>                          -- prefix
+        $compiler-$arch
+            lib                     -- libdir, dynlibdir
+                $pkgid              -- libsubdir (rel. to libdir)
+                    include         -- includedir
+                    doc             -- docdir
+                        html        -- htmldir, haddockdir
+                hugs
+                    programs        -- progdir
+        bin                         -- bindir
+        etc                         -- sysconfdir
+        libexec                     -- libexecdir
+        share                       -- datadir
+            $compiler-$arch
+                $pkgid              -- datasubdir (rel. to datadir)
+            man                     -- mandir
+
