@@ -131,11 +131,12 @@ SetRegView 32
 
 !insertmacro CheckForOthers 2
 
+CheckOtherInstallsDone:
+
 {{#build64bit}}
 SetRegView 64
 {{/build64bit}}
 
-CheckOtherInstallsDone:
 !macroend
 
 
