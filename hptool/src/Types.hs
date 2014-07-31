@@ -1,4 +1,4 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE CPP, RecordWildCards #-}
 
 module Types
     ( PackageName
@@ -15,7 +15,9 @@ module Types
     )
   where
 
+#if MIN_VERSION_base(4,6,0)
 import Control.Applicative ((<$>), (<*>))
+#endif
 import Data.Char (isDigit)
 import Data.List (intercalate)
 import Data.Version (Version, showVersion, parseVersion)
@@ -36,10 +38,16 @@ data Package = Package { pkgName :: PackageName, pkgVersion :: Version }
 readPackageP :: ReadP Package
 readPackageP = do
     skipSpaces  -- derived Read instances expect all types to do this!
-    parts <- endBy1 ((:) <$> satisfy lead <*> munch more) (char '-')
+    parts <- endBy1 part (char '-')
     ver <- parseVersion
     return $ Package (intercalate "-" parts) ver
   where
+#if MIN_VERSION_base(4,6,0)
+    part = (:) <$> satisfy lead <*> munch more
+#else
+    part = do { l <- satisfy lead; m <- munch more; return (l:m) }
+#endif
+
     lead c = not (isDigit c) && more c
     more c = c /= '-'
 

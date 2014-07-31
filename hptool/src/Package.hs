@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 module Package
     ( packageRules
     )
@@ -5,7 +7,9 @@ module Package
 
 import Control.Applicative ((<$>))
 import Data.Graph (flattenSCCs, stronglyConnComp)
+#if MIN_VERSION_base(4,6,0)
 import Data.Ord (Down(..))
+#endif
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
@@ -18,6 +22,11 @@ import PlatformDB
 import Types
 import Utils
 
+#if !MIN_VERSION_base(4,6,0)
+newtype Down a = Down a deriving (Eq)
+instance Ord a => Ord (Down a) where
+    compare (Down x) (Down y) = y `compare` x
+#endif
 
 -- | All the default rules for packages. Includes unpacking, computing the
 -- dependencies, and building.
