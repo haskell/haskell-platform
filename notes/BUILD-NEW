@@ -130,49 +130,23 @@ TO DO
 -- A List --
 
 -- General --
-[x] which built hptool does platform use?
-         -HPTOOL=hptool/dist/build/hptool/hptool
-         +HPTOOL=hptool/.cabal-sandbox/bin/hptool
-        https://github.com/haskell/haskell-platform/pull/104
+[x] README update
+    - remove reference to NOTES (or contextualize)
+    - mention -j parameter
+[x] LICENSE update
+[ ] xhtml package... from ghc or built again... and why?
+
 
 -- Source Tarball --
-[x] missing files from hptool.cabal
-   hptool/src/HaddockMaster.hs
-   hptool/src/OS/Win.hs
-   hptool/src/Releases.hs
-   hptool/src/Releases2012.hs
-   hptool/src/Releases2013.hs
-   hptool/src/Templates.hs
-   hptool/src/Website.hs
-   setup.hs
-
-[-] hptool missing LICENSE
-    - but the HP as a whole has one at the top level
 
 -- Generic *nix --
-[ ] --prefix option for linux build
-[ ] registration script for linux build
+[x] tarball includes "target/" at top of all paths
+[x] registration script for linux build
+    [x] should check that prefix makes sense
+    [x] executable bit
+[x] --prefix option for linux build
 
 -- Mac --
-[-] cabal install Cabal-1.20.0.1 doesn't install the doc... why?
-    - becuase 1.20 branch of Cabal doesn't have the haddock/CPP fixes
-
-[+] cabal install acme-inator... updates master haddock index in
-    ~/L/H/ghc-7.8.3/lib/$pkgid/share/doc/index.html  -- with a literal $ !!!
-
-[x] installer needs to declare 10.6
-
-[x] revamp package layout yet again
-    - fix activate-hs
-    - fix how bin dir is built
-    - handle older host cabal that have other layout defaults
-
-[-] uninstall-hs should clean out /usr/local/bin symlinks (as it does with /usr/bin)
-    - it already does!
-    - the bug was removing non-symlink items in /usr/local/bin associated with
-      older installs... and we just don't know how to do this yet!
-[-] ensuring that the MACOSX_DEPLOYMENT_TARGET=10.6 is set
-    - add this once the method of handling OS and BuildConfig is fixed
 
 -- Windows --
 [ ] GLUT issue in ghci
@@ -211,6 +185,14 @@ TO DO
     [ ] replace change log with version grid
         [ ] bring in other Release20xx.hs files
     [ ] contents page
+
+[ ] refactor common code from PosixLike.hs posixLikeOS and Mac.hs macOSFromConfig
+[ ] posix/bin/activate-hs script
+    [ ] support finding and reporting ghc version, hp version, and arch
+    [ ] should advise on setting up ~/.cabal/config
+    [ ] enable listing versions under /usr/local/haskell
+    [ ] support selecting a version just by its short string: 7.8.3
+
 
 -- C List --
 
