@@ -6,6 +6,7 @@ module OS
 
 import OS.Internal
 import OS.Mac
+import OS.Posix
 import OS.Win
 import Types
 
@@ -16,4 +17,4 @@ osFromConfig bc = case bcOs bc of
                    "i386"   -> winOsFromConfig bc
                    "x86_64" -> winOsFromConfig bc
                    _        -> winOsFromConfig bc
-    _ -> genericOS bc
+    _ -> posixOS "/usr/local/haskell" bc

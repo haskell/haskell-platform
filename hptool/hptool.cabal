@@ -22,6 +22,7 @@ Executable hptool
     OS,
     OS.Internal,
     OS.Mac,
+    OS.Posix,
     OS.Win
     OS.Win.WinNsis,
     OS.Win.WinPaths,
