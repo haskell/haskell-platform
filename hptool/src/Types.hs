@@ -105,6 +105,7 @@ data BuildConfig = BuildConfig
     , bcOsVendor :: String         -- ex.: "apple", "solaris", "unknown"
     , bcOs :: String               -- ex.: "freebsd", "linux", "darwin"
     , bcOsDistribution :: String   -- ex.: "deb7", "mavericks"
+    , bcPrefix :: Maybe FilePath   -- ex.: "/usr/local/haskell"
     }
   deriving (Read, Show)
 

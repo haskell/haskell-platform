@@ -17,4 +17,4 @@ osFromConfig bc = case bcOs bc of
                    "i386"   -> winOsFromConfig bc
                    "x86_64" -> winOsFromConfig bc
                    _        -> winOsFromConfig bc
-    _ -> posixOS "/usr/local/haskell" bc
+    _ -> posixOS bc

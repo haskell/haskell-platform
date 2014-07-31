@@ -6,6 +6,7 @@ module OS.Posix
   where
 
 import Control.Monad (forM_)
+import Data.Maybe (fromMaybe)
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
@@ -17,12 +18,13 @@ import Templates
 import Types
 import Utils
 
-posixOS :: FilePath -> BuildConfig -> OS
-posixOS prefix BuildConfig{..} = OS{..}
+posixOS :: BuildConfig -> OS
+posixOS BuildConfig{..} = OS{..}
   where
     HpVersion{..} = bcHpVersion
     GhcVersion{..} = bcGhcVersion
 
+    prefix = fromMaybe "/usr/local/haskell" bcPrefix
     absPrefix = "/" </> prefix
     relPrefix = drop 1 absPrefix
 

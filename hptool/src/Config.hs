@@ -67,8 +67,8 @@ askBuildConfig :: Action BuildConfig
 askBuildConfig = readOracle "BuildConfig" (BuildConfigQ ())
 
 
-addConfigOracle :: Release -> FilePath -> Rules BuildConfig
-addConfigOracle hpRel tarFile = do
+addConfigOracle :: Release -> FilePath -> Maybe FilePath -> Rules BuildConfig
+addConfigOracle hpRel tarFile prefix = do
     _ <- addOracle $
             \(HpReleaseQ _) -> return $ show hpRel
     _ <- addOracle $
@@ -77,11 +77,12 @@ addConfigOracle hpRel tarFile = do
             \(BuildConfigQ _) -> either fail (return . show) buildConfig
     either fail return buildConfig
   where
-    buildConfig = extractBuildConfig hpRel tarFile
+    buildConfig = extractBuildConfig hpRel tarFile prefix
 
 
-extractBuildConfig :: Release -> FilePath -> Either String BuildConfig
-extractBuildConfig hpRel tarFile =
+extractBuildConfig :: Release -> FilePath -> Maybe FilePath
+                        -> Either String BuildConfig
+extractBuildConfig hpRel tarFile prefix =
     if ok then Right $ BuildConfig {..}
           else Left $ "extractBuildConfig tar file unparseable: " ++ base
   where
@@ -89,8 +90,9 @@ extractBuildConfig hpRel tarFile =
     base0 = dropExtension $ takeFileName tarFile
     base = (if takeExtension base0 == ".tar" then dropExtension else id) base0
     parts = splitOn "-" base
-    (prefix : verStr : bcArch : bcOsVendor : bcOs : remainder) = parts
+    (ghcPrefix : verStr : bcArch : bcOsVendor : bcOs : remainder) = parts
     bcGhcVersion = GhcVersion $ version verStr
     bcOsDistribution = intercalate "-" remainder
     bcHpVersion = relVersion hpRel
-    ok = (length parts >= 5) && (prefix == "ghc")
+    bcPrefix = prefix
+    ok = (length parts >= 5) && (ghcPrefix == "ghc")

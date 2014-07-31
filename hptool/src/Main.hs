@@ -3,6 +3,7 @@
 module Main where
 
 import Control.Monad (forM_)
+import Data.Monoid (mconcat)
 import Development.Shake
 import Development.Shake.FilePath
 import System.Console.GetOpt
@@ -22,20 +23,27 @@ import Types
 import Target
 import Website
 
-data Flags = Info deriving Eq
+data Flags = Info | Prefix String
+  deriving Eq
 
 flags :: [OptDescr (Either a Flags)]
 flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
                      "Show info on what gets included in this HP release"
+        , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
+                     "Set installation prefix (only for Posix builds)"
         ]
 
 main :: IO ()
 main = shakeArgsWith opts flags main'
   where
-    main' [] (tarfile:what) = return $ Just $ do
-        allRules tarfile
-        want $ if null what then ["build-all"] else what
-    main' flgs _ = if Info `elem` flgs then info else usage
+    main' flgs args =
+        if Info `elem` flgs
+            then info
+            else case args of
+                (tarfile:what) -> return $ Just $ do
+                    allRules tarfile flgs
+                    want $ if null what then ["build-all"] else what
+                [] -> usage
 
     info = do
         putStrLn $ "This hptool is built to construct " ++ hpFullName ++ "\n\
@@ -57,8 +65,8 @@ main = shakeArgsWith opts flags main'
                  \    build-website       -- build the website\n"
         return Nothing
 
-    allRules tarfile = do
-        buildConfig <- addConfigOracle hpRelease tarfile
+    allRules tarfile flgs = do
+        buildConfig <- addConfigOracle hpRelease tarfile (prefixSetting flgs)
         ghcDistRules
         packageRules
         targetRules buildConfig
@@ -66,6 +74,11 @@ main = shakeArgsWith opts flags main'
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile buildConfig
         websiteRules "website"
+
+    prefixSetting = mconcat . reverse . map ps
+      where
+        ps (Prefix p) = Just p
+        ps _ = Nothing
 
     opts = shakeOptions
 
