@@ -1,67 +1,105 @@
 Haskell Platform
 ----------------
 
-NOTE: Mar. 2014 - We are in the middle of transitioning to a wholly new build
-system for the platform. This README gives preliminary notes on how to use it,
-but expect a bumpy ride!
+OVERVIEW
+--------
+"Haskell Platform" is a combination of the GHC compiler and core libraries,
+plus additional tools and libraries covering a range of common programming
+tasks. The platform is maintained and released so as to be a consistent, stable
+base. It aims to be a quick way to a working haskell environment, and a solid
+foundation on which to base production software.
+
+DISTRIBUTION
+------------
+The platform comes in several forms:
+
+*source repo* - This is the source of the system that builds the platform. It
+includes the file that defines the versions of GHC and other packages that make
+up the platform. You can use this to build the platform from just a GHC bindist.
+
+You can check out the official release from github:
+     http://github.com/haskell/haskell-platform
+The master branch is always stable, and releases are tagged like "2014.2.0.0".
+Development usually happens in other branches.
+
+*source tarball* - This is a specially packaged version of the repo that
+includes the sources of the packages that make up the platform, and excludes
+some of the anicillary things in the source repo. You can use this to build
+the platform without access to hackage or even an internet connection. You still
+need a GHC bindist.
+
+*installer* - For Windows and OS X, the platform is distributed as a standard
+installer for the operating system. It contains a fully built version of the
+platform, accompanying documentation, and additional scripts and files needed
+to integrate well with the standard environment and development tools.
+
+Running the installer is all you need to get a working Haskell environment.
+
+*OS distribution packages* - For many Linux, BSD, and other similar Posix,
+the platform has been packaged into packages for the local package manager.
+These can be selected and installed, from the appropriate package repos, with
+the standard package manager tools.
+
+*generic bindist* - For linux, there is a generic bindist. This is compiled
+against standard versions of the common system libraries, and if your system
+has those, you can generally just unpack this tarball, and run a script to
+get it setup.
+
+
+REQUIREMENTS FOR BUILDING
+-------------------------
+You need the platform build files, either from the *source repo* or the
+*source tarball*.  Build instructions are the same for either.
+
+You need a GHC bindist that matches the OS you are compiling on. It must also
+match the GHC version used by the platform, currently 7.8.3. You can get this
+from:
+    http://www.haskell.org/ghc/download_ghc_7_8_3
+
+The machine doing the build needs to have a working Haskell setup: Usually,
+GHC (7.4 or later), Cabal (1.16 or later), and haddock and HsColour must be on
+the $PATH.
 
 
 BUILDING
 --------
-The platform is now built by a program called hptool, included in this repo.
-That tool is a shake based build system that creates both the traditional
-haskell-platform source tarball, and can build a complete, hermetic build of
-the platform for use in building OS installer packages.
+The platform is now built by a program called hptool. That tool is a shake based
+build system that creates both the traditional haskell-platform source tarball,
+and can build a complete, hermetic build of the platform for use in building OS
+installer packages.
 
-To boot-strap the build, the current system must have a working GHC installed,
-and cabal with sandbox support installed (generally 1.18.0 or later)[1], and an
-HsColour executable must be in your PATH (current recommended version is
-1.20.3). You also need a GHC bindist tarball that matches the platform[2].
-
-Then simply, run this:
+In either the source repo or unpacked source tarball, simply run this:
 
    ./platform.sh $PATH_TO_GHC_BINDIST_TARBALL
 
 This will build the hptool itself, and then use that tool to build first the
 platform source tarball, and finally the hermetic build of all the platform
-packages.[3]
+packages.
+
+If you are building for a Posix like system (linux, or BSD), then you can add
+the command line option --prefix to sepecify where, on the target system the
+tree of built things will be placed. If defaults to "/usr/loca/haskell".  The
+build will include another directory under that named "ghc-x.y.z-arch" and
+everything will be installed under there.
+
+Adding -j <n> to the build invocation will enable building on multiple cores at
+once.
 
 
-[1] You can fiddle with ./platform.sh and remove the need for the sandbox if
-you really want to build with an earlier cabal.
+INSTALLATION
+------------
+After the build completes, it will print instructions for how to take the build
+product and install it on systems. The build products are in:
+  build/product
 
-[2] Currently, the version of GHC isn't really checked, so any close bindist
-should work. In particular, the RC2 for 7.8 works.
+For OS X and Windows, the built product is just a standard installer. Copy it
+to the target system and install it.
 
-[3] This build is currently incomplete. In particular it doesn't include
-haddock, has a fixed layout as used on OS X, and doesn't have any of the
-supporting scripts needed at installation time.
-
-
-DIRECTORIES
------------
-    build/                  -- where hptool does it's work
-      ghc-bindist/
-        local/              -- a local installation of GHC used for building
-      package/              -- staging area for each package
-      product/              -- src tarball ends up here
-      src-tarball/          -- staging area for what goes in the src tarball
-      target/               -- staging area for the built platform
-    download-website/
-    hptool/
-    notes/
-    packages/               -- place sources for packages that are not yet on
-                               hackage in here
-    src/                    -- the original platform build system and scripts
-
-
-WORK IN PROGRESS
-----------------
-This is currently a work in progress. See notes/BUILD-NEW for lots of thoughts,
-notes, and to dos for the new build.
-
-If you are a packager for an OS, then adding details for what needs to get done
-to "prep" the target image for the OS would be great. As soon as a method for
-adding steps specific to each OS is added, then we can add that to the tool,
-too.
+For Posix like systems, the built product is a tarball, which should be unpacked
+at / (it includes the prefix spec'd in the build). Then, on the target, you
+must run the activate-hs script in the installed bin dir, usually:
+  /usr/loca/haskell/ghc-x.y.z-arch/bin/activate-hs
+That script will do the final package registrations, and symlink all the command
+line tools (ghc, haddock, etc..) into /usr/local/bin. Run the script with -n or
+-? to find out more.
 
