@@ -26,12 +26,12 @@
   !Define FILES_SOURCE_PATH "{{targetFiles}}"
   !Define INST_DAT "inst.dat"
   !Define UNINST_DAT "uninst.dat"
-  !Define PROGRAM_FILES "$PROGRAMFILES{{programFiles64}}"
 
 ;--------------------------------
 ;Variables
 
   Var START_MENU_FOLDER
+  Var PROGRAM_FILES
 
 ;--------------------------------
 ;General settings
@@ -41,7 +41,7 @@
   OutFile "{{productFile}}"
 
   ;Default install dir
-  InstallDir "${PROGRAM_FILES}\Haskell Platform\${PLATFORM_VERSION}"
+  InstallDir "$PROGRAMFILES\Haskell Platform\${PLATFORM_VERSION}"
   InstallDirRegKey HKLM "${PRODUCT_DIR_REG_KEY}" ""
 
   ;Icon
@@ -77,12 +77,18 @@ CheckAdminDone:
 
 !macro do64Stuff
   ; The NSIS installer is a 32-bit executable, but it can do a 64-bit install.
+  ; Default to 32-bit, change if installing 64-bit on 64-bit.
+SetRegView 32
+StrCpy $PROGRAM_FILES "$PROGRAMFILES"
+StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
 {{#build64bit}}
 ${If} ${RunningX64}
   ; If this is installing the 64-bit HP on 64-bit Windows, enable FSRedirection.
   ${EnableX64FSRedirection}
   ; enable access to 64-bit portion of registry
   SetRegView 64
+  StrCpy $PROGRAM_FILES "$PROGRAMFILES64"
+  StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
 ${Else}
 ;     pop up an error message: Cannot install 64-bit HP on 32-bit Windows
     MessageBox MB_OK "You are trying to install the 64-bit version of the Haskell Platform onto a 32-bit version of Windows.  Please use the 32-bit version of the Haskell Platform."
@@ -253,6 +259,7 @@ Section "Update the PATH environment variable" SecPath
   ${EnvVarUpdate} $0 "PATH" "P" "HKLM" "$INSTDIR\bin"
   ${EnvVarUpdate} $0 "PATH" "P" "HKLM" "$INSTDIR\lib\extralibs\bin"
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR\mingw\bin"
+  ${EnvVarUpdate} $0 "PATH" "P" "HKLM" "$PROGRAM_FILES\Haskell\bin"
   SetShellVarContext current
   ${EnvVarUpdate} $0 "PATH" "P" "HKCU" "$APPDATA\cabal\bin"
   SetShellVarContext all
@@ -315,8 +322,8 @@ Section "-StartMenu" StartMenu
     "$SMPROGRAMS\$START_MENU_FOLDER\GHC Flag Reference.lnk" \
     "$INSTDIR\doc\html\users_guide\flag-reference.html"
     CreateShortCut \
-    "$SMPROGRAMS\$START_MENU_FOLDER\GHC Library Documentation.lnk" \
-    "$INSTDIR\doc\html\libraries\index.html"
+    "$SMPROGRAMS\$START_MENU_FOLDER\Library Documentation.lnk" \
+    "$INSTDIR\lib\extralibs\doc\frames.html"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\GHCi.lnk" \
     "$INSTDIR\bin\ghci.exe"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\WinGHCi.lnk" \
@@ -346,7 +353,7 @@ Section "Uninstall"
 
   Delete "$SMPROGRAMS\$START_MENU_FOLDER\GHC Documentation.lnk"
   Delete "$SMPROGRAMS\$START_MENU_FOLDER\GHC Flag Reference.lnk"
-  Delete "$SMPROGRAMS\$START_MENU_FOLDER\GHC Library Documentation.lnk"
+  Delete "$SMPROGRAMS\$START_MENU_FOLDER\Library Documentation.lnk"
   Delete "$SMPROGRAMS\$START_MENU_FOLDER\GHCi.lnk"
   Delete "$SMPROGRAMS\$START_MENU_FOLDER\WinGHCi.lnk"
   Delete "$SMPROGRAMS\$START_MENU_FOLDER\${HACKAGE_SHORTCUT_TEXT}.url"
@@ -383,6 +390,7 @@ Section "Uninstall"
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$INSTDIR\bin"
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$INSTDIR\lib\extralibs\bin"
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$INSTDIR\mingw\bin"
+  ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$PROGRAM_FILES\Haskell\bin"
   SetShellVarContext current
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKCU" "$APPDATA\cabal\bin"
   SetShellVarContext all
