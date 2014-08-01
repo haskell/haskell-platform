@@ -28,6 +28,7 @@ hp2014_2_0_0 =
         , incGHCLib "template-haskell"      "2.9.0.0"
         , incGHCLib "time"                  "1.4.2"
         , incGHCLib "transformers"          "0.3.0.0"
+        , incGHCLib "xhtml"                 "3000.2.1"
 
         , notWindows $  incGHCLib "unix"    "2.7.0.1"
         --, onlyWindows $ incGHCLib "Win32"   "2.3.0.2"
@@ -36,7 +37,6 @@ hp2014_2_0_0 =
         , incLib "attoparsec"               "0.10.4.0"
         , incLib "case-insensitive"         "1.1.0.3"
 --        , incLib "cgi"                      "3001.1.7.5" -- no longer builds
---        , incLib "dlist"                    "0.7.0.1" -- if we include it
         , incLib "fgl"                      "5.5.0.1"
         , incLib "GLUT"                     "2.5.1.1"
         , incLib "GLURaw"                   "1.4.0.1"
@@ -63,7 +63,6 @@ hp2014_2_0_0 =
         , incLib "text"                     "1.1.0.0"
         , incLib "unordered-containers"     "0.2.4.0"
         , incLib "vector"                   "0.10.9.1"
-        , incLib "xhtml"                    "3000.2.1"
         , incLib "zlib"                     "0.5.4.1"
 
         , incTool "cabal-install"           "1.18.0.5"
@@ -71,6 +70,6 @@ hp2014_2_0_0 =
         , incTool "happy"                   "1.19.4"
 
         , incTool "hscolour"                "1.20.3"
---        , incTool "haddock"                 "2.14.2" -- should come from ghc
+--        , incTool "haddock"                 "2.14.2" -- comes from ghc
         ]
 
