@@ -1,15 +1,14 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module Templates
-    ( ContextMaker, Expander
+    ( ctxEmpty, ctxAppend, ctxConcat
+    , errorCtx
     , releaseContext, buildConfigContext, platformContext
-    , platformExpander
     , copyExpandedFile, copyExpandedDir
     )
   where
 
-import Control.Applicative ( (<$>) )
-import Control.Monad (forM_, unless)
+import Control.Monad (foldM, forM_, unless)
 import qualified Data.Text.Lazy.IO as TL
 import Data.Version (showVersion)
 import Development.Shake
@@ -23,14 +22,32 @@ import PlatformDB
 import Types
 import Utils
 
-type Expander m = String -> MuType m
-
-expandError :: Expander m
-expandError t = error $ "expandError: unexpected template tag " ++ t
 
 
-expandRelease :: (Monad m) => Release -> Expander m -> Expander m
-expandRelease rel defEx = ex
+ctxEmpty :: (Monad m) => MuContext m
+ctxEmpty = const $ return MuNothing
+
+ctxAppend :: (Monad m) => MuContext m -> MuContext m -> MuContext m
+a `ctxAppend` b = ctxConcat [a, b]
+
+ctxConcat :: (Monad m) => [MuContext m] -> MuContext m
+ctxConcat cs t = foldM mix MuNothing cs
+  where
+    mix MuNothing ctx = ctx t
+    mix r         _   = return r
+
+errorCtx :: (Monad m) => MuContext m
+errorCtx t = return $ MuLambda $ const msg
+  where
+    msg = "### unknown tag: " ++ decodeStr t ++ " ###"
+
+
+
+releaseContext :: Action (MuContext Action)
+releaseContext = askHpRelease >>= return . expandRelease
+
+expandRelease :: (Monad m) => Release -> MuContext m
+expandRelease rel = mkStrContext ex
   where
     ex "hpVersion" = MuVariable . showVersion . hpVersion . relVersion $ rel
     ex "ghcVersion" = case pkgsThat [isGhc, not . isLib] of
@@ -44,7 +61,7 @@ expandRelease rel defEx = ex
     ex "platformLibs"      = exPkgs $ pkgsThat [not . isGhc, isLib]
     ex "tools"             = exPkgs $ pkgsThat [isTool]
 
-    ex t = defEx t
+    ex _ = MuNothing
 
     pkgsThat tests = packagesByIncludeFilter (\i -> all ($i) tests) rel
 
@@ -62,41 +79,24 @@ expandRelease rel defEx = ex
     pad n s = s ++ replicate (n - length s) ' '
 
 
-expandBuildConfig :: BuildConfig -> Expander m -> Expander m
-expandBuildConfig BuildConfig{..} defEx = ex
+buildConfigContext :: Action (MuContext Action)
+buildConfigContext = askBuildConfig >>= return . expandBuildConfig
+
+expandBuildConfig :: (Monad m) => BuildConfig -> MuContext m
+expandBuildConfig BuildConfig{..} = mkStrContext ex
   where
     ex "hpVersion" = MuVariable . showVersion . hpVersion $ bcHpVersion
     ex "ghcVersion" = MuVariable . showVersion . ghcVersion $ bcGhcVersion
     ex "arch" = MuVariable bcArch
-    ex t = defEx t
+    ex _ = MuNothing
 
 
-asContext :: (Monad m) => Expander m -> MuContext m
-asContext = mkStrContext -- (return .)
+platformContext :: Action (MuContext Action)
+platformContext = do
+    rlsCtx <- releaseContext
+    bcCtx <- buildConfigContext
+    return $ ctxConcat [bcCtx, rlsCtx, errorCtx]
 
-
-
-type ContextMaker = Action (MuContext Action)
-
-releaseContext :: ContextMaker
-releaseContext = do
-    rls <- askHpRelease
-    return $ asContext $ expandRelease rls $ expandError
-
-buildConfigContext :: ContextMaker
-buildConfigContext = do
-    bc <- askBuildConfig
-    return $ asContext $ expandBuildConfig bc $ expandError
-
-platformContext :: ContextMaker
-platformContext =
-    asContext <$> platformExpander
-
-platformExpander :: (Monad m) => Action (Expander m)
-platformExpander = do
-    bc <- askBuildConfig
-    rls <- askHpRelease
-    return $ expandBuildConfig bc $ expandRelease rls $ expandError
 
 templateDirname :: String
 templateDirname = "templates"

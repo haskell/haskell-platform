@@ -98,6 +98,7 @@ cabalFileRule :: Rules ()
 cabalFileRule =
     hpCabalFile *> \cFile -> do
         ctx <- releaseContext
-        copyExpandedFile ctx cabalTemplate cFile
+        let ctx' = ctx `ctxAppend` errorCtx
+        copyExpandedFile ctx' cabalTemplate cFile
   where
     cabalTemplate = "hptool/templates/haskell-platform.cabal.mu" -- FIXME

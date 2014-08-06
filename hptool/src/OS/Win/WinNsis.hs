@@ -7,7 +7,7 @@ import Data.List ( sortBy )
 import Data.Ord ( comparing )
 import Development.Shake
 import Development.Shake.FilePath ( toNative, takeDirectory )
-import Text.Hastache ( MuType(..) )
+import Text.Hastache ( MuType(..), MuContext )
 import Text.Hastache.Context (mkStrContext)
 
 import Config
@@ -75,11 +75,13 @@ genNsisFile =
     nsisFile *> \nFile -> do
         bc <- askBuildConfig
         rls <- askHpRelease
-        ctx <- mkStrContext <$> expandNsisInfo rls bc <$> platformExpander
+        pCtx <- platformContext
+        let nsisCtx = expandNsisInfo rls bc
+            ctx = nsisCtx `ctxAppend` pCtx
         copyExpandedFile ctx nsiTemplate nFile
 
-expandNsisInfo :: Release -> BuildConfig -> Expander m -> Expander m
-expandNsisInfo rls BuildConfig{..} defEx = ex
+expandNsisInfo :: (Monad m) => Release -> BuildConfig -> MuContext m
+expandNsisInfo rls BuildConfig{..} = mkStrContext ex
   where
     ex "productFile" = MuVariable . toNative $
         winProductFile hpver bcArch ® installerPartsDir
@@ -91,7 +93,7 @@ expandNsisInfo rls BuildConfig{..} defEx = ex
         winTargetDir ® takeDirectory nsisFile
         -- NSIS is run from where nsisFile is, so make relative to that
 
-    ex t = defEx t
+    ex _ = MuNothing
 
     is64 = bcArch == "x86_64"
     hpver = hpVersion . relVersion $ rls

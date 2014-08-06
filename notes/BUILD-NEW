@@ -321,3 +321,19 @@ Shake Thoughts
 
 [] would be nice if there was
     knowsHow :: FilePath -> Rule Bool
+
+
+Hastache
+--------
+[] tags are looked up in the whole context stack, even if found early in the
+    stack. This is bad if the lookup is in IO.. further, since the default
+    action on not finding a tag in any context is to just swallow the tag, you
+    can have it be an error to not expand (which is what we want)
+
+    the offending code is in Hastache.hs:
+        readContext' = MaybeT $ liftM (List.find (not . isMuNothing)) $
+                         mapM ($ tlInTag) contexts
+
+[] MuContext should be a Monoid
+   see ctxEmpty, ctxAppend, and ctxConcat in Templates.hs
+

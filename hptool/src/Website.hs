@@ -11,5 +11,6 @@ import Templates
 websiteRules :: FilePath -> Rules ()
 websiteRules templateSite = do
     websiteDir */> \dst -> do
-        ctx <- buildConfigContext
+        bcCtx <- buildConfigContext
+        let ctx = bcCtx `ctxAppend` errorCtx
         copyExpandedDir ctx templateSite dst
