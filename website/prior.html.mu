@@ -14,21 +14,19 @@
 </tr>
 </tbody>
 </table>
+
 <p>Prior releases of Haskell Platform:</p>
-<h1 id="section">2012</h1>
-<p><strong>2012.4.0.0</strong>, November 2012 ⟹ <a href="download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2012.4.0.0/Haskell%20Platform%202012.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a> - <a href="download/2012.4.0.0/HaskellPlatform-2012.4.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2012.4.0.0/haskell-platform-2012.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2012.2.0.0</strong>, June 2012 ⟹ <a href="download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2012.2.0.0/Haskell%20Platform%202012.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a> - <a href="download/2012.2.0.0/HaskellPlatform-2012.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2012.2.0.0/haskell-platform-2012.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<h1 id="section-1">2011</h1>
-<p><strong>2011.4.0.0</strong>, April 2011 ⟹ <a href="download/2011.4.0.0/Haskell%20Platform%202011.4.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2011.4.0.0/Haskell%20Platform%202011.4.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a> - <a href="download/2011.4.0.0/HaskellPlatform-2011.4.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2011.4.0.0/haskell-platform-2011.4.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2011.2.0.1</strong>, April 2011 ⟹ <a href="download/2011.2.0.1/Haskell%20Platform%202011.2.0.1-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2011.2.0.1/Haskell%20Platform%202011.2.0.1-x86_64.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a> - <a href="download/2011.2.0.1/HaskellPlatform-2011.2.0.1-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2011.2.0.1/haskell-platform-2011.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2011.2.0.0</strong> - March 2011 ⟹ <a href="download/2011.2.0.0/Haskell%20Platform%202011.2.0.0-i386.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2011.2.0.0/Haskell%20Platform%202011.2.0.0-x86_64.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 64bit</a> - <a href="download/2011.2.0.0/HaskellPlatform-2011.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2011.2.0.0/haskell-platform-2011.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<h1 id="section-2">2010</h1>
-<p><strong>2010.2.0.0</strong> - July 2010 ⟹ <a href="download/2010.2.0.0/haskell-platform-2010.2.0.0.i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="download/2010.2.0.0/HaskellPlatform-2010.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="download/2010.2.0.0/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2010.1.0.0</strong> - March 2010 ⟹ <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.1-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="http://hackage.haskell.org/platform/2010.1.0.0/HaskellPlatform-2010.1.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<h1 id="section-3">2009</h1>
-<p><strong>2009.2.0.2</strong> - July 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2-i386.dmg" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">Mac OS X, 32bit</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.2/HaskellPlatform-2009.2.0.2-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.2/haskell-platform-2009.2.0.2.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2009.2.0.1</strong> - June 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0.1/HaskellPlatform-2009.2.0.1-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0.1/haskell-platform-2009.2.0.1.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
-<p><strong>2009.2.0</strong> - May 2009 ⟹ <a href="http://hackage.haskell.org/platform/2009.2.0/HaskellPlatform-2009.2.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows/old'); ">Windows</a> - <a href="http://hackage.haskell.org/platform/2009.2.0/haskell-platform-2009.2.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source/old'); ">Source</a></p>
+{{#years}}
+  <h1 id="section">{{year}}</h1>
+    {{#releases}}
+      <p><strong>{{version}}</strong>, {{month}} {{year}} ⟹
+        {{#files}}
+          <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">{{osNameAndArch}}</a> -
+        {{/files}}
+      </p>
+    {{/releases}}
+{{/years}}
+
 {{> footer}}
 </body>
 </html>
