@@ -7,79 +7,34 @@
 <div id="header">
 <h1 class="title">The Haskell Platform: Changelog</h1>
 </div>
-<h2 id="changelog-for-the-haskell-platform">Changelog for the Haskell Platform</h2>
-<h2 id="section">2013.2.0.0</h2>
-<p><strong>Contents of the Haskell Platform</strong></p>
-<p>The contents of the Haskell Platform are specified as <a href="https://github.com/haskell/haskell-platform/blob/master/haskell-platform.cabal">this Cabal file</a>.</p>
-<p><strong><em>Compiler</em></strong></p>
-<ul>
-<li><a href="http://haskell.org/ghc">ghc</a> <span class="versions"><em>7.4.2</em> ⟶ <em>7.6.3</em></span></li>
-</ul>
-<p><strong><em>Core Libraries, Provided with GHC</em></strong></p>
-<ul>
-<li><a href="http://hackage.haskell.org/package/array">array</a> <span class="versions"><em>0.4.0.0</em> ⟶ <em>0.4.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/base">base</a> <span class="versions"><em>4.5.1.0</em> ⟶ <em>4.6.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/bytestring">bytestring</a> <span class="versions"><em>0.9.2.1</em> ⟶ <em>0.10.0.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/Cabal">Cabal</a> <span class="versions"><em>1.14.0</em> ⟶ <em>1.16.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/containers">containers</a> <span class="versions"><em>0.4.2.1</em> ⟶ <em>0.4.2.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/deepseq">deepseq</a> <span class="versions"><em>1.3.0.0</em> ⟶ <em>1.3.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/directory">directory</a> <span class="versions"><em>1.1.0.2</em> ⟶ <em>1.2.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/extensible-exceptions">extensible-exceptions</a> <span class="versions"><em>0.1.1.4</em> ⟶ <em>(removed)</em></span></li>
-<li><a href="http://hackage.haskell.org/package/filepath">filepath</a> <span class="versions"><em>1.3.0.0</em> ⟶ <em>1.3.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/haskell2010">haskell2010</a> <span class="versions"><em>1.1.0.1</em> ⟶ <em>1.1.1.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/haskell98">haskell98</a> <span class="versions"><em>2.0.0.1</em> ⟶ <em>2.0.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/hpc">hpc</a> <span class="versions"><em>0.5.1.1</em> ⟶ <em>0.6.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/old-locale">old-locale</a> <span class="versions"><em>1.0.0.4</em> ⟶ <em>1.0.0.5</em></span></li>
-<li><a href="http://hackage.haskell.org/package/old-time">old-time</a> <span class="versions"><em>1.1.0.0</em> ⟶ <em>1.1.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/pretty">pretty</a> <span class="versions"><em>(same)</em> ⟶ <em>1.1.1.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/process">process</a> <span class="versions"><em>1.1.0.1</em> ⟶ <em>1.1.0.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/template-haskell">template-haskell</a> <span class="versions"><em>2.7.0.0</em> ⟶ <em>2.8.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/time">time</a> <span class="versions"><em>1.4</em> ⟶ <em>1.4.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/unix">unix</a> <span class="versions"><em>2.5.1.1</em> ⟶ <em>2.6.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/Win32">Win32</a> <span class="versions"><em>2.2.2.0</em> ⟶ <em>2.3.0.0</em></span></li>
-</ul>
-<p><strong><em>Additional Platform Libraries</em></strong></p>
-<ul>
-<li><a href="http://hackage.haskell.org/package/async">async</a> <span class="versions"><em>2.0.1.3</em> ⟶ <em>2.0.1.4</em></span></li>
-<li><a href="http://hackage.haskell.org/package/attoparsec">attoparsec</a> <span class="versions"><em>(new)</em> ⟶ <em>0.10.4.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/case-insensitive">case-insensitive</a> <span class="versions"><em>(new)</em> ⟶ <em>1.0.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/cgi">cgi</a> <span class="versions"><em>(same)</em> ⟶ <em>3001.1.7.5</em></span></li>
-<li><a href="http://hackage.haskell.org/package/fgl">fgl</a> <span class="versions"><em>(same)</em> ⟶ <em>5.4.2.4</em></span></li>
-<li><a href="http://hackage.haskell.org/package/GLUT">GLUT</a> <span class="versions"><em>2.1.2.1</em> ⟶ <em>2.4.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/GLURaw">GLURaw</a> <span class="versions"><em>(new)</em> ⟶ <em>1.3.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/hashable">hashable</a> <span class="versions"><em>(new)</em> ⟶ <em>1.1.2.5</em></span></li>
-<li><a href="http://hackage.haskell.org/package/haskell-src">haskell-src</a> <span class="versions"><em>(same)</em> ⟶ <em>1.0.1.5</em></span></li>
-<li><a href="http://hackage.haskell.org/package/html">html</a> <span class="versions"><em>(same)</em> ⟶ <em>1.0.1.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/HTTP">HTTP</a> <span class="versions"><em>4000.2.5</em> ⟶ <em>4000.2.8</em></span></li>
-<li><a href="http://hackage.haskell.org/package/HUnit">HUnit</a> <span class="versions"><em>1.2.5.1</em> ⟶ <em>1.2.5.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/mtl">mtl</a> <span class="versions"><em>(same)</em> ⟶ <em>2.1.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/network">network</a> <span class="versions"><em>2.3.1.0</em> ⟶ <em>2.4.1.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/OpenGL">OpenGL</a> <span class="versions"><em>2.2.3.1</em> ⟶ <em>2.8.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/OpenGLRaw">OpenGLRaw</a> <span class="versions"><em>(new)</em> ⟶ <em>1.3.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/parallel">parallel</a> <span class="versions"><em>(same)</em> ⟶ <em>3.2.0.3</em></span></li>
-<li><a href="http://hackage.haskell.org/package/parsec">parsec</a> <span class="versions"><em>(same)</em> ⟶ <em>3.1.3</em></span></li>
-<li><a href="http://hackage.haskell.org/package/QuickCheck">QuickCheck</a> <span class="versions"><em>2.5.1.1</em> ⟶ <em>2.6</em></span></li>
-<li><a href="http://hackage.haskell.org/package/random">random</a> <span class="versions"><em>(same)</em> ⟶ <em>1.0.1.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/regex-base">regex-base</a> <span class="versions"><em>(same)</em> ⟶ <em>0.93.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/regex-compat">regex-compat</a> <span class="versions"><em>(same)</em> ⟶ <em>0.95.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/regex-posix">regex-posix</a> <span class="versions"><em>(same)</em> ⟶ <em>0.95.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/split">split</a> <span class="versions"><em>0.2.1.1</em> ⟶ <em>0.2.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/stm">stm</a> <span class="versions"><em>2.4</em> ⟶ <em>2.4.2</em></span></li>
-<li><a href="http://hackage.haskell.org/package/syb">syb</a> <span class="versions"><em>0.3.7</em> ⟶ <em>0.4.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/text">text</a> <span class="versions"><em>0.11.2.3</em> ⟶ <em>0.11.3.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/transformers">transformers</a> <span class="versions"><em>(same)</em> ⟶ <em>0.3.0.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/unordered-containers">unordered-containers</a> <span class="versions"><em>(new)</em> ⟶ <em>0.2.3.0</em></span></li>
-<li><a href="http://hackage.haskell.org/package/vector">vector</a> <span class="versions"><em>(same)</em> ⟶ <em>0.10.0.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/xhtml">xhtml</a> <span class="versions"><em>(same)</em> ⟶ <em>3000.2.1</em></span></li>
-<li><a href="http://hackage.haskell.org/package/zlib">zlib</a> <span class="versions"><em>0.5.4.0</em> ⟶ <em>0.5.4.1</em></span></li>
-</ul>
-<p><strong><em>Programs and Tools</em></strong></p>
-<ul>
-<li><a href="http://hackage.haskell.org/package/cabal-install">cabal-install</a> <span class="versions"><em>0.14.0</em> ⟶ <em>1.16.0.2</em></span></li>
-<li><a href="http://haskell.org/alex">alex</a> <span class="versions"><em>3.0.2</em> ⟶ <em>3.0.5</em></span></li>
-<li><a href="http://haskell.org/happy">happy</a> <span class="versions"><em>(same)</em> ⟶ <em>1.18.10</em></span></li>
-<li><a href="http://haskell.org/haddock">haddock</a> <span class="versions"><em>2.11.0</em> ⟶ <em>2.13.2</em></span></li>
-</ul>
+<h2 id="changelog-for-the-haskell-platform">Package Vesions by Release</h2>
+<p>Versions of each package included in the Platform, by release of the
+Platform. Versions that are a new major revision for a given release of the
+platform are in black. Those that are the same, or just a minor revision are
+in grey.</p>
+
+{{#history}}
+  <table class="history">
+  <tr>
+    <td>&nbsp;</td>
+    {{#hpReleases}}
+      <td class="version">{{hpVersion}}</td>
+    {{/hpReleases}}
+  </tr>
+  {{#sections}}
+    <tr><td class="section" colspan="{{ncols}}">{{name}}</td></tr>
+    {{#components}}
+      <tr class="packageRow">
+        <td class="package"><a href="{{hackageUrl}}">{{package}}</td>
+        {{#releases}}
+          <td class="version {{class}}">{{version}}</td>
+        {{/releases}}
+      </tr>
+    {{/components}}
+  {{/sections}}
+  </table>
+{{/history}}
+
 {{> footer}}
 </body>
 </html>

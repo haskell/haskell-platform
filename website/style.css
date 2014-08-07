@@ -75,20 +75,32 @@ img{
 li {
     position: relative;
 }
-.versions {
-	width: 13em;
+
+.history {
+    border-spacing: 0;
+}
+.history .section {
+    font-weight: bold;
+    font-style: italic;
+    padding: 1em 0;
+}
+.packageRow .package {
+    padding: .125em 1em .125em 2em;
+}
+.packageRow:hover td {
+    background-color: #ffc;
+}
+.history .version {
+    color: #888;
     font-size: 80%;
-    position: absolute;
-    left: 16em;
+    width: 7em;
+    text-align: center
 }
-.versions em {
-	color: #888;
-	display: inline-block;
-	width: 5em;
-	font-style: normal;
+.history .version.current.update {
+    font-weight: bold;
 }
-.versions em + em {
-	color: #000;
+.history .version.update {
+    color: #000;
 }
 
 /* a, h1, */
