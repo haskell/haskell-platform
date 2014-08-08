@@ -42,18 +42,18 @@ releaseCtx (ver, (month, year), files) = mkStrContext ctx
     ctx "version" = MuVariable ver
     ctx "year" = MuVariable $ show year
     ctx "month" = MuVariable $ monthName month
-    ctx "files" = MuList $ map fileCtx files
+    ctx "files" = mapListContext fileCtx files
     ctx _ = MuNothing
 
 releasesCtx :: (Monad m) => [ReleaseFiles] -> MuContext m
 releasesCtx allRs = mkStrContext ctx
   where
-    ctx "years" = MuList $ map (mkStrContext . yearCtx) years
+    ctx "years" = mapListStrContext yearCtx years
     ctx _ = MuNothing
 
     yearCtx [] _ = MuBool False
     yearCtx (r0:_) "year" = MuVariable $ show $ releaseYear r0
-    yearCtx rs "releases" = MuList $ map releaseCtx rs
+    yearCtx rs "releases" = mapListContext releaseCtx rs
     yearCtx _ _ = MuNothing
 
     years = groupBy ((==) `on` releaseYear) allRs
@@ -74,7 +74,7 @@ historyCtx = mkStrContext outerCtx
     outerCtx "history" = MuList [mkStrContext ctx]
     outerCtx _ = MuNothing
 
-    ctx "hpReleases" = MuList $ map (mkStrContext . rlsCtx) releasesNewToOld
+    ctx "hpReleases" = mapListStrContext rlsCtx releasesNewToOld
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
         [ sectionCtx "Compiler"                            [isGhc, not . isLib]
@@ -91,7 +91,7 @@ sectionCtx :: (Monad m) => String -> [IncludeType -> Bool] -> MuContext m
 sectionCtx name tests = mkStrContext ctx
   where
     ctx "name" = MuVariable name
-    ctx "components" = MuList $ map (mkStrContext . pCtx) packages
+    ctx "components" = mapListStrContext pCtx packages
     ctx _ = MuNothing
 
     packages = sortOnLower . nub . map pkgName . concat $
@@ -103,8 +103,7 @@ sectionCtx name tests = mkStrContext ctx
     pCtx pName "package" = MuVariable pName
     pCtx pName "hackageUrl" =
         MuVariable $ "http://hackage.haskell.org/package/" ++ pName
-    pCtx pName "releases" =
-        MuList $ map (mkStrContext . pvCtx) $ packageVersionInfo pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo pName
     pCtx _ _ = MuNothing
 
     pvCtx (c, _) "class" = MuVariable c

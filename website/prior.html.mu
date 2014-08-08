@@ -15,13 +15,12 @@
 </tbody>
 </table>
 
-<p>Prior releases of Haskell Platform:</p>
 {{#years}}
   <h1 id="section">{{year}}</h1>
     {{#releases}}
       <p><strong>{{version}}</strong>, {{month}} {{year}} ⟹
         {{#files}}
-          <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">{{osNameAndArch}}</a> -
+          <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">{{osNameAndArch}}</a>{{^last}} - {{/last}}
         {{/files}}
       </p>
     {{/releases}}

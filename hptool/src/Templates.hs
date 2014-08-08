@@ -3,6 +3,7 @@
 module Templates
     ( ctxEmpty, ctxAppend, ctxConcat
     , errorCtx
+    , mapListContext, mapListStrContext
     , releaseContext, buildConfigContext, platformContext
     , copyExpandedFile, copyExpandedDir
     )
@@ -42,6 +43,29 @@ errorCtx t = return $ MuLambda $ const msg
     msg = "### unknown tag: " ++ decodeStr t ++ " ###"
 
 
+-- | Create a `MuList` by mapping a context creating function over a list.
+-- In addition, the context will be augmented to support tags "first" and "last"
+-- that are `MuBool` values, and "index" which is a `MuVariable` `Int`.
+mapListContext :: (Monad m) => (a -> MuContext m) -> [a] -> MuType m
+mapListContext fCtx vs = MuList . map ctx' . zip [1..] $ vs
+  where
+    ctx' (i,v) t = do
+        r <- fCtx v t
+        case r of
+            MuNothing -> (mkStrContext $ lCtx i) t
+            _         -> return r
+
+    n = length vs
+
+    lCtx :: Int -> String -> MuType m
+    lCtx i "first" = MuBool $ i == 1
+    lCtx i "last"  = MuBool $ i == n
+    lCtx i "index" = MuVariable i
+    lCtx _ _ = MuNothing
+
+mapListStrContext :: (Monad m) => (a -> String -> MuType m) -> [a] -> MuType m
+mapListStrContext fCtx = mapListContext (mkStrContext . fCtx)
+
 
 releaseContext :: Action (MuContext Action)
 releaseContext = askHpRelease >>= return . expandRelease
@@ -65,16 +89,11 @@ expandRelease rel = mkStrContext ex
 
     pkgsThat tests = packagesByIncludeFilter (\i -> all ($i) tests) rel
 
-    exPkgs pkgs = MuList $ map mkStrContext $ zipMarkLast exPkg pkgs
+    exPkgs = mapListStrContext exPkg
 
-    zipMarkLast _ [] = []
-    zipMarkLast f [p] = [f True p]
-    zipMarkLast f (p:ps) = f False p : zipMarkLast f ps
-
-    exPkg _ p "name" = MuVariable $ pad 30 $ pkgName p
-    exPkg _ p "version" = MuVariable $ showVersion $ pkgVersion p
-    exPkg c _ "comma" = MuVariable $ if c then "" else ","
-    exPkg _ _ t = error $ "exPkg: unexpected template tag " ++ t
+    exPkg p "name" = MuVariable $ pad 30 $ pkgName p
+    exPkg p "version" = MuVariable $ showVersion $ pkgVersion p
+    exPkg _ _ = MuNothing
 
     pad n s = s ++ replicate (n - length s) ' '
 

@@ -37,24 +37,24 @@ library
       -- Core libraries: provided by every ghc installation
       -- We don't include "non-API" packages here.
 {{#ghcLibs}}
-      {{name}} =={{version}}{{comma}}
+      {{name}} =={{version}}{{^last}},{{/last}}
 {{/ghcLibs}}
   if !os(windows)
     build-depends:
 {{#nonWindowsLibs}}
-      {{name}} =={{version}}{{comma}}
+      {{name}} =={{version}}{{^last}},{{/last}}
 {{/nonWindowsLibs}}
   else
     build-depends:
 {{#onlyWindowsLibs}}
-      {{name}} =={{version}}{{comma}}
+      {{name}} =={{version}}{{^last}},{{/last}}
 {{/onlyWindowsLibs}}
 
   build-depends:
     -- Libraries in addition to what GHC provides:
     -- Note: newer versions of cgi need monad-catchio.
 {{#platformLibs}}
-      {{name}} =={{version}}{{comma}}
+      {{name}} =={{version}}{{^last}},{{/last}}
 {{/platformLibs}}
 
     -- Libraries that are needed to support the above,
@@ -65,5 +65,5 @@ library
   -- We list them to help distro packaging.
   build-tools:
 {{#tools}}
-      {{name}} =={{version}}{{comma}}
+      {{name}} =={{version}}{{^last}},{{/last}}
 {{/tools}}
