@@ -15,14 +15,17 @@
 </tbody>
 </table>
 <p><img style="float:right;" src="images/windows.png" /> Download the Windows installer here:</p>
+
+{{#current}}
 <ul>
-<li><strong><a href="download/2013.2.0.0/HaskellPlatform-2013.2.0.0-setup.exe" onClick="javascript: pageTracker._trackPageview('/downloads/windows'); ">Haskell Platform 2013.2.0.0 for Windows</a></strong> <br /><small>SHA-1: <code>fe9a4eee2fe8839eb3b240f15a2af229a110e37f</code></small></li>
+  {{#files}}{{#isWindows}}
+  <li><p><strong><a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/win'); ">Haskell Platform {{version}} for {{osNameAndArch}}</a></strong>
+   {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
+  </p></li>
+  {{/isWindows}}{{/files}}
 </ul>
-<p>After downloading:</p>
-<ul>
-<li>Run the setup.exe program</li>
-<li>Follow the install instructions as prompted.</li>
-</ul>
+{{/current}}
+
 <hr />
 <p><a href="prior.html">Prior releases</a></p>
 {{> footer}}

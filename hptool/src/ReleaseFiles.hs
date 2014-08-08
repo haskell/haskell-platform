@@ -1,6 +1,8 @@
 module ReleaseFiles
     (
-      Version, Date, OSType, Arch, Url, Hash, FileInfo, ReleaseFiles
+      Version, Date, DistType(..), OS(..), Arch(..)
+    , Url, Hash, FileInfo, ReleaseFiles
+    , distName, distIsFor
     , releaseFiles
     , currentFiles
     , priorFiles
@@ -13,24 +15,45 @@ type Date = (Int,Int)
 jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec :: Int -> Date
 [ jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec ] = map (,) [1..12]
 
-type OSType = String
-type Arch = String
+data OS = OsLinux | OsOSX | OsWindows               deriving (Eq)
+data Arch = ArchI386 | ArchX86_64                   deriving (Eq)
+data DistType = DistBinary OS Arch | DistSource     deriving (Eq)
 type Url = String
 type Hash = String
-type FileInfo = (OSType, Maybe Arch, Url, Maybe Hash)
+type FileInfo = (DistType, Url, Maybe Hash)
 type ReleaseFiles = (Version, Date, [FileInfo])
 
-i386, x86_64 :: Arch
-i386 = "32bit"
-x86_64 = "64bit"
+distName :: DistType -> String
+distName (DistBinary os ar) = osName os ++ ", " ++ show (archBits ar) ++ "bit"
+distName DistSource = "Source"
+
+distIsFor :: OS -> DistType -> Bool
+distIsFor os (DistBinary os' _) = os == os'
+distIsFor _  DistSource         = False
+
+osName :: OS -> String
+osName OsLinux = "Linux"
+osName OsOSX = "Mac OS X"
+osName OsWindows = "Windows"
+
+archBits :: Arch -> Int
+archBits ArchI386 = 32
+archBits ArchX86_64 = 64
+
+
 
 lin, mac, win :: Arch -> Url -> Maybe Hash -> FileInfo
-lin a u mh = ("Linux", Just a, u, mh)
-mac a u mh = ("Mac OS X", Just a, u, mh)
-win a u mh = ("Windows", Just a, u, mh)
+lin a u mh = (DistBinary OsLinux a,   u, mh)
+mac a u mh = (DistBinary OsOSX a,     u, mh)
+win a u mh = (DistBinary OsWindows a, u, mh)
+
+i386, x86_64 :: Arch
+i386 = ArchI386
+x86_64 = ArchX86_64
+
 
 src :: Url -> Maybe Hash -> FileInfo
-src u mh = ("Source", Nothing, u, mh)
+src u mh = (DistSource, u, mh)
 
 nohash :: Maybe Hash
 nohash = Nothing

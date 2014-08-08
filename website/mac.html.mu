@@ -15,10 +15,17 @@
 </tbody>
 </table>
 <p><img style="float:right;" src="images/OS_X-Logo.png" /> Download the Mac OS X installer here:</p>
+
+{{#current}}
 <ul>
-<li><p><strong><a href="download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2032bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform 2013.2.0.0 for Mac OS X, 32 bit</a></strong> (10.6 or later) <br /><small>SHA-1: <code>15dd8762c9800308cb7cfdd16ea1a8e74988e06a</code></small></p></li>
-<li><p><strong><a href="download/2013.2.0.0/Haskell%20Platform%202013.2.0.0%2064bit.pkg" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); "> Haskell Platform 2013.2.0.0 for Mac OS X, 64 bit</a></strong> (10.6 or later) <br /><small>SHA-1: <code>89e6fb747816af69acabc5c04cee103257855614</code></small></p></li>
+  {{#files}}{{#isOSX}}
+  <li><p><strong><a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform {{version}} for {{osNameAndArch}}</a></strong> (10.6 or later)
+   {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
+  </p></li>
+  {{/isOSX}}{{/files}}
 </ul>
+{{/current}}
+
 <!--
 * <small>*Pick the 32-bit version, unless you have a specific reason to use the 64-bit version.*<br />
 The 32-bit one is slightly faster for most programs.<br />

@@ -22,18 +22,23 @@ websiteRules :: FilePath -> Rules ()
 websiteRules templateSite = do
     websiteDir */> \dst -> do
         bcCtx <- buildConfigContext
-        let rlsCtx = releasesCtx priorFiles
+        let rlsCtx = releasesCtx
             ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
 
 
 fileCtx :: (Monad m) => FileInfo -> MuContext m
-fileCtx (os, mArch, url, mHash) = mkStrContext ctx
+fileCtx (dist, url, mHash) = mkStrContext ctx
   where
-    ctx "osName" = MuVariable os
-    ctx "osNameAndArch" = MuVariable $ os ++ maybe "" (\a -> ", " ++ a) mArch
+    ctx "osNameAndArch" = MuVariable $ distName dist
     ctx "url" = MuVariable url
     ctx "mHash" = maybe (MuBool False) MuVariable mHash
+
+    ctx "isOSX"     = MuBool $ distIsFor OsOSX     dist
+    ctx "isWindows" = MuBool $ distIsFor OsWindows dist
+    ctx "isLinux"   = MuBool $ distIsFor OsLinux   dist
+    ctx "isSource"  = MuBool $ dist == DistSource
+
     ctx _ = MuNothing
 
 releaseCtx :: (Monad m) => ReleaseFiles -> MuContext m
@@ -45,10 +50,11 @@ releaseCtx (ver, (month, year), files) = mkStrContext ctx
     ctx "files" = mapListContext fileCtx files
     ctx _ = MuNothing
 
-releasesCtx :: (Monad m) => [ReleaseFiles] -> MuContext m
-releasesCtx allRs = mkStrContext ctx
+releasesCtx :: (Monad m) => MuContext m
+releasesCtx = mkStrContext ctx
   where
     ctx "years" = mapListStrContext yearCtx years
+    ctx "current" = MuList [releaseCtx currentFiles]
     ctx _ = MuNothing
 
     yearCtx [] _ = MuBool False
@@ -56,7 +62,8 @@ releasesCtx allRs = mkStrContext ctx
     yearCtx rs "releases" = mapListContext releaseCtx rs
     yearCtx _ _ = MuNothing
 
-    years = groupBy ((==) `on` releaseYear) allRs
+    years = groupBy ((==) `on` releaseYear) priorFiles
+
 
 releaseYear :: ReleaseFiles -> Int
 releaseYear (_ver, (_month, year), _files) = year

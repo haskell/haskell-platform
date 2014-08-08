@@ -14,7 +14,22 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Community-supported versions of the Haskell Platform on Linux and Unix</strong></p>
+
+<p>There are three ways to get Haskell Platform for Linux, BSD, and other Posix
+style systems:</p>
+<ul>
+    <li><a href="#community">Community Distribution:</a> The platform packaged up
+        for the package management systems of various OS distributions. This is
+        the easiest way to install the platform, but the version available in your
+        OSes repositories may lag behind the current platform release.</li>
+    <li><a href="#binary">Binary Distribution:</a> A build for Deb 7 style systems.
+        Should work for up-to-date systems, including Ubuntu 12 and 14.</li>
+    <li><a href="#source">Source Distribution:</a> Build the platform on your
+        system. Requires a pre-existing, working haskell system.</li>
+</ul>
+<hr />
+
+<h2 id=community">Community-supported versions of the Haskell Platform on Linux and Unix</h2>
 <p>These distributions offer the Haskell Platform in their package repositories. You can easily install the Haskell Platform through your distribution's native package manager.</p>
 <table>
 <tbody>
@@ -45,36 +60,53 @@
 </tbody>
 </table>
 <p>See also: <em><a href="http://justhub.org/">justhub</a></em>, for RHEL, CentOS, Scientific Linux, and Fedora support</p>
+
 <hr />
-<h2 id="build-from-source">Build from source</h2>
-<p>Download the source tarball for Unix-like systems: here</p>
+
+<h2 id="binary">Generic Linux Binaries</h2>
+<p>For generic, Deb 7, style systems, you can use this binary distribution:</p>
+
+{{#current}}
 <ul>
-<li><img src="icons/source.png" /> <strong><a href="download/2013.2.0.0/haskell-platform-2013.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">haskell-platform-2013.2.0.0.tar.gz</a></strong> <br /><small>SHA-1: <code>8669bb5add1826c0523fb130c095fb8bf23a30ce</code></small></li>
+  {{#files}}{{#isLinux}}
+  <li><p><strong><a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/linux'); ">Haskell Platform {{version}} for {{osNameAndArch}}</a></strong>
+   {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
+  </p></li>
+  {{/isLinux}}{{/files}}
 </ul>
-<p>Get and install GHC 7.6.3 prior to building the platform:</p>
+{{/current}}
+
+<p>To install this, run:</p>
+<pre><code>    cd /
+    sudo tar xvf ...downloaded-tarfile...
+    sudo /usr/local/haskell/ghc-{{ghcVersion}}-x86-64/bin/activate-hs</code></pre>
+
+<p>Notes:</p>
 <ul>
-<li><a href="http://www.haskell.org/ghc/download_ghc_7_6_3">GHC 7.6.3</a></li>
+    <li>Built on Ubuntu 12.04LTS</li>
+    <li>Tested on Ubuntu 14</li>
+    <li>Your system may need additional library packages installed to work</li>
+    <li>Your system needs libgmp.so.10, and may require a symlink from libgmp.so to libgmp.so.10</li>
 </ul>
-<p>Finally, unpack the Haskell Platform source tarball, and run (possibly with <tt>sudo</tt>):</p>
-<pre><code>    ./configure
-    make
-    make install</code></pre>
-<p>You may pass the <tt>--prefix</tt> flag to <tt>./configure</tt> to change the default install path.</p>
-<p>There is also a <a href="https://github.com/haskell/haskell-platform/blob/master/src/generic/tarball/README">README</a> file in the tarball with more detailed information on building.</p>
-<!--
-**Build from cabal**
 
-If you already have a reasonable Haskell development environment with
-GHC 7.0.2 or later and cabal-install, you can build the platform from the Cabal
-package alone.
+<hr />
 
-![](icons/cabal.png)
-<a href="2010.2.0.0/cabal/haskell-platform-2010.2.0.0.tar.gz" onClick="javascript: pageTracker._trackPageview('/downloads/cabal'); ">Haskell Platform Cabal Package</a>
+<h2 id="source">Build from source</h2>
+<p>Download the source tarball for Unix-like systems:</p>
 
-To install, unpack the cabal tarball, and run:
+{{#current}}
+<ul>
+  {{#files}}{{#isSource}}
+  <li><p><strong><a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">Haskell Platform {{version}} for {{osNameAndArch}}</a></strong>
+   {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
+  </p></li>
+  {{/isSource}}{{/files}}
+</ul>
+{{/current}}
 
-        cabal install
- -->
+<p>See the <code>README</code> file in the tarball for instructions.</p>
+
+
 
 <hr />
 <p><a href="prior.html">Prior releases</a></p>
