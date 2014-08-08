@@ -22,7 +22,7 @@ websiteRules :: FilePath -> Rules ()
 websiteRules templateSite = do
     websiteDir */> \dst -> do
         bcCtx <- buildConfigContext
-        let rlsCtx = releasesCtx releaseFiles
+        let rlsCtx = releasesCtx priorFiles
             ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
 
