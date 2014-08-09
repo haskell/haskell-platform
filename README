@@ -78,7 +78,7 @@ packages.
 
 If you are building for a Posix like system (linux, or BSD), then you can add
 the command line option --prefix to sepecify where, on the target system the
-tree of built things will be placed. If defaults to "/usr/loca/haskell".  The
+tree of built things will be placed. If defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
 everything will be installed under there.
 
@@ -98,7 +98,7 @@ to the target system and install it.
 For Posix like systems, the built product is a tarball, which should be unpacked
 at / (it includes the prefix spec'd in the build). Then, on the target, you
 must run the activate-hs script in the installed bin dir, usually:
-  /usr/loca/haskell/ghc-x.y.z-arch/bin/activate-hs
+  /usr/local/haskell/ghc-x.y.z-arch/bin/activate-hs
 That script will do the final package registrations, and symlink all the command
 line tools (ghc, haddock, etc..) into /usr/local/bin. Run the script with -n or
 -? to find out more.
