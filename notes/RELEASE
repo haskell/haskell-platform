@@ -28,9 +28,9 @@ T0
 
 = Process =
 
- [] Start a NOTES file for the release
-  [] archive changelog.markdown to changelog-xxxx.markdown
-  [] reset changelog.markdown for new versions
+ [] Create a new release in hptool/src/Release20xx.hs
+    [] may have to update hptool/src/Release.hs to include it
+    [] change hpRelease value in hptool/src/Main.hs to use it
 
  [] Update package versions
      * Libraries shipped with GHC.
@@ -40,68 +40,68 @@ T0
           find . -name tests -prune -type f -o  -name '*.cabal'
             | xargs grep -i version: | grep -v -i cabal-version
 
-        [] update haskell-platform.cabal
+        [] update release data in hptool/src/Release20xx.hs
 
      * External libraries to latest stable version
-        * set up to build macos, and run
-            make rewrap
-        * copy over haskell-platform.cabal to an empty directory
-        * remove all the version constraints on non-GHC packages
-        * uncomment all the version constraints on the GHC packages
-        * set as appropriate:
-            DIST=../hp-github/src/macos/dist-i386
-        * run
-            PATH=$DIST/bin:$PATH cabal instal \
-                --only-dependencies --upgrade-dependencies\
-                --package-db=$DIST/package.conf.d --dry-run
-        * this will solve for a consistent set of versions!
-
-        [] update haskell-platform.cabal
-
- * check and follow up on changes to visible packages.
- * check unix package builds
-    * update configure.ac with version number
-    * update required GHC version
-    * update README w/GHC version
- * bump version number in .cabal file
- # put up .cabal file
-
- # check clean room builds
- # check windows installer
- # check mac installer
-
- - update content on lambda.galois.com
- # push web page with new urls.
- # publish reddit links with CDN.
-
- * in the future
-   * the .cabal file should spec the GHC packages (rather than commented out)
-     but these should be under a "manual" flag to allow use with non-HP GHC's
+        [] update release data in hptool/src/Release20xx.hs
 
 ------------------------------------------------------------------------
 = Site =
 
-[] Edit info in upper-right of index.html
 [] Update release schedule for current and next release on wiki:
    http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable
-[] add a new section to prior.markdown for previously current release
-  [] move the download links there
+[] add new data in hptool/src/ReleaseFile.hs for new release files
+
 [] on lambda.haskell.org
   [] create /var/www/platform/download/<version>
   [] copy installers there
   [] create md5sum.txt:
     md5sum [hH]* > md5sum.txt
 [] update windows.markdown, mac.markdown, and linux.markdown
-  [] update the download link
-  [] update the number of the release
-  [] for linux, update the link to GHC binary download page
-[] update the GHC version and info on contents.markdown
+  [] update notes
+
 [] make the doc
-  [] install the platform on a machine
-  [] cd /Library/Haskell/doc
-  [] tar czvLf ~/hp-doc-<ver>.tgz *
-  [] untar that somewhere and clean it up:
-    [] find packages -name 'bin' -o -name 'lib' | xargs rm -rf
+  [] from a mac build:
+
+      TARGET=../hp-github/build/target
+      HPDIR=$TARGET/Library/Haskell/ghc-7.8.3-x86_64
+      GHCDIR=$TARGET/Library/Frameworks/GHC.framework/Versions/7.8.3-x86_64
+      mkdir webdoc
+      cd webdoc
+      cp -pr $TARGET/usr/share/doc/ghc/html ghc
+      mkdir platform
+      (cd $HPDIR ; find doc lib/*/doc | cpio -o) | (cd platform ; cpio -idv)
+
+  [] to find errant links:
+      NL=$'\n'
+      MAGICPAT="s/href=[\"']\\/\\([^\"']*\\)[^\"']/\\$NL### \\1\\$NL/g"
+      find . -name '*.html' | xargs cat | sed -e "$MAGICPAT" | grep '^###' | sort -u
+
+       this found
+  [] fix the links:
+
+        in platform/doc/*.html has links to /Library... that need fixing
+
+            /Library/Frameworks/GHC.framework/Versions/7.8.3-x86_64/usr/share/doc/ghc/html
+            --> ../../ghc
+            /Library/Haskell/ghc-7.8.3-x86_64
+            --> ..
+
+
+            cd platform/doc
+            sed  -e 's:/Library/Frameworks/GHC.framework/Versions/7.8.3-x86_64/usr/share/doc/ghc/html:../../ghc:g' -e 's:/Library/Haskell/ghc-7.8.3-x86_64:..:g' -i .bak *.html
+            rm *.bak
+
+        in platform/lib/*/doc/html/*.html has links to /User... that need fixing
+
+            /Users/markl/Projects/A/platform/hp-github/build/ghc-bindist/local/share/doc/ghc/html
+            --> ../../../../../ghc
+
+            /Users/markl/Projects/A/platform/hp-github/build/package/([-_.a-zA-Z0-9]*)/build/dist/doc/html/[-_a-zA-Z0-9]*
+            --> ../../../\1/doc/html
+
+            find platform/lib -name '*.html' | xargs -I '{}' sed -e 's:/Users/markl/Projects/A/platform/hp-github/build/ghc-bindist/local/share/doc/ghc/html:../../../../../ghc:g' -e 's:/Users/markl/Projects/A/platform/hp-github/build/package/\([-_.a-zA-Z0-9]*\)/build/dist/doc/html/[-_a-zA-Z0-9]*:../../../\1/doc/html:g' -i '' '{}'
+
     [] remove mac stuff from start.html
     [] retar it back up
   [] get that tarball onto lambda
@@ -124,14 +124,4 @@ T0
   lambda.haskell.org
   /var/www/platform/doc/<release>
 
-
-= Older Notes =
-
- * a better format for Change List:
-   * clear indications for new / major update / minor update / same / dropped
-   * someway to include release notes from the packages themselves
-   * more automation for the generation of this information
-     (currently too much manual process)
-   * historical change lists should be in web site
-     (rather than just repo history)
 
