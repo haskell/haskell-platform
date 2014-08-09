@@ -4,7 +4,7 @@
       {{> header}}
       <title>Download Haskell</title>
   </head>
-  <body id="index" class="spring">
+  <body id="index" class="summer">
 
     <!-- Download box !-->
 
@@ -13,7 +13,7 @@
 
        <h1>The Haskell Platform</h1>
 
-           <img id="logo" src="images/download-winter.png" alt="Haskell homepage">
+           <img id="logo" src="images/download-summer.png" alt="Haskell homepage">
        <br />
 
         <div class="platforms">
@@ -106,27 +106,19 @@
             Current release: <a href="changelog.html">{{hpVersion}}</a>
         </p>
         <p>
-            <b>New packages</b>
-            <br />attoparsec
-            <br />case-insensitive,
-            <br />hashable
-            <br />unordered-containers
+            <b>New GHC:</b> {{ghcVersion}}
+            <br /><b>Major update:</b>OpenGL and GLUT
         </p>
         <p>
-            <b>Major update</b>
-            <br />OpenGL and GLUT
-        </p>
-        <p>
-            Next release: <a href="http://trac.haskell.org/haskell-platform/wiki/ReleaseTimetable">2013.4.0.0</a>
-            <br />
-            <a href="prior.html">Prior releases</a>
+            <a href="prior.html">Prior releases</a><br />
+            <a href="https://github.com/haskell/haskell-platform/wiki/ReleaseTimetable">Future schedule</a>
         </p>
         <p>
             <a href="http://haskell.org/haskellwiki/Haskell_Platform">Problems?</a>
             <br />
-            <a href="doc/2013.2.0.0/start.html">Documentation</a>
+            <a href="doc/{{hpVersion}}/start.html">Documentation</a>
             <br />
-            <a href="doc/2013.2.0.0/frames.html">Library Doc</a>
+            <a href="doc/{{hpVersion}}/platform/doc/frames.html">Library Doc</a>
         </p>
     </div>
 

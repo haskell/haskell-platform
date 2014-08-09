@@ -19,9 +19,9 @@
 </ul>
 <p>The following components are provided in the latest revision of The Platform (see the <a href="changelog.html">Changelog</a>):</p>
 <h2 id="compiler-and-runtime">Compiler and Runtime</h2>
-<p><strong><a href="http://haskell.org/ghc">GHC</a> 7.6.3</strong></p>
+<p><strong><a href="http://haskell.org/ghc">GHC</a></strong></p>
 <p>The state-of-the-art optimizing native code compiler for Haskell.</p>
-<p><strong><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html">GHCi</a> 7.6.3</strong></p>
+<p><strong><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html">GHCi</a></strong></p>
 <p>A bytecode interpreter and interactive REPL environment for Haskell</p>
 <p><strong>The GHC runtime</strong></p>
 <p>A multicore language runtime (virtual machine), providing fast lightweight threads, parallel sparks and futures, software transactional memory, core affinity control, a parallel garbage collector, and much more.</p>
@@ -45,7 +45,7 @@
 <p>The Platform provides HPC - a professional-grade tool generating code coverage information and statistics for Haskell. Code coverage information can tell you how good your test suite is, or what part of your code is executing at any given time.</p>
 <h2 id="packages-and-documentation">Packages and Documentation</h2>
 <ul>
-<li><a href="doc/2013.2.0.0/start.html">Read the documentation</a></li>
+<li><a href="doc/{{hpVersion}}/start.html">Read the documentation</a></li>
 </ul>
 {{> footer}}
 </body>
