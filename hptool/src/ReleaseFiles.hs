@@ -70,8 +70,8 @@ releaseFiles =
     [ ("2014.2.0.0", aug 2014,
         [ lin x86_64    "download/2014.2.0/haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz" $ sha256 "0da6879ae657481849e7ec4e5d3c4c035e090824167f97434b48af297ec17cf9"
         , mac x86_64    "download/2014.2.0/Haskell%20Platform%202014.2.0%2064bit.signed.pkg"        $ sha256 "62f39246ad95dd2aed6ece5138f6297f945d2b450f215d074820294310e0c48a"
-        , win i386      "download/2014.2.0/HaskellPlatform-2014.2.0-i386-setup.exe"                 $ sha256 "975e014d53cfdb84036889923d6e9598e4623baa9c69d53dc4d9372fe100cf95"
-        , win x86_64    "download/2014.2.0/HaskellPlatform-2014.2.0-x86_64-setup.exe"               $ sha256 "05b39901cdc43de335583c461bcd77c0d8dd5765ab195ad387a0dc774a43bee2"
+        , win i386      "download/2014.2.0/HaskellPlatform-2014.2.0-i386-setup.exe"                 $ sha256 "719bd61329d1cd8c015c700661c7ba02f17c0c1c4a9e87495270132a5be3bbc4"
+        , win x86_64    "download/2014.2.0/HaskellPlatform-2014.2.0-x86_64-setup.exe"               $ sha256 "11f09ed6492441d4b3ed61f04614c09ca88244fa18e248f5f22804c9a7bda116"
         , src           "download/2014.2.0/haskell-platform-2014.2.0-srcdist.tar.gz"                $ sha256 "ab759ec50618f2604163eca7ad07e50c8292398a2d043fdc1012df161b2eb89a"
         ])
 
