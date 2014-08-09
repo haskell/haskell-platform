@@ -27,6 +27,22 @@
 {{/current}}
 
 <hr />
+<h2>Release Notes:</h2>
+<ul>
+    <li>Windows release now comes in 32bit and 64bit versions.</li>
+    <li>If you have other Haskell Platform installations or had hand-installed
+        Haskell in the past, please check your PATH variable after the
+        installation and be sure it is what your expect.</li>
+    <li>Using ghci to build an executable that links against a DLL may result in
+        numerous warnings about symbols (GHC ticket #9297)</li>
+    <li>This distribution includes GHC 7.8.3, which in turn includes MinGW.</li>
+    <li>This distribution includes an updated version of the OpenGL Utility
+        Toolkit (GLUT) from the <a href="http://www.transmissionzero.co.uk/software/freeglut-devel/">FreeGLUT project</a></li>
+    <li>Due to how GHC works on Windows, the platform libraries are not built
+        split-objs, don't use dynamic libraries, and don't use LLVM.</li>
+</ul>
+
+<hr />
 <p><a href="prior.html">Prior releases</a></p>
 {{> footer}}
 </body>
