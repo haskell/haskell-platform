@@ -147,10 +147,6 @@ TO DO
 [ ] does generated haddock...
     [ ] have hscolour'd source?
 
-[ ] change how IncludeType encodes GHC-ness:
-    IncGhc & IncGhcLib ---> IncGhc IncludeType
-    - this way, we can include tools from GHC
-
 [ ] templatize /website pages
     [ ] figure out how to pass download hash info
     [ ] main download pages: mac, linux, windows

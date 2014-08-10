@@ -70,6 +70,6 @@ hp2014_2_0_0 =
         , incTool "happy"                   "1.19.4"
 
         , incTool "hscolour"                "1.20.3"
---        , incTool "haddock"                 "2.14.2" -- comes from ghc
+        , incGHCTool "haddock"              "2.14.2"
         ]
 

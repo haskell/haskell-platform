@@ -1,6 +1,6 @@
 module PlatformDB
     ( release,
-      incGHC, incGHCLib, incLib, incTool,
+      incGHC, incGHCLib, incGHCTool, incLib, incTool,
       notWindows, onlyWindows,
 
       allPackages,
@@ -34,6 +34,10 @@ incGHCLib = buildInc IncGHCLib
 -- | An include entry for a lib that is supplied by the platform
 incLib :: PackageName -> String -> Include
 incLib = buildInc IncLib
+
+-- | An include entry for a tool that is supplied with GHC
+incGHCTool :: PackageName -> String -> Include
+incGHCTool = buildInc IncGHCTool
 
 -- | An include entry for a tool that is supplied with the platform
 incTool :: PackageName -> String -> Include
@@ -70,6 +74,7 @@ platformPackages = packagesByIncludeFilter (not . isGhc)
 isGhc, isWindows, isNotWindows, isLib, isTool :: IncludeType -> Bool
 isGhc IncGHC = True
 isGhc IncGHCLib = True
+isGhc IncGHCTool = True
 isGhc i = isIncRecurse isGhc i
 
 isWindows (IncIfWindows _) = True
@@ -82,6 +87,7 @@ isLib IncGHCLib = True
 isLib IncLib = True
 isLib i = isIncRecurse isLib i
 
+isTool IncGHCTool = True
 isTool IncTool = True
 isTool i = isIncRecurse isTool i
 

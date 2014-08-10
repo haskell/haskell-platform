@@ -61,7 +61,7 @@ instance Show Package where
 
 
 -- | How a package is included in the platform.
-data IncludeType = IncGHC | IncGHCLib | IncLib | IncTool
+data IncludeType = IncGHC | IncGHCLib | IncGHCTool | IncLib | IncTool
                  | IncIfWindows IncludeType
                  | IncIfNotWindows IncludeType
   deriving (Eq, Read, Show)

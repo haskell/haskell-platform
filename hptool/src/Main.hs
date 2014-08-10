@@ -93,6 +93,7 @@ whatIsIncluded = map concat . map includeToString . relIncludes where
     includeToString (IncGHCLib, p)   = "GHCLib: " : [show p]
     includeToString (IncLib, p)      = "LIB:    " : [show p]
     includeToString (IncTool, p)     = "TOOL:   " : [show p]
+    includeToString (IncGHCTool, p)  = "TOOL:   " : [show p]
     includeToString (IncIfWindows it, p) =
                                        "IfWindows:    " : includeToString (it,p)
     includeToString (IncIfNotWindows it, p) =
