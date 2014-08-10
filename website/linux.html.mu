@@ -39,12 +39,11 @@ style systems:</p>
 <td align="left"><img src="icons/fedora.png" /> <a href="https://apps.fedoraproject.org/packages/haskell-platform">Fedora</a></td>
 </tr>
 <tr class="even">
-<td align="left"><img src="icons/arch.png" /> <a href="http://www.archlinux.org/packages/extra/i686/haskell-platform/">Arch Linux</a></td>
 <td align="left"><img src="icons/gentoo.png" /> <a href="http://www.haskell.org/haskellwiki/Gentoo/HaskellPlatform">Gentoo</a></td>
 <td align="left"><img src="icons/nixos.png" /> <a href="http://hydra.nixos.org/job/nixpkgs/trunk/haskellPlatform">NixOS</a></td>
+<td align="left"><img src="icons/openbsd.png" /> <a href="http://openports.se/meta/haskell-platform">OpenBSD</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><img src="icons/openbsd.png" /> <a href="http://openports.se/meta/haskell-platform">OpenBSD</a></td>
 <td align="left"><img src="icons/freebsd.png" /> <a href="http://www.freshports.org/devel/hs-haskell-platform/">FreeBSD</a></td>
 <td align="left"><img src="icons/mint.png" /> <a href="http://community.linuxmint.com/software/view/haskell-platform">Mint</a></td>
 </tr>
@@ -54,6 +53,7 @@ style systems:</p>
 <table>
 <tbody>
 <tr class="odd">
+<td align="left"><img src="icons/arch.png" /> <a href="https://wiki.archlinux.org/index.php/Haskell#Haskell_platform">Arch Linux</a></td>
 <td align="left"><img src="icons/opensuse.png" /> <a href="https://build.opensuse.org/project/show?project=devel:languages:haskell">openSUSE</a></td>
 <td align="left"><img src="icons/mandriva.png" /> <a href="http://wiki.mandriva.com/en/Development/Tasks/Packaging/Policies/Haskell">Mandriva</a></td>
 </tr>
@@ -75,6 +75,13 @@ style systems:</p>
   {{/isLinux}}{{/files}}
 </ul>
 {{/current}}
+
+<blockquote>
+<small>
+<b>Success reported with:</b> Mint 17, Ubuntu 12, Ubunutu 14
+</br><b>Reported incompatible with:</b> Fedora 20
+</small>
+</blockquote>
 
 <p>To install this, run:</p>
 <pre><code>    cd /

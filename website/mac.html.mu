@@ -43,7 +43,7 @@
     executables, b) it includes Cabal-1.18.1.4 which fixes a particularly nasty
     problem with haddock, -XCPP, and clang based systems. This ghc-7.8.3 bindist
     is already incorporated into the installer above, but for reference is
-    available here: <a href="download/2014.2.0/ghc-7.8.3-x86_64-apple-darwin-r3.tar.bz2">ghc-7.8.3-x86_64-apple-darwin-r3.tar.bz2</a></li>
+    available here: <a href="download/2014.2.0.0/ghc-7.8.3-x86_64-apple-darwin-r3.tar.bz2">ghc-7.8.3-x86_64-apple-darwin-r3.tar.bz2</a></li>
 
   <li>Includes a new experimental <code>activate-hs</code> command that can
     switch between multiple installed versions of the platform</li>
