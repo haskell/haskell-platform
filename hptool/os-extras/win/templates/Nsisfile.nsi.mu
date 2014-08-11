@@ -75,12 +75,22 @@ CheckAdminDone:
   ;--------------------------------
   ;Win 64-bit support
 
-!macro do64Stuff
+!macro do64Stuff isInstall
   ; The NSIS installer is a 32-bit executable, but it can do a 64-bit install.
   ; Default to 32-bit, change if installing 64-bit on 64-bit.
+  ;
+  ; The 'isInstall' argument is 1 for the install part of the script (from
+  ; .onInit function) and 0 if for the uninstall part (via un.onInit).  The
+  ; $INSTDIR must be changed for the installation step to account for the case
+  ; of installing the 32-bit installer onto 64-bit Windows; and and it must
+  ; happen before the user gets to the dialog to change installation location.
+  ; On the other hand, $INSTDIR must *not* be changed for the uninstall step
+  ; because doing so over-rides what the user did during the install step.
 SetRegView 32
 StrCpy $PROGRAM_FILES "$PROGRAMFILES"
-StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+${If} ${isInstall} = 1
+  StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+${EndIf}
 {{#build64bit}}
 ${If} ${RunningX64}
   ; If this is installing the 64-bit HP on 64-bit Windows, enable FSRedirection.
@@ -88,7 +98,9 @@ ${If} ${RunningX64}
   ; enable access to 64-bit portion of registry
   SetRegView 64
   StrCpy $PROGRAM_FILES "$PROGRAMFILES64"
+${If} ${isInstall} = 1
   StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+${EndIf}
 ${Else}
 ;     pop up an error message: Cannot install 64-bit HP on 32-bit Windows
     MessageBox MB_OK "You are trying to install the 64-bit version of the Haskell Platform onto a 32-bit version of Windows.  Please use the 32-bit version of the Haskell Platform."
@@ -150,14 +162,14 @@ SetRegView 64
 ;Callbacks
 
 Function .onInit
-  !insertmacro do64Stuff
+  !insertmacro do64Stuff 1
   !insertmacro CheckAdmin "installer"
   !insertmacro CheckOtherInstalls
   SetShellVarContext all
 FunctionEnd
 
 Function un.onInit
-  !insertmacro do64Stuff
+  !insertmacro do64Stuff 0
   !insertmacro CheckAdmin "uninstaller"
   SetShellVarContext all
 FunctionEnd
