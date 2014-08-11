@@ -78,6 +78,14 @@ CheckAdminDone:
 !macro do64Stuff isInstall
   ; The NSIS installer is a 32-bit executable, but it can do a 64-bit install.
   ; Default to 32-bit, change if installing 64-bit on 64-bit.
+  ;
+  ; The 'isInstall' argument is 1 for the install part of the script (from
+  ; .onInit function) and 0 if for the uninstall part (via un.onInit).  The
+  ; $INSTDIR must be changed for the installation step to account for the case
+  ; of installing the 32-bit installer onto 64-bit Windows; and and it must
+  ; happen before the user gets to the dialog to change installation location.
+  ; On the other hand, $INSTDIR must *not* be changed for the uninstall step
+  ; because doing so over-rides what the user did during the install step.
 SetRegView 32
 StrCpy $PROGRAM_FILES "$PROGRAMFILES"
 ${If} ${isInstall} = 1
