@@ -3,6 +3,7 @@
 quiet=no
 verbose=no
 dryrun=no
+skip=no
 
 msg=""
 
@@ -15,12 +16,13 @@ ghcRoot=""
 ###
 
 usage() {
-    echo "$0 [-q | -v] [-n] [-p dir] [ghc-root]"
+    echo "$0 [-q | -v] [-n] [-p dir] [-s] [ghc-root]"
     echo "    -q | --quiet      supress informational output"
     echo "    -v | --verbose    print actions as they are taken"
     echo "    -n | --dryrun     don't actually do anything (implies -v)"
     echo "    -p | --prefix     tree to sym-link executables, man pages, etc"
     echo "                      (defaults to /usr/local)"
+    echo "    -s | --skip       skip linking (register packages only)"
     echo ""
     echo "    ghc-root    directory containing ghc tree"
 }
@@ -34,6 +36,7 @@ do
         -v|--verbose)   quiet=no ; verbose=yes ;;
         -n|--dryrun)    dryrun=yes ;;
         -p|--prefix)    prefix="$2" ; shift ;;
+        -s|--skip)      skip=yes ;;
         -\?|--help)     usage ; exit 0 ;;
         -*)             echo "Unknown flag $1" ; usage ; exit 1 ;;
         *)  if [ -z "$ghcRoot" ] ; then
@@ -114,9 +117,11 @@ symLinkInto() {
 ### Set up bindir links
 ###
 
-symLinkInto "$ghcRoot"/bin/* "$prefix/bin"
-symLinkInto "$ghcRoot"/share/man/man1/* "$prefix/share/man/man1"
-symLinkInto "$ghcRoot"/share/doc/ghc "$prefix/share/doc"
+if [ "$skip" = "no" ] ; then
+    symLinkInto "$ghcRoot"/bin/* "$prefix/bin"
+    symLinkInto "$ghcRoot"/share/man/man1/* "$prefix/share/man/man1"
+    symLinkInto "$ghcRoot"/share/doc/ghc "$prefix/share/doc"
+fi
 
 
 ###
@@ -145,7 +150,9 @@ if [ "$quiet" = "no" ] ; then
     echo "    Haddocks    file://$ghcRoot/doc/frames.html"
     echo "    Other doc   file://$ghcRoot/share/doc/ghc/html/index.html"
     echo
-    echo "Symlinks for command line tools (ghc, cabal, etc..) ${tense}added to:"
-    echo "    $prefix/bin"
-    echo
+    if [ "$skip" = "no" ] ; then
+        echo "Symlinks for command line tools (ghc, cabal, etc..) ${tense}added to:"
+        echo "    $prefix/bin"
+        echo
+    fi
 fi
