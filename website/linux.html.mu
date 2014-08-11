@@ -86,7 +86,7 @@ style systems:</p>
 <p>To install this, run:</p>
 <pre><code>    cd /
     sudo tar xvf ...downloaded-tarfile...
-    sudo /usr/local/haskell/ghc-{{ghcVersion}}-x86-64/bin/activate-hs</code></pre>
+    sudo /usr/local/haskell/ghc-{{ghcVersion}}-x86_64/bin/activate-hs</code></pre>
 
 <p>Notes:</p>
 <ul>
