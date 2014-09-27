@@ -9,28 +9,38 @@ releases2014 = [hp2014_2_0_0]
 hp2014_2_0_0 :: Release
 hp2014_2_0_0 =
     release "2014.2.0.0"
-        [ incGHC                            "7.8.3"
+        [
+        -- ./ghc-7.8.3/inplace/bin/ghc-pkg --no-user-package-db list
+        , incGHCLib "Cabal"                 "1.18.1.3"
         , incGHCLib "array"                 "0.5.0.0"
         , incGHCLib "base"                  "4.7.0.1"
+        --, "bin-package-db"                  "0.0.0.0" -- GHC specific
+        --, incGHCLib "binary"                "0.7.1.0" -- GHC specific
         , incGHCLib "bytestring"            "0.10.4.0"
-        , incGHCLib "Cabal"                 "1.18.1.3"
         , incGHCLib "containers"            "0.5.5.1"
         , incGHCLib "deepseq"               "1.3.0.2"
         , incGHCLib "directory"             "1.2.1.0"
         , incGHCLib "filepath"              "1.3.0.2"
+        , incGHC                            "7.8.3"
+        --, incGHCLib "ghc-prim"              "0.3.1.0" -- GHC specific
+        --, incGHCLib "haskeline"             "0.7.1.2" -- GHC specific
         , incGHCLib "haskell2010"           "1.1.2.0"
         , incGHCLib "haskell98"             "2.0.0.3"
+        --, incGHCLib "hoopl"                 "3.10.0.1" -- GHC specific
         , incGHCLib "hpc"                   "0.6.0.1"
+        --, incGHCLib "integer-gmp"           "0.5.1.0" -- GHC specific
         , incGHCLib "old-locale"            "1.0.0.6"
         , incGHCLib "old-time"              "1.1.0.2"
         , incGHCLib "pretty"                "1.1.1.1"
         , incGHCLib "process"               "1.2.0.0"
+        --, "rts"                             "1.0" -- GHC specific
         , incGHCLib "template-haskell"      "2.9.0.0"
+        --, notWindows $ incGHCLib "terminfo" "0.4.0.0" -- GHC specific
         , incGHCLib "time"                  "1.4.2"
         , incGHCLib "transformers"          "0.3.0.0"
+        , notWindows $ incGHCLib "unix"     "2.7.0.1"
         , incGHCLib "xhtml"                 "3000.2.1"
 
-        , notWindows $  incGHCLib "unix"    "2.7.0.1"
         --, onlyWindows $ incGHCLib "Win32"   "2.3.0.2"
 
         , incLib "async"                    "2.0.1.5"
