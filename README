@@ -78,7 +78,7 @@ packages.
 
 If you are building for a Posix like system (linux, or BSD), then you can add
 the command line option --prefix to sepecify where, on the target system the
-tree of built things will be placed. If defaults to "/usr/local/haskell".  The
+tree of built things will be placed. It defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
 everything will be installed under there.
 
