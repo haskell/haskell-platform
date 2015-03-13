@@ -6,7 +6,7 @@ OVERVIEW
 "Haskell Platform" is a combination of the GHC compiler and core libraries,
 plus additional tools and libraries covering a range of common programming
 tasks. The platform is maintained and released so as to be a consistent, stable
-base. It aims to be a quick way to a working haskell environment, and a solid
+base. It aims to be a quick way to a working Haskell environment, and a solid
 foundation on which to base production software.
 
 DISTRIBUTION
@@ -40,7 +40,7 @@ the platform has been packaged into packages for the local package manager.
 These can be selected and installed, from the appropriate package repos, with
 the standard package manager tools.
 
-*generic bindist* - For linux, there is a generic bindist. This is compiled
+*generic bindist* - For Linux, there is a generic bindist. This is compiled
 against standard versions of the common system libraries, and if your system
 has those, you can generally just unpack this tarball, and run a script to
 get it setup.
@@ -76,7 +76,7 @@ This will build the hptool itself, and then use that tool to build first the
 platform source tarball, and finally the hermetic build of all the platform
 packages.
 
-If you are building for a Posix like system (linux, or BSD), then you can add
+If you are building for a Posix like system (Linux, or BSD), then you can add
 the command line option --prefix to specify where, on the target system the
 tree of built things will be placed. It defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
