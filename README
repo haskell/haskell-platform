@@ -24,7 +24,7 @@ Development usually happens in other branches.
 
 *source tarball* - This is a specially packaged version of the repo that
 includes the sources of the packages that make up the platform, and excludes
-some of the anicillary things in the source repo. You can use this to build
+some of the ancillary things in the source repo. You can use this to build
 the platform without access to hackage or even an internet connection. You still
 need a GHC bindist.
 
@@ -77,7 +77,7 @@ platform source tarball, and finally the hermetic build of all the platform
 packages.
 
 If you are building for a Posix like system (linux, or BSD), then you can add
-the command line option --prefix to sepecify where, on the target system the
+the command line option --prefix to specify where, on the target system the
 tree of built things will be placed. It defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
 everything will be installed under there.
