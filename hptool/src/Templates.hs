@@ -74,7 +74,7 @@ expandRelease :: (Monad m) => Release -> MuContext m
 expandRelease rel = mkStrContext ex
   where
     ex "hpVersion" = MuVariable . showVersion . hpVersion . relVersion $ rel
-    ex "ghcVersion" = case pkgsThat [isGhc, not . isLib] of
+    ex "ghcVersion" = case pkgsThat [isGhc, not . isLib, not . isTool] of
         [] -> error "No ghc version spec'd in release."
         [ghcPkg] -> MuVariable . showVersion . pkgVersion $ ghcPkg
         _ -> error "More than one ghc version spec'd in release."
