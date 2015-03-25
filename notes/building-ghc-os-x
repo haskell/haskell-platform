@@ -1,0 +1,85 @@
+Building GHC for the Platform on OS X
+-------------------------------------
+
+PREP
+====
+
+[] Need autoconf and automake installed
+    get from http://mirrors.kernel.org/gnu/autoconf/
+    get from http://mirrors.kernel.org/gnu/automake/
+    needn't be latest, really
+    untar, configure, make, make install (should put in /usr/local)
+        - first autoconf, then automake
+
+[] Need lastest tools
+    cabal update
+    cabal install happy
+    cabal install alex
+    cabal install HsColour
+
+    make sure all on your PATH
+
+[] Need DocBook XML DTD & XSL
+    download http://www.oasis-open.org/docbook/xml/4.5/docbook-xml-4.5.zip
+    download http://www.oasis-open.org/docbook/xml/4.2/docbook-xml-4.2.zip
+    download docbook xsl package (don't run the included install script!)
+    put both in /usr/local/share/xml/
+    edit the catalog file for the dtd to have xml:base:
+        <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public"
+            xml:base="file:///usr/local/share/xml/docbook-xml-4.5/">
+
+    set up /etc/xml/catalog file to be using some mangled magic of xmlcatalog to:
+        <?xml version="1.0"?>
+        <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+        <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+          <nextCatalog catalog="file:///usr/local/share/xml/docbook-xml-4.2/catalog.xml"/>
+          <nextCatalog catalog="file:///usr/local/share/xml/docbook-xml-4.5/catalog.xml"/>
+          <nextCatalog catalog="file:///usr/local/share/xml/docbook-xsl-1.78.1/catalog.xml"/>
+        </catalog>
+
+[] BUG: There is inconsistent usage of docbookx DTD
+    - some use 4.5
+    - some use 4.2
+    - the configure script only checks for 4.5
+    - the following files reference docbookx.xml DTD versions:
+        aclocal.m4
+        docs/docbook-cheat-sheet/docbook-cheat-sheet.xml
+        docs/users_guide/users_guide.xml
+        docs/vh/vh.xml
+        libraries/Win32/doc/HSWin32.xml
+        utils/haddock/doc/aclocal.m4
+        utils/haddock/doc/haddock.xml
+        utils/mkUserGuidePart/Main.hs
+
+
+THE BUILD
+=========
+
+if git repo
+    make distclean
+    ./boot
+else
+    expand out the src tar ball
+fi
+
+export MACOSX_DEPLOYMENT_TARGET=10.6
+./configure 2>&1 | tee ../conf.log
+vi mk/build.mk
+    ~ ~ ~ ~ ~ ~ ~
+    V=1
+    SplitObjs=YES
+    SupportsSplitObjs=YES
+    HADDOCK_DOCS=YES
+    LATEX_DOCS=NO
+    HSCOLOUR_SRCS=YES
+    BUILD_DOCBOOK_HTML=YES
+    BUILD_DOCBOOK_PDF=NO
+    BUILD_DOCBOOK_PS=NO
+    BeConservative=YES
+    ~ ~ ~ ~ ~ ~ ~
+caffeinate time make -j4 2>&1 | tee  ../make.log
+caffeinate time make binary-dist 2>&1 | tee  ../bd.log
+
+
+TADA!
+
