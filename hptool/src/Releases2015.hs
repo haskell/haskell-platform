@@ -46,7 +46,7 @@ hp2015_2_0_0 =
         , incLib "async"                    "2.0.2"
         , incLib "attoparsec"               "0.12.1.3"  -- 0.10.4.0"
         , incLib "case-insensitive"         "1.2.0.4"
-        , incLib "cgi"                      "3001.2.2.0"
+        , incLib "cgi"                      "3001.2.2.1"
         , incLib "fgl"                      "5.5.1.0"
         , incLib "GLUT"                     "2.6.0.1"
         , incLib "GLURaw"                   "1.5.0.0"
