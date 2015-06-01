@@ -73,11 +73,11 @@ posixOS BuildConfig{..} = OS{..}
     genericExtrasSrc = "hptool/os-extras/posix"
 
     osRules _hpRelease _bc = do
-        extrasDir */> \dst -> do
+        extrasDir %/> \dst -> do
             ctx <- platformContext
             copyExpandedDir ctx genericExtrasSrc dst
 
-        osProduct *> \out -> do
+        osProduct %> \out -> do
             need [targetDir, vdir ghcVirtualTarget]
             command_ [Cwd targetDir]
                 "tar" ["czf", out ® targetDir, hpTargetDir ® targetDir]
@@ -91,14 +91,14 @@ posixOS BuildConfig{..} = OS{..}
                 , "3) run the script " ++ absVersionDir ++ "/bin/activate-hs"
                 ]
 
-        versionFile *> \out -> do
+        versionFile %> \out -> do
             writeFileChanged out $ unlines
                 [ "platform " ++ showVersion hpVersion
                 , "ghc      " ++ showVersion ghcVersion
                 , "arch     " ++ bcArch
                 ]
 
-        cabalFile *> copyFile' hpCabalFile
+        cabalFile %> copyFile' hpCabalFile
 
         hpBinDir ~/> do
             -- These items are being merged into the bin directory, which has

@@ -21,11 +21,11 @@ import Utils
 
 genNsisData :: Rules ()
 genNsisData = do
-    nsisInstDat *> \dFile -> do
+    nsisInstDat %> \dFile -> do
         need [targetDir]
         dirs <- getDirsFiles filterEmptyDirs
         genData nsisInstDatTmpl dFile dirs
-    nsisUninstDat *> \uFile -> do
+    nsisUninstDat %> \uFile -> do
         need [targetDir]
         dirs <- getDirsFiles sortByDirRev
         genData nsisUninstDatTmpl uFile dirs
@@ -72,7 +72,7 @@ genNsisData = do
 -- of the installer).  That is, there is a coupling between these files.
 genNsisFile :: Rules ()
 genNsisFile =
-    nsisFile *> \nFile -> do
+    nsisFile %> \nFile -> do
         bc <- askBuildConfig
         rls <- askHpRelease
         pCtx <- platformContext

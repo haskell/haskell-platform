@@ -100,7 +100,7 @@ pkgrootConfFixup os confFile = do
 -- and set up the needs and rules.
 copyFilesRules :: Action () -> FilePath -> FilePath -> [FilePath] -> Rules ()
 copyFilesRules setup srcDir dstDir =
-    mapM_ (\f -> dstDir </> f *> \_ -> copyFileAction setup srcDir dstDir f)
+    mapM_ (\f -> dstDir </> f %> \_ -> copyFileAction setup srcDir dstDir f)
 
 copyFileAction :: Action () -> FilePath -> FilePath -> FilePath -> Action ()
 copyFileAction setup srcDir dstDir file = do

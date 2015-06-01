@@ -19,12 +19,12 @@ sourceTarballRules srcTarFile = do
     packageListRule listSource platformPackages
     cabalFileRule
 
-    srcTarFile *> \out -> do
+    srcTarFile %> \out -> do
         hpRelease <- askHpRelease
         tarFileAction out hpRelease
   where
     packageListRule target pkgFn =
-        target *> \out -> do
+        target %> \out -> do
             hpRelease <- askHpRelease
             let pkgs = pkgFn hpRelease
             writeFileLinesChanged out (map show pkgs)
@@ -96,7 +96,7 @@ tarFileAction out hpRelease = do
 
 cabalFileRule :: Rules ()
 cabalFileRule =
-    hpCabalFile *> \cFile -> do
+    hpCabalFile %> \cFile -> do
         ctx <- releaseContext
         let ctx' = ctx `ctxAppend` errorCtx
         copyExpandedFile ctx' cabalTemplate cFile

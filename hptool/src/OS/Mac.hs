@@ -99,7 +99,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
     osxInstallerDist    = extrasDir </> "installer.dist"
 
     osRules _hpRelease _bc = do
-        extrasDir */> \dst -> do
+        extrasDir %/> \dst -> do
             ctx <- platformContext
             copyExpandedDir ctx osxExtrasSrc dst
 
@@ -115,16 +115,16 @@ macOsFromConfig BuildConfig{..} = OS{..}
                     else copyFile'    f $ hpBinDir </> takeFileName f
             return Nothing
 
-        versionFile *> \out -> do
+        versionFile %> \out -> do
             writeFileChanged out $ unlines
                 [ "platform " ++ showVersion hpVersion
                 , "ghc      " ++ showVersion ghcVersion
                 , "arch     " ++ bcArch
                 ]
 
-        cabalFile *> copyFile' hpCabalFile
+        cabalFile %> copyFile' hpCabalFile
 
-        ghcPkgFile *> \out -> do
+        ghcPkgFile %> \out -> do
             need [vdir ghcVirtualTarget]
             command_ [] "pkgbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform.GHC"
@@ -135,7 +135,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 , out
                 ]
 
-        hpPkgFile *> \out -> do
+        hpPkgFile %> \out -> do
             need [targetDir, dir extrasDir]  -- FIXME(mzero): could be more specific
             command_ []
                 "pkgbuild"
@@ -148,7 +148,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 , out
                 ]
 
-        osProduct *> \out -> do
+        osProduct %> \out -> do
             need [ghcPkgFile, hpPkgFile, dir extrasDir]
             command_ []
                 "productbuild"

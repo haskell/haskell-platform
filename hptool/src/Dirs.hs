@@ -1,5 +1,5 @@
 module Dirs
-    ( (*/>), dir, (~/>), vdir, needContents )
+    ( (%/>), dir, (~/>), vdir, needContents )
  where
 
 import Development.Shake
@@ -15,9 +15,9 @@ import Utils
 -- afresh. Since a directory can't be a dependency in Shake, a marker file is
 -- built with a directory list of the directory. In order to depend on a
 -- directory built with this rule, use 'needDir'
-(*/>) :: FilePattern -> (FilePath -> Action ()) -> Rules ()
-patDir */> act =
-    patMarker *> \outMarker -> do
+(%/>) :: FilePattern -> (FilePath -> Action ()) -> Rules ()
+patDir %/> act =
+    patMarker %> \outMarker -> do
         let outDir = markerToDir outMarker
         makeDirectory $ takeDirectory outDir
         removeDirectoryRecursive outDir
@@ -31,7 +31,7 @@ patDir */> act =
   where
     patMarker = dirToMarker patDir
 
-infix 1 */>
+infix 1 %/>
 
 -- | Use this in calls to need on paths that are directories.
 dir :: FilePath -> FilePath
@@ -85,7 +85,7 @@ markerToDir m = case strip markerRoot m of
 -- dependencies of this target.
 (~/>) :: String -> Action (Maybe FilePath) -> Rules ()
 vTarget ~/> act =
-    vMarker *> \outMarker -> do
+    vMarker %> \outMarker -> do
         mOutDir <- act
         xs <- case mOutDir of
             Nothing -> return []

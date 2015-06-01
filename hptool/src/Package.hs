@@ -33,7 +33,7 @@ instance Ord a => Ord (Down a) where
 
 packageRules :: Rules ()
 packageRules = do
-    packageSourceDir PackageWildCard */> \srcDir -> do
+    packageSourceDir PackageWildCard %/> \srcDir -> do
         let pkg = extractPackage srcDir
         let destDir = takeDirectory srcDir
         let providedDir = sourceForPackageDir pkg
@@ -44,11 +44,11 @@ packageRules = do
                 command_ [Cwd destDir] "cabal" ["unpack", show pkg]
                 command_ [Cwd destDir] "mv" [show pkg, "source"]
 
-    packageDepsFile PackageWildCard *> \depFile -> do
+    packageDepsFile PackageWildCard %> \depFile -> do
         hpRel <- askHpRelease
         installAction depFile hpRel
 
-    listBuild *> \out -> do
+    listBuild %> \out -> do
         hpRel <- askHpRelease
         let pkgs = platformPackages hpRel
         need $ map packageDepsFile pkgs

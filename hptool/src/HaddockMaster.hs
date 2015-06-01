@@ -29,7 +29,7 @@ haddockDocDir bc = targetDir </+> osHpPrefix (osFromConfig bc) </> "doc"
 
 haddockMasterRules :: BuildConfig -> Rules ()
 haddockMasterRules bc =
-    haddockDocDir bc */> \outdir -> do
+    haddockDocDir bc %/> \outdir -> do
         hpRel <- askHpRelease
         bc' <- askBuildConfig
         haddockMasterAction outdir hpRel bc'

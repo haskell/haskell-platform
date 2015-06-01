@@ -124,7 +124,7 @@ winOsFromConfig BuildConfig{..} = os
     osRules _rel _bc = do
         winRules
 
-        osProduct *> \_ -> do
+        osProduct %> \_ -> do
             need $ [dir ghcLocalDir, targetDir, vdir ghcVirtualTarget]
                    ++ winNeeds
 

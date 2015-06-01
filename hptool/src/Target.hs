@@ -39,7 +39,7 @@ targetRules bc = do
 
 buildRules :: Rules ()
 buildRules = do
-    packageBuildDir PackageWildCard */> \buildDir -> do
+    packageBuildDir PackageWildCard %/> \buildDir -> do
         hpRel <- askHpRelease
         bc <- askBuildConfig
         buildAction buildDir hpRel bc
@@ -153,7 +153,7 @@ buildAction buildDir hpRel bc = do
 
 installRules :: BuildConfig -> Rules ()
 installRules bc = do
-    targetDir </+> osPackageTargetDir PackageWildCard */> \targetPkgDir -> do
+    targetDir </+> osPackageTargetDir PackageWildCard %/> \targetPkgDir -> do
         let pkg = read $ takeFileName targetPkgDir :: Package
         let buildDir = packageBuildDir pkg
         need [ dir buildDir ]

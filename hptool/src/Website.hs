@@ -20,7 +20,7 @@ import Types
 
 websiteRules :: FilePath -> Rules ()
 websiteRules templateSite = do
-    websiteDir */> \dst -> do
+    websiteDir %/> \dst -> do
         bcCtx <- buildConfigContext
         let rlsCtx = releasesCtx
             ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
