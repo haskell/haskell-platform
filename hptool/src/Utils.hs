@@ -1,13 +1,15 @@
 module Utils where
 
+import Control.Monad (when)
 import Data.Maybe (listToMaybe)
 import Data.Version (Version, parseVersion)
-import Development.Shake (Action, command_, getVerbosity, liftIO,
+import Development.Shake (Action, command_, getVerbosity, liftIO, putNormal,
                           Verbosity(..), writeFileChanged)
 import Development.Shake.FilePath
 import qualified Distribution.Verbosity as Cabal
 import Text.ParserCombinators.ReadP (readP_to_S)
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
+import qualified System.Directory (doesDirectoryExist)
 
 
 version :: String -> Version
@@ -41,7 +43,7 @@ fp `relativeToDir` dp = case (isRelative fp, isRelative dp) of
     [] `rel` [] = "."
     fs `rel` ds = joinPath $ (map (const "..") ds) ++ fs
 
-    pathParts = map noTrailingSlash . filter (/= ".") . splitPath . normalise
+    pathParts = map noTrailingSlash . filter (/= ".") . splitPath . toStandard . normalise
     noTrailingSlash [] = []
     noTrailingSlash [c,'/'] = [c]
     noTrailingSlash (c:cs) = c : noTrailingSlash cs
@@ -70,8 +72,15 @@ absolutePath fp | isAbsolute fp = return fp
 
 -- | Recursively remove a directory. Like shell command "rm -rf".
 -- Unlike System.Directory.removeDirectoryRecursive, doesn't follow symlinks.
+-- If this already exists, it could indicate some build dependeny problems
+-- so let's note those for tracking down.
 removeDirectoryRecursive :: FilePath -> Action ()
-removeDirectoryRecursive fp = command_ [] "rm" [ "-Rf", "--", fp]
+removeDirectoryRecursive fp = do
+    -- Use System.Directory to avoid creating a Shake dependency
+    exists <- liftIO $ System.Directory.doesDirectoryExist fp
+    when exists
+        (putNormal $ "WARNING: Removing non-empty directory \""++fp++"\"")
+    command_ [] "rm" [ "-Rf", "--", fp]
 
 makeDirectory :: FilePath -> Action ()
 makeDirectory fp = liftIO $ createDirectoryIfMissing True fp
@@ -102,5 +111,5 @@ shakeToCabalVerbosity = do
                  Quiet      -> Cabal.silent
                  Normal     -> Cabal.normal
                  Loud       -> Cabal.verbose
-                 Chatty     -> Cabal.deafening
+                 Chatty     -> Cabal.verbose
                  Diagnostic -> Cabal.deafening

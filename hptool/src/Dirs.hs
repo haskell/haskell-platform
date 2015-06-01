@@ -20,7 +20,7 @@ patDir */> act =
     patMarker *> \outMarker -> do
         let outDir = markerToDir outMarker
         makeDirectory $ takeDirectory outDir
-        command_ [] "rm" [ "-Rf", "--", outDir]
+        removeDirectoryRecursive outDir
         act outDir
         exists <- doesDirectoryExist outDir
         xs <- if exists
@@ -61,14 +61,15 @@ dirToMarker d | isAbsolute d = markerRoot </> "abs" ++ d
 
 markerToDir :: String -> String
 markerToDir m = case strip markerRoot m of
-    ("abs", d@('/':_)) -> d
-    ("rel", ('/':d)) -> d
+    ("abs", d@(sl:_)) | isSep sl -> d
+    ("rel", (sl:d))   | isSep sl -> d
     _ -> badMarker
   where
-    strip "" ('/':ds)            = break (=='/') ds
-    strip (p:ps) (d:ds) | p == d = strip ps ds
-    strip _ _                    = badMarker
+    strip "" (sl:ds)    | isSep sl                       = break isSep ds
+    strip (p:ps) (d:ds) | p == d || (isSep p && isSep d) = strip ps ds
+    strip _ _                                            = badMarker
     badMarker = error $ "markerToDir: bad marker path " ++ m
+    isSep = isPathSeparator
 
 
 -- | Define a virtual directory rule.

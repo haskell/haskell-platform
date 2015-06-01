@@ -6,13 +6,13 @@ module LocalCommand
 import Data.List (intercalate)
 import Development.Shake (Action, CmdOption(..), CmdResult, command,
                           doesFileExist, liftIO, need)
-import Development.Shake.FilePath ( (</>), (<.>), exe, searchPathSeparator )
+import Development.Shake.FilePath ( (</>), (<.>), exe, searchPathSeparator,
+                                    isPathSeparator )
 import System.Environment (getEnvironment)
 
 import Dirs
 import Paths
 import Utils
-
 
 -- | Run a command, but favor the local GHC instalation.
 -- Note that 'command' ends up calling 'createProcess', which in turn in this
@@ -29,7 +29,7 @@ localCommand opts cmdName args = do
     absLocalBin <- liftIO $ absolutePath localBin
     localPath <- addPath' [absLocalBin] []
     let localCmd = absLocalBin </> cmdName
-    useLocalCmd <- if '/' `elem` cmdName
+    useLocalCmd <- if any isPathSeparator cmdName
                         then return False
                         else doesFileExist $ localCmd <.> exe
     command (localPath : opts) (if useLocalCmd then localCmd else cmdName) args
