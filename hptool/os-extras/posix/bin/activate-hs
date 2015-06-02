@@ -104,13 +104,13 @@ run() {
     fi
 }
 
-symLink() {
-    run rm -rf "$2"
-    run ln -sf "$1" "$2"
-}
-
 symLinkInto() {
-    run ln -sf "$@"
+    directory="$1"
+    shift
+
+    # Make sure directory exists before creating symlinks in it.
+    run mkdir -p "$directory"
+    run ln -s --force --target-directory="$directory" "$@"
 }
 
 ###
@@ -118,9 +118,9 @@ symLinkInto() {
 ###
 
 if [ "$skip" = "no" ] ; then
-    symLinkInto "$ghcRoot"/bin/* "$prefix/bin"
-    symLinkInto "$ghcRoot"/share/man/man1/* "$prefix/share/man/man1"
-    symLinkInto "$ghcRoot"/share/doc/ghc "$prefix/share/doc"
+    symLinkInto "$prefix/bin" "$ghcRoot"/bin/*
+    symLinkInto "$prefix/share/man/man1" "$ghcRoot"/share/man/man1/*
+    symLinkInto "$prefix/share/doc" "$ghcRoot"/share/doc/ghc
 fi
 
 
