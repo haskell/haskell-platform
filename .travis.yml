@@ -1,5 +1,5 @@
 language: haskell
 ghc: 7.6
-install: ./travis-setup.sh ghc-7.8.3-x86_64-unknown-linux-deb7.tar.xz
-script: ./platform.sh ghc-7.8.3-x86_64-unknown-linux-deb7.tar.xz
+install: ./travis-setup.sh ghc-7.10.1.20150528-x86_64-unknown-linux-deb7.tar.bz2
+script: ./platform.sh ghc-7.10.1.20150528-x86_64-unknown-linux-deb7.tar.bz2
 sudo: true
