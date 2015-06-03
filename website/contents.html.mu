@@ -1,52 +1,128 @@
-<!DOCTYPE html>
-<head>
-    {{> header}}
-    <title>The Haskell Platform: Contents</title>
-</head>
-<body>
-<div id="header">
-<h1 class="title">The Haskell Platform: Contents</h1>
-</div>
-<h2 id="haskell-batteries-included">Haskell: Batteries Included</h2>
-<p><a href="index.html">The Haskell Platform</a> is a comprehensive, robust development environment for programming in <a href="http://haskell.org">Haskell</a>. For new users the platform makes it trivial to get up and running with a full Haskell development environment. For experienced developers, the platform provides a comprehensive, standard base for commercial and open source Haskell development that maximises interoperability and stability of your code.</p>
-<p><strong>Download <a href="index.html">The Haskell Platform</a> for your system</strong></p>
-<p>To learn more about programming in Haskell:</p>
-<ul>
-<li>Visit <a href="http://haskell.org">haskell.org</a> - the center of the Haskell community, a comprehensive resource.</li>
-<li>Follow <a href="http://learnyouahaskell.com">Learn You a Haskell</a> - an online Haskell tutorial with a sense of humor.</li>
-<li>Or jump straight to <a href="http://book.realworldhaskell.org">Real World Haskell</a>, O'Reilly's book on professional Haskell programming.</li>
-<li>You can even <a href="http://tryhaskell.org">Try Haskell</a> in your browser.</li>
-</ul>
-<p>The following components are provided in the latest revision of The Platform (see the <a href="changelog.html">Changelog</a>):</p>
-<h2 id="compiler-and-runtime">Compiler and Runtime</h2>
-<p><strong><a href="http://haskell.org/ghc">GHC</a></strong></p>
-<p>The state-of-the-art optimizing native code compiler for Haskell.</p>
-<p><strong><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci.html">GHCi</a></strong></p>
-<p>A bytecode interpreter and interactive REPL environment for Haskell</p>
-<p><strong>The GHC runtime</strong></p>
-<p>A multicore language runtime (virtual machine), providing fast lightweight threads, parallel sparks and futures, software transactional memory, core affinity control, a parallel garbage collector, and much more.</p>
-<h2 id="developer-tools">Developer Tools</h2>
-<p>The Platform also comes with the most useful developer tools out of the box, including:</p>
-<p><strong><a href="http://haskell.org/cabal/">Cabal</a></strong></p>
-<p>Cabal and cabal-install are tools for building and distributing Haskell libraries and programs. With cabal-install you have immediate access to thousands of Haskell libraries and tools on [Hackage] -- you'll be sure to find something interesting.</p>
-<p><strong><a href="http://haskell.org/haddock">Haddock</a></strong></p>
-<p>Haddock is a high quality documentation tool for Haskell. Comments and types in your code are used to generate indexed and cross-referenced online documentation.</p>
-<p><strong><a href="http://www.haskell.org/ghc/docs/latest/html/users_guide/ghci-debugger.html">The GHCi debugger</a></strong></p>
-<p>The Platform ships with the GHCi debugger - an interactive, imperative-style debugger for Haskell. Type &quot;:help&quot; in GHCi for more information.</p>
-<p><strong>The <a href="http://haskell.org/happy">Happy</a> parser generator</strong></p>
-<p>Happy is a yacc-like parser generator for Haskell for constructing efficient parsers.</p>
-<p><strong>The <a href="http://haskell.org/alex">Alex</a> lexer generator</strong></p>
-<p>Alex is a lex-like lexer generator for Haskell.</p>
-<p><strong>The hsc2hs foreign language binding tool</strong></p>
-<p>Often you need to call C libraries from Haskell. hsc2hs is a preprocessor for binding Haskell to C that automates much of the work.</p>
-<p><strong>The GHC Profiler</strong></p>
-<p>The Platform comes with several tools for analyzing your Haskell programs performance and behaviour. Included are time and space profiling tools, and tools for graphically visualizing the memory use and structure of running Haskell programs.</p>
-<p><strong>Haskell Code Coverage</strong></p>
-<p>The Platform provides HPC - a professional-grade tool generating code coverage information and statistics for Haskell. Code coverage information can tell you how good your test suite is, or what part of your code is executing at any given time.</p>
-<h2 id="packages-and-documentation">Packages and Documentation</h2>
-<ul>
-<li><a href="doc/{{hpVersion}}/start.html">Read the documentation</a></li>
-</ul>
-{{> footer}}
-</body>
+<!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Haskell Platform - Included Packages</title>
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/contents.js"></script>
+
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/fonts/Haskell/style.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/hl.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/contents.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
+
+        <link rel="icon" type="image/png" href="img/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
+    </head>
+    <body class="page-home">
+        <div class="wrap">
+            <div class="template">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">
+                                <span class="logo">&#xe600;</span>
+                                Haskell
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#">Downloads</a></li>
+                                <li><a href="#">Community</a></li>
+                                <li><a href="#">Documentation</a></li>
+                                <li><a href="#">Learn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12 col-md-12">
+                                <div class="branding">
+                                    <span style="background-image: url(img/logo.png)" class="name">Haskell Platform</span>
+                                    <span class="summary">
+                                        Haskell with batteries included
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="span6 col-md-6">
+                                <div class="branding">
+                                    <span class="tag"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h2>Included Packages</h2>
+                    <p>
+                        Along with a compiler and basic development environment, Haskell Platform provides
+                        a variety of widely-used packages from <a href="http://hackage.haskell.org/">Hackage</a>, the
+                        Haskell package repository.
+                    </p>
+                    <p>
+                        If you are a library author and would like to see your
+                        package included in Haskell Platform, see the
+                        <a href="https://github.com/haskell/haskell-platform/wiki/AddingPackages">Wiki</a>
+                        for the package proposal procedure.
+                    </p>
+
+                    <div>
+                        <label for="package-filter">Package name:</label>
+                        <input id="package-filter" placeholder="Filter by package name">
+                    </div>
+
+                    {{#history}}
+                    <table class="history table">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                {{#hpReleases}}
+                                <th class="version">{{hpVersion}}</th>
+                                {{/hpReleases}}
+                            </tr>
+                        </thead>
+
+                        {{#sections}}
+                        <tbody>
+                            <tr class="section-header"><th colspan="{{ncols}}">{{name}}</th></tr>
+
+                            {{#components}}
+                            <tr class="package">
+                                <td class="package"><a href="{{hackageUrl}}">{{package}}</a></td>
+                                {{#releases}}
+                                <td class="version {{class}}">{{version}}</td>
+                                {{/releases}}
+                            </tr>
+                            {{/components}}
+                        </tbody>
+                        {{/sections}}
+                    </table>
+                    {{/history}}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <p>
+                    <span class="item">© 2014–2015 haskell.org</span>
+                    <span class="item footer-contribute">
+                        Got changes to contribute?
+                        <a href="https://github.com/haskell-infra/hl"> Fork or comment on Github</a>
+                    </span>
+                    <span class="pull-right">
+                        <span>Proudly hosted by </span>
+                        <a href="https://www.rackspace.com/"><img src="/static/img/rackspace.svg?etag=J84VdDuP" alt="rackspace" height="20" width="20"></a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </body>
 </html>

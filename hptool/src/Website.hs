@@ -33,6 +33,9 @@ fileCtx (dist, url, mHash) = mkStrContext ctx
     ctx "osNameAndArch" = MuVariable $ distName dist
     ctx "url" = MuVariable url
     ctx "mHash" = maybe (MuBool False) MuVariable mHash
+    ctx "archBits"
+      | DistBinary _ arch <- dist = MuVariable $ archBits arch
+      | otherwise = MuNothing
 
     ctx "isOSX"     = MuBool $ distIsFor OsOSX     dist
     ctx "isWindows" = MuBool $ distIsFor OsWindows dist
@@ -85,7 +88,7 @@ historyCtx = mkStrContext outerCtx
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
         [ sectionCtx "Compiler"                            [isGhc, not . isLib]
-        , sectionCtx "Core Libraries, Provided with GHC"   [isGhc, isLib]
+        , sectionCtx "Core Libraries, provided with GHC"   [isGhc, isLib]
         , sectionCtx "Additional Platform Libraries"       [not . isGhc, isLib]
         , sectionCtx "Programs and Tools"                  [isTool]
         ]
