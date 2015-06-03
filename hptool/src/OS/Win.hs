@@ -1,4 +1,4 @@
-{-# LANGUAGE RecordWildCards, OverloadedStrings #-}
+{-# LANGUAGE CPP, RecordWildCards, OverloadedStrings #-}
 
 module OS.Win
     ( winOsFromConfig
@@ -11,7 +11,9 @@ import qualified Data.ByteString.Char8 as B8
 import qualified Data.Text as T
 import Development.Shake
 import Development.Shake.FilePath
+#if !MIN_VERSION_Cabal(1,22,0)
 import qualified Distribution.InstalledPackageInfo as C
+#endif
 import qualified Distribution.Package as C
 
 import Dirs
