@@ -76,6 +76,14 @@
 </ul>
 <hr />
 <p><a href="prior.html">Prior releases</a></p>
+
+<h2>Toubleshooting</h2>
+
+<p>If you see errors like <tt>Could not find module ‘Data.Text’</tt>, and you previously installed
+  "Haskell for Mac OS X" (ghcformacosx.github.io/), try deleting the directory <tt>~/.ghc</tt>.
+  See <a href="https://github.com/haskell/haskell-platform/issues/175">Issue #175</a>.
+</p>
+
 {{> footer}}
 </body>
 </html>
