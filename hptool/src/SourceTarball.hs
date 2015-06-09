@@ -3,6 +3,7 @@ module SourceTarball where
 import Control.Monad (forM_)
 import Development.Shake
 import Development.Shake.FilePath
+import Prelude hiding ((*>))
 
 import Config
 import Dirs

@@ -13,6 +13,7 @@ import Data.Ord (Down(..))
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
+import Prelude hiding ((*>))
 
 import Config
 import Dirs

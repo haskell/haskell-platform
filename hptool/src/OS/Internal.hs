@@ -9,6 +9,7 @@ module OS.Internal
 import Data.Version (showVersion)
 import Development.Shake
 import Development.Shake.FilePath
+import Prelude hiding ((*>))
 
 import Dirs
 import Paths

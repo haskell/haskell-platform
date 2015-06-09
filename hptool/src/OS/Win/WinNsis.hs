@@ -9,6 +9,7 @@ import Development.Shake
 import Development.Shake.FilePath ( toNative, takeDirectory )
 import Text.Hastache ( MuType(..), MuContext )
 import Text.Hastache.Context (mkStrContext)
+import Prelude hiding ((*>))
 
 import Config
 import OS.Win.WinPaths

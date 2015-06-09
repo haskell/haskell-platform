@@ -4,10 +4,10 @@ module Dirs
 
 import Development.Shake
 import Development.Shake.FilePath
+import Prelude hiding ((*>))
 
 import Paths (markerRoot)
 import Utils
-
 
 -- | Define a directory pattern rule.
 -- This defines a rule for how to build a directory of things. The supplied
