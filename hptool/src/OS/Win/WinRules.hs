@@ -13,6 +13,7 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as E
 import Development.Shake
 import Development.Shake.FilePath ( (</>), takeDirectory )
+import Prelude hiding ((*>))
 
 import Dirs
 import OS.Internal

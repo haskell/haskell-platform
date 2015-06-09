@@ -12,7 +12,8 @@ import qualified Data.Text as T
 import Development.Shake
 import Development.Shake.FilePath
 import qualified Distribution.InstalledPackageInfo as C
-import qualified Distribution.Package as C
+import qualified Distribution.Package as C hiding (installedPackageId)
+import Prelude hiding ((*>))
 
 import Dirs
 import LocalCommand

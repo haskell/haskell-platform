@@ -9,6 +9,7 @@ import Control.Monad (forM_)
 import Data.Version
 import Development.Shake
 import Development.Shake.FilePath
+import Prelude hiding ((*>))
 
 import Dirs
 import OS.Internal
