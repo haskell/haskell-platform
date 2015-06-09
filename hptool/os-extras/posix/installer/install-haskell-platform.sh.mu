@@ -10,6 +10,8 @@
 # This script needs be run as root.
 
 usr_local_tar="./hp-usr-local.tar.gz"
+absVersionDir="{{absVersionDir}}"
+activate_hs="$absVersionDir/bin/activate-hs"
 
 if ! test -f ""$usr_local_tar""; then
   echo Archive $usr_local_tar not found.
@@ -27,6 +29,6 @@ if ! tar -C / -xf "$usr_local_tar"; then
   exit 1
 fi
 
-echo "Running /usr/local/bin/activate-hs ..."
-/usr/local/bin/activate-hs
+echo "Running $activate_hs ..."
+"$activate_hs"
 

@@ -78,7 +78,8 @@ posixOS BuildConfig{..} = OS{..}
     osRules _hpRelease _bc = do
         extrasDir %/> \dst -> do
             ctx <- platformContext
-            copyExpandedDir ctx genericExtrasSrc dst
+            let ctx' = ctxConcat [ assocListContext [("absVersionDir", absVersionDir)], ctx ]
+            copyExpandedDir ctx' genericExtrasSrc dst
 
         osProduct %> \out -> do
             let installFile = takeFileName installScript
