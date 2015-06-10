@@ -13,7 +13,7 @@ usr_local_tar="./hp-usr-local.tar.gz"
 absVersionDir="{{absVersionDir}}"
 activate_hs="$absVersionDir/bin/activate-hs"
 
-if ! test -f ""$usr_local_tar""; then
+if ! test -f "$usr_local_tar"; then
   echo Archive $usr_local_tar not found.
   exit 1
 fi
