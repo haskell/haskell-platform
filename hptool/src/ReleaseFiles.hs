@@ -3,6 +3,7 @@ module ReleaseFiles
       Version, Date, DistType(..), OS(..), Arch(..)
     , Url, Hash, FileInfo, ReleaseFiles
     , distName, distIsFor
+    , archBits
     , releaseFiles
     , currentFiles
     , priorFiles

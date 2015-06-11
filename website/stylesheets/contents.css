@@ -1,0 +1,16 @@
+.history .version {
+    font-style: italic;
+}
+
+.history tr.section-header th {
+    padding-top: 2em;
+    font-size: large;
+}
+
+.history tr td:nth-child(1n+3) {
+    color: #999;
+}
+
+.history:hover tr:hover td {
+    background-color: #eee;
+}
