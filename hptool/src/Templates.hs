@@ -3,7 +3,7 @@
 module Templates
     ( ctxEmpty, ctxAppend, ctxConcat
     , errorCtx
-    , mapListContext, mapListStrContext
+    , assocListContext, mapListContext, mapListStrContext
     , releaseContext, buildConfigContext, platformContext
     , copyExpandedFile, copyExpandedDir
     )
@@ -42,6 +42,12 @@ errorCtx t = return $ MuLambda $ const msg
   where
     msg = "### unknown tag: " ++ decodeStr t ++ " ###"
 
+-- | Create a context from an association list.
+assocListContext :: (Monad m) => [(String, String)] -> MuContext m
+assocListContext pairs = mkStrContext ex
+  where ex x = case lookup x pairs of
+                 Just y -> MuVariable y
+                 Nothing -> MuNothing
 
 -- | Create a `MuList` by mapping a context creating function over a list.
 -- In addition, the context will be augmented to support tags "first" and "last"

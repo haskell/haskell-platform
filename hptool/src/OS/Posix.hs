@@ -67,6 +67,9 @@ posixOS BuildConfig{..} = OS{..}
     osDocAction = return ()
     osProduct = productDir </> productName ++ ".tar.gz"
 
+    usrLocalTar = productDir </> "hp-usr-local" ++ ".tar.gz"
+    installScript = extrasDir </> "installer" </> "install-haskell-platform.sh"
+
     productName =
         "haskell-platform-" ++ showVersion hpVersion ++ "-unknown-posix-" ++ bcArch
 
@@ -75,21 +78,27 @@ posixOS BuildConfig{..} = OS{..}
     osRules _hpRelease _bc = do
         extrasDir %/> \dst -> do
             ctx <- platformContext
-            copyExpandedDir ctx genericExtrasSrc dst
+            let ctx' = ctxConcat [ assocListContext [("absVersionDir", absVersionDir)], ctx ]
+            copyExpandedDir ctx' genericExtrasSrc dst
 
         osProduct %> \out -> do
-            need [targetDir, vdir ghcVirtualTarget]
-            command_ [Cwd targetDir]
-                "tar" ["czf", out ® targetDir, hpTargetDir ® targetDir]
+            let installFile = takeFileName installScript
+            need [ usrLocalTar, dir extrasDir]
+            command_ [] "cp" [ installScript, productDir ]
+            command_ [Cwd productDir]
+                "tar" ["czf", out ® targetDir, installFile, usrLocalTar ® productDir ]
             mapM_ putNormal
                 [ replicate 72 '-'
                 , "To install this build:"
-                , "1) copy " ++ out ++ " (found in " ++ targetDir
-                        ++ ") to the target machine"
-                , "2) untar it at / (files in the archive have the prefix "
-                        ++ relPrefix ++ ")"
-                , "3) run the script " ++ absVersionDir ++ "/bin/activate-hs"
+                , "1) copy " ++ out ++ " to the target machine"
+                , "2) untar it (creates files in the working directory)"
+                , "3) as root, run the script ./" ++ installFile
                 ]
+
+        usrLocalTar %> \out -> do
+            need [targetDir, vdir ghcVirtualTarget]
+            command_ [Cwd targetDir]
+                "tar" ["czf", out ® targetDir, hpTargetDir ® targetDir]
 
         versionFile %> \out -> do
             writeFileChanged out $ unlines
