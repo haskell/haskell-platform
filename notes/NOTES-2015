@@ -1,0 +1,95 @@
+NOTES-2015
+
+Libs needed in the generic (deb7) build:
+
+name: zlib          extra-libraries: z
+name: OpenGLRaw     extra-libraries: GL
+name: GLUT          extra-libraries: glut
+name: GLURaw        extra-libraries: GLU
+name: terminfo      extra-libraries: tinfo
+name: unix          extra-libraries: rt util dl
+name: integer-gmp   extra-libraries: gmp
+name: rts           extra-libraries: m rt dl
+
+
+
+
+minimal:
+    libc.so.6       => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ffad6462000)
+    libdl.so.2      => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ffad711f000)
+    libgcc_s.so.1   => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007ffad67ee000)
+    libgmp.so.10    => /usr/lib/x86_64-linux-gnu/libgmp.so.10 (0x00007ffad6c86000)
+    libm.so.6       => /lib/x86_64-linux-gnu/libm.so.6 (0x00007ffad6a04000)
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007ffad6246000)
+    librt.so.1      => /lib/x86_64-linux-gnu/librt.so.1 (0x00007ffad7527000)
+    linux-vdso.so.1 =>  (0x00007ffe66fb3000)
+    /lib64/ld-linux-x86-64.so.2 (0x00007ffad794e000)
+added by terminfo, unix, zlib
+    libtinfo.so.5   => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007ffad6ef6000)
+    libutil.so.1    => /lib/x86_64-linux-gnu/libutil.so.1 (0x00007ffad7323000)
+    libz.so.1       => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ffad772f000)
+not sure...
+
+
+
+
+On debian systems, these come from
+    libc6: rt util dl m c pthread ld-linux-*
+    libgmp10: gmp
+    zlib1g: z
+    libtinfo5: libtinfo.so.5
+    libgcc1: gcc_s
+
+
+docker images exist for
+    centos    -- hp works on 7
+    debian    -- hp works on 7
+    fedora    -- hp works on 20
+    opensuse  -- hp works on 13.1
+    ubuntu    -- hp works on 12.04
+
+
+
+import Codec.Compression.GZip
+import GHC.Integer.GMP.Internals
+import System.Posix.User
+import System.Console.Terminfo
+
+main :: IO ()
+main = putStrLn "everything!"
+
+
+
+
+
+On Fedora 20:
+
+need
+    yum install gmp-devel zlib-devel ncurses-devel
+
+RedHat (and hence CentOS):
+
+    lib versions
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Developer_Guide/libraries.html#lib.version
+
+looks like we *cannot* go back only as far as RedHat 6 and CentOS 6
+
+    but that only has libgmp.so.3
+
+
+On CentOS 7 (and presumably RHEL 7):
+    yum install tar gcc
+    yum install gmp-devel zlib-devel ncurses-devel
+
+    And it works!!!
+
+
+On openSUSE shouldl work on 13.1:
+
+    bash-4.2# /usr/local/haskell/ghc-7.10.1.20150528-x86_64/bin/activate-hs
+    ln: failed to create symbolic link '/usr/local/share/man/man1': No such file or directory
+
+    zypper install tar gcc
+    zypper install gmp-devel zlib-devel ncurses-devel
+
+

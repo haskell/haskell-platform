@@ -1,0 +1,228 @@
+Building under Docker
+=====================
+
+N.B.: These are basically mzero's command lines, so you'll need
+to substitue your home dirs in a few places.
+
+---------------------------------------------
+
+[hs-base]
+    - a Debian 7 (Wheezy) base environment
+    [debian:7] + build dev-docker/hs-base/Dockerfile --> [hs-base]
+
+[ghc-boot]
+    - an environment with a bootstrap GHC
+    [hs-base] --> {ghc-prep}
+                  + install ghc, cabal, alex, happy, & hscolour
+                  + commit --> [ghc-boot]
+
+{ghc-build}
+    - building the binary release of GHC from source
+    [ghc-boot] --> {ghc-build}
+                   + get sources (git or tarball)
+                   + build
+
+{hp-build}
+    - building the binary release of HP from source
+    [ghc-boot] --> {hp-build}
+                    + get ghc bindist (from {ghc-build} or GHC central)
+                    + get sources (git)
+                    + build
+
+{hp-test}
+    - testing the HP build
+    [hs-base] --> {hp-test}
+                    + get HP bindist (from {hp-build})
+
+
+
+[hs-base]
+---------
+The docker image [hs-base] is a debian wheezy based build environment
+based on what GHC central uses for building releases. Source for build is:
+    ~/dev-docker/hs-base/Dockerfile
+
+It is similar to Greg Weber's ghc-haskell-dev build:
+    https://registry.hub.docker.com/u/gregweber/ghc-haskell-dev/
+
+But, [hs-base] doesn't have a base GHC installed
+
+It is built with:
+
+    cd ~/dev-docker/hs-base
+    docker build --no-cache=true --tag=mzero/hs-base
+
+
+[ghc-boot]
+----------
+Start a container for building:
+
+    docker run -i -t -v /home/mark:/home/mark --name ghc-boot mzero/hs-base /bin/bash
+
+    # user is ghc, in /home/ghc - but we're loading /home/mark to have access
+    # to downloads and other stuff... work will be done in /home/ghc, within the
+    # container.
+
+Preping the environment
+
+    cp /home/mark/.bashrc .bashrc
+    . .bashrc
+
+Installing a prior GHC + Cabal + Alex + Happy + HsColour
+
+    # extract and install older ghc from bindist
+    cd /tmp
+    tar xf /home/mark/platform/ghc-7.10.1-x86_64-unknown-linux-deb7.tar.xz
+    cd ghc-7.10.1
+    ./configure --prefix=/opt/ghc-7.10.1
+    sudo make install
+    cd ..
+    rm -rf ghc-7.10.1
+
+    # now we have ghc in /opt/ghc-7.10.1
+    export PATH=/opt/ghc-7.10.1/bin:$PATH
+
+    # extract and install cabal
+    tar xf /home/mark/platform/cabal-install-1.22.4.0.tar.gz
+    cd cabal-install-1.22.4.0/
+    PREFIX=/opt/ghc-7.10.1 ./bootstrap.sh --sandbox
+    sudo cp -p .cabal-sandbox/bin/cabal /opt/ghc-7.10.1/bin
+    cd ..
+    rm -rf cabal-install-1.22.4.0/
+
+    # install alex, happy, & HsColour
+    cabal update
+    cabal install --root-cmd=sudo --global --prefix=/opt/ghc-7.10.1 alex
+    cabal install --root-cmd=sudo --global --prefix=/opt/ghc-7.10.1 happy
+    cabal install --root-cmd=sudo --global --prefix=/opt/ghc-7.10.1 hscolour
+
+    # done
+    exit
+
+Outside the container, run this to save this as a base:
+
+    docker commit -m 'hs-base w/ghc 7.10.1, cabal, alex, happy, & hscolour' \
+        -a 'Mark Lentczner <mark@glyphic.com>' ghc-boot mzero/ghc-boot
+
+
+{ghc-build}
+-----------
+Starting a container for buliding:
+
+    docker run -i -t -v /home/mark:/home/mark --name ghc-build mzero/ghc-boot /bin/bash
+
+in the container:
+
+    . /home/mark/bashrc
+    export PATH=/opt/ghc-7.10.1/bin:$PATH
+
+(see https://ghc.haskell.org/trac/ghc/wiki/Building/GettingTheSources)
+
+From git:
+
+    git clone -b ghc-7.10 --recursive git://git.haskell.org/ghc.git ghc-7.10
+
+(see https://ghc.haskell.org/trac/ghc/wiki/MakingReleases)
+
+    cd ghc-7.10
+    perl boot
+
+now, to build right in-place - rather than have a src tarball:
+
+    vi mk/build.mk
+        V=1
+        HADDOCK_DOCS=YES
+        LATEX_DOCS=YES
+        HSCOLOUR_SRCS=YES
+        BUILD_DOCBOOK_HTML=YES
+        BUILD_DOCBOOK_PDF=YES
+        BUILD_DOCBOOK_PS=YES
+        BeConservative=YES
+
+    # some of those could be NO if you want to reduce building docs
+
+    ./configure      2>&1 | tee /tmp/conf.log
+    make -j 4        2>&1 | tee /tmp/make.log
+    make binary-dist 2>&1 | tee /tmp/bd.log
+
+copy out of the container:
+
+    sudo cp -p ghc-7.10.1.20150528-x86_64-unknown-linux.tar.bz2 /home/mark/platform/
+
+
+
+{hp-build}
+-----------
+Starting a container for buliding:
+
+    docker run -i -t -v /home/mark:/home/mark --name hp-build mzero/ghc-boot /bin/bash
+
+in the container:
+
+    . /home/mark/bashrc
+    export PATH=/opt/ghc-7.10.1/bin:$PATH
+
+    git clone https://github.com/haskell/haskell-platform.git hp
+    cd hp
+
+build:
+
+    git checkout pre-release
+
+    ./platform.sh -j \
+        /home/mark/platform/ghc-7.10.1.20150528-x86_64-unknown-linux.tar.bz2
+
+    # if editing the hptool source and rebuilding, then
+    (cd hptool; cabal build)
+    ./hptool/dist/build/hptool/hptool -j \
+        /home/mark/platform/ghc-7.10.1.20150528-x86_64-unknown-linux.tar.bz2
+
+copy out of the container:
+
+    sudo cp -p build/product/haskell-platform-7.10.2-unknown-posix-x86_64.tar.gz \
+        /home/mark/platform/
+
+to detach
+
+    ^p^q
+
+to push changes from the git repo in the container to somewhere else:
+
+    # on somewhere else run
+    git daemon --base-path=. --export-all --reuseaddr --informative-errors \
+        --verbose --enable=receive-pack
+        # dangerous! monitor and kill as soon as you are done
+
+    # in the container
+    git push git://somewhereelse/ <branch>  # use -n to dry-run this
+
+
+{hp-test}
+---------
+Starting a container for building:
+
+    docker run -i -t -v /home/mark:/home/mark --name hp-test mzero/hs-base /bin/bash
+
+in the container:
+
+    . /home/mark/bashrc
+
+install the built HP:
+
+    cd /
+    sudo tar xvf /home/mark/platform/haskell-platform-7.10.2-unknown-posix-x86_64.tar.gz
+    sudo /usr/local/haskell/ghc-7.10.1.20150528-x86_64/bin/activate-hs
+
+now test
+
+    cd
+    cabal update
+    cabal unpack pandoc
+    cd pandoc-1.14.0.2
+    cabal sandbox init
+    cabal install --only-dependcies --enable-tests
+    cabal build
+    cabal test
+
+
+
