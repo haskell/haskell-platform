@@ -74,7 +74,7 @@
                     </p>
 
                     <div>
-                        <label for="package-filter">Package name:</label>
+                        <label for="package-filter">Package name: </label>
                         <input id="package-filter" placeholder="Filter by package name">
                     </div>
 
