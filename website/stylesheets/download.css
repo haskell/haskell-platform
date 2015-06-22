@@ -312,3 +312,40 @@ body:not(.js) .downloads-platform .content {max-height: 9000px;}
 .expander img.expand-3 {top: 16px;}
 .expander:hover img.expand-2 {transform: translateY(5px);}
 .expander:hover img.expand-3 {transform: translateY(10px);}
+
+
+.download-options {
+    padding-top: 40px;
+    background-color: #eee;
+    padding-bottom: 20px;
+}
+
+.download-options .span4 {
+    min-height: 150px;
+}
+
+.download-options .vrule {
+    border-right: 1px solid #ddd;
+}
+
+.download-options .get-hp a {
+    color: #000;
+}
+
+.download-options .other-ways h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.download-options .other-ways ul {
+    padding: 0;
+    text-align: center;
+}
+
+.download-options .other-ways ul li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
