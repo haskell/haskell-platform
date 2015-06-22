@@ -17,18 +17,18 @@
 
 
 <h2>Haskell Platform for Windows</h2>
-<p>Download the Windows installer here:</p>
 
+<div class="downloads">
 {{#current}}
 <ul>
   {{#files}}{{#isWindows}}
-  <li><p><strong>{{osNameAndArch}}: <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/win'); ">Haskell Platform {{version}}</a></strong>
+  <li><p><strong>{{osNameAndArch}}: <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/win'); ">Haskell Platform {{version}}</a></strong>
    {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
   </p></li>
   {{/isWindows}}{{/files}}
 </ul>
 {{/current}}
-
+</div>
 
 <p><a href="prior.html">Prior releases →</a></p>
 

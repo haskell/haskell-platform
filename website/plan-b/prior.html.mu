@@ -23,7 +23,7 @@
     {{#releases}}
       <p><strong>{{version}}</strong>, {{month}} {{year}} ⟹
         {{#files}}
-          <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">{{osNameAndArch}}</a>{{^last}} - {{/last}}
+          <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac/old'); ">{{osNameAndArch}}</a>{{^last}} - {{/last}}
         {{/files}}
       </p>
     {{/releases}}

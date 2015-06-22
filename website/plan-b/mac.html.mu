@@ -17,17 +17,17 @@
 
 <h2>Haskell Platform for Mac OS X</h2>
 
+<div class="downloads">
 {{#current}}
 <ul>
   {{#files}}{{#isOSX}}
-  <li><p><strong>{{osNameAndArch}}: <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform {{version}}</a></strong>
+  <li><p><strong>{{osNameAndArch}}: <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/mac'); ">Haskell Platform {{version}}</a></strong>
    {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
   </p></li>
   {{/isOSX}}{{/files}}
 </ul>
 {{/current}}
-
-<p>Double click the package icon to start the installer.
+</div>
 
 <p><em>For Mac OS X 10.5 please use the 2010.2.0.0 installer.</em></p>
 

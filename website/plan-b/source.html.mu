@@ -21,15 +21,17 @@
 
 <p>Download the source tarball for Unix-like systems:</p>
 
+<div class="downloads">
 {{#current}}
 <ul>
   {{#files}}{{#isSource}}
-  <li><p><strong>{{osNameAndArch}}: <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">Haskell Platform {{version}}</a></strong>
+  <li><p><strong>{{osNameAndArch}}: <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">Haskell Platform {{version}}</a></strong>
    {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
   </p></li>
   {{/isSource}}{{/files}}
 </ul>
 {{/current}}
+</div>
 
 <p>See the <code>README</code> file in the tarball for build instructions.</p>
 

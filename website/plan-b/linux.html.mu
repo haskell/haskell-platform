@@ -18,15 +18,17 @@
 <h2>Haskell Platform for Linux</h2>
 <p>The Haskell Platform for Linux should work on any modern Linux system.
 
+<div class="downloads">
 {{#current}}
 <ul>
   {{#files}}{{#isLinux}}
-  <li><p><strong>{{osNameAndArch}}: <a href="{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/linux'); ">Haskell Platform {{version}}</a></strong>
+  <li><p><strong>{{osNameAndArch}}: <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/linux'); ">Haskell Platform {{version}}</a></strong>
    {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
   </p></li>
   {{/isLinux}}{{/files}}
 </ul>
 {{/current}}
+</div>
 
 <p>Success reported with</b> Ubuntu 12.02, Debian 7, Fedora 20, openSUSE 13
 
