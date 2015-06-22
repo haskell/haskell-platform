@@ -71,8 +71,41 @@
                     </div>
                 </div>
 
+                <div class="download-options">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span4 col-md-4 vrule get-hp">
+                                <a href="#get-started">
+                                    <div style="width: 50%; font-size: 100px; float:right; ">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div>
+                                    <h1 style="width: 50%;">Download Haskell Platform</h1>
+                                </a>
+                            </div>
+                            <div class="span4 col-md-4 other-ways vrule">
+                                <h1>Other ways to install</h1>
+                                <p>While the Haskell Platform is the recommended
+                                way to get a Haskell environment, there are also
+                                other options</p>
+                                <ul>
+                                    <li><a href="#">Windows</a></li>
+                                    <li><a href="#">OS X</a></li>
+                                    <li><a href="#">Linux</a></li>
+                                </ul>
+                            </div>
+                            <div class="span4 col-md-4 other-ways">
+                                <h1>Libraries</h1>
+                                <p>Haskell has a vibrant community and a rich
+                                collection of packages ripe for the picking on
+                                <a href="http://hackage.haskell.org/">Hackage</a>,
+                                the Haskell package database.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container">
-                    <h2>Let's get started</h2>
+                    <h2 id="get-started">Let's get started</h2>
                 </div>
 
                 <div class="container found-user-platform" >
@@ -187,7 +220,8 @@
                         <div class="content">
                             <p>
                                 The latest version of the Haskell Platform for Windows is
-                                <strong>{{hpVersion}}</strong>.</p>
+                                <strong>{{hpVersion}}</strong>.
+                            </p>
                             <p> To get started perform these steps,</p>
 
                             <ol class="install-steps">
