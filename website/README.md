@@ -6,7 +6,7 @@ Haskell Platform site designs.
   - plan-b/          - the "Plan B" site design
   - templates/       - mu-include files (used by all the designs for `{{> ...}}` includes)
 
-Build all of designs using:
+Build all of the designs using:
 
     ./platform.sh <ghc-bindist-path> build-website
 
@@ -20,5 +20,9 @@ specify where the main haskell.org is and where the downloads are located:
   templates/downloads-root.mu   -- the location of the downloads site
                                            e.g. "//haskell.org/platform/"
 
-These files should _not_ end in a newline sine they are used as a prefix of urls.
+These files should _not_ end in a newline since they are concatenated to build other urls.
+One can use `echo -n` to avoid adding a trailing newline when setting the contents
+of one of these files, e.g.:
+
+    echo -n '//haskell.org/' > templates/haskell-org-root.mu
 

@@ -143,7 +143,7 @@
                                             <p>Download the installer disk image,</p>
                                             {{#current}} {{#files}} {{#isOSX}}
                                             <div class="download-btn">
-                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -205,7 +205,7 @@
                                         <p>Download the installer,</p>
                                         {{#current}} {{#files}} {{#isWindows}}
                                         <div class="download-btn">
-                                            <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                             </a>
                                         </div>
@@ -294,7 +294,7 @@
                                             <p>Download the installation tarball,</p>
                                             {{#current}} {{#files}} {{#isLinux}}
                                             <div class="download-btn">
-                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -396,7 +396,7 @@ $ sudo emerge haskell-platform</pre>
                                             <p>Download and extract the source tarball,</p>
                                             {{#current}} {{#files}} {{#isSource}}
                                             <div class="download-btn">
-                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download
                                                 </a>
                                             </div>

@@ -23,15 +23,8 @@ websiteRules templateSite = do
     websiteDir %/> \dst -> do
         bcCtx <- buildConfigContext
         let rlsCtx = releasesCtx
-            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, siteUrlsCtx, errorCtx]
+            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
-
-siteUrlsCtx :: Monad m => MuContext m
-siteUrlsCtx =
-  assocListContext [
-      ("haskellOrgRootUrl", "//haskell.org/")           -- url to use to refer to http://haskell.org/
-    , ("downloadsUrl",      "//haskell.org/platform/")  -- prefix for download links
-  ]
 
 fileCtx :: (Monad m) => FileInfo -> MuContext m
 fileCtx (dist, url, mHash) = mkStrContext ctx
