@@ -29,8 +29,8 @@ websiteRules templateSite = do
 siteUrlsCtx :: Monad m => MuContext m
 siteUrlsCtx =
   assocListContext [
-      ("haskellOrgRootUrl", "/")      -- url to use to refer to http://haskell.org/
-    , ("downloadsUrl", "/platform/")  -- prefix for download links
+      ("haskellOrgRootUrl", "//haskell.org/")           -- url to use to refer to http://haskell.org/
+    , ("downloadsUrl",      "//haskell.org/platform/")  -- prefix for download links
   ]
 
 fileCtx :: (Monad m) => FileInfo -> MuContext m

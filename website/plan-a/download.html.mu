@@ -1,7 +1,7 @@
 <!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
 <html>
     <head>
-        {{> head }}
+        {{> plan-a/head }}
         <link rel="stylesheet" type="text/css" href="stylesheets/download.css">
 
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
@@ -11,7 +11,7 @@
     <body class="page-home">
         <div class="wrap">
             <div class="template">
-                {{> navbar }}
+                {{> plan-a/navbar }}
 
                 <div class="header">
                     <div class="container">
@@ -143,7 +143,7 @@
                                             <p>Download the installer disk image,</p>
                                             {{#current}} {{#files}} {{#isOSX}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -205,7 +205,7 @@
                                         <p>Download the installer,</p>
                                         {{#current}} {{#files}} {{#isWindows}}
                                         <div class="download-btn">
-                                            <a href="{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                             </a>
                                         </div>
@@ -294,7 +294,7 @@
                                             <p>Download the installation tarball,</p>
                                             {{#current}} {{#files}} {{#isLinux}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -408,7 +408,7 @@ $ sudo emerge haskell-platform</pre>
                                             <p>Download and extract the source tarball,</p>
                                             {{#current}} {{#files}} {{#isSource}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download
                                                 </a>
                                             </div>
@@ -444,6 +444,6 @@ $ sudo emerge haskell-platform</pre>
         <!-- a bit of whitespace before the footer -->
         <div style="height: 100px;"></div>
 
-        {{> footer }}
+        {{> plan-a/footer }}
     </body>
 </html>

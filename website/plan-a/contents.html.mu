@@ -1,7 +1,7 @@
 <!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
 <html>
     <head>
-        {{> head }}
+        {{> plan-a/head }}
         <link rel="stylesheet" type="text/css" href="stylesheets/contents.css">
 
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
@@ -11,7 +11,7 @@
     <body class="page-home">
         <div class="wrap">
             <div class="template">
-                {{> navbar }}
+                {{> plan-a/navbar }}
 
                 <div class="header">
                     <div class="container">
@@ -83,6 +83,6 @@
             </div>
         </div>
 
-        {{> footer }}
+        {{> plan-a/footer }}
     </body>
 </html>
