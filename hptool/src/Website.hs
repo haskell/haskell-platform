@@ -26,6 +26,10 @@ websiteRules templateSite = do
             ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, siteUrlsCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
 
+downloadRoot :: String
+--downloadRoot = "/platform"                     -- For deployment
+downloadRoot = "https://haskell.org/platform/"   -- For testing
+
 siteUrlsCtx :: (Monad m) => MuContext m
 siteUrlsCtx = assocListContext
     [ ("haskellOrgRootUrl", "/")      -- url to use to refer to http://haskell.org/
@@ -35,7 +39,7 @@ fileCtx :: (Monad m) => FileInfo -> MuContext m
 fileCtx (dist, url, mHash) = mkStrContext ctx
   where
     ctx "osNameAndArch" = MuVariable $ distName dist
-    ctx "url" = MuVariable url
+    ctx "url" = MuVariable $ downloadRoot++url
     ctx "mHash" = maybe (MuBool False) MuVariable mHash
     ctx "archBits"
       | DistBinary _ arch <- dist = MuVariable $ archBits arch
