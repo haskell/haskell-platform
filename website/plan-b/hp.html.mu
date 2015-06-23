@@ -13,7 +13,7 @@
   <p>The Haskell Platform is a convenient way to quickly install the Haskell development
      tools
      and a pre-compiled collection of the most commonly used packages.
-  <p>The current version of the Haskell Platform is 7.10.2
+  <p>The current version of the Haskell Platform is {{hpVersion}}
   <p>Download the Haskell Platform for:
     <ul>
       <li><a href="windows.html">Windows</a>

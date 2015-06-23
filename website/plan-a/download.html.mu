@@ -143,7 +143,7 @@
                                             <p>Download the installer disk image,</p>
                                             {{#current}} {{#files}} {{#isOSX}}
                                             <div class="download-btn">
-                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -151,7 +151,7 @@
 
                                             <div class="download-hash">
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isOSX}}
                                                     <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -205,7 +205,7 @@
                                         <p>Download the installer,</p>
                                         {{#current}} {{#files}} {{#isWindows}}
                                         <div class="download-btn">
-                                            <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                             </a>
                                         </div>
@@ -213,7 +213,7 @@
 
                                         <div>
                                             You can verify the authenticity of this file by
-                                            checking its <strong>SHA-1</strong> hash,
+                                            checking its <strong>SHA-256</strong> hash,
                                             <ul class="hashes">
                                                 {{#current}} {{#files}} {{#isWindows}}
                                                 <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -294,7 +294,7 @@
                                             <p>Download the installation tarball,</p>
                                             {{#current}} {{#files}} {{#isLinux}}
                                             <div class="download-btn">
-                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -302,7 +302,7 @@
 
                                             <div>
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isLinux}}
                                                     <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -314,23 +314,11 @@
                                     <li>
                                         <div class="step-number">2</div>
                                         <div class="step-body">
-                                            Extract the tarball using
-                                            <pre>$ sudo tar -zx -C /usr \
-        -f haskell-platform-2015.01.2.tar.gz</pre>
+                                            Install by running:
+                                            <pre>$ tar xf ...downloaded archive...
+$ sudo ./install-haskell-platform.sh</pre>
                                         </div>
                                     </li>
-                                    <!--
-                                    <li>
-                                        <div class="step-number">3</div>
-                                        <div class="step-body">
-                                            <p>Run the installation script with</p>
-                                            <pre>$ ./install-haskell-platform-2015.01.2.sh</pre>
-
-                                            <p>Or instead, if you don't have root access, you can install locally,</p>
-                                            <pre>$ ./install-haskell-platform-2015.01.2.sh --user</pre>
-                                        </div>
-                                    </li>
-                                    -->
                                 </ol>
                             </div> <!-- #linux-generic -->
 
@@ -408,7 +396,7 @@ $ sudo emerge haskell-platform</pre>
                                             <p>Download and extract the source tarball,</p>
                                             {{#current}} {{#files}} {{#isSource}}
                                             <div class="download-btn">
-                                                <a href="{{downloadsUrl}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> plan-a/downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download
                                                 </a>
                                             </div>
@@ -416,7 +404,7 @@ $ sudo emerge haskell-platform</pre>
 
                                             <div>
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isSource}}
                                                     <li><input readonly class="file-hash" type="text" value="{{mHash}}"></li>

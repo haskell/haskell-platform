@@ -25,7 +25,7 @@
 {{#current}}
 <ul>
   {{#files}}{{#isSource}}
-  <li><p><strong>{{osNameAndArch}}: <a href="{{downloadsUrl}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">Haskell Platform {{version}}</a></strong>
+  <li><p><strong>{{osNameAndArch}}: <a href="{{> downloads-root}}{{url}}" onClick="javascript: pageTracker._trackPageview('/downloads/source'); ">Haskell Platform {{version}}</a></strong>
    {{#mHash}}<br /><small>SHA-256: <code>{{mHash}}</code></small>{{/mHash}}
   </p></li>
   {{/isSource}}{{/files}}
