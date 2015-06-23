@@ -62,9 +62,9 @@
                                 way to get a Haskell environment, there are also
                                 other options</p>
                                 <ul>
-                                    <li><a href="#">Windows</a></li>
-                                    <li><a href="#">OS X</a></li>
-                                    <li><a href="#">Linux</a></li>
+                                    <li><a href="https://www.haskell.org/downloads/windows">Windows</a></li>
+                                    <li><a href="https://www.haskell.org/downloads/osx">OS X</a></li>
+                                    <li><a href="https://www.haskell.org/downloads/linux">Linux</a></li>
                                 </ul>
                             </div>
                             <div class="span4 col-md-4 other-ways">
