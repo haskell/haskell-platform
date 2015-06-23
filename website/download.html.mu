@@ -56,6 +56,13 @@
                                     <h1 style="width: 50%;">Download Haskell Platform</h1>
                                 </a>
                             </div>
+                            <div class="span4 col-md-4 other-ways">
+                                <h1>Libraries</h1>
+                                <p>Haskell has a vibrant community and a rich
+                                collection of packages ripe for the picking on
+                                <a href="http://hackage.haskell.org/">Hackage</a>,
+                                the Haskell package database.</p>
+                            </div>
                             <div class="span4 col-md-4 other-ways vrule">
                                 <h1>Other ways to install</h1>
                                 <p>While the Haskell Platform is the recommended
@@ -66,13 +73,6 @@
                                     <li><a href="https://www.haskell.org/downloads/osx">OS X</a></li>
                                     <li><a href="https://www.haskell.org/downloads/linux">Linux</a></li>
                                 </ul>
-                            </div>
-                            <div class="span4 col-md-4 other-ways">
-                                <h1>Libraries</h1>
-                                <p>Haskell has a vibrant community and a rich
-                                collection of packages ripe for the picking on
-                                <a href="http://hackage.haskell.org/">Hackage</a>,
-                                the Haskell package database.</p>
                             </div>
                         </div>
                     </div>
