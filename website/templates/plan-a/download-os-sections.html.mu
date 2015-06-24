@@ -1,19 +1,3 @@
-<!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
-<html>
-    <head>
-        {{> plan-a/head }}
-        <link rel="stylesheet" type="text/css" href="stylesheets/download.css">
-
-        <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
-        <script src="js/download.js"></script>
-        <title>Download Haskell Platform</title>
-    </head>
-    <body class="page-home">
-        <div class="wrap">
-            <div class="template">
-                {{> plan-a/navbar }}
-                {{> plan-a/download-banner.html }}
-                {{> plan-a/download-options.html }}
 
                 <div class="container">
                     <h2 id="get-started">Let's get started</h2>
@@ -363,12 +347,3 @@ $ sudo emerge haskell-platform</pre>
                         <div class="bottom-rule"></div>
                     </section>
                 </div>
-            </div>
-        </div>
-
-        <!-- a bit of whitespace before the footer -->
-        <div style="height: 100px;"></div>
-
-        {{> plan-a/footer }}
-    </body>
-</html>
