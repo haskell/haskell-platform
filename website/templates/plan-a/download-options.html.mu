@@ -3,7 +3,7 @@
                         <div class="row">
                             <div class="span4 col-md-4 vrule get-hp">
                                 <a href="#get-started">
-                                    <div style="width: 50%; font-size: 100px; float:right; ">
+                                    <div style="width: 50%; font-size: 100px; float:right; padding-left: 30px">
                                         <i class="fa fa-arrow-down"></i>
                                     </div>
                                     <h1 style="width: 50%;">Download Haskell Platform</h1>
