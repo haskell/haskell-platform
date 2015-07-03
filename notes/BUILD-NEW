@@ -127,10 +127,11 @@ TO DO
 =====
     key: [ ] = open, [x] = done, [+] = in progress, [-] = won't do (probably)
 
-[ ] check-in (rebase, rebase -i, merge, push, merge, push)
-[ ] copy up website
-[ ] final check live site
-[ ] e-mail, reddit, G+
+
+-- A List --
+
+[ ] tar ball should be based on GHC tarball name
+    [ ] do, disassociate official version from tarball name
 
 
 -- B List --

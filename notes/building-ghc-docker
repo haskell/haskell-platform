@@ -113,7 +113,7 @@ Starting a container for buliding:
 
 in the container:
 
-    . /home/mark/bashrc
+    . .bashrc
     export PATH=/opt/ghc-7.10.1/bin:$PATH
 
 (see https://ghc.haskell.org/trac/ghc/wiki/Building/GettingTheSources)
@@ -143,7 +143,9 @@ now, to build right in-place - rather than have a src tarball:
 
     ./configure      2>&1 | tee /tmp/conf.log
     make -j 4        2>&1 | tee /tmp/make.log
+    make             2>&1 | tee -a /tmp/make.log
     make binary-dist 2>&1 | tee /tmp/bd.log
+
 
 copy out of the container:
 
@@ -159,7 +161,7 @@ Starting a container for buliding:
 
 in the container:
 
-    . /home/mark/bashrc
+    . .bashrc
     export PATH=/opt/ghc-7.10.1/bin:$PATH
 
     git clone https://github.com/haskell/haskell-platform.git hp
@@ -205,13 +207,12 @@ Starting a container for building:
 
 in the container:
 
-    . /home/mark/bashrc
+    . .bashrc
 
 install the built HP:
 
-    cd /
-    sudo tar xvf /home/mark/platform/haskell-platform-7.10.2-unknown-posix-x86_64.tar.gz
-    sudo /usr/local/haskell/ghc-7.10.1.20150528-x86_64/bin/activate-hs
+    sudo tar xf /home/mark/platform/haskell-platform-7.10.2-unknown-posix-x86_64.tar.gz
+    sudo ./install-haskell-platform.sh
 
 now test
 
@@ -220,7 +221,7 @@ now test
     cabal unpack pandoc
     cd pandoc-1.14.0.2
     cabal sandbox init
-    cabal install --only-dependcies --enable-tests
+    cabal install --only-dependencies --enable-tests
     cabal build
     cabal test
 
