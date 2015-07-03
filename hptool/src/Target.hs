@@ -101,7 +101,8 @@ buildAction buildDir hpRel bc = do
         pReadArgs <- map (haddockReadArg . osPlatformPkgPathMunge pkgHtmlDir)
                      <$> haddockPlatformPkgLocs depsLibs
         cabal "haddock" $
-            [ "--hyperlink-source"          -- TODO(mzero): make optional
+            [ "--hyperlink-source"
+            , "--hoogle"
             , "--with-haddock=" ++ haddockExe ® buildDir
             ]
             ++ map (\s -> "--haddock-option=" ++ s) (cReadArgs ++ pReadArgs)
