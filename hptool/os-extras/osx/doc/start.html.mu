@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6, b {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Skia, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 #content {
