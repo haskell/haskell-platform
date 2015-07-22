@@ -1,43 +1,17 @@
 <!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>Haskell Platform - Included Packages</title>
-        <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/contents.js"></script>
-
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/fonts/Haskell/style.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/hl.css">
+        {{> head }}
         <link rel="stylesheet" type="text/css" href="stylesheets/contents.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
 
-        <link rel="icon" type="image/png" href="img/favicon.png">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
+        <script src="js/contents.js"></script>
+        <title>Haskell Platform - Included Packages</title>
     </head>
     <body class="page-home">
         <div class="wrap">
             <div class="template">
-                <nav class="navbar navbar-default">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="/">
-                                <span class="logo">&#xe600;</span>
-                                Haskell
-                            </a>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#">Downloads</a></li>
-                                <li><a href="#">Community</a></li>
-                                <li><a href="#">Documentation</a></li>
-                                <li><a href="#">Learn</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                {{> navbar }}
 
                 <div class="header">
                     <div class="container">
@@ -109,20 +83,6 @@
             </div>
         </div>
 
-        <div class="footer">
-            <div class="container">
-                <p>
-                    <span class="item">© 2014–2015 haskell.org</span>
-                    <span class="item footer-contribute">
-                        Got changes to contribute?
-                        <a href="https://github.com/haskell-infra/hl"> Fork or comment on Github</a>
-                    </span>
-                    <span class="pull-right">
-                        <span>Proudly hosted by </span>
-                        <a href="https://www.rackspace.com/"><img src="/static/img/rackspace.svg?etag=J84VdDuP" alt="rackspace" height="20" width="20"></a>
-                    </span>
-                </p>
-            </div>
-        </div>
+        {{> footer }}
     </body>
 </html>

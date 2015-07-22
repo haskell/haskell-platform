@@ -1,43 +1,17 @@
 <!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>Download Haskell Platform</title>
-        <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/download.js"></script>
-
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/fonts/Haskell/style.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/hl.css">
+        {{> head }}
         <link rel="stylesheet" type="text/css" href="stylesheets/download.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
 
-        <link rel="icon" type="image/png" href="img/favicon.png">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
+        <script src="js/download.js"></script>
+        <title>Download Haskell Platform</title>
     </head>
     <body class="page-home">
         <div class="wrap">
             <div class="template">
-                <nav class="navbar navbar-default">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="/">
-                                <span class="logo">&#xe600;</span>
-                                Haskell
-                            </a>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Downloads</a></li>
-                                <li><a href="#">Community</a></li>
-                                <li><a href="#">Documentation</a></li>
-                                <li><a href="#">Learn</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                {{> navbar }}
 
                 <div class="header">
                     <div class="container">
@@ -71,8 +45,41 @@
                     </div>
                 </div>
 
+                <div class="download-options">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span4 col-md-4 vrule get-hp">
+                                <a href="#get-started">
+                                    <div style="width: 50%; font-size: 100px; float:right; ">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div>
+                                    <h1 style="width: 50%;">Download Haskell Platform</h1>
+                                </a>
+                            </div>
+                            <div class="span4 col-md-4 other-ways">
+                                <h1>Libraries</h1>
+                                <p>Haskell has a vibrant community and a rich
+                                collection of packages ripe for the picking on
+                                <a href="http://hackage.haskell.org/">Hackage</a>,
+                                the Haskell package database.</p>
+                            </div>
+                            <div class="span4 col-md-4 other-ways vrule">
+                                <h1>Other ways to install</h1>
+                                <p>While the Haskell Platform is the recommended
+                                way to get a Haskell environment, there are also
+                                other options</p>
+                                <ul>
+                                    <li><a href="https://www.haskell.org/downloads/windows">Windows</a></li>
+                                    <li><a href="https://www.haskell.org/downloads/osx">OS X</a></li>
+                                    <li><a href="https://www.haskell.org/downloads/linux">Linux</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container">
-                    <h2>Let's get started</h2>
+                    <h2 id="get-started">Let's get started</h2>
                 </div>
 
                 <div class="container found-user-platform" >
@@ -187,7 +194,8 @@
                         <div class="content">
                             <p>
                                 The latest version of the Haskell Platform for Windows is
-                                <strong>{{hpVersion}}</strong>.</p>
+                                <strong>{{hpVersion}}</strong>.
+                            </p>
                             <p> To get started perform these steps,</p>
 
                             <ol class="install-steps">
@@ -436,20 +444,6 @@ $ sudo emerge haskell-platform</pre>
         <!-- a bit of whitespace before the footer -->
         <div style="height: 100px;"></div>
 
-        <div class="footer">
-            <div class="container">
-                <p>
-                    <span class="item">© 2014–2015 haskell.org</span>
-                    <span class="item footer-contribute">
-                        Got changes to contribute?
-                        <a href="https://github.com/haskell-infra/hl"> Fork or comment on Github</a>
-                    </span>
-                    <span class="pull-right">
-                        <span>Proudly hosted by </span>
-                        <a href="https://www.rackspace.com/"><img src="/static/img/rackspace.svg?etag=J84VdDuP" alt="rackspace" height="20" width="20"></a>
-                    </span>
-                </p>
-            </div>
-        </div>
+        {{> footer }}
     </body>
 </html>
