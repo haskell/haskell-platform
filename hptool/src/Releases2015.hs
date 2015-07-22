@@ -45,7 +45,7 @@ hp_7_10_2 =
         --, onlyWindows $ incGHCLib "Win32"   "2.3.1.0"
 
         , incLib "async"                    "2.0.2"
-        , incLib "attoparsec"               "0.13.0.0"
+        , incLib "attoparsec"               "0.13.0.1"
         , incLib "case-insensitive"         "1.2.0.4"
         , incLib "cgi"                      "3001.2.2.2"
         , incLib "fgl"                      "5.5.1.0"
@@ -57,7 +57,7 @@ hp_7_10_2 =
         , incLib "HTTP"                     "4000.2.20"
         , incLib "HUnit"                    "1.2.5.2"
         , incLib "mtl"                      "2.2.1"
-        , incLib "network"                  "2.6.2.0"
+        , incLib "network"                  "2.6.2.1"
         , incLib "OpenGL"                   "2.12.0.1"
         , incLib "OpenGLRaw"                "2.5.1.0"
         , incLib "parallel"                 "3.2.0.6"
@@ -73,7 +73,7 @@ hp_7_10_2 =
         , incLib "syb"                      "0.5.1"
         , incLib "text"                     "1.2.1.1"
         , incLib "unordered-containers"     "0.2.5.1"
-        , incLib "vector"                   "0.10.12.3"
+        , incLib "vector"                   "0.11.0.0"
         , incLib "zlib"                     "0.5.4.2"
             -- held back because cabal-install needs < 0.6
 
