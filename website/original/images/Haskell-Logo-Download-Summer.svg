@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="781.40271"
+   height="781.40271"
+   viewBox="0 0 625.12217 625.12213"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="Haskell-Logo-Download-Summer.svg"
+   inkscape:export-filename="/tmp/Haskell-Logo-Download-Summer.png"
+   inkscape:export-xdpi="22.41"
+   inkscape:export-ydpi="22.41">
+  <metadata
+     id="metadata22">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1024"
+     inkscape:window-height="744"
+     id="namedview20"
+     showgrid="false"
+     inkscape:zoom="0.5762038"
+     inkscape:cx="391.64141"
+     inkscape:cy="382.15591"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 212.59839 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="602.36212 : 212.59839 : 1"
+       inkscape:persp3d-origin="301.18106 : 141.73226 : 1"
+       id="perspective24" />
+    <clipPath
+       id="clip1">
+      <path
+         d="m 0,340.15625 481.89062,0 L 481.89062,0 0,0 0,340.15625 z m 0,0"
+         id="path7" />
+    </clipPath>
+  </defs>
+  <path
+     style="fill:#aa0000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 72.368283,422.24331 185.755,252.16518 72.368283,82.087063 l 85.039057,0 113.38672,170.078117 -113.38672,170.07813 -85.039057,0 z m 0,0"
+     id="path12" />
+  <path
+     style="fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 185.755,422.24331 299.14172,252.16518 185.755,82.087063 l 85.03906,0 226.76953,340.156247 -85.03906,0 -70.86328,-106.29688 -70.86719,106.29688 -85.03906,0 z m 0,0"
+     id="path14" />
+  <path
+     style="fill:#ffcc00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="m 459.77062,323.03237 -37.79297,-56.6914 132.28125,-0.004 0,56.69531 -94.48828,0 z m 0,0"
+     id="path16" />
+  <path
+     style="fill:#ffcc00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="m 403.07922,237.99331 -37.79688,-56.6914 188.97656,-0.004 0,56.69531 -151.17968,0 z m 0,0"
+     id="path18" />
+  <rect
+     style="opacity:0.33488375;fill:none;stroke:#000000;stroke-width:3.12000012;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     id="rect2839"
+     width="622.00214"
+     height="622.00214"
+     x="1.5600001"
+     y="1.5599881"
+     rx="38.036324"
+     ry="42.675133" />
+  <text
+     xml:space="preserve"
+     style="font-size:28.64761925px;font-style:normal;font-weight:normal;fill:#800000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="69.503532"
+     y="536.51678"
+     id="text3621"><tspan
+       sodipodi:role="line"
+       id="tspan3623"
+       x="69.503532"
+       y="536.51678"
+       style="font-size:103.13143158px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#800000;font-family:Arial;-inkscape-font-specification:Arial Bold">Download</tspan></text>
+</svg>

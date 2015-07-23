@@ -1,4 +1,5 @@
 // no-script fallback
+var preferredOS = "";
 $(document).ready(function() {
     $('body').addClass('js');
 });
@@ -27,6 +28,10 @@ function identifyPlatform() {
         'Linux': 'linux',
         'Windows': 'windows'
     };
+
+    if (preferredOS != "") {
+      return preferredOS;
+    }
 
     if (ua.indexOf('Android') != -1)
         return 'unknown';

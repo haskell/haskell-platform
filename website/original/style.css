@@ -1,0 +1,170 @@
+html, body, div {
+	margin:0;
+	padding:0;
+}
+
+body {
+	font-family:Helvetica, Arial, sans-serif;
+	font-size: 1em;
+    width: 700px;
+    margin: 4em auto;
+}
+
+h1.title {
+    width: 580px;
+    height: 103px;
+    line-height: 103px;
+    background: url(images/Haskell-Logo-Boxed.png) no-repeat center left;
+    padding: 0 0 0 120px;
+    font-size:2em;
+    vertical-align: middle;
+}
+
+body#index {
+	font-size:.95em;
+	width: inherit;
+	margin: 0;
+}
+
+#index h1 {
+	margin:9% auto 100 auto;
+	text-align:center;
+	font-size:2.0em;
+	box-shadow: #000;
+}
+
+#download_bar{
+	margin:9% auto 0 auto;
+	text-align:center;
+	font-size:1.3em;
+}
+#download_bar #logo{
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+}
+
+#info{
+	margin:4% auto 0 auto;
+}
+#info table{
+	margin: 0 auto;
+}
+#info .title{
+	font-size:1.5em;
+}
+#info .points {
+	width:18em;
+	margin: 6px 12px 0 0;
+}
+#timeline{
+	position:absolute;
+	top:5%;
+	right:10%;
+	text-align:right;
+}
+a, a:hover {
+    color: #f77;
+	text-decoration: none;
+    border-bottom: 1px dashed #666;
+}
+img{
+	border:0;
+}
+
+li {
+    position: relative;
+}
+
+.history {
+    border-spacing: 0;
+}
+.history .section {
+    font-weight: bold;
+    font-style: italic;
+    padding: 1em 0;
+}
+.packageRow .package {
+    padding: .125em 1em .125em 2em;
+}
+.packageRow:hover td {
+    background-color: #ffc;
+}
+.history .version {
+    color: #888;
+    font-size: 80%;
+    width: 7em;
+    text-align: center
+}
+.history .version.current.update {
+    font-weight: bold;
+}
+.history .version.update {
+    color: #000;
+}
+
+/* a, h1, */
+.summer a,
+.summer h1,
+.summer #info .title {
+	color: #1c3a4b;
+    border-bottom: none;
+}
+/* a:hover, */
+.summer a:hover {
+	color:#2090cd;
+}
+body#index.summer {
+	background:url(images/background-summer.jpg) #f15008;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+/* a, h1, */
+.spring a,
+.spring h1,
+.spring #info .title {
+	color: #660BAB;
+    border-bottom: none;
+}
+.spring a:hover {
+	color:#a767d5;
+}
+body#index.spring {
+	background:url(images/background-spring.jpg) #ffffff;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+/* a, h1, */
+.winter a,
+.winter h1,
+.winter #info .title {
+	color: #144e96;
+    border-bottom: none;
+}
+.winter a:hover {
+	color:#6284af;
+}
+body#index.winter {
+	background:url(images/background-winter.jpg) #ffffff;
+	background-repeat:no-repeat;
+}
+
+#linux-list li {
+  margin-bottom: 8px;
+}
+
+.notes li { margin-bottom: 8px; }
+
+.source-logo {
+    font-size: 35px;
+    margin: 0 auto;
+    height: 64px;
+    font-size: 35px;
+    font-family: sans-serif;
+    font-weight: normal;
+    color: #000;
+}
+
+.source-pad { padding-bottom: 20px; padding-left: 10px; }

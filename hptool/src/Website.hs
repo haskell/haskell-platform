@@ -26,7 +26,6 @@ websiteRules templateSite = do
             ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
 
-
 fileCtx :: (Monad m) => FileInfo -> MuContext m
 fileCtx (dist, url, mHash) = mkStrContext ctx
   where

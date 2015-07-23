@@ -1,78 +1,22 @@
 <!DOCTYPE html> <!-- -*- mode: web-mode; engine: ctemplate -*- -->
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>Download Haskell Platform</title>
-        <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/download.js"></script>
-
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/fonts/Haskell/style.css">
-        <link rel="stylesheet" type="text/css" href="stylesheets/hl.css">
+        {{> plan-a/head }}
         <link rel="stylesheet" type="text/css" href="stylesheets/download.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
 
-        <link rel="icon" type="image/png" href="img/favicon.png">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
+        <script src="js/download.js"></script>
+        <title>Download Haskell Platform</title>
     </head>
     <body class="page-home">
         <div class="wrap">
             <div class="template">
-                <nav class="navbar navbar-default">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="/">
-                                <span class="logo">&#xe600;</span>
-                                Haskell
-                            </a>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Downloads</a></li>
-                                <li><a href="#">Community</a></li>
-                                <li><a href="#">Documentation</a></li>
-                                <li><a href="#">Learn</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-                <div class="header">
-                    <div class="container">
-                        <div class="row">
-                            <div class="span6 col-md-6">
-                                <div class="branding">
-                                    <span style="background-image: url(img/logo.png)" class="name">Haskell Platform</span>
-                                    <span class="summary">
-                                        Haskell with batteries included
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="span6 col-md-6">
-                                <div class="branding">
-                                    <span class="tag">
-                                        <h3>A multi-OS distribution</h3>
-
-                                        <p>designed to get you up and running
-                                            quickly, making it easy to focus on using
-                                            Haskell. You get:</p>
-                                        <ul>
-                                            <li>the <a href="http://www.haskell.org/ghc/">Glasgow Haskell Compiler</a></li>
-                                            <li>the <a href="http://www.haskell.org/cabal/">Cabal build system</a></li>
-                                            <li>support for profiling and code coverage analysis</li>
-                                            <li>35 core & widely-used <a href="contents.html">packages</a></li>
-                                        </ul>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{> plan-a/navbar }}
+                {{> plan-a/download-banner.html }}
+                {{> plan-a/download-options.html }}
 
                 <div class="container">
-                    <h2>Let's get started</h2>
+                    <h2 id="get-started">Let's get started</h2>
                 </div>
 
                 <div class="container found-user-platform" >
@@ -136,7 +80,7 @@
                                             <p>Download the installer disk image,</p>
                                             {{#current}} {{#files}} {{#isOSX}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -144,7 +88,7 @@
 
                                             <div class="download-hash">
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isOSX}}
                                                     <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -187,7 +131,8 @@
                         <div class="content">
                             <p>
                                 The latest version of the Haskell Platform for Windows is
-                                <strong>{{hpVersion}}</strong>.</p>
+                                <strong>{{hpVersion}}</strong>.
+                            </p>
                             <p> To get started perform these steps,</p>
 
                             <ol class="install-steps">
@@ -197,7 +142,7 @@
                                         <p>Download the installer,</p>
                                         {{#current}} {{#files}} {{#isWindows}}
                                         <div class="download-btn">
-                                            <a href="{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                             </a>
                                         </div>
@@ -205,7 +150,7 @@
 
                                         <div>
                                             You can verify the authenticity of this file by
-                                            checking its <strong>SHA-1</strong> hash,
+                                            checking its <strong>SHA-256</strong> hash,
                                             <ul class="hashes">
                                                 {{#current}} {{#files}} {{#isWindows}}
                                                 <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -286,7 +231,7 @@
                                             <p>Download the installation tarball,</p>
                                             {{#current}} {{#files}} {{#isLinux}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -294,7 +239,7 @@
 
                                             <div>
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isLinux}}
                                                     <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -306,23 +251,11 @@
                                     <li>
                                         <div class="step-number">2</div>
                                         <div class="step-body">
-                                            Extract the tarball using
-                                            <pre>$ sudo tar -zx -C /usr \
-        -f haskell-platform-2015.01.2.tar.gz</pre>
+                                            Install by running:
+                                            <pre>$ tar xf ...downloaded archive...
+$ sudo ./install-haskell-platform.sh</pre>
                                         </div>
                                     </li>
-                                    <!--
-                                    <li>
-                                        <div class="step-number">3</div>
-                                        <div class="step-body">
-                                            <p>Run the installation script with</p>
-                                            <pre>$ ./install-haskell-platform-2015.01.2.sh</pre>
-
-                                            <p>Or instead, if you don't have root access, you can install locally,</p>
-                                            <pre>$ ./install-haskell-platform-2015.01.2.sh --user</pre>
-                                        </div>
-                                    </li>
-                                    -->
                                 </ol>
                             </div> <!-- #linux-generic -->
 
@@ -400,7 +333,7 @@ $ sudo emerge haskell-platform</pre>
                                             <p>Download and extract the source tarball,</p>
                                             {{#current}} {{#files}} {{#isSource}}
                                             <div class="download-btn">
-                                                <a href="{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download
                                                 </a>
                                             </div>
@@ -408,7 +341,7 @@ $ sudo emerge haskell-platform</pre>
 
                                             <div>
                                                 You can verify the authenticity of this file by
-                                                checking its <strong>SHA-1</strong> hash,
+                                                checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isSource}}
                                                     <li><input readonly class="file-hash" type="text" value="{{mHash}}"></li>
@@ -436,20 +369,6 @@ $ sudo emerge haskell-platform</pre>
         <!-- a bit of whitespace before the footer -->
         <div style="height: 100px;"></div>
 
-        <div class="footer">
-            <div class="container">
-                <p>
-                    <span class="item">© 2014–2015 haskell.org</span>
-                    <span class="item footer-contribute">
-                        Got changes to contribute?
-                        <a href="https://github.com/haskell-infra/hl"> Fork or comment on Github</a>
-                    </span>
-                    <span class="pull-right">
-                        <span>Proudly hosted by </span>
-                        <a href="https://www.rackspace.com/"><img src="/static/img/rackspace.svg?etag=J84VdDuP" alt="rackspace" height="20" width="20"></a>
-                    </span>
-                </p>
-            </div>
-        </div>
+        {{> plan-a/footer }}
     </body>
 </html>
