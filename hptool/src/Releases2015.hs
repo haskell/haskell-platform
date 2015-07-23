@@ -48,7 +48,7 @@ hp_7_10_2 =
         , incLib "attoparsec"               "0.13.0.1"
         , incLib "case-insensitive"         "1.2.0.4"
         , incLib "cgi"                      "3001.2.2.2"
-        , incLib "fgl"                      "5.5.1.0"
+        , incLib "fgl"                      "5.5.2.0"
         , incLib "GLUT"                     "2.7.0.1"
         , incLib "GLURaw"                   "1.5.0.1"
         , incLib "haskell-src"              "1.0.2.0"
