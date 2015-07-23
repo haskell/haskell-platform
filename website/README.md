@@ -25,4 +25,4 @@ One can use `echo -n` to avoid adding a trailing newline when setting the conten
 of one of these files, e.g.:
 
     echo -n '//haskell.org/' > templates/haskell-org-root.mu
-
+    echo -n '//haskell.org/platform/' > templates/downloads-root.mu
