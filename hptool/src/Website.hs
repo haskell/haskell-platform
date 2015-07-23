@@ -1,4 +1,4 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE PatternGuards, RecordWildCards #-}
 
 module Website where
 
