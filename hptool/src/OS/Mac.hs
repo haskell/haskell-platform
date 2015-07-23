@@ -175,7 +175,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
         let (maj,(m1:m0:_)) = splitAt 2 $ versionBranch hpVersion ++ repeat 0 in
         (concatMap show maj, show $ 10*m1 + m0 + 1)
 
-    osPackageConfigureExtraArgs _pkg =
+    osPackageConfigureExtraArgs pkg =
         [ override "prefix"     "/usr/local"                    "/Library/Haskell/$compiler-$arch"
         , stock    "bindir"     "$prefix/bin"
         , stock    "libdir"     "$prefix/lib"
@@ -189,6 +189,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
         , stock    "haddockdir" "$htmldir"
         , stock    "sysconfdir" "$prefix/etc"
         ]
+        ++ perPackageExtraArgs
       where
         stock    k  v0    = "--" ++ k ++ "=" ++ v0  -- the 1.18 default value
         override k _v0 v1 = "--" ++ k ++ "=" ++ v1  -- our override
@@ -197,6 +198,10 @@ macOsFromConfig BuildConfig{..} = OS{..}
         -- need to specify every dir parameter explicitly.
         --
         -- See also the file notes/cabal-layouts
+        perPackageExtraArgs = case pkgName pkg of
+            "GLUT" -> [ "--ghc-options=-optl-Wl,-framework,GLUT" ]
+                        -- see https://ghc.haskell.org/trac/ghc/ticket/10568
+            _ -> []
 
 compileToBin :: FilePath -> FilePath -> Action ()
 compileToBin src dst = do
