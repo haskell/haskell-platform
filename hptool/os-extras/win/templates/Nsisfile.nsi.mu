@@ -174,13 +174,16 @@ Function un.onInit
   SetShellVarContext all
 FunctionEnd
 
-; Function .onInstSuccess
+Function .onInstSuccess
+  SetOutPath "$INSTDIR\bin"
+  ExecWait '"$INSTDIR\bin\ghc-pkg" recache'
+
 ;   IfFileExists $SYSDIR\glut32.dll Done
 ;     MessageBox MB_YESNO "It looks like the GLUT library is not installed on your computer. Do you want to install GLUT?" IDNO Done
 ;         SetOutPath "$SYSDIR\."
 ;         File "${FILES_SOURCE_PATH}\etc\glut32.dll"
 ;   Done:
-; FunctionEnd
+FunctionEnd
 
 ;--------------------------------
 ;Interface Settings
