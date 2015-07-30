@@ -68,7 +68,15 @@ currentFiles : priorFiles = releaseFiles
 
 releaseFiles :: [ReleaseFiles]
 releaseFiles =
-    [ ("2014.2.0.0", aug 2014,
+    [ ("7.10.2", jul 2015,
+        [ lin x86_64    "download/7.10.2/haskell-platform-7.10.2-unknown-linux-deb7.tar.gz"     $ sha256 "a2adc1089fd34f4a2fe43b2ec98851b5a95f03e520ef00373520e65b1c49ce71"
+        , mac x86_64    "download/7.10.2/Haskell%20Platform%207.10.2%2064bit-signed.pkg"        $ sha256 "f6a884b6304a15056d1692ba419a6d00e883c4eee998f4f4d8b4ace3d160b54b"
+        , win i386      "download/7.10.2/HaskellPlatform-7.10.2-i386-setup.exe"                 $ sha256 "f7f727ed0686b2c3dc645a12698332b7729c2b6b5c296b70af70d24d3b8162ab"
+        , win x86_64    "download/7.10.2/HaskellPlatform-7.10.2-x86_64-setup.exe"               $ sha256 "ba4217c570391d24b26f0c663ddffebbcba2d4b8fe3566e1033ac40b506d687a"
+        , src           "download/7.10.2/haskell-platform-7.10.2.tar.gz"                        $ sha256 "3afb7ce0990231146a641f760359b1ec61d1f8399ed26139ee2c966a629b1975"
+        ])
+
+    , ("2014.2.0.0", aug 2014,
         [ lin x86_64    "download/2014.2.0.0/haskell-platform-2014.2.0.0-unknown-linux-x86_64.tar.gz"   $ sha256 "0da6879ae657481849e7ec4e5d3c4c035e090824167f97434b48af297ec17cf9"
         , mac x86_64    "download/2014.2.0.0/Haskell%20Platform%202014.2.0.0%2064bit.signed.pkg"        $ sha256 "62f39246ad95dd2aed6ece5138f6297f945d2b450f215d074820294310e0c48a"
         , win i386      "download/2014.2.0.0/HaskellPlatform-2014.2.0.0-i386-setup.exe"                 $ sha256 "719bd61329d1cd8c015c700661c7ba02f17c0c1c4a9e87495270132a5be3bbc4"
