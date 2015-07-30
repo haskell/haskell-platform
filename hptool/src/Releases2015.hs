@@ -9,8 +9,7 @@ releases2015 = [hp_7_10_2]
 hp_7_10_2 :: Release
 hp_7_10_2 =
     release "7.10.2"
-        [ incGHC                            "7.10.1"
-            -- FIXME: update to 7.10.2 when we are in release
+        [ incGHC                            "7.10.2"
 
         , incGHCLib "Cabal"                 "1.22.4.0"
         , incGHCLib "array"                 "0.5.1.0"
