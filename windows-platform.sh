@@ -15,8 +15,7 @@ NSIS_BIN="/c/Program Files (x86)/NSIS"
 
 HPTOOL=hptool/dist/build/hptool/hptool.exe
 
-if [ \! \( -e $HPTOOL -a -x $HPTOOL \) ]
-then
+if ( cabal sandbox --help >/dev/null 2>&1 ) ; then
     if [ \! -d hptool/.cabal-sandbox ]
     then
         echo '***'
@@ -25,24 +24,38 @@ then
         cabal update
         (cd hptool; cabal sandbox init; cabal install --only-dependencies)
     fi
-
-    echo '***'
-    echo '*** Building hptool'
-    echo '***'
-    (cd hptool; cabal build)
+else
+    if ( cabal install --dry-run --only-dependencies | grep -q 'would be installed' ) ; then
+        echo '=== pre-requisite packages for hptool are not installed'
+        echo '    run the following:'
+        echo '    cd hptool ; cabal install --only-dependencies'
+        exit 1
+    fi
 fi
+
+echo '***'
+echo '*** Building hptool'
+echo '***'
+(cd hptool; cabal build)
 
 CWD=`pwd`
 GHC_BINDIST=build/ghc-bindist/local
 MINGW=$GHC_BINDIST/mingw
 
-# A clean, cruft-free PATH
+# A clean, well-lighted, cruft-free PATH
 export PATH=$CWD/$GHC_BINDIST/bin:$CWD/$MINGW/bin:$MSYS_BIN:$NSIS_BIN:$HASK_BIN
 
 which cabal ||
   { echo "Could not find cabal.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
 which makensisw ||
   { echo "Could not find makensisw.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
+
+echo "> cabal --version"
+cabal --version
+echo "> which haddock"
+which haddock
+echo "> haddock --version"
+haddock --version
 
 # Make sure makensisw.exe is compiled with support for large strings
 #   makensisw="/c/Program\ Files\ \(x86\)/NSIS/Orig/makensis //HDRINFO"
