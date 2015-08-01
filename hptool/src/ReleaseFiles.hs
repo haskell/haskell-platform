@@ -73,7 +73,7 @@ releaseFiles =
         , mac x86_64    "download/7.10.2/Haskell%20Platform%207.10.2%2064bit-signed.pkg"        $ sha256 "f6a884b6304a15056d1692ba419a6d00e883c4eee998f4f4d8b4ace3d160b54b"
         , win i386      "download/7.10.2/HaskellPlatform-7.10.2-i386-setup.exe"                 $ sha256 "f7f727ed0686b2c3dc645a12698332b7729c2b6b5c296b70af70d24d3b8162ab"
         , win x86_64    "download/7.10.2/HaskellPlatform-7.10.2-x86_64-setup.exe"               $ sha256 "ba4217c570391d24b26f0c663ddffebbcba2d4b8fe3566e1033ac40b506d687a"
-        , src           "download/7.10.2/haskell-platform-7.10.2.tar.gz"                        $ sha256 "3afb7ce0990231146a641f760359b1ec61d1f8399ed26139ee2c966a629b1975"
+        , src           "download/7.10.2/haskell-platform-7.10.2.tar.gz"                        $ sha256 "c25e6f46bfa210c8e09e566162e34dab9ff3bf2097233241cf1dc708d0990bea"
         ])
 
     , ("2014.2.0.0", aug 2014,
