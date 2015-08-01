@@ -289,6 +289,8 @@ Section "Store GHC's location in registry" SecGHCLoc
   WriteRegStr HKCU "Software\Haskell\GHC\ghc-${GHC_VERSION}" "InstallDir" "$INSTDIR"
   WriteRegStr HKCU "Software\Haskell\GHC" "InstallDir" "$INSTDIR"
 
+  WriteRegStr HKCU "Software\Haskell\WinGHCi 1.0.6" "WorkingDir" "$INSTDIR\winghci"
+
 SectionEnd
 
 Section "Create uninstaller" SecAddRem
@@ -397,6 +399,8 @@ Section "Uninstall"
 
   DeleteRegKey HKCU "Software\Haskell\GHC\ghc-${GHC_VERSION}"
   DeleteRegKey HKCU "Software\Haskell\GHC"
+  ; remove WorkingDir but keep any user customizations for winGHCi
+  DeleteRegValue HKCU "Software\Haskell\WinGHCi 1.0.6" "WorkingDir"
   DeleteRegKey HKLM "${PRODUCT_DIR_REG_KEY}"
   DeleteRegKey /IfEmpty HKCU Software\Haskell
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HaskellPlatform-${PLATFORM_VERSION}"
