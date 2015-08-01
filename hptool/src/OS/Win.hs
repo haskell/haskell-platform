@@ -86,7 +86,6 @@ winOsFromConfig BuildConfig{..} = os
     whenM mp m = mp >>= \p -> when p m
 
     osTargetAction = do
-        copyWinTargetExtras
         -- Now, targetDir is actually ready to snapshot (we skipped doing
         -- this in osGhcTargetInstall).
         void $ getDirectoryFiles "" [targetDir ++ "//*"]
