@@ -52,7 +52,7 @@ winOsFromConfig BuildConfig{..} = os
 
     osPackageTargetDir p = winHpPrefix </> packagePattern p
 
-    -- The ghc-7.8.3 build for Windows does not have pre-built .dyn_hi files
+    -- The ghc builds for Windows do not have pre-built .dyn_hi files
     -- (Revisit this in future versions)
     osDoShared = False
 
@@ -86,7 +86,6 @@ winOsFromConfig BuildConfig{..} = os
     whenM mp m = mp >>= \p -> when p m
 
     osTargetAction = do
-        copyWinTargetExtras
         -- Now, targetDir is actually ready to snapshot (we skipped doing
         -- this in osGhcTargetInstall).
         void $ getDirectoryFiles "" [targetDir ++ "//*"]
@@ -123,12 +122,14 @@ winOsFromConfig BuildConfig{..} = os
 
     osProduct = winProductFile hpVersion bcArch
 
-    osRules _rel _bc = do
+    osRules _rel bc = do
         winRules
 
         osProduct %> \_ -> do
             need $ [dir ghcLocalDir, targetDir, vdir ghcVirtualTarget]
                    ++ winNeeds
+
+            copyWinTargetExtras bc
 
             -- Now, it is time to make sure there are no problems with the
             -- conf files copied to
