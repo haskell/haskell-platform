@@ -7,11 +7,12 @@ GHC_VERS=${tar_vers%%-*}
 
 # These may need to be edited to suit your specific environment
 # MSYS_BIN is needed on path for configure scripts;
-# HASK_BIN is needed on path for cabal.exe
+# HASK_BIN is needed on path for shake.exe, HsColour.exe (maybe cabal.exe)
 # NSIS_BIN is needed on path for makensisw.exe
 MSYS_BIN="/c/Program Files (x86)/MinGW/msys/1.0/bin"
-HASK_BIN="/c/Program Files (x86)/Haskell/bin"
+HASK_BIN="/c/Program Files/Haskell/bin:/c/Program Files/Haskell Platform/2014.2.0.0/lib/extralibs/bin"
 NSIS_BIN="/c/Program Files (x86)/NSIS"
+GHC_BINDIST=build/ghc-bindist/local
 
 HPTOOL=hptool/dist/build/hptool/hptool.exe
 
@@ -39,7 +40,6 @@ echo '***'
 (cd hptool; cabal build)
 
 CWD=`pwd`
-GHC_BINDIST=build/ghc-bindist/local
 MINGW=$GHC_BINDIST/mingw
 
 # A clean, well-lighted, cruft-free PATH
