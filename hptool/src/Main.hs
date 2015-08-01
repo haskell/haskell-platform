@@ -82,7 +82,7 @@ main = shakeArgsWith opts flags main'
 
     opts = shakeOptions
 
-    hpRelease = hp_7_10_2
+    hpRelease = hp_7_10_2_a
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tar.gz"
 

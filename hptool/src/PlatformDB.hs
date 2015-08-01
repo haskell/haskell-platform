@@ -1,5 +1,5 @@
 module PlatformDB
-    ( release,
+    ( release, deltaFrom,
       incGHC, incGHCLib, incGHCTool, incLib, incTool,
       notWindows, onlyWindows,
 
@@ -11,6 +11,7 @@ module PlatformDB
       isGhc, isWindows, isNotWindows, isLib, isTool
     ) where
 
+import Data.List (partition)
 
 import Types
 import Utils (version)
@@ -19,6 +20,20 @@ import Utils (version)
 release :: String -> [Include] -> Release
 release vstr incs = Release (HpVersion $ version vstr) incs
 
+-- | Construct list of Includes as a delta to packages in another release
+deltaFrom :: Release -> [Include] -> [Include]
+deltaFrom base deltas = go (relIncludes base) deltas
+  where
+    go []             dIncs = dIncs
+    go (bInc : bIncs) dIncs =
+        let (updates, dIncs') = partition (match bInc) dIncs
+        in merge bInc updates : go bIncs dIncs'
+
+    match (_, bPkg) (_, dPkg) = pkgName bPkg == pkgName dPkg
+
+    merge bInc []          = bInc
+    merge _    [updateInc] = updateInc
+    merge bInc _ = error $ "multiple updates for package " ++ show (snd bInc)
 
 buildInc :: IncludeType -> PackageName -> String -> Include
 buildInc inc name vstr = (inc, Package name $ version vstr)

@@ -4,7 +4,7 @@ import PlatformDB
 import Types
 
 releases2015 :: [Release]
-releases2015 = [hp_7_10_2]
+releases2015 = [hp_7_10_2, hp_7_10_2_a]
 
 hp_7_10_2 :: Release
 hp_7_10_2 =
@@ -108,4 +108,12 @@ hp_7_10_2 =
         , incTool "hscolour"                "1.23"
         , incGHCTool "haddock"              "2.16.1"
         ]
+
+hp_7_10_2_a :: Release
+hp_7_10_2_a =
+    release "7.10.2-a" $ deltaFrom hp_7_10_2
+        [ incLib "text"                     "1.2.1.3"
+        , incLib "fgl"                      "5.5.2.1"
+        ]
+
 
