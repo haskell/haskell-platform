@@ -92,6 +92,8 @@ if [ \! \(    -d winExternalSrc \
            -a -d winExternalSrc/doc/html \
            -a -d winExternalSrc/winghci \
            -a -e winExternalSrc/winghci/winghci.exe \
+           -a -d winExternalSrc/msys/i386/usr \
+           -a -d winExternalSrc/msys/x86_64/usr \
         \) ]
 then
     echo '***'
@@ -100,6 +102,7 @@ then
     echo '    * winghci (can copy from a previous HP release)'
     echo '    * GLUT library & DLL (e.g,. from freeglut-MinGW-2.8.1-1.mp.zip)'
     echo "    * GHC user's guide (matching the GHC in this HP)"
+    echo "    * MSys2 'usr' directory, as seen in git-for-windows(tm)"
     echo ''
     echo 'Please create a subdirectory in this directory (where this script'
     echo 'is), with the following contents and structure:'
@@ -124,7 +127,11 @@ then
             winghci/
                 winghci.exe
                 <and any other DLL, etc. needed to run this particular winghci>
-
+            msys/
+                i386/
+                        usr/{bin,lib,libexec,share,ssl}
+                x86_64/
+                        usr/{bin,lib,libexec,share,ssl}
 EOF
 
     exit 1
