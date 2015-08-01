@@ -106,6 +106,12 @@ winExternalWinGhciDir = winExternalSrc </> "winghci"
 winWinGhciTargetDir :: FilePath
 winWinGhciTargetDir = winTargetDir </> "winghci"
 
+winExternalMSysDir :: BuildConfig -> FilePath
+winExternalMSysDir bc = winExternalSrc </> "msys" </> bcArch bc
+
+winMSysTargetDir :: FilePath
+winMSysTargetDir = winTargetDir </> "msys"
+
 -- | ghc.exe file, relative to the install
 winGhcExeBin :: FilePath
 winGhcExeBin = "bin" </> "ghc" <.> exe
