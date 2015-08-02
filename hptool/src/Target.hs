@@ -25,7 +25,7 @@ targetRules :: BuildConfig -> Rules ()
 targetRules bc = do
     buildRules
     installRules bc
-    targetDir ~> do
+    phonyTargetDir ~> do
         hpRel <- askHpRelease
         bc' <- askBuildConfig
         let OS{..} = osFromConfig bc'

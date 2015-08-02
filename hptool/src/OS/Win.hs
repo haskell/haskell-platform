@@ -87,10 +87,7 @@ winOsFromConfig BuildConfig{..} = os
     whenM :: (Monad m) => m Bool -> m () -> m ()
     whenM mp m = mp >>= \p -> when p m
 
-    osTargetAction = do
-        -- Now, targetDir is actually ready to snapshot (we skipped doing
-        -- this in osGhcTargetInstall).
-        void $ getDirectoryFiles "" [targetDir ++ "//*"]
+    osTargetAction = return ()
 
     osGhcDbDir = winGhcPackageDbDir
 
@@ -128,10 +125,15 @@ winOsFromConfig BuildConfig{..} = os
         winRules
 
         osProduct %> \_ -> do
-            need $ [dir ghcLocalDir, targetDir, vdir ghcVirtualTarget]
-                   ++ winNeeds
+            need $ [dir ghcLocalDir, phonyTargetDir, vdir ghcVirtualTarget]
 
             copyWinTargetExtras bc
+
+            -- Now, targetDir is actually ready to snapshot (we skipped doing
+            -- this in osGhcTargetInstall).
+            void $ getDirectoryFiles "" [targetDir ++ "//*"]
+
+            need winNeeds
 
             -- Now, it is time to make sure there are no problems with the
             -- conf files copied to

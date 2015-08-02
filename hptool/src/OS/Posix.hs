@@ -96,7 +96,7 @@ posixOS BuildConfig{..} = OS{..}
                 ]
 
         usrLocalTar %> \out -> do
-            need [targetDir, vdir ghcVirtualTarget]
+            need [phonyTargetDir, vdir ghcVirtualTarget]
             command_ [Cwd targetDir]
                 "tar" ["czf", out ® targetDir, hpTargetDir ® targetDir]
 
