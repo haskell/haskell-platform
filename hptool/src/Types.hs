@@ -120,7 +120,7 @@ data BuildConfig = BuildConfig
 -- | A function that is used for the actions after untar-ing GHC.
 -- The build configuration and file path of the untar-ed directory is
 -- provided, and the file path of the installed directory is returned.
-type GhcInstallAction = BuildConfig -> FilePath -> Action FilePath
+type GhcInstallAction = BuildConfig -> FilePath -> Action (Maybe FilePath)
 
 -- | After untar-ing GHC, some platforms require configure-make, while
 -- other platforms need other custom steps.

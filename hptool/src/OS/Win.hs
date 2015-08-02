@@ -45,10 +45,12 @@ winOsFromConfig BuildConfig{..} = os
         -- dependencies on the contents of winGhcTargetDir won't account
         -- for the HP pieces.  Also, for Windows, the ghc-bindist/local and
         -- the GHC installed into the targetDir should be identical.
-        -- osTargetAction is the right place to do the targetDir snapshot.
+        -- It is incorrect to return anything here since the
+        -- dir which we just processed is not completed yet (as mentioned
+        -- above, we need to await the hp-specific packages to be built).
         GhcInstallCustom $ \bc distDir -> do
             void $ winGhcInstall winGhcTargetDir bc distDir
-            return ghcLocalDir
+            return Nothing
 
     osPackageTargetDir p = winHpPrefix </> packagePattern p
 
