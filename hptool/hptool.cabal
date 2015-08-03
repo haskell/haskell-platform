@@ -31,6 +31,7 @@ Executable hptool
     Package,
     Paths,
     PlatformDB,
+    ReleaseFiles,
     Releases,
     Releases2012,
     Releases2013,
