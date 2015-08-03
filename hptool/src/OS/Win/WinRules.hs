@@ -58,8 +58,8 @@ winGhcInstall destDir bc distDir = do
     return destDir
 
 
-copyWinTargetExtras :: Action ()
-copyWinTargetExtras = do
+copyWinTargetExtras :: BuildConfig -> Action ()
+copyWinTargetExtras bc = do
     -- copy icons
     let mkIconsDir = makeDirectory $ winTargetDir </> "icons"
     copyFilesAction mkIconsDir winExtrasSrc winTargetDir winIconsFiles
@@ -69,6 +69,9 @@ copyWinTargetExtras = do
 
     -- copy winghci pieces
     copyDirAction winExternalWinGhciDir winWinGhciTargetDir
+
+    -- copy msys(msys2) pieces
+    copyDirAction (winExternalMSysDir bc) winMSysTargetDir
 
 
 -- | These files are needed when building the installer
