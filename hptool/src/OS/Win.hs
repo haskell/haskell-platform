@@ -45,10 +45,12 @@ winOsFromConfig BuildConfig{..} = os
         -- dependencies on the contents of winGhcTargetDir won't account
         -- for the HP pieces.  Also, for Windows, the ghc-bindist/local and
         -- the GHC installed into the targetDir should be identical.
-        -- osTargetAction is the right place to do the targetDir snapshot.
+        -- It is incorrect to return anything here since the
+        -- dir which we just processed is not completed yet (as mentioned
+        -- above, we need to await the hp-specific packages to be built).
         GhcInstallCustom $ \bc distDir -> do
             void $ winGhcInstall winGhcTargetDir bc distDir
-            return ghcLocalDir
+            return Nothing
 
     osPackageTargetDir p = winHpPrefix </> packagePattern p
 
@@ -85,10 +87,7 @@ winOsFromConfig BuildConfig{..} = os
     whenM :: (Monad m) => m Bool -> m () -> m ()
     whenM mp m = mp >>= \p -> when p m
 
-    osTargetAction = do
-        -- Now, targetDir is actually ready to snapshot (we skipped doing
-        -- this in osGhcTargetInstall).
-        void $ getDirectoryFiles "" [targetDir ++ "//*"]
+    osTargetAction = return ()
 
     osGhcDbDir = winGhcPackageDbDir
 
@@ -126,10 +125,15 @@ winOsFromConfig BuildConfig{..} = os
         winRules
 
         osProduct %> \_ -> do
-            need $ [dir ghcLocalDir, targetDir, vdir ghcVirtualTarget]
-                   ++ winNeeds
+            need $ [dir ghcLocalDir, phonyTargetDir, vdir ghcVirtualTarget]
 
             copyWinTargetExtras bc
+
+            -- Now, targetDir is actually ready to snapshot (we skipped doing
+            -- this in osGhcTargetInstall).
+            void $ getDirectoryFiles "" [targetDir ++ "//*"]
+
+            need winNeeds
 
             -- Now, it is time to make sure there are no problems with the
             -- conf files copied to

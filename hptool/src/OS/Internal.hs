@@ -124,7 +124,7 @@ genericOS BuildConfig{..} = OS{..}
     osProduct = productDir </> "generic.tar.gz"
     osRules _hpRelease _bc =
         osProduct %> \out -> do
-            need [targetDir, vdir ghcVirtualTarget]
+            need [phonyTargetDir, vdir ghcVirtualTarget]
             command_ [Cwd buildRoot]
                 "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
 
