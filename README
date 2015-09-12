@@ -10,7 +10,7 @@ base. It aims to be a quick way to a working Haskell environment, and a solid
 foundation on which to base production software.
 
 While end-users _can_ build the platform themselves, it is generally recommended,
-if possible, to use the prebuild binaries available from https://www.haskell.org/platform/
+if possible, to use the prebuilt binaries available from https://www.haskell.org/platform/
 
 DISTRIBUTION
 ------------
