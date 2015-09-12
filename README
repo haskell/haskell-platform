@@ -9,6 +9,9 @@ tasks. The platform is maintained and released so as to be a consistent, stable
 base. It aims to be a quick way to a working Haskell environment, and a solid
 foundation on which to base production software.
 
+While end-users _can_ build the platform themselves, it is generally recommended,
+if possible, to use the prebuilt binaries available from https://www.haskell.org/platform/
+
 DISTRIBUTION
 ------------
 The platform comes in several forms:
@@ -52,9 +55,9 @@ You need the platform build files, either from the *source repo* or the
 *source tarball*.  Build instructions are the same for either.
 
 You need a GHC bindist that matches the OS you are compiling on. It must also
-match the GHC version used by the platform, currently 7.8.3. You can get this
+match the GHC version used by the platform, currently 7.10.2. You can get this
 from:
-    http://www.haskell.org/ghc/download_ghc_7_8_3
+    https://www.haskell.org/ghc/download_ghc_7_10_2
 
 The machine doing the build needs to have a working Haskell setup: Usually,
 GHC (7.4 or later), Cabal (1.16 or later), and haddock and HsColour must be on
