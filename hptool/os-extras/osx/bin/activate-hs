@@ -280,12 +280,12 @@ fi
 ### Set up /usr
 ###
 
-symLinkInto $ghcRoot/usr/bin/* /usr/bin
-symLinkInto $ghcRoot/usr/share/man/man1/* /usr/share/man/man1
-symLinkInto $ghcRoot/usr/share/doc/ghc /usr/share/doc
+symLinkInto $ghcRoot/usr/bin/* /usr/local/bin
+symLinkInto $ghcRoot/usr/share/man/man1/* /usr/local/share/man/man1
+symLinkInto $ghcRoot/usr/share/doc/ghc /usr/local/share/doc
 
 if [ -d "$hpRoot" ] ; then
-    symLinkInto $hpRoot/bin/* /usr/bin
+    symLinkInto $hpRoot/bin/* /usr/local/bin
 fi
 
 
@@ -327,7 +327,7 @@ if [ -f "$settingsFile" ] ; then
     else
         cmd=$( extractSetting "C compiler command" )
         if [ "$( determineCompiler $cmd )" = "clang" ] ; then
-            wrapperCmd=/usr/bin/ghc-clang-wrapper
+            wrapperCmd=/usr/local/bin/ghc-clang-wrapper
             if [ -f "$wrapperCmd" -a -e "$wrapperCmd" ] ; then
                 updateSetting "C compiler command" "$wrapperCmd"
             else
@@ -353,7 +353,7 @@ fi
 if [ -d "$hpRoot" ] ; then
     for conf in $hpRoot/lib/registrations/*
     do
-        run /usr/bin/ghc-pkg register --verbose=0 --force $conf 2>/dev/null
+        run /usr/local/bin/ghc-pkg register --verbose=0 --force $conf 2>/dev/null
     done
 fi
 

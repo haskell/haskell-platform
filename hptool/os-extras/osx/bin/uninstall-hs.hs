@@ -1,4 +1,4 @@
-#!/usr/bin/env runghc
+#!/usr/local/bin/env runghc
 
 module Main where
 
