@@ -119,7 +119,7 @@ p {
       <p>On Mac OS X, the Haskell Platform is installed in two major pieces: GHC and Haskell Platform. They are installed respectively in:</p>
       <p class="paths">/Library/Frameworks/GHC.framework
       <br/>/Library/Haskell</p>
-      <p>Executables are symlinked in <tt>/usr/bin</tt> and should be available in any shell.</p>
+      <p>Executables are symlinked in <tt>/usr/local/bin</tt> and should be available in any shell.</p>
 
       <h2>Versions &amp; Uninstallation</h2>
       <p>This and prior versions of GHC and Haskell Platform can be found and then easily removed with the uninstallation command line utility:</p>
