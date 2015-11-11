@@ -300,7 +300,7 @@ $ sudo ./install-haskell-platform.sh</pre>
                                     your distribution's package
                                     <a href="https://admin.fedoraproject.org/pkgdb/package/haskell-platform/">repository</a>.</p>
                                 <p>Simply run,</p>
-                                <pre>$ sudo yum install haskell-platform</pre>
+                                <pre>$ sudo dnf install haskell-platform</pre>
                             </div> <!-- #linux-fedora -->
 
                             <div id="linux-gentoo" class="flavor">
