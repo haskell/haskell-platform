@@ -1,7 +1,7 @@
 Name:            hptool
 Version:         0.1
 Author:          Mark Lentczner
-Maintainer:      mark@glyphic.com
+Maintainer:      gershomb@gmail.com
 Category:        Utility
 Build-type:      Simple
 Cabal-version:   >=1.8
