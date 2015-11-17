@@ -211,6 +211,7 @@ hp_7_10_3 =
         -- needed by OpenGL
         , incLib "ObjectName"               "1.1.0.0"
         , incLib "StateVar"                 "1.1.0.1"
+        , incLib "half"                     "0.2.2.1"
 
         , incTool "cabal-install"           "1.22.6.0"
         , incTool "alex"                    "3.1.4"
