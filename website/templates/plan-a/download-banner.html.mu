@@ -26,6 +26,7 @@
                                         </ul>
                                     </span>
                                 </div>
+                                <a href="prior.html">Prior releases</a> of the Platform are also available.
                             </div>
                         </div>
                     </div>
