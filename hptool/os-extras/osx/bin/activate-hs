@@ -240,6 +240,10 @@ run() {
     fi
 }
 
+ensureDirectoryExists() {
+    run mkdir -p "$1"
+}
+
 symLink() {
     run rm -rf "$2"
     run ln -sf "$1" "$2"
@@ -279,6 +283,10 @@ fi
 ###
 ### Set up /usr
 ###
+
+ensureDirectoryExists /usr/local/bin
+ensureDirectoryExists /usr/local/share/man/man1
+ensureDirectoryExists /usr/local/share/doc
 
 symLinkInto $ghcRoot/usr/bin/* /usr/local/bin
 symLinkInto $ghcRoot/usr/share/man/man1/* /usr/local/share/man/man1
