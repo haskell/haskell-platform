@@ -122,7 +122,7 @@ hp_7_10_3 =
     release "7.10.3"
         [ incGHC                            "7.10.3"
 
-        , incGHCLib "Cabal"                 "1.22.4.0"
+        , incGHCLib "Cabal"                 "1.22.5.0"
         , incGHCLib "array"                 "0.5.1.0"
         , incGHCLib "base"                  "4.8.2.0"
         , incGHCLib "bytestring"            "0.10.6.0"
