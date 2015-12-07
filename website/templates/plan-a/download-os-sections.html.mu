@@ -38,6 +38,7 @@
                             <ul>
                                 <li class="active"><a href="#osx-none"><span class="logo"><i class="fa fa-cogs"></i></span>None</a></li>
                                 <li><a href="#osx-macports"><img alt="MacPorts logo" class="logo" src="img/distro-macports.png">MacPorts</a></li>
+                                <li><a href="#osx-homebrewcask"><img alt="Homebrew logo" class="logo" src="img/distro-homebrew.png">Homebrew</a></li>
                             </ul>
                         </div>
 
@@ -100,6 +101,15 @@
                                 </p>
                                 <pre>$ sudo port install haskell-platform</pre>
                             </div> <!-- #osx-macports -->
+
+                            <div id="osx-homebrewcask" class="flavor">
+                                <h3>Homebrew Cask</h3>
+                                <p>To install Haskell Platform with
+                                    <a href="http://caskroom.io">Homebrew Cask</a>,
+                                    simply run,
+                                </p>
+                                <pre>$ brew cask install haskell-platform</pre>
+                            </div> <!-- #osx-homebrewcask -->
 
                         </div>
                         <div class="bottom-rule"></div>
