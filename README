@@ -55,9 +55,9 @@ You need the platform build files, either from the *source repo* or the
 *source tarball*.  Build instructions are the same for either.
 
 You need a GHC bindist that matches the OS you are compiling on. It must also
-match the GHC version used by the platform, currently 7.10.2. You can get this
+match the GHC version used by the platform, currently 7.10.3. You can get this
 from:
-    https://www.haskell.org/ghc/download_ghc_7_10_2
+    https://www.haskell.org/ghc/download_ghc_7_10_3
 
 The machine doing the build needs to have a working Haskell setup: Usually,
 GHC (7.4 or later), Cabal (1.16 or later), and haddock and HsColour must be on
@@ -85,7 +85,7 @@ tree of built things will be placed. It defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
 everything will be installed under there.
 
-Adding -j <n> to the build invocation will enable building on multiple cores at
+Adding -j<n> (no space between the j and the number of cores) to the build invocation will enable building on multiple cores at
 once.
 
 
