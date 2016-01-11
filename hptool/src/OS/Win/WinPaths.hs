@@ -145,14 +145,14 @@ winDocTargetDir :: FilePath
 winDocTargetDir = winTargetDir </> "doc"
 
 -- | The installer file name, dependent on the HP version and architecture
-winProductFileName :: Version -> String -> FilePath
-winProductFileName hpv arch =
+winProductFileName :: Bool -> Version -> String -> FilePath
+winProductFileName isFull hpv arch =
     ("HaskellPlatform-" ++ versionAndArch ++ "-setup") <.> "exe"
-  where versionAndArch = showVersion hpv ++ '-' : arch
+  where versionAndArch = showVersion hpv ++ (if isFull then "-full" else "-minimal") ++ '-' : arch
 
 -- | Directory where the installer file is built.
-winProductFile :: Version -> String -> FilePath
-winProductFile hpv arch = productDir </> winProductFileName hpv arch
+winProductFile :: Bool -> Version -> String -> FilePath
+winProductFile isFull hpv arch = productDir </> winProductFileName isFull hpv arch
 
 -- | Relative to the install dir
 winGhcPackageDbDir :: FilePath
@@ -166,4 +166,3 @@ winGhcTargetPackageDbDir = winTargetDir </> winGhcPackageDbDir
 winNeeds :: [FilePath]
 winNeeds = [ nsisFile, nsisInstDat, nsisUninstDat ]
            ++ winInstExtras
-

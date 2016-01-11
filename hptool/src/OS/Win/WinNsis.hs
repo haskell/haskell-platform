@@ -84,7 +84,7 @@ expandNsisInfo :: (Monad m) => Release -> BuildConfig -> MuContext m
 expandNsisInfo rls BuildConfig{..} = mkStrContext ex
   where
     ex "productFile" = MuVariable . toNative $
-        winProductFile hpver bcArch `relativeToDir` installerPartsDir
+        winProductFile bcIncludeExtra hpver bcArch `relativeToDir` installerPartsDir
         -- NSIS tool needs to run from the installerPartsDir
     ex "build64bit" = MuBool is64
     ex "is32or64" = MuVariable $ if is64 then "64" else "32"
