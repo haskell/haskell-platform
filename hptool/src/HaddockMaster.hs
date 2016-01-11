@@ -81,11 +81,11 @@ isForOS os i = okForAll
 
 allCoreLibs :: Release -> BuildConfig -> [Package]
 allCoreLibs hpRel bc = packagesByIncludeFilter
-    (\i -> isForOS (bcOs bc) i && isLib i && isGhc i) hpRel
+    (\i -> isForOS (bcOs bc) i && isLib i && isGhc i) (bcIncludeExtra bc) hpRel
 
 allPlatformLibs :: Release -> BuildConfig -> [Package]
 allPlatformLibs hpRel bc = packagesByIncludeFilter
-    (\i -> isForOS (bcOs bc) i && isLib i && not (isGhc i)) hpRel
+    (\i -> isForOS (bcOs bc) i && isLib i && not (isGhc i)) (bcIncludeExtra bc) hpRel
 
 
 haddockReadArg :: HaddockPkgLoc -> String
@@ -130,4 +130,3 @@ extractField field out =  ex . lines $ out
         _ -> ex ls
 
     fieldColon = field ++ ":"
-

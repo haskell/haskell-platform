@@ -49,7 +49,7 @@ ghcInstall postUntarAction base mfPrefix = do
     makeDirectory untarDir
 
     command_ [Cwd untarDir]
-        "tar" ["xf", tarFile ® untarDir]
+        "tar" ["xf", tarFile `relativeToDir` untarDir]
 
     case postUntarAction of
         GhcInstallConfigure -> ghcInstallConfigure base mfPrefix conf distDir
@@ -59,7 +59,7 @@ ghcInstall postUntarAction base mfPrefix = do
 ghcInstallConfigure :: FilePath -> Maybe (BuildConfig -> FilePath) -> GhcInstallAction
 ghcInstallConfigure base mfPrefix conf distDir = do
     let (prefix, destDir) = layout (($ conf) <$> mfPrefix)
-        destArg = maybe [] (\_ -> ["DESTDIR=" ++ base ® distDir]) mfPrefix
+        destArg = maybe [] (\_ -> ["DESTDIR=" ++ base `relativeToDir` distDir]) mfPrefix
         settingsFile = destDir </> "lib" </> show (bcGhcVersion conf) </> "settings"
 
     configCmd <- liftIO $ absolutePath $ distDir </> "configure"

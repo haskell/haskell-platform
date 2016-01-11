@@ -90,6 +90,7 @@ historyCtx = mkStrContext outerCtx
         , sectionCtx "Core Libraries, provided with GHC"   [isGhc, isLib]
         , sectionCtx "Additional Platform Libraries"       [not . isGhc, isLib]
         , sectionCtx "Programs and Tools"                  [isTool]
+        , extendedCtx "Full Platform Only"
         ]
     ctx _ = MuNothing
 
@@ -104,8 +105,8 @@ sectionCtx name tests = mkStrContext ctx
     ctx _ = MuNothing
 
     packages = sortOnLower . nub . map pkgName . concat $
-                map (packagesByIncludeFilter $ \i -> all ($i) tests)
-                 releasesNewToOld
+                map (packagesByIncludeFilter (\i -> all ($i) tests) False)
+                releasesNewToOld
 
     sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
 
@@ -120,6 +121,29 @@ sectionCtx name tests = mkStrContext ctx
     pvCtx _ _ = MuNothing
 
 
+extendedCtx :: (Monad m) => String -> MuContext m
+extendedCtx name = mkStrContext ctx
+  where
+    ctx "name" = MuVariable name
+    ctx "components" = mapListStrContext pCtx packages
+    ctx _ = MuNothing
+
+    packages = sortOnLower . nub . map pkgName . concat $
+                map (map snd . relIncludes)
+                releasesNewToOld
+
+    sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
+
+    pCtx pName "package" = MuVariable pName
+    pCtx pName "hackageUrl" =
+        MuVariable $ "http://hackage.haskell.org/package/" ++ pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo pName
+    pCtx _ _ = MuNothing
+
+    pvCtx (c, _) "class" = MuVariable c
+    pvCtx (_, v) "version" = MuVariable v
+    pvCtx _ _ = MuNothing
+
 packageVersionInfo :: String -> [(String, String)]
 packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
   where
@@ -133,7 +157,7 @@ packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
     curr ((c, v) : cvs) = (c ++ " current", v) : cvs
     curr [] = []
 
-    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . relIncludes)
+    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . allRelIncludes)
             releasesNewToOld
 
 releasesNewToOld :: [Release]

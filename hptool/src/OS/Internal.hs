@@ -36,7 +36,7 @@ data OS = OS
     ,   osGhcTargetInstall :: GhcInstall
 
         -- | Where each package is installed
-    ,   osPackageTargetDir :: (PackagePattern p) => p -> FilePath
+    ,   osPackageTargetDir :: forall p. (PackagePattern p) => p -> FilePath
 
         -- | Set True if GHC in this build supports creating shared libs
     ,   osDoShared :: Bool
@@ -126,6 +126,6 @@ genericOS BuildConfig{..} = OS{..}
         osProduct %> \out -> do
             need [targetDir, vdir ghcVirtualTarget]
             command_ [Cwd buildRoot]
-                "tar" ["czf", out ® buildRoot, targetDir ® buildRoot]
+                "tar" ["czf", out `relativeToDir` buildRoot, targetDir `relativeToDir` buildRoot]
 
     osPackageConfigureExtraArgs _pkg = []

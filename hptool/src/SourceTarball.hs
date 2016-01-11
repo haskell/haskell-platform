@@ -21,17 +21,19 @@ sourceTarballRules srcTarFile = do
 
     srcTarFile %> \out -> do
         hpRelease <- askHpRelease
-        tarFileAction out hpRelease
+        bc <- askBuildConfig
+        tarFileAction out bc hpRelease
   where
     packageListRule target pkgFn =
         target %> \out -> do
             hpRelease <- askHpRelease
-            let pkgs = pkgFn hpRelease
+            bc <- askBuildConfig
+            let pkgs = pkgFn (bcIncludeExtra bc) hpRelease
             writeFileLinesChanged out (map show pkgs)
 
 
-tarFileAction :: FilePath -> Release -> Action ()
-tarFileAction out hpRelease = do
+tarFileAction :: FilePath -> BuildConfig -> Release -> Action ()
+tarFileAction out bc hpRelease = do
     need $ concat
         [ map (dir . packageSourceDir) sources
         , lists
@@ -61,7 +63,7 @@ tarFileAction out hpRelease = do
 
     localCommand' [Cwd hptoolSourceDir]
         "cabal" [ "sdist"
-                , "--output-directory=" ++ hptoolDistDir ® hptoolSourceDir ]
+                , "--output-directory=" ++ hptoolDistDir `relativeToDir` hptoolSourceDir ]
 
     -- this is a hack because adding os-extras to hptool's .cabal file would
     -- be inordinately painful
@@ -72,7 +74,7 @@ tarFileAction out hpRelease = do
         ]
 
     command_ [Cwd upDir]
-        "tar" ["czf", out ® upDir, takeFileName topDir]
+        "tar" ["czf", out `relativeToDir` upDir, takeFileName topDir]
   where
     hp = relVersion hpRelease
 
@@ -91,7 +93,7 @@ tarFileAction out hpRelease = do
         , "windows-platform.sh"
         ]
 
-    sources = platformPackages hpRelease
+    sources = platformPackages (bcIncludeExtra bc) hpRelease
 
 
 cabalFileRule :: Rules ()

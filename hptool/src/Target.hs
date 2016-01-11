@@ -29,7 +29,7 @@ targetRules bc = do
         hpRel <- askHpRelease
         bc' <- askBuildConfig
         let OS{..} = osFromConfig bc'
-        let packages = platformPackages hpRel
+        let packages = platformPackages (bcIncludeExtra bc') hpRel
 
         need $ vdir ghcVirtualTarget
                : dir (haddockDocDir bc')
@@ -90,11 +90,11 @@ buildAction buildDir hpRel bc = do
         cabal "configure" $ confOpts needsAlex needsHappy
         cabal "build" []
         cabal "register"
-            ["--gen-pkg-config=" ++ packageTargetConf pkg ® buildDir]
+            ["--gen-pkg-config=" ++ packageTargetConf pkg `relativeToDir` buildDir]
         osPackagePostRegister pkg
         cabal "register"
             ["--inplace"
-            , "--gen-pkg-config=" ++ packageInplaceConf pkg ® buildDir]
+            , "--gen-pkg-config=" ++ packageInplaceConf pkg `relativeToDir` buildDir]
 
         cReadArgs <- map (haddockReadArg . osGhcPkgPathMunge pkgHtmlDir)
                      <$> haddockAllCorePkgLocs hpRel bc
@@ -103,7 +103,7 @@ buildAction buildDir hpRel bc = do
         cabal "haddock" $
             [ "--hyperlink-source"
             , "--hoogle"
-            , "--with-haddock=" ++ haddockExe ® buildDir
+            , "--with-haddock=" ++ haddockExe `relativeToDir` buildDir
             ]
             ++ map (\s -> "--haddock-option=" ++ s) (cReadArgs ++ pReadArgs)
 
@@ -132,9 +132,9 @@ buildAction buildDir hpRel bc = do
     confOpts needsAlex needsHappy =
         osPackageConfigureExtraArgs pkg
         ++ map ("--package-db="++) [ "clear", "global", "../package.conf.d" ]
-        ++ needsAlex ?: [ "--with-alex=" ++ alexExe ® buildDir ]
-        ++ needsHappy ?: [ "--with-happy=" ++ happyExe ® buildDir
-                         , "--happy-options=--template=" ++ happyTemplateDir ® buildDir
+        ++ needsAlex ?: [ "--with-alex=" ++ alexExe `relativeToDir` buildDir ]
+        ++ needsHappy ?: [ "--with-happy=" ++ happyExe `relativeToDir` buildDir
+                         , "--happy-options=--template=" ++ happyTemplateDir `relativeToDir` buildDir
                          ]
         ++ haveCabalInstall ?: [ "--with-cabal-install=" ++ cabalInstallDir ]
         ++ doProfiling ?: [ "--enable-library-profiling" ]
@@ -144,7 +144,7 @@ buildAction buildDir hpRel bc = do
 
     alexVer = findPackage "alex"
     happyVer = findPackage "happy"
-    findPackage s = case filter ((==s) . pkgName) . allPackages $ hpRel of
+    findPackage s = case filter ((==s) . pkgName) . allPackages (bcIncludeExtra bc) $ hpRel of
         (p:_) -> p
         [] -> error $ "Can't find needed package " ++ s ++ " in HP."
 
@@ -163,8 +163,7 @@ installRules bc = do
         -- pristine, just as it will be for the actual end-user when first
         -- installed.
         localCommand' [Cwd buildDir]
-            "cabal" ["copy", "--destdir=" ++ targetDir ® buildDir]
+            "cabal" ["copy", "--destdir=" ++ targetDir `relativeToDir` buildDir]
         osPackageInstallAction pkg
   where
     OS{..} = osFromConfig bc
-

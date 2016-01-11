@@ -50,7 +50,8 @@ packageRules = do
 
     listBuild %> \out -> do
         hpRel <- askHpRelease
-        let pkgs = platformPackages hpRel
+        bc <- askBuildConfig
+        let pkgs = platformPackages (bcIncludeExtra bc) hpRel
         need $ map packageDepsFile pkgs
         nodes <- mapM buildNode pkgs
         writeFileLinesChanged out $ flattenSCCs $ stronglyConnComp nodes
@@ -87,7 +88,7 @@ installAction depFile hpRel = do
 
     constraints =
         map (\p -> pkgName p ++ "==" ++ showVersion (pkgVersion p)) $
-            allPackages hpRel
+            (allPackages True) hpRel
 
     decode out = case drop 1 $ lines out of
         ("All the requested packages are already installed:":_) ->
@@ -100,5 +101,4 @@ installAction depFile hpRel = do
                             ++ unwords (filter (not . (`elem` packages)) deps)
         _ -> Left out
 
-    packages = map show $ allPackages hpRel
-
+    packages = map show $ (allPackages False) hpRel

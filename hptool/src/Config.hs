@@ -67,8 +67,8 @@ askBuildConfig :: Action BuildConfig
 askBuildConfig = readOracle "BuildConfig" (BuildConfigQ ())
 
 
-addConfigOracle :: Release -> FilePath -> Maybe FilePath -> Rules BuildConfig
-addConfigOracle hpRel tarFile prefix = do
+addConfigOracle :: Release -> FilePath -> Maybe FilePath -> Bool -> Rules BuildConfig
+addConfigOracle hpRel tarFile prefix includeExtra = do
     _ <- addOracle $
             \(HpReleaseQ _) -> return $ show hpRel
     _ <- addOracle $
@@ -77,12 +77,12 @@ addConfigOracle hpRel tarFile prefix = do
             \(BuildConfigQ _) -> either fail (return . show) buildConfig
     either fail return buildConfig
   where
-    buildConfig = extractBuildConfig hpRel tarFile prefix
+    buildConfig = extractBuildConfig hpRel tarFile prefix includeExtra
 
 
-extractBuildConfig :: Release -> FilePath -> Maybe FilePath
+extractBuildConfig :: Release -> FilePath -> Maybe FilePath -> Bool
                         -> Either String BuildConfig
-extractBuildConfig hpRel tarFile prefix =
+extractBuildConfig hpRel tarFile prefix bcIncludeExtra =
     if ok then Right $ BuildConfig {..}
           else Left $ "extractBuildConfig tar file unparseable: " ++ base
   where

@@ -23,7 +23,7 @@ import Types
 import Target
 import Website
 
-data Flags = Info | Prefix String
+data Flags = Info | Prefix String | Full
   deriving Eq
 
 flags :: [OptDescr (Either a Flags)]
@@ -31,6 +31,8 @@ flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
                      "Show info on what gets included in this HP release"
         , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
                      "Set installation prefix (only for Posix builds)"
+        , Option ['f'] ["full"] (NoArg $ Right Info)
+                     "Do a full (rather than minimal) build of the platform."
         ]
 
 main :: IO ()
@@ -66,7 +68,7 @@ main = shakeArgsWith opts flags main'
         return Nothing
 
     allRules tarfile flgs = do
-        buildConfig <- addConfigOracle hpRelease tarfile (prefixSetting flgs)
+        buildConfig <- addConfigOracle hpRelease tarfile (prefixSetting flgs) (Full `elem` flgs)
         ghcDistRules
         packageRules
         targetRules buildConfig
@@ -82,13 +84,15 @@ main = shakeArgsWith opts flags main'
 
     opts = shakeOptions
 
-    hpRelease = hp_7_10_3
+    hpRelease = hp_8_0_0
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tar.gz"
 
 
 whatIsIncluded :: Release -> [String]
-whatIsIncluded = map concat . map includeToString . relIncludes where
+whatIsIncluded rel = ("-- Minimal Platform:":minimalIncludes) ++ ("-- Full Platform:":fullIncludes) where
+    minimalIncludes = map (concat . includeToString) $ relMinimalIncludes rel
+    fullIncludes    = map (concat . includeToString) $ relIncludes rel where
     includeToString (IncGHC, p)      = "GHC:    " : [show p]
     includeToString (IncGHCLib, p)   = "GHCLib: " : [show p]
     includeToString (IncLib, p)      = "LIB:    " : [show p]
@@ -106,7 +110,7 @@ buildRules hpRelease srcTarFile bc = do
     "build-product" ~> need [osProduct]
     "build-local" ~> need [dir ghcLocalDir]
     "build-website" ~> need [dir websiteDir]
-    forM_ (platformPackages hpRelease) $ \pkg -> do
+    forM_ (platformPackages True hpRelease) $ \pkg -> do
         let full = "build-package-" ++ show pkg
         let short = "build-package-" ++ pkgName pkg
         short ~> need [full]
@@ -117,5 +121,3 @@ buildRules hpRelease srcTarFile bc = do
     osRules hpRelease bc
   where
     OS{..} = osFromConfig bc
-
-

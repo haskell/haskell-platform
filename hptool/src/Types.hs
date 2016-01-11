@@ -97,6 +97,7 @@ type Include = (IncludeType, Package)
 -- | The definition of a Release of the platform.
 data Release = Release
     { relVersion :: HpVersion
+    , relMinimalIncludes :: [Include]
     , relIncludes :: [Include]
     }
   deriving (Read, Show)
@@ -114,6 +115,7 @@ data BuildConfig = BuildConfig
     , bcOs :: String               -- ex.: "freebsd", "linux", "darwin"
     , bcOsDistribution :: String   -- ex.: "deb7", "mavericks"
     , bcPrefix :: Maybe FilePath   -- ex.: "/usr/local/haskell"
+    , bcIncludeExtra :: Bool
     }
   deriving (Read, Show)
 
