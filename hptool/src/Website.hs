@@ -86,11 +86,11 @@ historyCtx = mkStrContext outerCtx
     ctx "hpReleases" = mapListStrContext rlsCtx releasesNewToOld
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
-        [ sectionCtx "Compiler"                            [isGhc, not . isLib]
-        , sectionCtx "Core Libraries, provided with GHC"   [isGhc, isLib]
-        , sectionCtx "Additional Platform Libraries"       [not . isGhc, isLib]
-        , sectionCtx "Programs and Tools"                  [isTool]
-        , extendedCtx "Full Platform Only"
+        [ sectionCtx "Compiler"                              [isGhc, not . isLib]
+        , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib]
+        , sectionCtx "Additional Minimal Platform Libraries" [not . isGhc, isLib]
+        , sectionCtx "Programs and Tools"                    [isTool]
+        , extendedCtx "Libraries with Full Platform"
         ]
     ctx _ = MuNothing
 
@@ -113,7 +113,7 @@ sectionCtx name tests = mkStrContext ctx
     pCtx pName "package" = MuVariable pName
     pCtx pName "hackageUrl" =
         MuVariable $ "http://hackage.haskell.org/package/" ++ pName
-    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo False pName
     pCtx _ _ = MuNothing
 
     pvCtx (c, _) "class" = MuVariable c
@@ -157,7 +157,7 @@ packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
     curr ((c, v) : cvs) = (c ++ " current", v) : cvs
     curr [] = []
 
-    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . allRelIncludes)
+    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . (if searchFull then allRelIncludes else relMinimalIncludes))
             releasesNewToOld
 
 releasesNewToOld :: [Release]

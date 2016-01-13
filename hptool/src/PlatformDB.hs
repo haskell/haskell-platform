@@ -32,7 +32,7 @@ release vstr incs = Release (HpVersion $ version vstr) incs []
 
 -- | Construct list of Includes as a delta to packages in another release
 deltaFrom :: Release -> [Include] -> [Include]
-deltaFrom base deltas = go (relIncludes base) deltas
+deltaFrom base deltas = go (allRelIncludes base) deltas
   where
     go []             dIncs = dIncs
     go (bInc : bIncs) dIncs =
