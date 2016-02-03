@@ -259,6 +259,8 @@ $ sudo ./install-haskell-platform.sh</pre>
                                     <a href="https://packages.debian.org/search?keywords=haskell-platform">repository</a>.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo apt-get install haskell-platform</pre>
+                                <p>Note that this package is often severely outdated; 
+                                    you're advised to use the <b>Generic</b> installation method instead.</p>
                             </div> <!-- #linux-debian -->
 
                             <div id="linux-mint" class="flavor">
