@@ -188,7 +188,9 @@
                                 <h3>Select your distribution</h3>
                                 <p>
                                     Please select your Linux distribution in the
-                                    list on the right.
+                                    list on the right. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version, then you may use the generic Linux installer.
                                 </p>
                                 <div class="point-to-flavors-list"><i class="fa fa-arrow-right"></i></div>
                             </div>
@@ -199,9 +201,9 @@
                                     This is a <strong>generic</strong>
                                     distribution of the Haskell Platform. While
                                     it should work on most modern Linux
-                                    distributions, you should use one of the
+                                    distributions, you may want to investigate use one of the
                                     distribution-specific options listed on the
-                                    right if possible.
+                                    right.
                                 </p>
                                 <p>
                                     The latest version of the Haskell Platform for Linux is
@@ -259,8 +261,6 @@ $ sudo ./install-haskell-platform.sh</pre>
                                     <a href="https://packages.debian.org/search?keywords=haskell-platform">repository</a>.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo apt-get install haskell-platform</pre>
-                                <p>Note that this package is often severely outdated; 
-                                    you're advised to use the <b>Generic</b> installation method instead.</p>
                             </div> <!-- #linux-debian -->
 
                             <div id="linux-mint" class="flavor">
