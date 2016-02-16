@@ -137,15 +137,15 @@ extendedCtx name = mkStrContext ctx
     pCtx pName "package" = MuVariable pName
     pCtx pName "hackageUrl" =
         MuVariable $ "http://hackage.haskell.org/package/" ++ pName
-    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo True pName
     pCtx _ _ = MuNothing
 
     pvCtx (c, _) "class" = MuVariable c
     pvCtx (_, v) "version" = MuVariable v
     pvCtx _ _ = MuNothing
 
-packageVersionInfo :: String -> [(String, String)]
-packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
+packageVersionInfo :: Bool -> String -> [(String, String)]
+packageVersionInfo searchFull pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
   where
     comp Nothing  _                         = ("missing", "—")
     comp (Just v) Nothing                   = ("update", showVersion v)
