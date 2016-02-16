@@ -38,6 +38,7 @@
                             <ul>
                                 <li class="active"><a href="#osx-none"><span class="logo"><i class="fa fa-cogs"></i></span>None</a></li>
                                 <li><a href="#osx-macports"><img alt="MacPorts logo" class="logo" src="img/distro-macports.png">MacPorts</a></li>
+                                <li><a href="#osx-homebrewcask"><img alt="Homebrew logo" class="logo" src="img/distro-homebrew.png">Homebrew</a></li>
                             </ul>
                         </div>
 
@@ -100,6 +101,15 @@
                                 </p>
                                 <pre>$ sudo port install haskell-platform</pre>
                             </div> <!-- #osx-macports -->
+
+                            <div id="osx-homebrewcask" class="flavor">
+                                <h3>Homebrew Cask</h3>
+                                <p>To install Haskell Platform with
+                                    <a href="http://caskroom.io">Homebrew Cask</a>,
+                                    simply run,
+                                </p>
+                                <pre>$ brew cask install haskell-platform</pre>
+                            </div> <!-- #osx-homebrewcask -->
 
                         </div>
                         <div class="bottom-rule"></div>
@@ -188,7 +198,9 @@
                                 <h3>Select your distribution</h3>
                                 <p>
                                     Please select your Linux distribution in the
-                                    list on the right.
+                                    list on the right. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version, then you may use the generic Linux installer.
                                 </p>
                                 <div class="point-to-flavors-list"><i class="fa fa-arrow-right"></i></div>
                             </div>
@@ -199,9 +211,9 @@
                                     This is a <strong>generic</strong>
                                     distribution of the Haskell Platform. While
                                     it should work on most modern Linux
-                                    distributions, you should use one of the
+                                    distributions, you may want to investigate use one of the
                                     distribution-specific options listed on the
-                                    right if possible.
+                                    right.
                                 </p>
                                 <p>
                                     The latest version of the Haskell Platform for Linux is
