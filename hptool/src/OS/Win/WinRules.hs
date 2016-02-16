@@ -12,8 +12,9 @@ import qualified Data.ByteString as B
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as E
 import Development.Shake
-import Development.Shake.FilePath ( (</>), takeDirectory )
+import Development.Shake.FilePath ( (</>), takeDirectory, takeFileName )
 
+import Config
 import Dirs
 import OS.Internal
 import OS.Win.WinNsis
@@ -72,6 +73,11 @@ copyWinTargetExtras bc = do
 
     -- copy msys(msys2) pieces
     copyDirAction (winExternalMSysDir bc) winMSysTargetDir
+
+    -- copy stack executable
+    stackFile <- askStackExe
+    copyFileAction (return ()) (takeDirectory stackFile) (winHpTargetDir </> "bin") (takeFileName stackFile)
+
 
 
 -- | These files are needed when building the installer
