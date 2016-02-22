@@ -12,6 +12,7 @@ import Development.Shake
 import Development.Shake.FilePath
 
 import Dirs
+import Config
 import OS.Internal
 import Paths
 import Templates
@@ -115,7 +116,8 @@ posixOS BuildConfig{..} = OS{..}
             makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
-            forM_ binFiles $ \f -> do
+            stackFile <- askStackExe
+            forM_ (stackFile:binFiles) $ \f -> do
                 copyFile' f $ hpBinDir </> takeFileName f
             return Nothing
 

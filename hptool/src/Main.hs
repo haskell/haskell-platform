@@ -43,10 +43,10 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
         if Info `elem` flgs
             then info
             else case args of
-                (tarfile:what) -> return $ Just $ do
-                    allRules tarfile flgs
-                    want $ if null what then ["build-all"] else what
-                [] -> usage
+                (tarfile:stackexe:buildType) -> return $ Just $ do
+                    allRules tarfile stackexe flgs
+                    want $ if null buildType then ["build-all"] else buildType
+                _ -> usage
 
     info = do
         putStrLn $ "This hptool is built to construct " ++ hpFullName ++ "\n\
@@ -58,7 +58,7 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
 
     usage = do
         putStrLn "usage: hptool --info\n\
-                 \       hptool [opts] <ghc-bindist.tar.bz> [target...]\n\
+                 \       hptool [opts] <ghc-bindist.tar.bz> <stack executable> [target...]\n\
                  \  where target is one of:\n\
                  \    build-all           -- build everything (default)\n\
                  \    build-source        -- build the source tar ball\n\
@@ -68,8 +68,8 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
                  \    build-website       -- build the website\n"
         return Nothing
 
-    allRules tarfile flgs = do
-        buildConfig <- addConfigOracle hpRelease tarfile (prefixSetting flgs) (Full `elem` flgs)
+    allRules tarfile stackexe flgs = do
+        buildConfig <- addConfigOracle hpRelease tarfile stackexe (prefixSetting flgs) (Full `elem` flgs)
         ghcDistRules
         packageRules
         targetRules buildConfig
