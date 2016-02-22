@@ -8,6 +8,7 @@ import Development.Shake
 import Development.Shake.FilePath
 import System.Console.GetOpt
 import qualified System.Info (os, arch)
+import System.IO
 
 import Config
 import Dirs
@@ -31,12 +32,12 @@ flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
                      "Show info on what gets included in this HP release"
         , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
                      "Set installation prefix (only for Posix builds)"
-        , Option ['f'] ["full"] (NoArg $ Right Info)
+        , Option ['f'] ["full"] (NoArg $ Right Full)
                      "Do a full (rather than minimal) build of the platform."
         ]
 
 main :: IO ()
-main = shakeArgsWith opts flags main'
+main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
   where
     main' flgs args =
         if Info `elem` flgs
