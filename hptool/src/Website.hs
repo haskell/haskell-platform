@@ -23,8 +23,22 @@ websiteRules templateSite = do
     websiteDir %/> \dst -> do
         bcCtx <- buildConfigContext
         let rlsCtx = releasesCtx
-            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
+            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, currentPlatformCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
+
+currentPlatformCtx :: Monad m => MuContext m
+currentPlatformCtx = mkStrContext ctx
+    where
+      ctx "freezeConfig" = mapListStrContext go freezeIncludes
+      ctx _ = MuNothing
+
+      go x "name" = MuVariable $ pkgName x
+      go x "version" = MuVariable . showVersion $ pkgVersion x
+      go _ _ = MuNothing
+
+      freezeIncludes = map snd . filter filt . allRelIncludes $ head (reverse releases)
+      filt x = not (fst x `elem` [IncGHC, IncGHCLib, IncGHCTool, IncTool])
+
 
 fileCtx :: (Monad m) => FileInfo -> MuContext m
 fileCtx (dist, url, mHash) = mkStrContext ctx
