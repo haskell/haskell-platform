@@ -41,7 +41,7 @@ currentPlatformCtx = mkStrContext ctx
 
 
 fileCtx :: (Monad m) => FileInfo -> MuContext m
-fileCtx (dist, url, mHash) = mkStrContext ctx
+fileCtx (dist, url, mHash, isFull) = mkStrContext ctx
   where
     ctx "osNameAndArch" = MuVariable $ distName dist
     ctx "url" = MuVariable url
@@ -54,6 +54,7 @@ fileCtx (dist, url, mHash) = mkStrContext ctx
     ctx "isWindows" = MuBool $ distIsFor OsWindows dist
     ctx "isLinux"   = MuBool $ distIsFor OsLinux   dist
     ctx "isSource"  = MuBool $ dist == DistSource
+    ctx "isFull"    = MuBool $ isFull
 
     ctx _ = MuNothing
 

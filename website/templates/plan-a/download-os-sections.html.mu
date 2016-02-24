@@ -64,20 +64,34 @@
                                         <div class="step-body"
                                             <p>Download the installer disk image,</p>
                                             {{#current}} {{#files}} {{#isOSX}}
+                                            {{#isFull}}
                                             <div class="download-btn">
                                                 <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
-                                                    <i class="fa fa-download"></i> Download ({{archBits}} bit)
+                                                    <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                                 </a>
                                             </div>
+                                            {{/isFull}}
+                                            {{^isFull}}
+                                            <div class="download-btn">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                    <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
+                                                </a>
+                                            </div>
+                                            {{/isFull}}
                                             {{/isOSX}} {{/files}} {{/current}}
 
                                             <div class="download-hash">
                                                 You can verify the authenticity of this file by
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
-                                                    {{#current}} {{#files}} {{#isOSX}}
-                                                    <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
-                                                    {{/isOSX}} {{/files}} {{/current}}
+                                                  {{#current}} {{#files}} {{#isOSX}}
+                                                  {{#isFull}}
+                                                  <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  {{/isFull}}
+                                                  {{^isFull}}
+                                                  <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  {{/isFull}}
+                                                  {{/isOSX}} {{/files}} {{/current}}
                                                 </ul>
                                             </div>
                                         </div>
@@ -135,20 +149,34 @@
                                     <div class="step-body">
                                         <p>Download the installer,</p>
                                         {{#current}} {{#files}} {{#isWindows}}
+                                        {{#isFull}}
                                         <div class="download-btn">
                                             <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
-                                                <i class="fa fa-download"></i> Download ({{archBits}} bit)
+                                                <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                             </a>
                                         </div>
+                                        {{/isFull}}
+                                        {{^isFull}}
+                                        <div class="download-btn">
+                                            <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
+                                            </a>
+                                        </div>
+                                        {{/isFull}}
                                         {{/isWindows}} {{/files}} {{/current}}
 
                                         <div>
                                             You can verify the authenticity of this file by
                                             checking its <strong>SHA-256</strong> hash,
                                             <ul class="hashes">
-                                                {{#current}} {{#files}} {{#isWindows}}
-                                                <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
-                                                {{/isWindows}} {{/files}} {{/current}}
+                                              {{#current}} {{#files}} {{#isWindows}}
+                                              {{#isFull}}
+                                              <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                              {{/isFull}}
+                                              {{^isFull}}
+                                              <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                              {{/isFull}}
+                                              {{/isWindows}} {{/files}} {{/current}}
                                             </ul>
                                         </div>
                                     </div>
@@ -226,20 +254,33 @@
                                         <div class="step-body">
                                             <p>Download the installation tarball,</p>
                                             {{#current}} {{#files}} {{#isLinux}}
+                                            {{#isFull}}
                                             <div class="download-btn">
                                                 <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
-                                                    <i class="fa fa-download"></i> Download ({{archBits}} bit)
+                                                    <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                                 </a>
                                             </div>
+                                            {{/isFull}}
+                                            {{^isFull}}
+                                            <div class="download-btn">
+                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                    <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
+                                                </a>
+                                            </div>
+                                            {{/isFull}}
                                             {{/isLinux}} {{/files}} {{/current}}
-
                                             <div>
                                                 You can verify the authenticity of this file by
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
-                                                    {{#current}} {{#files}} {{#isLinux}}
-                                                    <li>{{archBits}} bit: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
-                                                    {{/isLinux}} {{/files}} {{/current}}
+                                                  {{#current}} {{#files}} {{#isLinux}}
+                                                  {{#isFull}}
+                                                  <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  {{/isFull}}
+                                                  {{^isFull}}
+                                                  <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  {{/isFull}}
+                                                  {{/isLinux}} {{/files}} {{/current}}
                                                 </ul>
                                             </div>
                                         </div>
