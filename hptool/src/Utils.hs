@@ -50,9 +50,6 @@ fp `relativeToDir` dp = case (isRelative fp, isRelative dp) of
 
     pathError = "relativeToDir: incompatible paths " ++ fp ++ " and " ++ dp
 
-(®) :: FilePath -> FilePath -> FilePath
-(®) = relativeToDir
-infix 6 ®
 
 
 -- | Place one path "under" another. If the second path is absolute, then it

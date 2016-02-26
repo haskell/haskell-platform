@@ -23,11 +23,25 @@ websiteRules templateSite = do
     websiteDir %/> \dst -> do
         bcCtx <- buildConfigContext
         let rlsCtx = releasesCtx
-            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, errorCtx]
+            ctx = ctxConcat [rlsCtx, historyCtx, bcCtx, currentPlatformCtx, errorCtx]
         copyExpandedDir ctx templateSite dst
 
+currentPlatformCtx :: Monad m => MuContext m
+currentPlatformCtx = mkStrContext ctx
+    where
+      ctx "freezeConfig" = mapListStrContext go freezeIncludes
+      ctx _ = MuNothing
+
+      go x "name" = MuVariable $ pkgName x
+      go x "version" = MuVariable . showVersion $ pkgVersion x
+      go _ _ = MuNothing
+
+      freezeIncludes = map snd . filter filt . allRelIncludes $ head (reverse releases)
+      filt x = not (fst x `elem` [IncGHC, IncGHCLib, IncGHCTool, IncTool])
+
+
 fileCtx :: (Monad m) => FileInfo -> MuContext m
-fileCtx (dist, url, mHash) = mkStrContext ctx
+fileCtx (dist, url, mHash, isFull) = mkStrContext ctx
   where
     ctx "osNameAndArch" = MuVariable $ distName dist
     ctx "url" = MuVariable url
@@ -40,6 +54,7 @@ fileCtx (dist, url, mHash) = mkStrContext ctx
     ctx "isWindows" = MuBool $ distIsFor OsWindows dist
     ctx "isLinux"   = MuBool $ distIsFor OsLinux   dist
     ctx "isSource"  = MuBool $ dist == DistSource
+    ctx "isFull"    = MuBool $ isFull
 
     ctx _ = MuNothing
 
@@ -86,10 +101,11 @@ historyCtx = mkStrContext outerCtx
     ctx "hpReleases" = mapListStrContext rlsCtx releasesNewToOld
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
-        [ sectionCtx "Compiler"                            [isGhc, not . isLib]
-        , sectionCtx "Core Libraries, provided with GHC"   [isGhc, isLib]
-        , sectionCtx "Additional Platform Libraries"       [not . isGhc, isLib]
-        , sectionCtx "Programs and Tools"                  [isTool]
+        [ sectionCtx "Compiler"                              [isGhc, not . isLib]
+        , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib]
+        , sectionCtx "Additional Minimal Platform Libraries" [not . isGhc, isLib]
+        , sectionCtx "Programs and Tools"                    [isTool]
+        , extendedCtx "Libraries with Full Platform"
         ]
     ctx _ = MuNothing
 
@@ -104,15 +120,15 @@ sectionCtx name tests = mkStrContext ctx
     ctx _ = MuNothing
 
     packages = sortOnLower . nub . map pkgName . concat $
-                map (packagesByIncludeFilter $ \i -> all ($i) tests)
-                 releasesNewToOld
+                map (packagesByIncludeFilter (\i -> all ($i) tests) False)
+                releasesNewToOld
 
     sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
 
     pCtx pName "package" = MuVariable pName
     pCtx pName "hackageUrl" =
         MuVariable $ "http://hackage.haskell.org/package/" ++ pName
-    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo False pName
     pCtx _ _ = MuNothing
 
     pvCtx (c, _) "class" = MuVariable c
@@ -120,10 +136,33 @@ sectionCtx name tests = mkStrContext ctx
     pvCtx _ _ = MuNothing
 
 
-packageVersionInfo :: String -> [(String, String)]
-packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
+extendedCtx :: (Monad m) => String -> MuContext m
+extendedCtx name = mkStrContext ctx
   where
-    comp Nothing  _                         = ("missing", "—")
+    ctx "name" = MuVariable name
+    ctx "components" = mapListStrContext pCtx packages
+    ctx _ = MuNothing
+
+    packages = sortOnLower . nub . map pkgName . concat $
+                map (map snd . relIncludes)
+                releasesNewToOld
+
+    sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
+
+    pCtx pName "package" = MuVariable pName
+    pCtx pName "hackageUrl" =
+        MuVariable $ "http://hackage.haskell.org/package/" ++ pName
+    pCtx pName "releases" = mapListStrContext pvCtx $ packageVersionInfo True pName
+    pCtx _ _ = MuNothing
+
+    pvCtx (c, _) "class" = MuVariable c
+    pvCtx (_, v) "version" = MuVariable v
+    pvCtx _ _ = MuNothing
+
+packageVersionInfo :: Bool -> String -> [(String, String)]
+packageVersionInfo searchFull pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
+  where
+    comp Nothing  _                         = ("missing", "-")
     comp (Just v) Nothing                   = ("update", showVersion v)
     comp (Just v) (Just w) | maj v == maj w = ("same",   showVersion v)
                            | otherwise      = ("update", showVersion v)
@@ -133,7 +172,7 @@ packageVersionInfo pName = curr $ zipWith comp vers (drop 1 vers ++ [Nothing])
     curr ((c, v) : cvs) = (c ++ " current", v) : cvs
     curr [] = []
 
-    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . relIncludes)
+    vers = map (fmap pkgVersion . find ((==pName) . pkgName) . map snd . (if searchFull then allRelIncludes else relMinimalIncludes))
             releasesNewToOld
 
 releasesNewToOld :: [Release]

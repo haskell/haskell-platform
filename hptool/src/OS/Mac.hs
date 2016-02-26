@@ -16,6 +16,7 @@ import Paths
 import Templates
 import Types
 import Utils
+import Config
 
 macOsFromConfig :: BuildConfig -> OS
 macOsFromConfig BuildConfig{..} = OS{..}
@@ -79,7 +80,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             copyFile' f $ hpDocDir </> takeFileName f
 
     productName =
-        "Haskell Platform " ++ showVersion hpVersion ++ archBits bcArch
+        "Haskell Platform " ++ showVersion hpVersion ++ (if bcIncludeExtra then " Full" else " Minimal") ++ archBits bcArch
 
     osProduct = productDir </> productName <.> "pkg"
     signedProduct = productDir </> (productName ++ "-signed") <.> "pkg"
@@ -109,7 +110,8 @@ macOsFromConfig BuildConfig{..} = OS{..}
             makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
-            forM_ binFiles $ \f -> do
+            stackFile <- askStackExe
+            forM_ (stackFile:binFiles) $ \f -> do
                 if takeExtension f == ".hs"
                     then compileToBin f $ hpBinDir </> takeBaseName f
                     else copyFile'    f $ hpBinDir </> takeFileName f
@@ -140,7 +142,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             command_ []
                 "pkgbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform.Libraries."
-                                  ++ hpPkgMajorVer ++ ".pkg"
+                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-minimal") ++ ".pkg"
                 , "--version", hpPkgMinorVer
                 , "--install-location", "/Library/Haskell"
                 , "--root", "build/target/Library/Haskell"
@@ -153,7 +155,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             command_ []
                 "productbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform."
-                                  ++ hpPkgMajorVer ++ ".pkg"
+                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-minimal") ++ ".pkg"
                 , "--version", hpPkgMinorVer
                 , "--resources", osxInstallResources
                 , "--distribution", osxInstallerDist

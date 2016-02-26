@@ -44,8 +44,8 @@ genNsisData = do
                      getDirContentsR winTargetDir
       where
         makeNativeRelPaths =
-            map (\(d,fs) -> ( toNative $ d ® winTargetDir
-                            , map (toNative . (® winTargetDir)) fs))
+            map (\(d,fs) -> ( toNative $ d `relativeToDir` winTargetDir
+                            , map (toNative . (`relativeToDir` winTargetDir)) fs))
 
     genData tmpl file dirs = do
         ctx <- mu <$> pure tmpl <*> pure dirs
@@ -84,13 +84,13 @@ expandNsisInfo :: (Monad m) => Release -> BuildConfig -> MuContext m
 expandNsisInfo rls BuildConfig{..} = mkStrContext ex
   where
     ex "productFile" = MuVariable . toNative $
-        winProductFile hpver bcArch ® installerPartsDir
+        winProductFile bcIncludeExtra hpver bcArch `relativeToDir` installerPartsDir
         -- NSIS tool needs to run from the installerPartsDir
     ex "build64bit" = MuBool is64
     ex "is32or64" = MuVariable $ if is64 then "64" else "32"
     ex "programFiles64" = MuVariable $ if is64 then "64" else ""
     ex "targetFiles" = MuVariable . toNative $
-        winTargetDir ® takeDirectory nsisFile
+        winTargetDir `relativeToDir` takeDirectory nsisFile
         -- NSIS is run from where nsisFile is, so make relative to that
 
     ex _ = MuNothing

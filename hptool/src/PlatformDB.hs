@@ -1,7 +1,9 @@
 module PlatformDB
-    ( release, deltaFrom,
+    ( release, releaseWithMinimal, deltaFrom,
       incGHC, incGHCLib, incGHCTool, incLib, incTool,
       notWindows, onlyWindows,
+
+      allRelIncludes,
 
       allPackages,
       corePackages,
@@ -16,13 +18,21 @@ import Data.List (partition)
 import Types
 import Utils (version)
 
--- | Construct a release
+-- | both minimal and extra platform includes
+allRelIncludes :: Release -> [Include]
+allRelIncludes r = relMinimalIncludes r ++ relIncludes r
+
+-- | Construct a release with a minimal partition
+releaseWithMinimal :: String -> [Include] -> [Include] -> Release
+releaseWithMinimal vstr minimalIncs incs = Release (HpVersion $ version vstr) minimalIncs incs
+
+-- | Construct a release, when there is not a seperate minimal selection of includes with the main ones.
 release :: String -> [Include] -> Release
-release vstr incs = Release (HpVersion $ version vstr) incs
+release vstr incs = Release (HpVersion $ version vstr) incs []
 
 -- | Construct list of Includes as a delta to packages in another release
 deltaFrom :: Release -> [Include] -> [Include]
-deltaFrom base deltas = go (relIncludes base) deltas
+deltaFrom base deltas = go (allRelIncludes base) deltas
   where
     go []             dIncs = dIncs
     go (bInc : bIncs) dIncs =
@@ -69,20 +79,20 @@ notWindows (it, pkg) = (IncIfNotWindows it, pkg)
 onlyWindows :: Include -> Include
 onlyWindows (it, pkg) = (IncIfWindows it, pkg)
 
+-- | Bool indicates if including extra packages
+packagesByIncludeFilter :: (IncludeType -> Bool) -> Bool -> Release -> [Package]
+packagesByIncludeFilter f extraPkgs = map snd . filter (f . fst) . if extraPkgs then allRelIncludes else relMinimalIncludes
 
-packagesByIncludeFilter :: (IncludeType -> Bool) -> Release -> [Package]
-packagesByIncludeFilter f = map snd . filter (f . fst) . relIncludes
-
--- | All packages in the release
-allPackages :: Release -> [Package]
-allPackages = packagesByIncludeFilter $ const True
+-- | All packages in the release, bool indicates if including extra packages
+allPackages :: Bool -> Release -> [Package]
+allPackages = packagesByIncludeFilter (const True)
 
 -- | Includes that are part of the core (expected to come with GHC)
-corePackages :: Release -> [Package]
+corePackages :: Bool -> Release -> [Package]
 corePackages = packagesByIncludeFilter isGhc
 
 -- | Includes that come from the platform (added beyond the GHC default)
-platformPackages :: Release -> [Package]
+platformPackages :: Bool -> Release -> [Package]
 platformPackages = packagesByIncludeFilter (not . isGhc)
 
 -- | Tests of Include

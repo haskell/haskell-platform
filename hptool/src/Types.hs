@@ -15,9 +15,7 @@ module Types
     )
   where
 
-#if MIN_VERSION_base(4,6,0)
-import Control.Applicative ((<$>), (<*>))
-#endif
+import Control.Applicative
 import Data.Char (isDigit)
 import Data.List (intercalate)
 import Data.Version (Version, showVersion, parseVersion)
@@ -42,11 +40,7 @@ readPackageP = do
     ver <- parseVersion
     return $ Package (intercalate "-" parts) ver
   where
-#if MIN_VERSION_base(4,6,0)
     part = (:) <$> satisfy lead <*> munch more
-#else
-    part = do { l <- satisfy lead; m <- munch more; return (l:m) }
-#endif
 
     lead c = not (isDigit c) && more c
     more c = c /= '-'
@@ -97,6 +91,7 @@ type Include = (IncludeType, Package)
 -- | The definition of a Release of the platform.
 data Release = Release
     { relVersion :: HpVersion
+    , relMinimalIncludes :: [Include]
     , relIncludes :: [Include]
     }
   deriving (Read, Show)
@@ -114,6 +109,7 @@ data BuildConfig = BuildConfig
     , bcOs :: String               -- ex.: "freebsd", "linux", "darwin"
     , bcOsDistribution :: String   -- ex.: "deb7", "mavericks"
     , bcPrefix :: Maybe FilePath   -- ex.: "/usr/local/haskell"
+    , bcIncludeExtra :: Bool
     }
   deriving (Read, Show)
 

@@ -120,7 +120,7 @@ winOsFromConfig BuildConfig{..} = os
 
     osDocAction = return ()
 
-    osProduct = winProductFile hpVersion bcArch
+    osProduct = winProductFile bcIncludeExtra hpVersion bcArch
 
     osRules _rel bc = do
         winRules

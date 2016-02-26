@@ -12,6 +12,7 @@ import Development.Shake
 import Development.Shake.FilePath
 
 import Dirs
+import Config
 import OS.Internal
 import Paths
 import Templates
@@ -71,7 +72,7 @@ posixOS BuildConfig{..} = OS{..}
     installScript = extrasDir </> "installer" </> "install-haskell-platform.sh"
 
     productName =
-        "haskell-platform-" ++ showVersion hpVersion ++ "-unknown-posix-" ++ bcArch
+        "haskell-platform-" ++ showVersion hpVersion ++ "-unknown-posix-" ++ (if bcIncludeExtra then "-full-" else "-minimal-") ++ bcArch
 
     genericExtrasSrc = "hptool/os-extras/posix"
 
@@ -86,7 +87,7 @@ posixOS BuildConfig{..} = OS{..}
             need [ usrLocalTar, dir extrasDir]
             command_ [] "cp" [ installScript, productDir ]
             command_ [Cwd productDir]
-                "tar" ["czf", out ® targetDir, installFile, usrLocalTar ® productDir ]
+                "tar" ["czf", out `relativeToDir` targetDir, installFile, usrLocalTar `relativeToDir` productDir ]
             mapM_ putNormal
                 [ replicate 72 '-'
                 , "To install this build:"
@@ -98,7 +99,7 @@ posixOS BuildConfig{..} = OS{..}
         usrLocalTar %> \out -> do
             need [targetDir, vdir ghcVirtualTarget]
             command_ [Cwd targetDir]
-                "tar" ["czf", out ® targetDir, hpTargetDir ® targetDir]
+                "tar" ["czf", out `relativeToDir` targetDir, hpTargetDir `relativeToDir` targetDir]
 
         versionFile %> \out -> do
             writeFileChanged out $ unlines
@@ -115,7 +116,8 @@ posixOS BuildConfig{..} = OS{..}
             makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
-            forM_ binFiles $ \f -> do
+            stackFile <- askStackExe
+            forM_ (stackFile:binFiles) $ \f -> do
                 copyFile' f $ hpBinDir </> takeFileName f
             return Nothing
 

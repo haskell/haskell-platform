@@ -76,6 +76,9 @@ mapListStrContext fCtx = mapListContext (mkStrContext . fCtx)
 releaseContext :: Action (MuContext Action)
 releaseContext = askHpRelease >>= return . expandRelease
 
+fullReleaseContext :: Action (MuContext Action)
+fullReleaseContext = askHpRelease >>= return . expandFullRelease
+
 expandRelease :: (Monad m) => Release -> MuContext m
 expandRelease rel = mkStrContext ex
   where
@@ -93,7 +96,7 @@ expandRelease rel = mkStrContext ex
 
     ex _ = MuNothing
 
-    pkgsThat tests = packagesByIncludeFilter (\i -> all ($i) tests) rel
+    pkgsThat tests = packagesByIncludeFilter (\i -> all ($i) tests) False rel
 
     exPkgs = mapListStrContext exPkg
 
@@ -103,6 +106,16 @@ expandRelease rel = mkStrContext ex
 
     pad n s = s ++ replicate (n - length s) ' '
 
+expandFullRelease :: (Monad m) => Release -> MuContext m
+expandFullRelease rel = mkStrContext ex
+    where
+      ex "fullLibs" = mapListStrContext exPkg $ map snd (relIncludes rel)
+      ex _ = MuNothing
+
+      exPkg p "name" = MuVariable $ pad 30 $ pkgName p
+      exPkg p "version" = MuVariable $ showVersion $ pkgVersion p
+      exPkg _ _ = MuNothing
+      pad n s = s ++ replicate (n - length s) ' '
 
 buildConfigContext :: Action (MuContext Action)
 buildConfigContext = askBuildConfig >>= return . expandBuildConfig
@@ -119,8 +132,9 @@ expandBuildConfig BuildConfig{..} = mkStrContext ex
 platformContext :: Action (MuContext Action)
 platformContext = do
     rlsCtx <- releaseContext
+    fullRlsCtx <- fullReleaseContext
     bcCtx <- buildConfigContext
-    return $ ctxConcat [bcCtx, rlsCtx, errorCtx]
+    return $ ctxConcat [bcCtx, rlsCtx, fullRlsCtx, errorCtx]
 
 
 templateDirname :: String
@@ -175,4 +189,3 @@ copyExpanded' isDir ctx srcTop dstTop = copyTop srcTop dstTop
                     \f -> need [f] >> muTemplateRead defaultConfig f
                 }
     muHtmlConf = muPlainConf { muEscapeFunc = htmlEscape }
-

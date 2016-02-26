@@ -8,6 +8,7 @@ import Development.Shake
 import Development.Shake.FilePath
 import System.Console.GetOpt
 import qualified System.Info (os, arch)
+import System.IO
 
 import Config
 import Dirs
@@ -23,7 +24,7 @@ import Types
 import Target
 import Website
 
-data Flags = Info | Prefix String
+data Flags = Info | Prefix String | Full
   deriving Eq
 
 flags :: [OptDescr (Either a Flags)]
@@ -31,19 +32,21 @@ flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
                      "Show info on what gets included in this HP release"
         , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
                      "Set installation prefix (only for Posix builds)"
+        , Option ['f'] ["full"] (NoArg $ Right Full)
+                     "Do a full (rather than minimal) build of the platform."
         ]
 
 main :: IO ()
-main = shakeArgsWith opts flags main'
+main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
   where
     main' flgs args =
         if Info `elem` flgs
             then info
             else case args of
-                (tarfile:what) -> return $ Just $ do
-                    allRules tarfile flgs
-                    want $ if null what then ["build-all"] else what
-                [] -> usage
+                (tarfile:stackexe:buildType) -> return $ Just $ do
+                    allRules tarfile stackexe flgs
+                    want $ if null buildType then ["build-all"] else buildType
+                _ -> usage
 
     info = do
         putStrLn $ "This hptool is built to construct " ++ hpFullName ++ "\n\
@@ -55,7 +58,7 @@ main = shakeArgsWith opts flags main'
 
     usage = do
         putStrLn "usage: hptool --info\n\
-                 \       hptool [opts] <ghc-bindist.tar.bz> [target...]\n\
+                 \       hptool [opts] <ghc-bindist.tar.bz> <stack executable> [target...]\n\
                  \  where target is one of:\n\
                  \    build-all           -- build everything (default)\n\
                  \    build-source        -- build the source tar ball\n\
@@ -65,8 +68,8 @@ main = shakeArgsWith opts flags main'
                  \    build-website       -- build the website\n"
         return Nothing
 
-    allRules tarfile flgs = do
-        buildConfig <- addConfigOracle hpRelease tarfile (prefixSetting flgs)
+    allRules tarfile stackexe flgs = do
+        buildConfig <- addConfigOracle hpRelease tarfile stackexe (prefixSetting flgs) (Full `elem` flgs)
         ghcDistRules
         packageRules
         targetRules buildConfig
@@ -82,13 +85,15 @@ main = shakeArgsWith opts flags main'
 
     opts = shakeOptions
 
-    hpRelease = hp_7_10_3
+    hpRelease = hp_8_0_0
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tar.gz"
 
 
 whatIsIncluded :: Release -> [String]
-whatIsIncluded = map concat . map includeToString . relIncludes where
+whatIsIncluded rel = ("-- Minimal Platform:":minimalIncludes) ++ ("-- Full Platform:":fullIncludes) where
+    minimalIncludes = map (concat . includeToString) $ relMinimalIncludes rel
+    fullIncludes    = map (concat . includeToString) $ relIncludes rel where
     includeToString (IncGHC, p)      = "GHC:    " : [show p]
     includeToString (IncGHCLib, p)   = "GHCLib: " : [show p]
     includeToString (IncLib, p)      = "LIB:    " : [show p]
@@ -106,7 +111,7 @@ buildRules hpRelease srcTarFile bc = do
     "build-product" ~> need [osProduct]
     "build-local" ~> need [dir ghcLocalDir]
     "build-website" ~> need [dir websiteDir]
-    forM_ (platformPackages hpRelease) $ \pkg -> do
+    forM_ (platformPackages True hpRelease) $ \pkg -> do
         let full = "build-package-" ++ show pkg
         let short = "build-package-" ++ pkgName pkg
         short ~> need [full]
@@ -117,5 +122,3 @@ buildRules hpRelease srcTarFile bc = do
     osRules hpRelease bc
   where
     OS{..} = osFromConfig bc
-
-
