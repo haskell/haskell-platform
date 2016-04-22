@@ -43,8 +43,8 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
         if Info `elem` flgs
             then info
             else case args of
-                (tarfile:stackexe:buildType) -> return $ Just $ do
-                    allRules tarfile stackexe flgs
+                (tarfile:cabalexe:stackexe:buildType) -> return $ Just $ do
+                    allRules tarfile (cabalexe,stackexe) flgs
                     want $ if null buildType then ["build-all"] else buildType
                 _ -> usage
 
@@ -58,18 +58,21 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
 
     usage = do
         putStrLn "usage: hptool --info\n\
-                 \       hptool [opts] <ghc-bindist.tar.bz> <stack executable> [target...]\n\
+                 \       hptool [opts] <ghc-bindist.tar.bz> <cabal executable> <stack executable> [target...]\n\
                  \  where target is one of:\n\
                  \    build-all           -- build everything (default)\n\
                  \    build-source        -- build the source tar ball\n\
                  \    build-target        -- build the target tree\n\
+                 \    build-product       -- build the os specific installer\n\
                  \    build-package-<pkg> -- build the package (name or name-ver)\n\
                  \    build-local         -- build the local GHC environment\n\
-                 \    build-website       -- build the website\n"
+                 \    build-website       -- build the website\n\
+                 \  and opts may be 'f' for a full rather than minimal build, 'i' for info\n\
+                 \  or 'prefix=...' to set a custom install location prefix for linux"
         return Nothing
 
-    allRules tarfile stackexe flgs = do
-        buildConfig <- addConfigOracle hpRelease tarfile stackexe (prefixSetting flgs) (Full `elem` flgs)
+    allRules tarfile stackcabalexe flgs = do
+        buildConfig <- addConfigOracle hpRelease tarfile stackcabalexe (prefixSetting flgs) (Full `elem` flgs)
         ghcDistRules
         packageRules
         targetRules buildConfig
@@ -85,7 +88,7 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
 
     opts = shakeOptions
 
-    hpRelease = hp_8_0_0
+    hpRelease = hp_8_0_1
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tar.gz"
 

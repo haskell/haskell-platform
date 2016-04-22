@@ -74,6 +74,10 @@ copyWinTargetExtras bc = do
     -- copy msys(msys2) pieces
     copyDirAction (winExternalMSysDir bc) winMSysTargetDir
 
+    -- copy cabal executable
+    cabalFile <- askCabalExe
+    copyFileAction (return ()) (takeDirectory cabalFile) (winHpTargetDir </> "bin") (takeFileName cabalFile)
+
     -- copy stack executable
     stackFile <- askStackExe
     copyFileAction (return ()) (takeDirectory stackFile) (winHpTargetDir </> "bin") (takeFileName stackFile)

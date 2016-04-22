@@ -116,8 +116,9 @@ posixOS BuildConfig{..} = OS{..}
             makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
+            cabalFile <- askCabalExe
             stackFile <- askStackExe
-            forM_ (stackFile:binFiles) $ \f -> do
+            forM_ (cabalFile:stackFile:binFiles) $ \f -> do
                 copyFile' f $ hpBinDir </> takeFileName f
             return Nothing
 

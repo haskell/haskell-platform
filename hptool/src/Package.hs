@@ -7,6 +7,7 @@ module Package
 
 import Control.Applicative ((<$>))
 import Data.Graph (flattenSCCs, stronglyConnComp)
+import Data.List (isPrefixOf, isInfixOf)
 #if MIN_VERSION_base(4,6,0)
 import Data.Ord (Down(..))
 #endif
@@ -96,9 +97,12 @@ installAction depFile hpRel = do
         ("In order, the following would be installed (use -v for more details):":ls) ->
             let deps = map (head . words) ls
             in if all (`elem` packages) deps
+                  || "alex" `isInfixOf` depFile
+                  || "happy" `isInfixOf` depFile
+                  || any (`isInfixOf` depFile) ["QuickCheck","tf-random"]
                 then Right deps
                 else Left $ "Depends on non-HP packages: "
-                            ++ unwords (filter (not . (`elem` packages)) deps)
+                            ++ unwords (filter (not . (`elem` packages)) deps) ++ "\n" ++ "Could not build " ++ depFile
         _ -> Left out
 
     packages = map show $ (allPackages False) hpRel

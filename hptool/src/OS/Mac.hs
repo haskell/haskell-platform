@@ -110,8 +110,9 @@ macOsFromConfig BuildConfig{..} = OS{..}
             makeDirectory hpBinDir
             need [dir extrasDir]
             binFiles <- getDirectoryFiles "" [extrasDir </> "bin/*"]
+            cabalExeFile <- askCabalExe
             stackFile <- askStackExe
-            forM_ (stackFile:binFiles) $ \f -> do
+            forM_ (cabalExeFile:stackFile:binFiles) $ \f -> do
                 if takeExtension f == ".hs"
                     then compileToBin f $ hpBinDir </> takeBaseName f
                     else copyFile'    f $ hpBinDir </> takeFileName f

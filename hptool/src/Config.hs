@@ -6,6 +6,7 @@ module Config
     , askGhcBinDistTarFile
     , askBuildConfig
     , addConfigOracle
+    , askCabalExe
     , askStackExe
     )
     where
@@ -69,6 +70,9 @@ askBuildConfig = readOracle "BuildConfig" (BuildConfigQ ())
 newtype StackExeQ = StackExeQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
 
+newtype CabalExeQ = CabalExeQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
 -- | Provide the stack executable
 -- The filepath will be tracked as a dependency
 askStackExe :: Action FilePath
@@ -77,12 +81,22 @@ askStackExe = do
     need [stackexe]
     return stackexe
 
-addConfigOracle :: Release -> FilePath -> FilePath -> Maybe FilePath -> Bool -> Rules BuildConfig
-addConfigOracle hpRel tarFile stackexe prefix includeExtra = do
+-- | Provide the stack executable
+-- The filepath will be tracked as a dependency
+askCabalExe :: Action FilePath
+askCabalExe = do
+    cabalexe <- askOracle $ CabalExeQ ()
+    need [cabalexe]
+    return cabalexe
+
+addConfigOracle :: Release -> FilePath -> (FilePath,FilePath) -> Maybe FilePath -> Bool -> Rules BuildConfig
+addConfigOracle hpRel tarFile (cabalexe,stackexe) prefix includeExtra = do
     _ <- addOracle $
             \(HpReleaseQ _) -> return $ show hpRel
     _ <- addOracle $
             \(GhcBinDistTarFileQ _) -> return tarFile
+    _ <- addOracle $
+            \(CabalExeQ _) -> return cabalexe
     _ <- addOracle $
             \(StackExeQ _) -> return stackexe
     _ <- addOracle $
