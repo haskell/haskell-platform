@@ -15,7 +15,7 @@ import Data.List.Split (splitOn)
 import Development.Shake
 import Development.Shake.Classes
 import Development.Shake.FilePath
-import Development.Shake.Rule (ShakeValue)
+import Development.Shake.Rule
 
 import Types
 import Utils (readMaybe, version)
