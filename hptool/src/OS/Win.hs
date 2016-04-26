@@ -26,6 +26,15 @@ import Paths
 import Types
 import Utils
 
+#if MIN_VERSION_Cabal(1,25,0)
+getPkgId :: C.HasUnitId pkg => pkg -> String
+getPkgId pkg = case C.installedUnitId pkg of
+  C.SimpleUnitId (C.ComponentId s) -> s
+#else
+getPkgId :: C.PackageInstalled pkg => pkg -> String
+getPkgId pkg = case C.installedPackageId pkg of
+  C.InstalledPackageId s -> s
+#endif
 
 winOsFromConfig :: BuildConfig -> OS
 winOsFromConfig BuildConfig{..} = os
@@ -77,7 +86,7 @@ winOsFromConfig BuildConfig{..} = os
         whenM (doesFileExist confFile) $ do
             confStr <- liftIO . B.readFile $ confFile
             pkgInfo <- parseConfFile confFile (B8.unpack confStr)
-            let (C.InstalledPackageId pkgid) = C.installedPackageId pkgInfo
+            let pkgid = getPkgId pkgInfo
                 -- need the long name of the package
                 pkgDbConf = winGhcTargetPackageDbDir </> pkgid <.> "conf"
             command_ [] "cp" ["-p", confFile, pkgDbConf]
