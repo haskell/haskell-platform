@@ -105,4 +105,4 @@ installAction depFile hpRel = do
                             ++ unwords (filter (not . (`elem` packages)) deps) ++ "\n" ++ "Could not build " ++ depFile
         _ -> Left out
 
-    packages = map show $ (allPackages False) hpRel
+    packages = map show $ (allPackages True) hpRel --note should be False if minimal...

@@ -13,12 +13,12 @@ hp_8_0_1 =
         [ incGHC                            "8.0.1"
 
         , incGHCLib "Cabal"                 "1.24.0.0"
-        , incGHCLib "array"                 "0.5.1.0"
+        , incGHCLib "array"                 "0.5.1.1"
         , incGHCLib "base"                  "4.9.0.0"
-        , incGHCLib "bytestring"            "0.10.7.0"
+        , incGHCLib "bytestring"            "0.10.8.0"
         , incGHCLib "containers"            "0.5.7.1"
         , incGHCLib "deepseq"               "1.4.2.0"
-        , incGHCLib "directory"             "1.2.5.1"
+        , incGHCLib "directory"             "1.2.6.2"
         , incGHCLib "filepath"              "1.4.1.0"
         , incGHCLib "hpc"                   "0.6.0.3"
         , incGHCLib "pretty"                "1.1.3.3"
@@ -31,10 +31,9 @@ hp_8_0_1 =
         {- These packages are in the GHC distribution, and hence bundeled with
         the Platform. However, they are not officially part of the Platform,
         and as such, do not carry the same stability guaruntees.
-
-        , incGHCLib "binary"                "0.8.2.1"
+        , incGHCLib "binary"                "0.8.3.0"
         , incGHCLib "ghc-prim"              "0.5.0.0"
-        , incGHCLib "haskeline"             "0.7.2.2"
+        , incGHCLib "haskeline"             "0.7.2.3"
         , incGHCLib "hoopl"                 "3.10.2.1"
         , incGHCLib "integer-gmp"           "1.0.0.1"
         , incGHCLib "terminfo"              "0.4.0.2"
@@ -102,4 +101,5 @@ hp_8_0_1 =
         , incLib "ObjectName"               "1.1.0.1"
         , incLib "StateVar"                 "1.1.0.4"
         , incLib "half"                     "0.2.2.3"
+        , incLib "fixed"                    "0.2.1.1"
         ]
