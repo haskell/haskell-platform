@@ -103,6 +103,7 @@ buildAction buildDir hpRel bc = do
         cabal "haddock" $
             [ "--hyperlink-source"
             , "--hoogle"
+            , "--html"
             , "--with-haddock=" ++ haddockExe `relativeToDir` buildDir
             ]
             ++ map (\s -> "--haddock-option=" ++ s) (cReadArgs ++ pReadArgs)
