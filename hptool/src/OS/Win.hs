@@ -26,7 +26,7 @@ import Paths
 import Types
 import Utils
 
-#if MIN_VERSION_Cabal(1,25,0)
+#if MIN_VERSION_Cabal(1,24,0)
 getPkgId :: C.HasUnitId pkg => pkg -> String
 getPkgId pkg = case C.installedUnitId pkg of
   C.SimpleUnitId (C.ComponentId s) -> s

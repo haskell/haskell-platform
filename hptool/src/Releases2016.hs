@@ -15,7 +15,7 @@ hp_8_0_1 =
         , incGHCLib "Cabal"                 "1.24.0.0"
         , incGHCLib "array"                 "0.5.1.1"
         , incGHCLib "base"                  "4.9.0.0"
-        , incGHCLib "bytestring"            "0.10.8.0"
+        , incGHCLib "bytestring"            "0.10.8.1"
         , incGHCLib "containers"            "0.5.7.1"
         , incGHCLib "deepseq"               "1.4.2.0"
         , incGHCLib "directory"             "1.2.6.2"
@@ -24,7 +24,7 @@ hp_8_0_1 =
         , incGHCLib "pretty"                "1.1.3.3"
         , incGHCLib "process"               "1.4.2.0"
         , incGHCLib "template-haskell"      "2.11.0.0"
-        , incGHCLib "time"                  "1.6"
+        , incGHCLib "time"                  "1.6.0.1"
         , incGHCLib "transformers"          "0.5.2.0"
         , incGHCLib "xhtml"                 "3000.2.1"
 
