@@ -105,11 +105,14 @@ p {
           <p>Documentation for the GHC API.</p>
         </li>
         <li>
-          <!-- <p><a href="ghc-doc/Cabal/index.html">Cabal</a></p> -->
           <p><a href="http://www.haskell.org/cabal/users-guide/">Cabal</a></p>
           <p>An infrastructure for building and distributing Haskell software.</p>
         </li>
         <li>
+          <p><a href="http://docs.haskellstack.org/">Stack</a></p>
+          <p>A cross-platform program for developing Haskell projects.</p>
+        </li>
+	<li>
           <p><a href="ghc-doc/haddock/index.html">Haddock</a></p>
           <p>A tool for automatically generating documentation from annotated Haskell source code.</p>
         </li>
@@ -139,6 +142,16 @@ p {
       <p><b>N.B.</b> Built executables will be symlink'd into <tt>~/Library/Haskell/bin</tt>, you probably want to add that to your <tt>$PATH</tt> by adding this line to your <tt>~/.bash_profile</tt>:
       <p class="paths">export PATH="$HOME/Library/Haskell/bin:$PATH"</p>
 
+      <p><b>N.B.</b> Built executables by the stack tool will be symlink'd into <tt>~/.local/bin</tt>, you probably want to add that to your <tt>$PATH</tt> by adding this line to your <tt>~/.bash_profile</tt>:
+      <p class="paths">export PATH="$HOME/.local/bin:$PATH"</p>
+
+      <p>In particular, when you upgrade to a new version of stack via
+      the "stack upgrade" command (and you should consider doing so if
+      the installed stack version is well behind the currently
+      released one), it will be installed into the above directory,
+      and will only be used if that directory is placed appropriately
+      in your path.</p>
+
       <div id="sidebar">
       <div class="module">
       <h2>Community</h2>
@@ -155,7 +168,7 @@ p {
       <div class="module">
       <h2>Development Resources</h2>
       <ul>
-        <li><a href="http://hackage.haskell.org/packages/hackage.html">Hackage libary database</a></li>
+        <li><a href="http://hackage.haskell.org/">Hackage libary database</a></li>
         <li><a href="http://haskell.org/hoogle/">Hoogle</a> and
             <a href="http://holumbus.fh-wedel.de/hayoo/">Hayoo</a> API search</li>
       </ul>

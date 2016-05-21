@@ -53,9 +53,19 @@ update_cabal_config() {
 --
 -- You may wish to bookmark that file
 
+repository hackage.haskell.org
+  url: http://hackage.haskell.org/
+  -- secure: False
+  -- root-keys:
+  -- key-threshold:
 
-remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
-remote-repo-cache: ${user_haskell_dir}/repo-cache
+-- default-user-config:
+-- require-sandbox: False
+-- ignore-sandbox: False
+-- ignore-expiry: False
+-- http-transport:
+
+remote-repo-cache: ${cabal_dir}/packages
 -- local-repo:
 -- logs-dir:
 world-file: ${user_haskell_dir}/logs/world
@@ -63,18 +73,23 @@ world-file: ${user_haskell_dir}/logs/world
 -- compiler: ghc
 -- with-compiler:
 -- with-hc-pkg:
--- scratchdir:
 -- program-prefix:
 -- program-suffix:
 -- library-vanilla: True
 library-profiling: True
 -- shared:
 -- executable-dynamic: False
--- executable-profiling: False
+-- profiling:
+-- executable-profiling:
+-- profiling-detail:
+-- library-profiling-detail:
 -- optimization: True
--- library-for-ghci: False
+-- debug-info: False
+-- library-for-ghci:
 -- split-objs: False
 -- executable-stripping: True
+-- library-stripping: True
+-- configure-option:
 -- user-install: True
 -- package-db:
 -- flags:
@@ -83,7 +98,10 @@ library-profiling: True
 extra-prog-path: ${user_haskell_dir}/bin
 -- tests: False
 -- library-coverage: False
+-- allow-newer: False
+-- exact-configuration: False
 -- benchmarks: False
+-- relocatable: False
 -- cabal-lib-version:
 -- constraint:
 -- preference:
@@ -103,10 +121,30 @@ root-cmd: sudo
 build-summary: ${user_haskell_dir}/logs/build.log
 -- build-log:
 remote-build-reporting: anonymous
+-- report-planning-failure: False
 -- one-shot: False
 jobs: \$ncpus
+-- offline: False
 -- username:
 -- password:
+-- password-command:
+-- builddir:
+
+haddock
+  -- keep-temp-files: False
+  -- hoogle: False
+  -- html: False
+  -- html-location:
+  -- for-hackage: False
+  -- executables: False
+  -- tests: False
+  -- benchmarks: False
+  -- all:
+  -- internal: False
+  -- css:
+  -- hyperlink-source: False
+  -- hscolour-css:
+  -- contents-location:
 
 install-dirs user
   prefix: ${user_haskell_dir}
@@ -262,4 +300,3 @@ if update_cabal_config ; then
 fi
 
 exec -a cabal /Library/Haskell/bin/cabal.real "$@"
-
