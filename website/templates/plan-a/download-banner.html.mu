@@ -21,6 +21,7 @@
                                         <ul>
                                             <li>the <a href="http://www.haskell.org/ghc/">Glasgow Haskell Compiler</a></li>
                                             <li>the <a href="http://www.haskell.org/cabal/">Cabal build system</a></li>
+                                            <li>the <a href="http://docs.haskellstack.org">Stack tool</a> for developing projects</li>
                                             <li>support for profiling and code coverage analysis</li>
                                             <li>35 core & widely-used <a href="contents.html">packages</a></li>
                                         </ul>
