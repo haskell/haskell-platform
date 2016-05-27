@@ -31,7 +31,8 @@ Development usually happens in other branches.
 includes the sources of the packages that make up the platform, and excludes
 some of the ancillary things in the source repo. You can use this to build
 the platform without access to hackage or even an internet connection. You still
-need a GHC bindist, as well as cabal and stack binaries, either built from source or available from their respective websites.
+need a GHC bindist, as well as cabal and stack binaries, either built from source or 
+available from their respective websites.
 
 *installer* - For Windows and OS X, the platform is distributed as a standard
 installer for the operating system. It contains a fully built version of the
@@ -81,8 +82,9 @@ This will build the hptool itself, and then use that tool to build first the
 platform source tarball, and finally the hermetic build of all the platform
 packages.
 
-By default this now builds a "minimal" installer that does not install libraries beyond core. To build a "full" installer 
-with a broader range of libraries pre-installed in the global store, pass a "-f" option.
+By default this now builds a "minimal" installer that does not install libraries beyond core. To 
+build a "full" installer with a broader range of libraries pre-installed in the global store, pass 
+a "-f" option.
 
 If you are building for a Posix like system (Linux, or BSD), then you can add
 the command line option --prefix to specify where, on the target system the
@@ -90,8 +92,8 @@ tree of built things will be placed. It defaults to "/usr/local/haskell".  The
 build will include another directory under that named "ghc-x.y.z-arch" and
 everything will be installed under there.
 
-Adding -j<n> (no space between the j and the number of cores) to the build invocation will enable building on multiple cores at
-once.
+Adding -j<n> (no space between the j and the number of cores) to the build invocation
+will enable building on multiple cores at once.
 
 
 INSTALLATION
