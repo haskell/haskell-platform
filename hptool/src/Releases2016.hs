@@ -50,6 +50,8 @@ hp_8_0_1 =
 
         , incTool "hscolour"                "1.24"
         , incGHCTool "haddock"              "2.16.1"
+        , incGHCTool "cabal-install"        "1.24.0.0"
+        , incGHCTool "stack"                "1.1.2"
         ]
         [
           incLib "async"                    "2.1.0"

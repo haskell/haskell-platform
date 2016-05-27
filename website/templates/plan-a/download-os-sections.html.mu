@@ -1,7 +1,20 @@
 
                 <div class="container">
-                    <h2 id="get-started">Let's get started</h2>
+                  <h2 id="get-started">Let's get started</h2>
+		  <b>Note that as of 8.0.1 there are two download
+		  options available &mdash; minimal and full. The minimal
+		  option is currently the generally recommended
+		  one. It does not include any additional global
+		  libraries beyond those packaged with ghc, though it
+		  does include all tools. This ensures maximal
+		  compatibility with a variety of library sets. The
+		  full option is useful for those who prefer the
+		  "classic" platform behavior with a broader set of
+		  preinstalled libraries, and especially serves those
+		  well who want full-featured installers in situations
+		  where network connectivity should not be taken for granted.</p>
                 </div>
+
 
                 <div class="container found-user-platform" >
                     You appear to be using <strong>unknown</strong>.
@@ -53,8 +66,11 @@
                                 <p>
                                     These packages are for Mac OS X systems not
                                     using a package manager. If you would rather
-                                    install with MacPorts then select the
-                                    appropriate option to the right.
+                                    install with MacPorts or Homebrew then select the
+                                    appropriate option to the
+                                    right. (Note that those
+                                    distributions may lag behind
+                                    official platform installers).
                                 </p>
                                 <p> To get started perform these steps,</p>
 

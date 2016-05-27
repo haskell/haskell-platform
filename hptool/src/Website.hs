@@ -101,10 +101,10 @@ historyCtx = mkStrContext outerCtx
     ctx "hpReleases" = mapListStrContext rlsCtx releasesNewToOld
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
-        [ sectionCtx "Compiler"                              [isGhc, not . isLib]
-        , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib]
-        , sectionCtx "Additional Minimal Platform Libraries" [not . isGhc, isLib]
-        , sectionCtx "Programs and Tools"                    [isTool]
+        [ sectionCtx "Compiler"                              [isGhc, not . isLib] False
+        , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib] False
+        , sectionCtx "Additional Minimal Platform Libraries" [not . isGhc, isLib] True
+        , sectionCtx "Programs and Tools"                    [isTool] False
         , extendedCtx "Libraries with Full Platform"
         ]
     ctx _ = MuNothing
@@ -112,8 +112,8 @@ historyCtx = mkStrContext outerCtx
     rlsCtx rls "hpVersion" = MuVariable . showVersion . hpVersion . relVersion $ rls
     rlsCtx _ _ = MuNothing
 
-sectionCtx :: (Monad m) => String -> [IncludeType -> Bool] -> MuContext m
-sectionCtx name tests = mkStrContext ctx
+sectionCtx :: (Monad m) => String -> [IncludeType -> Bool] -> Bool -> MuContext m
+sectionCtx name tests onlyAfterSplit = mkStrContext ctx
   where
     ctx "name" = MuVariable name
     ctx "components" = mapListStrContext pCtx packages
@@ -121,7 +121,7 @@ sectionCtx name tests = mkStrContext ctx
 
     packages = sortOnLower . nub . map pkgName . concat $
                 map (packagesByIncludeFilter (\i -> all ($i) tests) False)
-                releasesNewToOld
+                (if onlyAfterSplit then releasesNewToOldSinceSplit else releasesNewToOld)
 
     sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
 
@@ -177,3 +177,9 @@ packageVersionInfo searchFull pName = curr $ zipWith comp vers (drop 1 vers ++ [
 
 releasesNewToOld :: [Release]
 releasesNewToOld = reverse releases
+
+releasesNewToOldSinceSplit :: [Release]
+releasesNewToOldSinceSplit = takeWhile p releasesNewToOld
+    where p rel = case packagesByIncludeFilter (\i -> all ($i) [isGhc, not . isLib, not . isTool]) False rel of
+                          [ghcPkg] -> take 1 (versionBranch $ pkgVersion ghcPkg) == [8]
+                          _ -> False
