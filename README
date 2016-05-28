@@ -58,14 +58,19 @@ You need the platform build files, either from the *source repo* or the
 *source tarball*.  Build instructions are the same for either.
 
 You need a GHC bindist that matches the OS you are compiling on. It must also
-match the GHC version used by the platform, currently 7.10.3. You can get this
-from:
-    https://www.haskell.org/ghc/download_ghc_7_10_3
+match the GHC version used by the platform, which you can find by looking in the Releases*.hs files.
+
+You can get the bindists from
+
+    https://www.haskell.org/ghc/download
 
 The machine doing the build needs to have a working Haskell setup: Usually,
-GHC (7.4 or later), Cabal (1.16 or later), and haddock and HsColour must be on
+GHC (7.4 or later), Cabal (1.24 or later), and haddock and HsColour must be on
 the $PATH.
 
+You also need a proper version of the cabal and stack binaries to be bundled.
+
+You can build a cabal directly from hackage and get a stack from http://docs.haskellstack.org
 
 BUILDING
 --------
