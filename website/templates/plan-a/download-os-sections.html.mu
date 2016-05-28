@@ -1,7 +1,7 @@
 
                 <div class="container">
                   <h2 id="get-started">Let's get started</h2>
-		  <b>Note that as of 8.0.1 there are two download
+		  <p><b>Note:</b> as of 8.0.1 there are two download
 		  options available &mdash; minimal and full. The minimal
 		  option is currently the generally recommended
 		  one. It does not include any additional global
@@ -12,7 +12,14 @@
 		  "classic" platform behavior with a broader set of
 		  preinstalled libraries, and especially serves those
 		  well who want full-featured installers in situations
-		  where network connectivity should not be taken for granted.</p>
+		  where network connectivity should not be taken for
+		    granted.</p>
+               <p>Note also: the stack tool has been evolving
+               relatively rapidly. Users who wish to ensure they are
+               running the latest version may want to consider running "stack
+               update" and ensuring the
+               proper <a href="http://docs.haskellstack.org/en/stable/install_and_upgrade/#path">path</a>
+               for stack-installed binaries is in their environment.
                 </div>
 
 
@@ -195,14 +202,28 @@
                                               {{/isWindows}} {{/files}} {{/current}}
                                             </ul>
                                         </div>
-                                    </div>
                                 </li>
                                 <li>
                                     <div class="step-number">2</div>
                                     <div class="step-body">Run the installer and follow the instructions.</div>
                                 </li>
-                                <li>
+				<li>
                                     <div class="step-number">3</div>
+				  <div class="step-body">
+					  Modify your cabal config
+					  file (you can verify the
+					  location by running "cabal
+					  user-config init") to
+					  contain the following lines:
+<pre>
+extra-prog-path: C:\Program Files\Haskell Platform\8.0.1\msys\usr\bin
+extra-lib-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\lib
+extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
+</pre>
+                                    </div>
+</li>
+                                <li>
+                                    <div class="step-number">4</div>
                                     <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
                                 </li>
                             </ol>

@@ -18,6 +18,7 @@ import ReleaseFiles
 import Templates
 import Types
 
+
 websiteRules :: FilePath -> Rules ()
 websiteRules templateSite = do
     websiteDir %/> \dst -> do
@@ -143,9 +144,15 @@ extendedCtx name = mkStrContext ctx
     ctx "components" = mapListStrContext pCtx packages
     ctx _ = MuNothing
 
-    packages = sortOnLower . nub . map pkgName . concat $
-                map (map snd . relIncludes)
-                releasesNewToOld
+    packagesAfter  = concat .
+                map (map snd . relIncludes) $
+                releasesNewToOldSinceSplit
+
+    packagesPrior = concat .
+                map (packagesByIncludeFilter (\i -> all ($i) [not . isGhc, isLib]) True) $
+                releasesNewToOldBeforeSplit
+
+    packages =  sortOnLower . nub . map pkgName $ packagesAfter ++ packagesPrior
 
     sortOnLower = map snd . sort . map (\s -> (map toLower s, s))
 
@@ -181,5 +188,11 @@ releasesNewToOld = reverse releases
 releasesNewToOldSinceSplit :: [Release]
 releasesNewToOldSinceSplit = takeWhile p releasesNewToOld
     where p rel = case packagesByIncludeFilter (\i -> all ($i) [isGhc, not . isLib, not . isTool]) False rel of
-                          [ghcPkg] -> take 1 (versionBranch $ pkgVersion ghcPkg) == [8]
+                          [ghcPkg] -> head (versionBranch $ pkgVersion ghcPkg) >= 8
+                          _ -> False
+
+releasesNewToOldBeforeSplit :: [Release]
+releasesNewToOldBeforeSplit = takeWhile p $ reverse releasesNewToOld
+    where p rel = case packagesByIncludeFilter (\i -> all ($i) [isGhc, not . isLib, not . isTool]) False rel of
+                          [ghcPkg] -> head (versionBranch $ pkgVersion ghcPkg) < 8
                           _ -> False

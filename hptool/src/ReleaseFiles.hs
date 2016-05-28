@@ -82,7 +82,7 @@ releaseFiles =
         , win True  i386      "download/8.0.1/HaskellPlatform-8.0.1-full-i386-setup.exe" $ sha256 "88a01bfa5b94f4c6f4d9959fc1b711acb944799b6090a1d8004a0f42f320ee9b"
         , win False x86_64    "download/8.0.1/HaskellPlatform-8.0.1-minimal-x86_64-setup.exe" $ sha256 "8115610a1042c744e1e652b0db97f8d127b5527aef1dc1b1674d80b0d8575c7e"
         , win True x86_64     "download/8.0.1/HaskellPlatform-8.0.1-full-x86_64-setup.exe" $ sha256 "0a22f668e6c03077c8f3605846f3e0c5eea4e12e0cc0595ddf7bc0494cf65200"
-        , src True "download/8.0.1/haskell-platform-8.0.1.tar.gz" $ sha256 "1b07f6cbb77ee722af2865c11ed16444663b75e6562c7cc1a9bb6dc06891a0e0"
+        , src True "download/8.0.1/haskell-platform-8.0.1.tar.gz" $ sha256 "38af99a9ae4afce56df75a753a19e7a4986bfbc8ce22f93b8308b5ab9e5a19c6"
         ])
      , ("7.10.3", dec 2015,
         [ lin True x86_64    "download/7.10.3/haskell-platform-7.10.3-unknown-posix-x86_64.tar.gz"     $ sha256 "d7dcc6bd7f1ce5b1d4ca59fc0549246ba0c40f73e5ff917ae2ae2753ea758d81"
