@@ -256,12 +256,14 @@ symLinkInto() {
 ###
 ### Fix up bits in platform tree
 ###
-
 if [ -d "$hpRoot" ] ; then
     if [ -x $hpRoot/bin/cabal.wrap ]
     then
-        run mv $hpRoot/bin/cabal $hpRoot/bin/cabal.real
-        symLink cabal.wrap $hpRoot/bin/cabal
+	if [ ! -e $hpRoot/bin/cabal.real ]
+	then
+           run mv $hpRoot/bin/cabal $hpRoot/bin/cabal.real
+           symLink cabal.wrap $hpRoot/bin/cabal
+	fi
     fi
 
     symLink $ghcRoot/usr/share/doc/ghc/html $hpRoot/doc/ghc-doc
