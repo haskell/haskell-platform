@@ -89,14 +89,14 @@
                                             {{#current}} {{#files}} {{#isOSX}}
                                             {{#isFull}}
                                             <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                                 </a>
                                             </div>
                                             {{/isFull}}
                                             {{^isFull}}
                                             <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -174,14 +174,14 @@
                                         {{#current}} {{#files}} {{#isWindows}}
                                         {{#isFull}}
                                         <div class="download-btn">
-                                            <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                             </a>
                                         </div>
                                         {{/isFull}}
                                         {{^isFull}}
                                         <div class="download-btn">
-                                            <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                            <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                 <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
                                             </a>
                                         </div>
@@ -293,14 +293,14 @@ extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
                                             {{#current}} {{#files}} {{#isLinux}}
                                             {{#isFull}}
                                             <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
                                                 </a>
                                             </div>
                                             {{/isFull}}
                                             {{^isFull}}
                                             <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download Minimal ({{archBits}} bit)
                                                 </a>
                                             </div>
@@ -407,7 +407,7 @@ $ sudo emerge haskell-platform</pre>
                                             <p>Download and extract the source tarball,</p>
                                             {{#current}} {{#files}} {{#isSource}}
                                             <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" class="btn btn-haskell" role="button">
+                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
                                                     <i class="fa fa-download"></i> Download
                                                 </a>
                                             </div>
