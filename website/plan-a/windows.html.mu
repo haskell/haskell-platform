@@ -7,7 +7,7 @@
         <meta name="description" content="Haskell Platform is a Haskell distribution with batteries included">
         <script src="js/download.js"></script>
         <script>var preferredOS = "windows";</script>
-        <title>Download Haskell Platform</title>
+        <title>Download Haskell Platform For Windows</title>
     </head>
     <body class="page-home">
         <div class="wrap">
