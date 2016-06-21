@@ -278,7 +278,8 @@ extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
                                     it should work on most modern Linux
                                     distributions, you may want to investigate use one of the
                                     distribution-specific options listed on the
-                                    right.
+                                    right. As GHC links against libgmp, 
+                                    you may need to install "libgmp-dev" using your package manager of choice.
                                 </p>
                                 <p>
                                     The latest version of the Haskell Platform for Linux is
