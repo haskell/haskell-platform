@@ -56,7 +56,7 @@ winGhcInstall destDir bc distDir = do
         winGlutIncSrcs
     needContents winGlutIncludeInstallDir
 
-    return destDir
+    return . Just $ destDir
 
 
 copyWinTargetExtras :: BuildConfig -> Action ()
