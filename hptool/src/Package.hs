@@ -47,7 +47,8 @@ packageRules = do
 
     packageDepsFile PackageWildCard %> \depFile -> do
         hpRel <- askHpRelease
-        installAction depFile hpRel
+        bc <- askBuildConfig
+        installAction depFile (bcIncludeExtra bc) hpRel
 
     listBuild %> \out -> do
         hpRel <- askHpRelease
@@ -64,8 +65,8 @@ packageRules = do
             -- components come out closer to normal sort order. Go figure!
 
 
-installAction :: FilePath -> Release -> Action ()
-installAction depFile hpRel = do
+installAction :: FilePath -> Bool -> Release -> Action ()
+installAction depFile incExtras hpRel = do
     let pkg = extractPackage depFile
     let srcDir = packageSourceDir pkg
     need [ dir srcDir ]
@@ -89,7 +90,7 @@ installAction depFile hpRel = do
 
     constraints =
         map (\p -> pkgName p ++ "==" ++ showVersion (pkgVersion p)) $
-            (allPackages True) hpRel
+            (allPackages incExtras) hpRel
 
     decode out = case drop 1 $ lines out of
         ("All the requested packages are already installed:":_) ->
@@ -105,4 +106,4 @@ installAction depFile hpRel = do
                             ++ unwords (filter (not . (`elem` packages)) deps) ++ "\n" ++ "Could not build " ++ depFile
         _ -> Left out
 
-    packages = map show $ (allPackages True) hpRel --note should be False if minimal...
+    packages = map show $ (allPackages incExtras) hpRel
