@@ -16,23 +16,11 @@ The platform distribution and tooling are more intended instead for those wishin
 
 DISTRIBUTION
 ------------
-The platform comes in several forms:
+Again: If you want to install the haskell platform, this is NOT the right location. You can download prebuilt installers for most systems from
 
-*source repo* - This is the source of the system that builds the platform. It
-includes the file that defines the versions of GHC and other packages that make
-up the platform. You can use this to build the platform from just a GHC bindist.
+https://www.haskell.org/platform/
 
-You can check out the official release from github:
-     http://github.com/haskell/haskell-platform
-The master branch is always stable, and releases are tagged like "2014.2.0.0".
-Development usually happens in other branches.
-
-*source tarball* - This is a specially packaged version of the repo that
-includes the sources of the packages that make up the platform, and excludes
-some of the ancillary things in the source repo. You can use this to build
-the platform without access to hackage or even an internet connection. You still
-need a GHC bindist, as well as cabal and stack binaries, either built from source or 
-available from their respective websites.
+From there you can get the following:
 
 *installer* - For Windows and OS X, the platform is distributed as a standard
 installer for the operating system. It contains a fully built version of the
@@ -50,6 +38,32 @@ the standard package manager tools.
 against standard versions of the common system libraries, and if your system
 has those, you can generally just unpack this tarball, and run a script to
 get it setup.
+
+DISTRIBUTION OF TOOLKIT FOR BUILDING INSTALLERS
+------------
+
+If you really want to get the toolkit to build your _own_ platform installer, then you're in the right spot.
+
+The platform installer toolkit comes in several forms:
+
+*source tarball* - This is a specially packaged version of the repo that
+includes the sources of the packages that make up the platform, and excludes
+some of the ancillary things in the source repo. You can use this to build
+the platform without access to hackage or even an internet connection. You still
+need a GHC bindist, as well as cabal and stack binaries, either built from source or 
+available from their respective websites.
+
+This is also available from https://www.haskell.org/platform/
+
+*source repo* - This is the source of the system that builds the platform. It
+includes the file that defines the versions of GHC and other packages that make
+up the platform. You can use this to build the platform from just a GHC bindist.
+
+You can check out the official release from github:
+     http://github.com/haskell/haskell-platform
+     
+The master branch is always stable, and releases are tagged like "2014.2.0.0".
+Development usually happens in other branches.
 
 
 REQUIREMENTS FOR BUILDING
