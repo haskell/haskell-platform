@@ -13,7 +13,7 @@ import Text.Hastache.Context (mkStrContext)
 import Config
 import OS.Win.WinPaths
 import OS.Win.WinUtils
-import Paths ( installerPartsDir, targetDir )
+import Paths ( installerPartsDir, phonyTargetDir )
 import Templates
 import Types
 import Utils
@@ -22,11 +22,11 @@ import Utils
 genNsisData :: Rules ()
 genNsisData = do
     nsisInstDat %> \dFile -> do
-        need [targetDir]
+        need [phonyTargetDir]
         dirs <- getDirsFiles filterEmptyDirs
         genData nsisInstDatTmpl dFile dirs
     nsisUninstDat %> \uFile -> do
-        need [targetDir]
+        need [phonyTargetDir]
         dirs <- getDirsFiles sortByDirRev
         genData nsisUninstDatTmpl uFile dirs
   where

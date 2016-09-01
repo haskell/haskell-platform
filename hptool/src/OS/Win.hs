@@ -137,7 +137,7 @@ winOsFromConfig BuildConfig{..} = os
         winRules
 
         osProduct %> \_ -> do
-            need $ [dir ghcLocalDir, targetDir, vdir ghcVirtualTarget]
+            need $ [dir ghcLocalDir, phonyTargetDir, vdir ghcVirtualTarget]
                    ++ winNeeds
 
             copyWinTargetExtras bc
