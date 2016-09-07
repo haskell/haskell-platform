@@ -24,8 +24,6 @@
   !Define PRODUCT_DIR_REG_KEY "Software\Haskell\Haskell Platform\${PLATFORM_VERSION}"
   !Define HACKAGE_SHORTCUT_TEXT "HackageDB - Haskell Software Repository"
   !Define FILES_SOURCE_PATH "{{targetFiles}}"
-  !Define INST_DAT "inst.dat"
-  !Define UNINST_DAT "uninst.dat"
 
 ;--------------------------------
 ;Variables
@@ -52,11 +50,14 @@
   RequestExecutionLevel highest
 
   ;Best available compression
-  SetCompressor /SOLID lzma
+  SetCompressor lzma
 
   ;Install types
   InstType "Standard"
   InstType "Portable (just unpack the files)"
+
+  ;Used on the UI Pages
+  BrandingText "Haskell.org"
 
 ;--------------------------------
 ;Macros
@@ -86,10 +87,14 @@ CheckAdminDone:
   ; happen before the user gets to the dialog to change installation location.
   ; On the other hand, $INSTDIR must *not* be changed for the uninstall step
   ; because doing so over-rides what the user did during the install step.
+  ;
+  ; Also, do not force $INSTDIR to change if this is a silent install.
 SetRegView 32
 StrCpy $PROGRAM_FILES "$PROGRAMFILES"
-${If} ${isInstall} = 1
-  StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+${IfNot} ${Silent}
+  ${If} ${isInstall} = 1
+    StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+  ${EndIf}
 ${EndIf}
 {{#build64bit}}
 ${If} ${RunningX64}
@@ -98,9 +103,11 @@ ${If} ${RunningX64}
   ; enable access to 64-bit portion of registry
   SetRegView 64
   StrCpy $PROGRAM_FILES "$PROGRAMFILES64"
-${If} ${isInstall} = 1
-  StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
-${EndIf}
+  ${IfNot} ${Silent}
+    ${If} ${isInstall} = 1
+      StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
+    ${EndIf}
+  ${EndIf}
 ${Else}
 ;     pop up an error message: Cannot install 64-bit HP on 32-bit Windows
     MessageBox MB_OK "You are trying to install the 64-bit version of the Haskell Platform onto a 32-bit version of Windows.  Please use the 32-bit version of the Haskell Platform."
@@ -166,6 +173,8 @@ Function .onInit
   !insertmacro CheckAdmin "installer"
   !insertmacro CheckOtherInstalls
   SetShellVarContext all
+  SectionSetSize 0 {{mainInstalledSize}} ; 0 is ${SecMain} but the symbol is not defined yet
+  SectionSetSize 1 {{stackInstalledSize}} ; 1 is ${SecStack}
 FunctionEnd
 
 Function un.onInit
@@ -186,9 +195,16 @@ Function .onInstSuccess
 FunctionEnd
 
 ;--------------------------------
+Function un.CreateGUID
+  System::Call 'ole32::CoCreateGuid(g .s)'
+FunctionEnd
+
+;--------------------------------
 ;Interface Settings
 
   !define MUI_ABORTWARNING
+  !define MUI_FINISHPAGE_NOAUTOCLOSE
+  !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 ;--------------------------------
 ;Pages
@@ -198,23 +214,30 @@ FunctionEnd
   !insertmacro MUI_PAGE_LICENSE "LICENSE"
   !insertmacro MUI_PAGE_DIRECTORY
 
-  !Define MUI_COMPONENTSPAGE_NODESC
+  !Define MUI_COMPONENTSPAGE_NODESC ; this allows a wider text box
   !insertmacro MUI_PAGE_COMPONENTS
 
   ;Start Menu Folder Page Configuration
   !Define MUI_PAGE_HEADER_SUBTEXT \
-  "Choose a Start Menu folder for the Haskell Platform ${PLATFORM_VERSION} shortcuts."
+      "Choose a Start Menu folder for the Haskell Platform ${PLATFORM_VERSION} shortcuts."
   !Define MUI_STARTMENUPAGE_TEXT_TOP \
-  "Select the Start Menu folder in which you would like to create Haskell Platform shortcuts. You can also enter a name to create a new folder."
+      "Select the Start Menu folder in which you would like to create Haskell Platform shortcuts. You can also enter a name to create a new folder."
   !Define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKLM"
   !Define MUI_STARTMENUPAGE_REGISTRY_KEY "${PRODUCT_DIR_REG_KEY}"
   !Define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
   !Define MUI_STARTMENUPAGE_DEFAULTFOLDER "Haskell Platform ${PLATFORM_VERSION}"
   !insertmacro MUI_PAGE_STARTMENU StartMenuPage $START_MENU_FOLDER
   !insertmacro MUI_PAGE_INSTFILES
+
+  ;Finish page
+  ; No amount of shenanigans could get the default string to be referenced
+  ; properly, just to add a bit more, so we just need to hardcode it here :(
+  !define MUI_FINISHPAGE_TEXT \
+      "$(^NameDA) has been installed on your computer.$\r$\n$\r$\nClick Finish to close this wizard.$\r$\n$\r$\n(You may notice a window briefly appear while GHC package.cache is refreshed.)"
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_WELCOME
+  ; !insertmacro MUI_UNPAGE_COMPONENTS ; if we wanted to allow partial uninstall
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH
@@ -233,9 +256,77 @@ Section "Base components" SecMain
   ; Make this section mandatory
   SectionIn RO
 
-  !Include ${INST_DAT}
+  ;Meta-installer should not try to re-compress the payloads!
+  SetCompress off
+
+  ; Put the install of stack here so it is first, since it requires additional
+  ; user interaction, and putting it near the end makes the user have to wait.
+  ${If} ${SectionIsSelected} 1 ; ${SecStack} but the symbol is not defined yet
+    DetailPrint "extracting Stack"
+    SetOutPath "$INSTDIR\temp"
+    File "{{stackInstallerPath}}"
+    DetailPrint "installing Stack"
+    SetDetailsPrint listonly
+      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" /S'
+    SetDetailsPrint lastused
+    DetailPrint "finished Stack"
+    Delete "$INSTDIR\temp\{{stackInstallerFileName}}"
+    SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
+    RMDir "$INSTDIR\temp"
+  ${EndIf}
+
+  ; 1. MSys
+  DetailPrint "extracting MSys"
+  SetOutPath "$INSTDIR\temp"
+  File "..\product\MSys-setup.exe"
+  DetailPrint "installing MSys"
+  SetDetailsPrint listonly
+    ExecWait '"$INSTDIR\temp\MSys-setup.exe" /S /D=$INSTDIR'
+  SetDetailsPrint lastused
+  DetailPrint "finished MSys"
+  Delete "$INSTDIR\temp\MSys-setup.exe"
+  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
+  RMDir "$INSTDIR\temp"
+
+  ; 2. HP-provided packages
+  DetailPrint "extracting Extralibs"
+  SetOutPath "$INSTDIR\temp"
+  File "..\product\Extralibs-setup.exe"
+  DetailPrint "installing Extralibs"
+  SetDetailsPrint listonly
+    ExecWait '"$INSTDIR\temp\Extralibs-setup.exe" /S /D=$INSTDIR'
+  SetDetailsPrint lastused
+  DetailPrint "finished Extralibs"
+  Delete "$INSTDIR\temp\Extralibs-setup.exe"
+  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
+  RMDir "$INSTDIR\temp"
+
+  ; 3. GHC (and anything else not already covered)
+  DetailPrint "extracting GHC"
+  SetOutPath "$INSTDIR\temp"
+  File "..\product\GHC-setup.exe"
+  DetailPrint "installing GHC"
+  SetDetailsPrint listonly
+    ExecWait '"$INSTDIR\temp\GHC-setup.exe" /S /D=$INSTDIR'
+  SetDetailsPrint lastused
+  DetailPrint "finished GHC"
+  Delete "$INSTDIR\temp\GHC-setup.exe"
+  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
+  RMDir "$INSTDIR\temp"
+
+  ; Turn compression back on
+  SetCompress auto
 
 SectionEnd
+
+
+Section "Stack (its included installer will be launched)" SecStack
+  SectionIn 1 2
+
+  ; The actual install steps are in the first section
+
+SectionEnd
+
 
 SectionGroup "Update system settings" SecGr
 
@@ -329,22 +420,22 @@ Section "-StartMenu" StartMenu
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$START_MENU_FOLDER"
     !insertmacro CreateInternetShortcut \
-    "$SMPROGRAMS\$START_MENU_FOLDER\${HACKAGE_SHORTCUT_TEXT}" \
-    "http://hackage.haskell.org" \
-    "$INSTDIR\icons\hackage.ico" "0"
+        "$SMPROGRAMS\$START_MENU_FOLDER\${HACKAGE_SHORTCUT_TEXT}" \
+        "http://hackage.haskell.org" \
+        "$INSTDIR\icons\hackage.ico" "0"
     CreateShortCut \
-    "$SMPROGRAMS\$START_MENU_FOLDER\GHC Documentation.lnk" \
-     "$INSTDIR\doc\html\index.html"
+        "$SMPROGRAMS\$START_MENU_FOLDER\GHC Documentation.lnk" \
+        "$INSTDIR\doc\html\index.html"
     CreateShortCut \
-    "$SMPROGRAMS\$START_MENU_FOLDER\GHC Flag Reference.lnk" \
-    "$INSTDIR\doc\html\users_guide\flag-reference.html"
+        "$SMPROGRAMS\$START_MENU_FOLDER\GHC Flag Reference.lnk" \
+        "$INSTDIR\doc\html\users_guide\flag-reference.html"
     CreateShortCut \
-    "$SMPROGRAMS\$START_MENU_FOLDER\Library Documentation.lnk" \
-    "$INSTDIR\lib\extralibs\doc\frames.html"
+        "$SMPROGRAMS\$START_MENU_FOLDER\Library Documentation.lnk" \
+        "$INSTDIR\lib\extralibs\doc\frames.html"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\GHCi.lnk" \
-    "$INSTDIR\bin\ghci.exe"
+        "$INSTDIR\bin\ghci.exe"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\WinGHCi.lnk" \
-    "$INSTDIR\winghci\winghci.exe"
+        "$INSTDIR\winghci\winghci.exe"
 
   !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -353,9 +444,58 @@ SectionEnd
 ;--------------------------------
 ;Uninstaller Section
 
+; Section /o "un.Stack" UnSecStack
+  ; Actually, we do not want ot let user uninstall Stack this way; the user
+  ; should remove Stack using the the normal Add/Remove Programs functionality
+  ; in Windows.  If we allow this here, the user might have already removed
+  ; Stack using Add/Remove Programs but we would have to go through more
+  ; logic to detect that case and handle it.... bleh
+; SectionEnd
+
+
 Section "Uninstall"
 
-  !Include ${UNINST_DAT}
+  !define MSYS_UNINST "MSys_Uninstall.exe"
+  !define EXTRA_UNINST "Extralibs_Uninstall.exe"
+  !define GHC_UNINST "GHC_Uninstall.exe"
+  Var /GLOBAL tempname
+
+  ; uninstall the sub-components
+  ; 1. MSys
+  Call un.CreateGUID
+  pop $0
+  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
+  ; copy the uninstaller so it can delete itself
+  CopyFiles /SILENT /FILESONLY "$INSTDIR\${MSYS_UNINST}" "$tempname"
+  DetailPrint "uninstalling MSys"
+  SetDetailsPrint listonly
+  ExecWait '"$tempname" /S _?=$INSTDIR'
+  Delete "$tempname"
+  SetDetailsPrint lastused
+
+  ; 2. HP-provided packages
+  Call un.CreateGUID
+  pop $0
+  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
+  ; copy the uninstaller so it can delete itself
+  CopyFiles /SILENT /FILESONLY "$INSTDIR\${EXTRA_UNINST}" "$tempname"
+  DetailPrint "uninstalling Extralibs"
+  SetDetailsPrint listonly
+  ExecWait '"$tempname" /S _?=$INSTDIR'
+  Delete "$tempname"
+  SetDetailsPrint lastused
+
+  ; 3. GHC (and anything else not already covered)
+  Call un.CreateGUID
+  pop $0
+  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
+  ; copy the uninstaller so it can delete itself
+  CopyFiles /SILENT /FILESONLY "$INSTDIR\${GHC_UNINST}" "$tempname"
+  DetailPrint "uninstalling GHC"
+  SetDetailsPrint listonly
+  ExecWait '"$tempname" /S _?=$INSTDIR'
+  Delete "$tempname"
+  SetDetailsPrint lastused
 
   Delete "$INSTDIR\Uninstall.exe"
   RMDir $INSTDIR
@@ -416,3 +556,10 @@ Section "Uninstall"
 
 
 SectionEnd
+
+;--------------------------------
+; "the last SetCompress command in the file also determines whether or not the
+; install info section and uninstall data of the installer is compressed."
+; Yes, we want this meta-info to be compressed
+
+SetCompress auto

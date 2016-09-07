@@ -18,7 +18,9 @@ winExtrasSrc = "hptool/os-extras/win"
 winTemplates :: FilePath
 winTemplates = winExtrasSrc </> "templates"
 
+
 -- | File name of the data file used by NSIS to create the installer exe
+-- (this is everything (including GHC) that is not MSys or extralibs)
 nsisFileName :: FilePath
 nsisFileName = "Nsisfile.nsi"
 
@@ -26,25 +28,98 @@ nsisFileName = "Nsisfile.nsi"
 nsisFile :: FilePath
 nsisFile = installerPartsDir </> nsisFileName
 
-nsisInstDat :: FilePath
-nsisInstDat = installerPartsDir </> "inst.dat"
 
-nsisUninstDat :: FilePath
-nsisUninstDat = installerPartsDir </> "uninst.dat"
+-- | MSys installation data files
+msysNsisFileName :: FilePath
+msysNsisFileName = "MSys.nsi"
+
+msysNsisFile :: FilePath
+msysNsisFile = installerPartsDir </> msysNsisFileName
+
+msysNsisInstDat :: FilePath
+msysNsisInstDat = installerPartsDir </> "MSys_inst.dat"
+
+msysNsisUninstDat :: FilePath
+msysNsisUninstDat = installerPartsDir </> "MSys_uninst.dat"
+
+-- | The msys sub-installer file name; it is internal only
+msysProductFileName :: FilePath
+msysProductFileName = "MSys-setup" <.> "exe"
+
+-- | Directory where the MSys sub-installer file is built.
+msysProductFile :: Bool -> Version -> String -> FilePath
+msysProductFile _isFull _hpv _arch = productDir </> msysProductFileName
+
+
+-- | Extralibs installation data files
+extralibsNsisFileName :: FilePath
+extralibsNsisFileName = "Extralibs.nsi"
+
+extralibsNsisFile :: FilePath
+extralibsNsisFile = installerPartsDir </> extralibsNsisFileName
+
+extralibsNsisInstDat :: FilePath
+extralibsNsisInstDat = installerPartsDir </> "Extralibs_inst.dat"
+
+extralibsNsisUninstDat :: FilePath
+extralibsNsisUninstDat = installerPartsDir </> "Extralibs_uninst.dat"
+
+-- | The extralibs sub-installer file name; it is internal only
+extralibsProductFileName :: FilePath
+extralibsProductFileName = "Extralibs-setup" <.> "exe"
+
+-- | Directory where the extralibs sub-installer file is built.
+extralibsProductFile :: Bool -> Version -> String -> FilePath
+extralibsProductFile _ _ _ = productDir </> extralibsProductFileName
+
+
+-- | GHC installation data files
+ghcNsisFileName :: FilePath
+ghcNsisFileName = "GHC.nsi"
+
+ghcNsisFile :: FilePath
+ghcNsisFile = installerPartsDir </> ghcNsisFileName
+
+ghcNsisInstDat :: FilePath
+ghcNsisInstDat = installerPartsDir </> "GHC_inst.dat"
+
+ghcNsisUninstDat :: FilePath
+ghcNsisUninstDat = installerPartsDir </> "GHC_uninst.dat"
+
+-- | The GHC sub-installer file name; it is internal only
+ghcProductFileName :: FilePath
+ghcProductFileName = "GHC-setup" <.> "exe"
+
+-- | Directory where the GHC sub-installer file is built.
+ghcProductFile :: Bool -> Version -> String -> FilePath
+ghcProductFile _ _ _ = productDir </> ghcProductFileName
+
 
 -- | Pre-built or unchanging files that need to be included in the installer
 winInstExtras :: [FilePath]
 winInstExtras = map (installerPartsDir </>) winInstExtrasFiles
 
+
 -- | Templates to generate some of the installer data files
 nsiTemplate :: FilePath
 nsiTemplate = winTemplates </> "Nsisfile.nsi.mu"
+
+msysNsiTemplate :: FilePath
+msysNsiTemplate = winTemplates </> "MSys.nsi.mu"
+
+extralibsNsiTemplate :: FilePath
+extralibsNsiTemplate = winTemplates </> "Extralibs.nsi.mu"
+
+ghcNsiTemplate :: FilePath
+ghcNsiTemplate = winTemplates </> "GHC.nsi.mu"
+
 
 nsisInstDatTmpl :: FilePath
 nsisInstDatTmpl = winTemplates </> "inst.dat.mu"
 
 nsisUninstDatTmpl :: FilePath
 nsisUninstDatTmpl = winTemplates </> "uninst.dat.mu"
+
 
 -- | Some scripts and unchanging data files needed for the installer
 winInstExtrasFiles :: [FilePath]
@@ -164,5 +239,14 @@ winGhcTargetPackageDbDir = winTargetDir </> winGhcPackageDbDir
 
 -- | Additional build targets needed for the Windows version of HP
 winNeeds :: [FilePath]
-winNeeds = [ nsisFile, nsisInstDat, nsisUninstDat ]
+winNeeds = [ nsisFile,
+             msysNsisFile, msysNsisInstDat, msysNsisUninstDat,
+             ghcNsisFile,  ghcNsisInstDat,  ghcNsisUninstDat
+           ]
            ++ winInstExtras
+
+-- | Additional build targets needed for the Windows version of full HP
+--  (note however, that alex and happy live here, so we always need these)
+winExtraNeeds :: [FilePath]
+winExtraNeeds = [
+    extralibsNsisFile, extralibsNsisInstDat, extralibsNsisUninstDat ]

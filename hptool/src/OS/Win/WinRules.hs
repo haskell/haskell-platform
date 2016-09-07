@@ -27,8 +27,7 @@ import Utils
 
 winRules :: Rules ()
 winRules = do
-    genNsisData
-    genNsisFile
+    genNsisFiles
     copyInstExtras
 
 winGhcInstall :: FilePath -> GhcInstallAction
@@ -77,11 +76,6 @@ copyWinTargetExtras bc = do
     -- copy cabal executable
     cabalFile <- askCabalExe
     copyFileAction (return ()) (takeDirectory cabalFile) (winHpTargetDir </> "bin") (takeFileName cabalFile)
-
-    -- copy stack executable
-    stackFile <- askStackExe
-    copyFileAction (return ()) (takeDirectory stackFile) (winHpTargetDir </> "bin") (takeFileName stackFile)
-
 
 
 -- | These files are needed when building the installer

@@ -143,6 +143,7 @@ winOsFromConfig BuildConfig{..} = os
             void $ getDirectoryFiles "" [targetDir ++ "//*"]
 
             need winNeeds
+            need winExtraNeeds
 
             -- Now, it is time to make sure there are no problems with the
             -- conf files copied to
@@ -153,7 +154,10 @@ winOsFromConfig BuildConfig{..} = os
                 [ "check"
                 , "--package-db=" ++ winGhcTargetPackageDbDir ]
 
-          -- Build installer now; makensis must be run in installerPartsDir
+            -- Build installer now; makensis must be run in installerPartsDir
+            command_ [Cwd installerPartsDir] "makensis" [extralibsNsisFileName]
+            command_ [Cwd installerPartsDir] "makensis" [msysNsisFileName]
+            command_ [Cwd installerPartsDir] "makensis" [ghcNsisFileName]
             command_ [Cwd installerPartsDir] "makensis" [nsisFileName]
 
     osPackageConfigureExtraArgs _ =
