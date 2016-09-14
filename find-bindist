@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+#
+# Return the url for a GHC bindist.
+#
+# Examples:
+#   find-bindist apple
+#   find-bindist deb8 64
+#   find-bindist i3 ming
+#   find-bindist apple 7.10.2
+#   find-bindist               -- shows all bin dists
+
+import requests
+import re
+import os
+import sys
+
+BASE_URL = "http://downloads.haskell.org/~ghc"
+DEFAULT_GHC_VERSION = "8.0.1"
+
+def list_bin_dists(url):
+  r = requests.get(url)
+  contents = r.text
+  return re.findall('a href="(ghc-.*?.tar.xz)"', contents)
+
+def has_words(words, m):
+  for w in words:
+    if not (w in m):
+      return False
+  return True
+
+def is_ghc_vers(arg):
+  return re.match("(\d+)\.(\d+)\.(\d+)\Z", arg)
+
+def process_args(args):
+  versions = []
+  others = []
+  for arg in args:
+    if is_ghc_vers(arg):
+      versions.append(arg)
+    else:
+      others.append(arg)
+  return versions, others
+
+def main():
+  args = sys.argv[1:]
+
+  versions, words = process_args(sys.argv[1:])
+  if not versions:
+    versions.append(DEFAULT_GHC_VERSION)
+
+  ghc_vers = versions[0]
+
+  url = BASE_URL + "/" + ghc_vers + "/"
+  matches = [ m for m in list_bin_dists(url) if has_words(words, m) ]
+  if not matches:
+    if words:
+      msg = " contain the words: " + ", ".join(words)
+    else:
+      msg = ""
+    print "no bindists for version " + ghc_vers + msg
+  elif len(matches) == 1:
+    print url + matches[0]
+  else:
+    print "Multiple matching bindists:"
+    for m in matches:
+      print "  ", url + m
+
+main()
+ 

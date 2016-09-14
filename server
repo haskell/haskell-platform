@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+import SocketServer
+import SimpleHTTPServer
+import urllib
+import posixpath
+import os
+import sys
+
+PORT = 1235
+BASE_DIR="/home/erantapaa/build-hp/haskell-platform/build/product/website"
+
+class Proxy(SimpleHTTPServer.SimpleHTTPRequestHandler):
+   def translate_path(self, path):
+        """Translate a /-separated PATH to the local filename syntax.
+        Components that mean special things to the local file system
+        (e.g. drive or directory names) are ignored.  (XXX They should
+        probably be diagnosed.)
+        """
+        # abandon query parameters
+        path = path.split('?',1)[0]
+        path = path.split('#',1)[0]
+        path = posixpath.normpath(urllib.unquote(path))
+        words = path.split('/')
+        words = filter(None, words)
+        path = BASE_DIR # os.getcwd()
+        for word in words:
+            drive, word = os.path.splitdrive(word)
+            head, word = os.path.split(word)
+            if word in (os.curdir, os.pardir): continue
+            path = os.path.join(path, word)
+        return path
+
+def main():
+  args = sys.argv[1:]
+  if len(args) < 2:
+    print "Usage: server directory port"
+    sys.exit(1)
+  BASE_DIR = args[0]
+  PORT = int(args[1])
+  httpd = SocketServer.ForkingTCPServer(('', PORT), Proxy)
+  print "serving at port", PORT
+  httpd.serve_forever()
+
+main()
+
+

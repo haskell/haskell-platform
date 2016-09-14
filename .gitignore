@@ -9,3 +9,6 @@ packages/
 src/generic/Build
 src/generic/haskell-platform-*
 src/macos/dist*
+.shake/
+config.platform
+ghc-*.tar.xz
