@@ -64,6 +64,7 @@ packageRules = do
             -- Having the package names reverse sort as graph keys makes the SCC
             -- components come out closer to normal sort order. Go figure!
 
+--TODO choose proper "allPackages" based on minimal or full build
 
 installAction :: FilePath -> Bool -> Release -> Action ()
 installAction depFile incExtras hpRel = do

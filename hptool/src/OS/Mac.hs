@@ -138,8 +138,10 @@ macOsFromConfig BuildConfig{..} = OS{..}
                 , out
                 ]
 
+
         hpPkgFile %> \out -> do
-            need [targetDir, dir extrasDir]  -- FIXME(mzero): could be more specific
+            need [targetDir]
+            need [dir extrasDir]  -- FIXME(mzero): could be more specific
             command_ []
                 "pkgbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform.Libraries."

@@ -106,6 +106,7 @@ hp_8_0_1 =
         , incLib "fixed"                    "0.2.1.1"
         ]
 
+
 hp_8_0_2 :: Release
 hp_8_0_2 =
     releaseWithMinimal "8.0.2"
