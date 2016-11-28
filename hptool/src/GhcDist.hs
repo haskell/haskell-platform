@@ -39,7 +39,7 @@ cppCommandFlags cpp = case cpp of
 
 
 ghcInstall :: GhcInstall ->
-              FilePath -> Maybe (BuildConfig -> FilePath) -> Action FilePath
+              FilePath -> Maybe (BuildConfig -> FilePath) -> Action (Maybe FilePath)
 ghcInstall postUntarAction base mfPrefix = do
     tarFile <- askGhcBinDistTarFile
     conf <- askBuildConfig
@@ -74,7 +74,7 @@ ghcInstallConfigure base mfPrefix conf distDir = do
     Just cppCommand <- getCppCommand settings settingsFile
     writeSettings settingsFile (updateCppFlags cppCommand settings)
 
-    return destDir
+    return . Just $ destDir
   where
     layout Nothing = (base, base)
     layout (Just p) = (p, base </+> p)
@@ -113,7 +113,7 @@ ghcDistRules = do
         ghcInstall postUntar ghcLocalDir Nothing >> return ()
     ghcVirtualTarget ~/> do
         postUntar <- osGhcTargetInstall . osFromConfig <$> askBuildConfig
-        ghcInstall postUntar targetDir (Just targetPrefix) >>= return . Just
+        ghcInstall postUntar targetDir (Just targetPrefix)
   where
     targetPrefix = osGhcPrefix . osFromConfig
 
