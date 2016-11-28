@@ -109,10 +109,10 @@
                                                 <ul class="hashes">
                                                   {{#current}} {{#files}} {{#isOSX}}
                                                   {{#isFull}}
-                                                  <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  <li>{{archBits}} bit Full:<br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                                   {{/isFull}}
                                                   {{^isFull}}
-                                                  <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  <li>{{archBits}} bit Minimal:<br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                                   {{/isFull}}
                                                   {{/isOSX}} {{/files}} {{/current}}
                                                 </ul>
@@ -194,10 +194,10 @@
                                             <ul class="hashes">
                                               {{#current}} {{#files}} {{#isWindows}}
                                               {{#isFull}}
-                                              <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                              <li>{{archBits}} bit Full: <br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                               {{/isFull}}
                                               {{^isFull}}
-                                              <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                              <li>{{archBits}} bit Minimal:<br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                               {{/isFull}}
                                               {{/isWindows}} {{/files}} {{/current}}
                                             </ul>
@@ -313,10 +313,10 @@ extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
                                                 <ul class="hashes">
                                                   {{#current}} {{#files}} {{#isLinux}}
                                                   {{#isFull}}
-                                                  <li>{{archBits}} bit Full: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  <li>{{archBits}} bit Full:<br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                                   {{/isFull}}
                                                   {{^isFull}}
-                                                  <li>{{archBits}} bit Minimal: <input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                  <li>{{archBits}} bit Minimal:<br><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                                   {{/isFull}}
                                                   {{/isLinux}} {{/files}} {{/current}}
                                                 </ul>
@@ -419,7 +419,7 @@ $ sudo emerge haskell-platform</pre>
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isSource}}
-                                                    <li><input readonly class="file-hash" type="text" value="{{mHash}}"></li>
+                                                    <li><textarea rows="2" cols="28" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
                                                     {{/isSource}} {{/files}} {{/current}}
                                                 </ul>
                                             </div>
