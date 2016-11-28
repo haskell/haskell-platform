@@ -19,7 +19,8 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  go('create', 'UA-832905133-1', 'auto');
+  ga('create', 'UA-83290513-1', 'auto');
+  // ga('create', 'UA-78576289-1', 'auto'); // testing account
   ga('send', 'pageview');
   function dl(me) {
     ga('send','event',{eventCategory:'Download', eventAction:'Download HP', eventLabel:me.href})

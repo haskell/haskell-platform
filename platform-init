@@ -1,0 +1,92 @@
+#!/usr/bin/env python
+#
+# Generate the config.platform file
+
+import glob
+import re
+import sys
+import os
+import subprocess
+
+def kvpair(k,v):
+  return k + '="{}"'.format(v)
+
+def which(file):
+    for path in os.environ["PATH"].split(os.pathsep):
+        if os.path.exists(os.path.join(path, file)):
+                return os.path.join(path, file)
+
+    return None
+
+def cabal_version(cabal):
+  output = subprocess.Popen([cabal, "--version"], stdout=subprocess.PIPE).communicate()[0]
+  # cabal-install version 1.22.6.0  
+  m = re.match("cabal-install version (\d[.\d]*)", output)
+  if m:
+    return m.groups(1)[0]
+  else:
+    return None
+
+def parse_version(s):
+  # s must be a string of digits and '.'
+  return [ int(x) for x in s.split('.') ]
+
+def compare_versions(a,b):
+  # print "compare_versions:, a:", a, "b:", b
+  if (not a) and (not b):
+    return 0
+  if not a:
+    if not b: return 0
+    return compare_versions( [0], b)
+  if not b:
+    return compare_versions( a, [0])
+  if int(a[0]) == int(b[0]):
+    return compare_versions(a[1:], b[1:])
+  return cmp(a[0], b[0])
+
+def main():
+  bindists = glob.glob("ghc-*.tar.xz")
+  if not bindists:
+    print "No GHC bindists found in the current working directory"
+    sys.exit(1)
+  elif len(bindists) > 1:
+    print "Multiple bindists found:"
+    for m in bindists:
+      print "  ", m
+    sys.exit(1)
+
+  stack = which("stack")
+  if not stack:
+    print "unable to find stack in PATH"
+    sys.exit(1)
+  print "found stack at", stack
+
+  cabal = which("cabal")
+  if not cabal:
+    print "unable to find cabal in PATH"
+    sys.exit(1)
+  print "found cabal at", stack
+
+  # Check the cabal version
+  cversion = cabal_version(cabal)
+  if not cversion:
+    print "unable to parse cabal version for", cabal
+    sys.exit(1)
+
+  bad_cabal = compare_versions([1,24], parse_version(cversion)) > 0
+  if bad_cabal:
+    cok = "NOT OK"
+  else:
+    cok = "OK"
+  print "cabal version is", cversion, "-", cok
+
+  if bad_cabal:
+    print "\n*** WARNING - cabal >= 1.24 required"
+
+  contents = "\n".join([ kvpair("GHC_BINDIST", bindists[0]), kvpair("STACK", stack), kvpair("CABAL", cabal) ]) + "\n"
+  with open("config.platform", "w") as f:
+    f.write(contents)
+  print "\nCreated the file config.platform with the contents:\n"
+  print contents
+
+main()

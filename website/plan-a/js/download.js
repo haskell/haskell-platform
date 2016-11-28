@@ -4,22 +4,6 @@ $(document).ready(function() {
     $('body').addClass('js');
 });
 
-$(document).ready(function() {
-    $('.expandable').each(function() {
-        var $this = $(this);
-        $this.children().wrapAll('<div class="contents"></div>')
-        var $contents = $this.children();
-        $contents.hide();
-
-        var $link = $('<a href="#">Click to expand</a>');
-        $this.prepend($link);
-
-        $link.click(function() {
-            $contents.slideToggle();
-        });
-    });
-});
-
 function identifyPlatform() {
     var ua = navigator.userAgent;
     var userAgents = {
@@ -105,3 +89,18 @@ $(document).ready(function() {
         window.history.replaceState({}, '', distro);
     });
 });
+
+// add GA events
+$(document).ready(function() {
+  // $('.platform-name').click(function(e) {
+  //   console.log("--- platform-name clicked")
+  //   return true
+  // });
+  $('.flavors ul li a').click(function(e) {
+    var which = this.getAttribute("href")
+    // console.log("--- flavor anchor clicked", which)
+    ga("send", "event", { eventCategory:"Download", eventAction:"flavor", eventLabel: which })
+    return true
+  });
+});
+
