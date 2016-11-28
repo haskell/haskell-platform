@@ -18,7 +18,7 @@ module Paths
     , listBuild, listCore, listSource
     , hpCabalFile
 
-    , targetDir
+    , targetDir, phonyTargetDir
     , ghcVirtualTarget, hpVirtualTarget
 
     , installerPartsDir, extrasDir
@@ -110,6 +110,9 @@ hpCabalFile = buildRoot </> "haskell-platform.cabal"
 
 targetDir :: FilePath
 targetDir = buildRoot </> "target"
+
+phonyTargetDir :: FilePath
+phonyTargetDir = "PHONYtargetdir"
 
 ghcVirtualTarget :: String
 ghcVirtualTarget = "target-ghc"

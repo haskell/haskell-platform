@@ -110,7 +110,7 @@ whatIsIncluded rel = ("-- Minimal Platform:":minimalIncludes) ++ ("-- Full Platf
 buildRules :: Release -> FilePath -> BuildConfig -> Rules()
 buildRules hpRelease srcTarFile bc = do
     "build-source" ~> need [srcTarFile]
-    "build-target" ~> need [targetDir]
+    "build-target" ~> need [phonyTargetDir]
     "build-product" ~> need [osProduct]
     "build-local" ~> need [dir ghcLocalDir]
     "build-website" ~> need [dir websiteDir]
