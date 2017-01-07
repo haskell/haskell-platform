@@ -59,4 +59,9 @@ Executable hptool
     text,
     transformers
 
+  if os(windows)
+    build-depends:
+      filepath,
+      unix-compat
+
   ghc-options: -Wall -fwarn-tabs

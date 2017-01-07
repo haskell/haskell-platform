@@ -96,10 +96,7 @@ winOsFromConfig BuildConfig{..} = os
     whenM :: (Monad m) => m Bool -> m () -> m ()
     whenM mp m = mp >>= \p -> when p m
 
-    osTargetAction = do
-        -- Now, targetDir is actually ready to snapshot (we skipped doing
-        -- this in osGhcTargetInstall).
-        void $ getDirectoryFiles "" [targetDir ++ "//*"]
+    osTargetAction = return ()
 
     osGhcDbDir = winGhcPackageDbDir
 
@@ -138,9 +135,15 @@ winOsFromConfig BuildConfig{..} = os
 
         osProduct %> \_ -> do
             need $ [dir ghcLocalDir, phonyTargetDir, vdir ghcVirtualTarget]
-                   ++ winNeeds
 
             copyWinTargetExtras bc
+
+            -- Now, targetDir is actually ready to snapshot (we skipped doing
+            -- this in osGhcTargetInstall).
+            void $ getDirectoryFiles "" [targetDir ++ "//*"]
+
+            need winNeeds
+            need winExtraNeeds
 
             -- Now, it is time to make sure there are no problems with the
             -- conf files copied to
@@ -151,7 +154,10 @@ winOsFromConfig BuildConfig{..} = os
                 [ "check"
                 , "--package-db=" ++ winGhcTargetPackageDbDir ]
 
-          -- Build installer now; makensis must be run in installerPartsDir
+            -- Build installer now; makensis must be run in installerPartsDir
+            command_ [Cwd installerPartsDir] "makensis" [extralibsNsisFileName]
+            command_ [Cwd installerPartsDir] "makensis" [msysNsisFileName]
+            command_ [Cwd installerPartsDir] "makensis" [ghcNsisFileName]
             command_ [Cwd installerPartsDir] "makensis" [nsisFileName]
 
     osPackageConfigureExtraArgs _ =
