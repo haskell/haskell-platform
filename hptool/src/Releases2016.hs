@@ -112,23 +112,23 @@ hp_8_0_2 =
     releaseWithMinimal "8.0.2"
         [ incGHC                            "8.0.2"
 
-        , incGHCLib "Cabal"                 "1.24.1.0"
+        , incGHCLib "Cabal"                 "1.24.2.0"
         , incGHCLib "array"                 "0.5.1.1"
-        , incGHCLib "base"                  "4.9.0.0"
+        , incGHCLib "base"                  "4.9.1.0"
         , incGHCLib "bytestring"            "0.10.8.1"
-        , incGHCLib "containers"            "0.5.8.1"
+        , incGHCLib "containers"            "0.5.7.1"
         , incGHCLib "deepseq"               "1.4.2.0"
-        , incGHCLib "directory"             "1.2.7.0"
-        , incGHCLib "filepath"              "1.4.1.0"
+        , incGHCLib "directory"             "1.3.0.0"
+        , incGHCLib "filepath"              "1.4.1.1"
         , incGHCLib "hpc"                   "0.6.0.3"
         , incGHCLib "pretty"                "1.1.3.4"
         , incGHCLib "process"               "1.4.2.0"
-        , incGHCLib "template-haskell"      "2.11.0.0"
+        , incGHCLib "template-haskell"      "2.12.0.0"
         , incGHCLib "time"                  "1.6.0.1"
         , incGHCLib "transformers"          "0.5.2.0"
         , incGHCLib "xhtml"                 "3000.2.1"
 
-        {- These packages are in the GHC distribution, and hence bundeled with
+        {- These packages are in the GHC distribution, and hence bundled with
         the Platform. However, they are not officially part of the Platform,
         and as such, do not carry the same stability guaruntees.
         , incGHCLib "binary"                "0.8.3.0"
@@ -139,7 +139,7 @@ hp_8_0_2 =
         , incGHCLib "terminfo"              "0.4.0.2"
         -}
 
-        , notWindows $  incGHCLib "unix"    "2.7.2.0"
+        , notWindows $  incGHCLib "unix"    "2.7.2.1"
 
 
         --, onlyWindows $ incGHCLib "Win32"   "2.3.1.0"
@@ -150,24 +150,24 @@ hp_8_0_2 =
 
         , incTool "hscolour"                "1.24.1"
         , incGHCTool "haddock"              "2.17.2"
-        , incGHCTool "cabal-install"        "1.24.0.1"
-        , incGHCTool "stack"                "1.2.0"
+        , incGHCTool "cabal-install"        "1.24.0.2"
+        , incGHCTool "stack"                "1.3.2"
         ]
         [
-          incLib "async"                    "2.1.0"
+          incLib "async"                    "2.1.1"
         , incLib "attoparsec"               "0.13.1.0"
         , incLib "case-insensitive"         "1.2.0.7"
         , incLib "fgl"                      "5.5.3.0"
         , incLib "GLUT"                     "2.7.0.10"
-        , incLib "GLURaw"                   "2.0.0.2"
+        , incLib "GLURaw"                   "2.0.0.3"
         , incLib "haskell-src"              "1.0.2.0"
-        , incLib "hashable"                 "1.2.4.0"
+        , incLib "hashable"                 "1.2.5.0"
         , incLib "html"                     "1.0.1.2"
-        , incLib "HTTP"                     "4000.3.3"
+        , incLib "HTTP"                     "4000.3.4"
         , incLib "HUnit"                    "1.5.0.0"
         , incLib "network"                  "2.6.3.1"
         , incLib "OpenGL"                   "3.0.1.0"
-        , incLib "OpenGLRaw"                "3.2.3.0"
+        , incLib "OpenGLRaw"                "3.2.4.0"
         , incLib "parallel"                 "3.2.1.0"
         , incLib "parsec"                   "3.1.11"
         , incLib "regex-base"               "0.93.2"
@@ -177,11 +177,11 @@ hp_8_0_2 =
         , incLib "stm"                      "2.4.4.1"
         , incLib "syb"                      "0.6"
         , incLib "text"                     "1.2.2.1"
-        , incLib "unordered-containers"     "0.2.7.1"
+        , incLib "unordered-containers"     "0.2.7.2"
         , incLib "vector"                   "0.11.0.0"
         , incLib "zlib"                     "0.6.1.2"
 
-        --needed for happy or alex but otherwise would be in full only
+        --needed for happy or alex
         , incLib "mtl"                      "2.2.1"
         , incLib "primitive"                "0.6.1.0"
         , incLib "random"                   "1.1"
@@ -196,11 +196,15 @@ hp_8_0_2 =
         , incLib "network-uri"              "2.6.1.0"
 
         -- needed by attoparsec
-        , incLib "scientific"               "0.3.4.9"
+        , incLib "scientific"               "0.3.4.10"
+        , incLib "integer-logarithms"       "1"
 
         -- needed by OpenGL
         , incLib "ObjectName"               "1.1.0.1"
         , incLib "StateVar"                 "1.1.0.4"
         , incLib "half"                     "0.2.2.3"
         , incLib "fixed"                    "0.2.1.1"
+
+        -- needed by HUnit
+        , incLib "call-stack"               "0.1.0"
         ]

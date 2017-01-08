@@ -57,11 +57,8 @@ Executable hptool
     shake >= 0.14,
     split,
     text,
-    transformers
-
-  if os(windows)
-    build-depends:
-      filepath,
-      unix-compat
+    transformers,
+    unix-compat,
+    filepath
 
   ghc-options: -Wall -fwarn-tabs
