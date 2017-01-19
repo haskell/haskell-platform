@@ -1,0 +1,351 @@
+.btn-haskell {
+	  color: #d1cddc;
+	  background-color: #6E618D;
+	  border-color: #333;
+    margin: 0 0px;
+}
+
+.btn-haskell.active, .btn-haskell.focus, .btn-haskell:active, .btn-haskell:focus,
+.btn-haskell:hover,.open > .dropdown-toggle.btn-haskell {
+	  color: #fff;
+	  border-color: #204d74;
+}
+
+/*
+ * Style modifications for user platform identification
+ */
+/* Show only when we can't identify user's platform */
+.user-platform-known .unknown-user-platform {display: none;}
+/* When we can find the user's platform, tell them what we found */
+.found-user-platform {display: none;}
+.user-platform-known .found-user-platform {display: block;}
+/* Show "All Platforms" header only when we know the user's platform */
+.other-platforms {display: none;}
+.user-platform-known .other-platforms {display: block;}
+
+.other-platforms {
+    padding-top: 100px;
+}
+
+/*
+ * Download button styling
+ */
+.download-btn {
+    text-align: center;
+    margin-right: 80px; /* compensate for offset due to .step-number */
+}
+
+.download-btn a {
+    margin: 10px 10px;
+    padding: 10px 50px;
+    font-size: large;
+}
+
+.preferred-platform .download-btn a {
+    background-color: #524A67;
+    transition: background-color 600ms;
+}
+.preferred-platform .download-btn a:hover {
+    background-color: #6E618D;
+}
+
+/*
+ * Download platform block styling
+ */
+.downloads-platform {
+    padding-top: 50px;
+    margin: auto;
+    max-width: 500px;
+    position: relative; /* position to give sidebars an anchor */
+}
+
+.downloads-platform .content {
+    margin: auto;
+    overflow-y: hidden;
+    max-height: 0;
+    transition: max-height 800ms ease;
+}
+
+.downloads-platform:target .content,
+.downloads-platform.visible .content {
+    min-height: 300px;
+
+    /* transition with max-height, web development is still terrible */
+    max-height: 2000px;
+    transition: max-height 1000ms ease 0ms;
+}
+
+@media (min-width: 1000px) {
+    #linux.downloads-platform:target .content,
+    #linux.downloads-platform.visible .content {
+        /* Linux needs to be taller due to encompass sidebar */
+        min-height: 450px;
+    }
+}
+
+/* Hide "choose your distribution prompt on narrow screens */
+@media (max-width: 1000px) {
+    #linux-prompt.active {
+        display: none;
+    }
+}
+
+.downloads-platform.visible .expander,
+.downloads-platform:target .expander {
+    display: none;
+}
+
+.downloads-platform .bottom-rule {
+    width: 30%;
+    padding-top: 30px;
+    margin: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.platform-name {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.platform-name h2 {
+    display: block;
+    margin: auto;
+}
+
+.platform-name img {
+    max-width: 40px;
+    max-height: 30px;
+    display: block;
+    margin: auto;
+}
+
+.install-steps {
+    padding-left: 0;
+}
+
+.install-steps > li {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    list-style: none;
+}
+
+.install-steps .step-number {
+    float: left;
+    font-size: xx-large;
+    background: none repeat scroll 0% 0% #7E788C;
+    border-radius: 100px;
+    color: #fff;
+    text-align: center;
+    margin-right: 30px;
+    width: 50px;
+    /* nudge the text closer to the center */
+    padding-bottom: 2px;
+}
+
+.install-steps .step-body {
+    padding-left: 80px; /* this should be the sum of the width and margin-right of the .step-number */
+}
+
+ul.hashes li {
+    list-style: none;
+    white-space: nowrap;
+}
+
+ul.hashes input.file-hash {
+    text-overflow: ellipsis;
+    whitespace: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    color: #366354;
+    border: none;
+}
+
+/*
+ * Operating system flavor list
+ */
+.sidebar {
+    display: none;
+}
+
+.visible .sidebar, :target .sidebar {
+    display: block;
+}
+
+@media (min-width: 1100px) {
+    .sidebar {
+        width: 250px;
+        right: -300px;
+        position: absolute;
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-left: 1px solid #ddd;
+    }
+}
+
+/* Display sidebar in main flow on narrow screens */
+@media (max-width: 1100px) {
+    .sidebar {
+        text-align: center;
+        margin: auto;
+        padding: 40px 0;
+    }
+}
+
+.sidebar.flavors.chosen ul li {opacity: 0.3;}
+.sidebar.flavors.chosen ul li:hover {opacity: 1;}
+.sidebar.flavors.chosen ul li.active {opacity: 1;}
+
+.sidebar.flavors.chosen > strong,
+.sidebar.flavors.chosen > p.select-generic {
+    opacity: 0.3;
+}
+.sidebar.flavors.chosen:hover > strong,
+.sidebar.flavors.chosen:hover > p.select-generic {
+    opacity: 1;
+}
+.sidebar.flavors > strong,
+.sidebar.flavors > p.select-generic {
+    opacity: 1;
+    transition: opacity 400ms ease;
+}
+
+.flavors ul {
+    margin-top: 10px;
+    padding: 0;
+}
+
+.flavors ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 5px;
+    margin: 2px;
+    min-width: 100px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.flavors ul li.active {
+    border: 1px solid #7E788C;
+}
+
+.flavors ul li:hover {
+    background-color: #eee;
+}
+
+.flavors ul li .logo {
+    display: block;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 35px;
+    font-family: sans-serif;
+    font-weight: normal;
+    color: #000;
+}
+
+.js .flavor.active {
+    display: block;
+}
+
+.point-to-flavors-list {
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+    color: #ddd;
+    font-size: 100px;
+}
+
+/* platform table of contents for no-script users*/
+body.js .platform-toc {
+    display: none;
+}
+
+.platform-toc ul {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.platform-toc ul li {
+    list-style: none;
+    display: inline-block;
+    min-width: 150px;
+    padding: 5px 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.platform-toc ul li img {
+    width: 50px;
+    margin: 5px auto;
+    display: block;
+}
+
+/* no-script fallbacks */
+.js .flavor {display: none;}
+.js .flavor h3 {display: none;}
+
+body:not(.js) .downloads-platform .sidebar.flavors {display: block;}
+body:not(.js) .downloads-platform .expander {display: none;}
+body:not(.js) .downloads-platform .content {max-height: 9000px;}
+
+/*
+ * expanding expander arrow
+ */
+.expander div {
+    position: relative;
+    height: 50px;
+    width: 40px;
+    margin: 10px auto;
+    display: block;
+}
+
+.expander img {
+    position: absolute;
+    width: 40px;
+    display: block;
+    transition: all 400ms ease;
+}
+
+.expander img.expand-2 {top: 8px;}
+.expander img.expand-3 {top: 16px;}
+.expander:hover img.expand-2 {transform: translateY(5px);}
+.expander:hover img.expand-3 {transform: translateY(10px);}
+
+
+.download-options {
+    padding-top: 40px;
+    background-color: #eee;
+    padding-bottom: 20px;
+}
+
+.download-options .span4 {
+    min-height: 150px;
+}
+
+.download-options .vrule {
+    border-right: 1px solid #ddd;
+}
+
+.download-options .get-hp a {
+    color: #000;
+}
+
+.download-options .other-ways h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.download-options .other-ways ul {
+    padding: 0;
+    text-align: center;
+}
+
+.download-options .other-ways ul li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
