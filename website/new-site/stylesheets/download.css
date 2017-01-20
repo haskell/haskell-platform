@@ -75,7 +75,7 @@
     transition: max-height 1000ms ease 0ms;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1100px) {
     #linux.downloads-platform:target .content,
     #linux.downloads-platform.visible .content {
         /* Linux needs to be taller due to encompass sidebar */
@@ -84,7 +84,7 @@
 }
 
 /* Hide "choose your distribution prompt on narrow screens */
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     #linux-prompt.active {
         display: none;
     }

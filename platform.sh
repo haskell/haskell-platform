@@ -2,7 +2,7 @@
 
 
 #for OS X in particular
-export MACOSX_DEPLOYMENT_TARGET=10.6
+export MACOSX_DEPLOYMENT_TARGET=10.7
 
 set -e
 

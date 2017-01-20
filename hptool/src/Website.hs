@@ -104,7 +104,7 @@ historyCtx = mkStrContext outerCtx
     ctx "sections" = MuList
         [ sectionCtx "Compiler"                              [isGhc, not . isLib] False
         , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib] False
-        , sectionCtx "Additional Minimal Platform Libraries" [not . isGhc, isLib] True
+        , sectionCtx "Additional Core Platform Libraries" [not . isGhc, isLib] True
         , sectionCtx "Programs and Tools"                    [isTool] False
         , extendedCtx "Libraries with Full Platform"
         ]
