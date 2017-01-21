@@ -340,6 +340,21 @@ extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
 $ sudo ./install-haskell-platform.sh</pre>
                                         </div>
                                     </li>
+				    <li>
+				      <div class="step-number">3</div>
+				      <div class="step-body">
+					If you have a system with
+					position independent executables
+					by default (such as <a href=" https://wiki.ubuntu.com/SecurityTeam/PIE">Ubuntu
+					16.10 </a> and above), you
+					should edit the GHC settings
+					file at
+					<pre>usr/local/haskell/ghc-___/lib/ghc-___/settings</pre>
+					and change the " compiler
+					supports -no-pie" flag from
+					"NO" to "YES".
+				      </div>
+				    </li>
                                 </ol>
                             </div> <!-- #linux-generic -->
 
