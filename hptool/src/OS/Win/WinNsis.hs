@@ -130,7 +130,7 @@ genNsisFiles = do
         mainSize <- getDirContentSize filterEmptyDirs winTargetDir
         let nsisCtx = expandNsisInfo rls bc ift
             ctx = nsisCtx `ctxAppend` pCtx
-            stackSize = 37 * 1024 * 1024 -- not sure how to actually determine
+            stackSize = 48 * 1024 * 1024 -- not sure how to automatically determine
             ift = InfoForTemplate pFile nFile stackFile stackSize mainSize
         copyExpandedFile ctx templ nFile
 

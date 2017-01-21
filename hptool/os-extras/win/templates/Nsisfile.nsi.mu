@@ -15,6 +15,8 @@
   !Include "WordFunc.nsh"
   !Include "CreateInternetShortcut.nsh"
   !Include "x64.nsh"
+  !insertmacro GetParameters
+  !insertmacro GetOptions
 
 ;--------------------------------
 ;Defines
@@ -30,6 +32,7 @@
 
   Var START_MENU_FOLDER
   Var PROGRAM_FILES
+  Var STACK_INSTALL_DIR
 
 ;--------------------------------
 ;General settings
@@ -39,7 +42,15 @@
   OutFile "{{productFile}}"
 
   ;Default install dir
+  ; Set as appropriate for 32-bit or 64-bit OS
+{{#build64bit}}
+  InstallDir "$PROGRAMFILES64\Haskell Platform\${PLATFORM_VERSION}"
+{{/build64bit}}
+
+{{^build64bit}}
   InstallDir "$PROGRAMFILES\Haskell Platform\${PLATFORM_VERSION}"
+{{/build64bit}}
+
   InstallDirRegKey HKLM "${PRODUCT_DIR_REG_KEY}" ""
 
   ;Icon
@@ -83,7 +94,7 @@ CheckAdminDone:
   ; The 'isInstall' argument is 1 for the install part of the script (from
   ; .onInit function) and 0 if for the uninstall part (via un.onInit).  The
   ; $INSTDIR must be changed for the installation step to account for the case
-  ; of installing the 32-bit installer onto 64-bit Windows; and and it must
+  ; of installing the 32-bit installer onto 64-bit Windows; and it must
   ; happen before the user gets to the dialog to change installation location.
   ; On the other hand, $INSTDIR must *not* be changed for the uninstall step
   ; because doing so over-rides what the user did during the install step.
@@ -91,11 +102,6 @@ CheckAdminDone:
   ; Also, do not force $INSTDIR to change if this is a silent install.
 SetRegView 32
 StrCpy $PROGRAM_FILES "$PROGRAMFILES"
-${IfNot} ${Silent}
-  ${If} ${isInstall} = 1
-    StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
-  ${EndIf}
-${EndIf}
 {{#build64bit}}
 ${If} ${RunningX64}
   ; If this is installing the 64-bit HP on 64-bit Windows, enable FSRedirection.
@@ -103,11 +109,6 @@ ${If} ${RunningX64}
   ; enable access to 64-bit portion of registry
   SetRegView 64
   StrCpy $PROGRAM_FILES "$PROGRAMFILES64"
-  ${IfNot} ${Silent}
-    ${If} ${isInstall} = 1
-      StrCpy $INSTDIR "$PROGRAM_FILES\Haskell Platform\${PLATFORM_VERSION}"
-    ${EndIf}
-  ${EndIf}
 ${Else}
 ;     pop up an error message: Cannot install 64-bit HP on 32-bit Windows
     MessageBox MB_OK "You are trying to install the 64-bit version of the Haskell Platform onto a 32-bit version of Windows.  Please use the 32-bit version of the Haskell Platform."
@@ -115,6 +116,7 @@ ${Else}
     Quit
 ${EndIf}
 {{/build64bit}}
+
 !macroend
 
 ;--------------------------------
@@ -175,6 +177,11 @@ Function .onInit
   SetShellVarContext all
   SectionSetSize 0 {{mainInstalledSize}} ; 0 is ${SecMain} but the symbol is not defined yet
   SectionSetSize 1 {{stackInstalledSize}} ; 1 is ${SecStack}
+  ; /STACK switch to the HP installer for setting the stack install dir
+  ${GetParameters} $R0
+  ${GetOptions} $R0 "/STACK=" $STACK_INSTALL_DIR
+  StrCmp $STACK_INSTALL_DIR "" +2
+    StrCpy $STACK_INSTALL_DIR "/D=$STACK_INSTALL_DIR"
 FunctionEnd
 
 Function un.onInit
@@ -267,7 +274,11 @@ Section "Base components" SecMain
     File "{{stackInstallerPath}}"
     DetailPrint "installing Stack"
     SetDetailsPrint listonly
-      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" /S'
+    ${If} ${Silent}
+      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" /S $STACK_INSTALL_DIR'
+    ${Else}
+      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" $STACK_INSTALL_DIR'
+    ${EndIf}
     SetDetailsPrint lastused
     DetailPrint "finished Stack"
     Delete "$INSTDIR\temp\{{stackInstallerFileName}}"
