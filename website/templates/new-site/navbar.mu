@@ -15,7 +15,7 @@ class="navbar-toggle collapsed">
                 <li><a href="{{> haskell-org-root}}downloads">Downloads</a></li>
                 <li><a href="{{> haskell-org-root}}community">Community</a></li>
                 <li><a href="{{> haskell-org-root}}documentation">Documentation</a></li>
-                <li><a href="{{> haskell-org-root}}news">Learn</a></li>
+                <li><a href="{{> haskell-org-root}}news">News</a></li>
             </ul>
         </div>
     </div>
