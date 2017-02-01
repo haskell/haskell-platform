@@ -71,11 +71,11 @@ releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
        ("8.0.2", jan 2017,
-        [ lin False x86_64    "download/8.0.2/haskell-platform-8.0.2-unknown-posix--minimal-x86_64.tar.gz" $ sha256 "c35b76f30e1972bb2bb1d51a4027dae732764e7776b609e80e462318bd1ef48c"
-        , lin True  x86_64    "download/8.0.2/haskell-platform-8.0.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "0124399b1bbad2e5f615dbccc49df69db02fbe37d9e500378b59101c244b41e1"
-        , lin False i386      "download/8.0.2/haskell-platform-8.0.2-unknown-posix--minimal-i386.tar.gz" $ sha256 "3a82842803be0cb66ccb711c63a5ec7097afed2becce371591c587a5a9965b36"
-        , lin True  i386      "download/8.0.2/haskell-platform-8.0.2-unknown-posix--full-i386.tar.gz" $ sha256 "89eba80b5b108a6ef520347de50a73592b680b15273792a0a4fb63aaf2a4e3ef"
-        , mac False x86_64    "download/8.0.2/Haskell%20Platform%208.0.2%20Minimal%2064bit-signed.pkg" $ sha256 "d964fded40988e0a6a70e577de261dd5a384ef9e1038ed58196c317eff8f1e26"
+        [ lin False x86_64    "download/8.0.2/haskell-platform-8.0.2-unknown-posix--minimal-x86_64.tar.gz" $ sha256 "f08cf747abd6675c7cce7e4d61c29788876aba27df474e8b1fe76f37a1f3868b"
+        , lin True  x86_64    "download/8.0.2/haskell-platform-8.0.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "c68a6f278a192d5000e8feefb0e63cef1bd441d02b846029840b98a5fa3ee31a"
+        , lin False i386      "download/8.0.2/haskell-platform-8.0.2-unknown-posix--minimal-i386.tar.gz" $ sha256 "0c523714842f6fa49a0161315c51d68faa7f012031d337f69327d315a73f6860"
+        , lin True  i386      "download/8.0.2/haskell-platform-8.0.2-unknown-posix--full-i386.tar.gz" $ sha256 "cf0f4a1b8860a1a93557262cbaf9dccfd2654022dcddecdcd19536ef46de3369"
+        , mac False x86_64    "download/8.0.2/Haskell%20Platform%208.0.2%20Minimal%2064bit-signed.pkg" $ sha256 "8eff7f972a915048e9cbbe0b8377ba771bdef95a3eabbefe1c98559762e27846"
         , mac True  x86_64    "download/8.0.2/Haskell%20Platform%208.0.2%20Full%2064bit-signed.pkg " $ sha256 "68436aeb0472069ee9055fc16a737af55c2751b65a5dbbc157cc46b7b5bb6701"
         , win False i386      "download/8.0.2/HaskellPlatform-8.0.2-minimal-i386-setup.exe" $ sha256 "5be3feaf90977bbe769753c8295cafef40591c8f247808cf6b662ebab2839738"
         , win True  i386      "download/8.0.2/HaskellPlatform-8.0.2-full-i386-setup.exe" $ sha256 "207ea1dd83bfaf61b74130cc1061b69e9fe5916854564434b4c2f32553027c4f"

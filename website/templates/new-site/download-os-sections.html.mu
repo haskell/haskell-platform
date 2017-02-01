@@ -360,52 +360,73 @@ $ sudo ./install-haskell-platform.sh</pre>
 
                             <div id="linux-ubuntu" class="flavor">
                                 <h3>Ubuntu</h3>
-                                <p>Good news! Haskell Platform is already
+                                <p>Haskell Platform is
                                     available in your distribution's package
-                                    <a href="http://packages.ubuntu.com/search?keywords=haskell-platform">repository</a>.</p>
+                                  <a href="http://packages.ubuntu.com/search?keywords=haskell-platform">repository</a>. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.
+				</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo apt-get install haskell-platform</pre>
                             </div> <!-- #linux-ubuntu -->
 
                             <div id="linux-debian" class="flavor">
                                 <h3>Debian</h3>
-                                <p>Good news! Haskell Platform is already
+                                <p>Haskell Platform is already
                                     available in your distribution's package
-                                    <a href="https://packages.debian.org/search?keywords=haskell-platform">repository</a>.</p>
+                                    <a href="https://packages.debian.org/search?keywords=haskell-platform">repository</a>. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo apt-get install haskell-platform</pre>
                             </div> <!-- #linux-debian -->
 
                             <div id="linux-mint" class="flavor">
                                 <h3>Linux Mint</h3>
-                                <p>Good news! Haskell Platform is already
+                                <p>Haskell Platform is already
                                     available in your distribution's package
-                                    <a href="http://community.linuxmint.com/software/view/haskell-platform">repository</a>.</p>
+                                    <a href="http://community.linuxmint.com/software/view/haskell-platform">repository</a>. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo apt-get install haskell-platform</pre>
                             </div> <!-- #linux-mint -->
 
                             <div id="linux-redhat" class="flavor">
                                 <h3>Redhat</h3>
-                                <p>Good news! Haskell Platform is already available in
-                                your distribution's package repository.</p>
+                                <p>Haskell Platform is already available in
+                                your distribution's package
+                                repository. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo yum install haskell-platform</pre>
                             </div> <!-- #linux-redhat -->
 
                             <div id="linux-fedora" class="flavor">
                                 <h3>Fedora</h3>
-                                <p>Good news! Haskell Platform is already available in
+                                <p>Haskell Platform is already available in
                                     your distribution's package
-                                    <a href="https://admin.fedoraproject.org/pkgdb/package/haskell-platform/">repository</a>.</p>
+                                    <a href="https://admin.fedoraproject.org/pkgdb/package/haskell-platform/">repository</a>. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.</p>
                                 <p>Simply run,</p>
                                 <pre>$ sudo dnf install haskell-platform</pre>
                             </div> <!-- #linux-fedora -->
 
                             <div id="linux-gentoo" class="flavor">
                                 <h3>Gentoo</h3>
-                                <p>Good news! Haskell Platform is already
-                                    available in your distribution's package repository.</p>
+                                <p>Haskell Platform is already
+                                    available in your distribution's
+                                    package repository. Note that distribution-packaged versions are typically behind the current
+                                    platform release. If you prefer to use the latest version rather than the
+                                    distribution-packaged version,
+                                    then you may want to use the generic Linux installer.</p>
                                 <p>
                                     While there is a <code>haskell-platform</code> ebuild
                                     included in the main Portage tree,
