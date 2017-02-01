@@ -216,9 +216,9 @@
 					  user-config init") to
 					  contain the following lines:
 <pre>
-extra-prog-path: C:\Program Files\Haskell Platform\8.0.1\msys\usr\bin
-extra-lib-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\lib
-extra-include-dirs: C:\Program Files\Haskell Platform\8.0.1\mingw\include
+extra-prog-path: C:\Program Files\Haskell Platform\8.0.2\msys\usr\bin
+extra-lib-dirs: C:\Program Files\Haskell Platform\8.0.2\mingw\lib
+extra-include-dirs: C:\Program Files\Haskell Platform\8.0.2\mingw\include
 </pre>
                                     </div>
 </li>
