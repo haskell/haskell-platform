@@ -4,7 +4,7 @@
                <p>Note: the stack tool has been evolving
                relatively rapidly. Users who wish to ensure they are
                running the latest version may want to consider running "stack
-               update" and ensuring the
+               upgrade" and ensuring the
                proper <a href="http://docs.haskellstack.org/en/stable/install_and_upgrade/#path">path</a>
                for stack-installed binaries is in their environment.
                 </div>
