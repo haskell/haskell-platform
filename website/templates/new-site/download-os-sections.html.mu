@@ -101,7 +101,7 @@
                                             {{/isOSX}} {{/files}} {{/current}}
 
                                             <div class="download-hash">
-                                                You can verify the authenticity of this file by
+                                                You can verify the integrity of this file by
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                   {{#current}} {{#files}} {{#isOSX}}
@@ -189,7 +189,7 @@
                                         {{/isWindows}} {{/files}} {{/current}}
 
                                         <div>
-                                            You can verify the authenticity of this file by
+                                            You can verify the integrity of this file by
                                             checking its <strong>SHA-256</strong> hash,
                                             <ul class="hashes">
                                               {{#current}} {{#files}} {{#isWindows}}
@@ -317,7 +317,7 @@ extra-include-dirs: C:\Program Files\Haskell Platform\8.0.2\mingw\include
                                             {{/isFull}}
                                             {{/isLinux}} {{/files}} {{/current}}
                                             <div>
-                                                You can verify the authenticity of this file by
+                                                You can verify the integrity of this file by
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                   {{#current}} {{#files}} {{#isLinux}}
@@ -460,7 +460,7 @@ $ sudo emerge haskell-platform</pre>
                                             {{/isSource}} {{/files}} {{/current}}
 
                                             <div>
-                                                You can verify the authenticity of this file by
+                                                You can verify the integrity of this file by
                                                 checking its <strong>SHA-256</strong> hash,
                                                 <ul class="hashes">
                                                     {{#current}} {{#files}} {{#isSource}}
