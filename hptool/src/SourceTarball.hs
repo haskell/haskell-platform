@@ -89,7 +89,7 @@ tarFileAction out bc hpRelease = do
     topFiles =
         [ "LICENSE"
         , "platform.sh"
-        , "README"
+        , "README.md"
         , "windows-platform.sh"
         ]
 
