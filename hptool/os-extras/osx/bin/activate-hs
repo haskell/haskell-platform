@@ -266,8 +266,8 @@ if [ -d "$hpRoot" ] ; then
 	fi
     fi
 
-    symLink $ghcRoot/usr/share/doc/ghc/html $hpRoot/doc/ghc-doc
-    symLink $ghcRoot/usr/share/doc/ghc/html/libraries/ghc-$ghcVersion $hpRoot/doc/ghc-api
+    symLink $ghcRoot/usr/share/doc/ghc-$ghcVersion/html $hpRoot/doc/ghc-doc
+    symLink $ghcRoot/usr/share/doc/ghc-$ghcVersion/html/libraries/ghc-$ghcVersion $hpRoot/doc/ghc-api
 fi
 
 ###
