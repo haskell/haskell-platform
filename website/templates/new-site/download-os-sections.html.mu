@@ -166,7 +166,9 @@
 		  where network connectivity should not be taken for
 						    granted.</p>
 
-
+<p>The 8.2.1 platform release is for 64 bit Windows only, due to
+  issues with GHC 8.2.1 on 32 bit Windows. Future releases are anticipated to resume
+  32 bit support.</p>
 
                                         {{#current}} {{#files}} {{#isWindows}}
                                         {{^isFull}}
@@ -188,9 +190,38 @@
                                         {{/isFull}}
                                         {{/isWindows}} {{/files}} {{/current}}
 
-                                        <div>
-                                            You can verify the integrity of this file by
-                                            checking its <strong>SHA-256</strong> hash,
+					<p>Run the installer and
+					follow the instructions.</p>
+                                </li>
+				<li>
+                                    <div class="step-number">2</div>
+				  <div class="step-body">
+					  Modify your cabal config
+					  file (you can verify the
+					  location by running "cabal
+					  user-config init") to
+					  contain the following lines:
+<pre>
+extra-prog-path: C:\Program Files\Haskell Platform\{{hpVersion}}\msys\usr\bin
+extra-lib-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\lib
+extra-include-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\include
+</pre>
+Note: cabal config files can contain more than one of each of those lines
+&mdash; no need to replace any existing entries. Additionally, you may
+want to
+should double-check that the version component of the path corresponds to
+your installed platform.
+                                    </div></li>
+                                <li>
+                                    <div class="step-number">3</div>
+                                    <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
+                                </li>
+
+				<li> <div class="step-body">
+				  Note:
+                                            You can verify the
+				  integrity of downloaded files by
+                                            checking their <strong>SHA-256</strong> hash,
                                             <ul class="hashes">
                                               {{#current}} {{#files}} {{#isWindows}}
                                               {{^isFull}}
@@ -202,30 +233,8 @@
                                               {{/isWindows}} {{/files}} {{/current}}
                                             </ul>
                                         </div>
-                                </li>
-                                <li>
-                                    <div class="step-number">2</div>
-                                    <div class="step-body">Run the installer and follow the instructions.</div>
-                                </li>
-				<li>
-                                    <div class="step-number">3</div>
-				  <div class="step-body">
-					  Modify your cabal config
-					  file (you can verify the
-					  location by running "cabal
-					  user-config init") to
-					  contain the following lines:
-<pre>
-extra-prog-path: C:\Program Files\Haskell Platform\8.0.2\msys\usr\bin
-extra-lib-dirs: C:\Program Files\Haskell Platform\8.0.2\mingw\lib
-extra-include-dirs: C:\Program Files\Haskell Platform\8.0.2\mingw\include
-</pre>
-                                    </div>
-</li>
-                                <li>
-                                    <div class="step-number">4</div>
-                                    <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
-                                </li>
+
+				  </li>
                             </ol>
                         </div>
                         <div class="bottom-rule"></div>
