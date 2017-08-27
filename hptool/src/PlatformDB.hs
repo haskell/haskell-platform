@@ -18,15 +18,15 @@ import Data.List (partition)
 import Types
 import Utils (version)
 
--- | both minimal and extra platform includes
+-- | both core and extra platform includes
 allRelIncludes :: Release -> [Include]
 allRelIncludes r = relMinimalIncludes r ++ relIncludes r
 
--- | Construct a release with a minimal partition
+-- | Construct a release with a core partition
 releaseWithMinimal :: String -> [Include] -> [Include] -> Release
 releaseWithMinimal vstr minimalIncs incs = Release (HpVersion $ version vstr) minimalIncs incs
 
--- | Construct a release, when there is not a seperate minimal selection of includes with the main ones.
+-- | Construct a release, when there is not a seperate core selection of includes with the main ones.
 release :: String -> [Include] -> Release
 release vstr incs = Release (HpVersion $ version vstr) incs []
 

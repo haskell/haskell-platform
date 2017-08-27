@@ -80,7 +80,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             copyFile' f $ hpDocDir </> takeFileName f
 
     productName =
-        "Haskell Platform " ++ showVersion hpVersion ++ (if bcIncludeExtra then " Full" else " Minimal") ++ archBits bcArch
+        "Haskell Platform " ++ showVersion hpVersion ++ (if bcIncludeExtra then " Full" else " Core") ++ archBits bcArch
 
     osProduct = productDir </> productName <.> "pkg"
     signedProduct = productDir </> (productName ++ "-signed") <.> "pkg"
@@ -144,7 +144,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             command_ []
                 "pkgbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform.Libraries."
-                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-minimal") ++ ".pkg"
+                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-core") ++ ".pkg"
                 , "--version", hpPkgMinorVer
                 , "--install-location", "/Library/Haskell"
                 , "--root", "build/target/Library/Haskell"
@@ -157,7 +157,7 @@ macOsFromConfig BuildConfig{..} = OS{..}
             command_ []
                 "productbuild"
                 [ "--identifier", "org.haskell.HaskellPlatform."
-                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-minimal") ++ ".pkg"
+                                  ++ hpPkgMajorVer ++ (if bcIncludeExtra then "-full" else "-core") ++ ".pkg"
                 , "--version", hpPkgMinorVer
                 , "--resources", osxInstallResources
                 , "--distribution", osxInstallerDist

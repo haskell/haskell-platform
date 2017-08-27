@@ -33,7 +33,7 @@ flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
         , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
                      "Set installation prefix (only for Posix builds)"
         , Option ['f'] ["full"] (NoArg $ Right Full)
-                     "Do a full (rather than minimal) build of the platform."
+                     "Do a full (rather than core) build of the platform."
         ]
 
 main :: IO ()
@@ -67,7 +67,7 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
                  \    build-package-<pkg> -- build the package (name or name-ver)\n\
                  \    build-local         -- build the local GHC environment\n\
                  \    build-website       -- build the website\n\
-                 \  and opts may be 'f' for a full rather than minimal build, 'i' for info\n\
+                 \  and opts may be 'f' for a full rather than core build, 'i' for info\n\
                  \  or 'prefix=...' to set a custom install location prefix for linux"
         return Nothing
 
@@ -94,7 +94,7 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
 
 
 whatIsIncluded :: Release -> [String]
-whatIsIncluded rel = ("-- Minimal Platform:":minimalIncludes) ++ ("-- Full Platform:":fullIncludes) where
+whatIsIncluded rel = ("-- Core Platform:":minimalIncludes) ++ ("-- Full Platform:":fullIncludes) where
     minimalIncludes = map (concat . includeToString) $ relMinimalIncludes rel
     fullIncludes    = map (concat . includeToString) $ relIncludes rel where
     includeToString (IncGHC, p)      = "GHC:    " : [show p]
