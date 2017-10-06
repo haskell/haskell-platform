@@ -70,14 +70,14 @@ buildAction buildDir hpRel bc = do
         removeDirectoryRecursive depsDB
         localCommand' [] "ghc-pkg" ["init", depsDB]
         forM_ deps $ \d -> do
-            let inplace = packageInplaceConf d
-            hasInplace <- doesFileExist inplace
-            when hasInplace $
+            let targetconf = packageTargetConf d
+            hasTargetconf <- doesFileExist targetconf
+            when hasTargetconf $
                 localCommand' [] "ghc-pkg"
                     [ "register"
                     , "--package-db=" ++ depsDB
                     , "--verbose=" ++ show ghcPkgVerbosity
-                    , inplace
+                    , targetconf
                     ]
 
         cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
