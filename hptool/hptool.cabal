@@ -55,7 +55,7 @@ Executable hptool
     containers,
     directory,
     hastache >=0.6.0,
-    shake >= 0.14,
+    shake >= 0.14 && < 0.16,
     split,
     text,
     transformers,
