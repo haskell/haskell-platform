@@ -223,7 +223,7 @@ winDocTargetDir = winTargetDir </> "doc"
 winProductFileName :: Bool -> Version -> String -> FilePath
 winProductFileName isFull hpv arch =
     ("HaskellPlatform-" ++ versionAndArch ++ "-setup") <.> "exe"
-  where versionAndArch = showVersion hpv ++ (if isFull then "-full" else "-minimal") ++ '-' : arch
+  where versionAndArch = showVersion hpv ++ (if isFull then "-full" else "-core") ++ '-' : arch
 
 -- | Directory where the installer file is built.
 winProductFile :: Bool -> Version -> String -> FilePath

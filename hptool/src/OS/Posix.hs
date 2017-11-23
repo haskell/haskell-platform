@@ -72,7 +72,7 @@ posixOS BuildConfig{..} = OS{..}
     installScript = extrasDir </> "installer" </> "install-haskell-platform.sh"
 
     productName =
-        "haskell-platform-" ++ showVersion hpVersion ++ "-unknown-posix-" ++ (if bcIncludeExtra then "-full-" else "-minimal-") ++ bcArch
+        "haskell-platform-" ++ showVersion hpVersion ++ "-unknown-posix-" ++ (if bcIncludeExtra then "-full-" else "-core-") ++ bcArch
 
     genericExtrasSrc = "hptool/os-extras/posix"
 

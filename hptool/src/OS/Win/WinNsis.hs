@@ -65,7 +65,7 @@ genNsisFiles = do
     -- we need to filter those paths out as they are covered by the
     -- msys and extralibs .dat lists.  N.b.: Filtering by names could be
     -- fragile in light of any directory, package, structuring changes.
-    -- Also note that even in for the "minimal" HP build, there are still
+    -- Also note that even in for the "core" HP build, there are still
     -- a few things in extralibs (specifically alex and happy, as well as
     -- the cabal executable.)
     ghcInstFilter = filterEmptyDirs . skipExtralibs . skipMSys
