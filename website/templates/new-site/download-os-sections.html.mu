@@ -207,8 +207,7 @@ extra-lib-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\lib
 extra-include-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\include
 </pre>
 Note: cabal config files can contain more than one of each of those lines
-&mdash; no need to replace any existing entries. Additionally, you may
-want to
+&mdash; no need to replace any existing entries. Additionally, you
 should double-check that the version component of the path corresponds to
 your installed platform.
                                     </div></li>
