@@ -73,11 +73,11 @@ releaseFiles =
       [
        ("8.2.1", aug 2017,
         [ lin False x86_64    "download/8.2.1/haskell-platform-8.2.1-unknown-posix--core-x86_64.tar.gz" $ sha256 "aff518ef78dd6a4433721f884a5fda5519ac7d826bdaa8199caad3cf7f51984a"
-        , lin True  x86_64    "download/8.2.1/haskell-platform-8.2.1-unknown-posix--full-x86_64.tar.gz" $ sha256 "2273a8da323d923a5025a9942a7c39643838ed68ca3c87c67f029235d73791b8"
+        , lin True  x86_64    "download/8.2.1/haskell-platform-8.2.1-unknown-posix--full-x86_64.tar.gz" $ sha256 "bb5629af143e7d257cb1f3710874f2ca17d1090cc6e5c1c2b80003bc37e0b9ec"
         , lin False i386      "download/8.2.1/haskell-platform-8.2.1-unknown-posix--core-i386.tar.gz" $ sha256 "f0c3e6527288a6b8a00bd0d22d50ace7b4e75352920b9a1cac457784f3e3f0cf"
-        , lin True  i386      "download/8.2.1/haskell-platform-8.2.1-unknown-posix--full-i386.tar.gz" $ sha256 "a600db7913d40a63ce1168ea16641f42dccb590f1cb369c1d476d627348a5ce8"
+        , lin True  i386      "download/8.2.1/haskell-platform-8.2.1-unknown-posix--full-i386.tar.gz" $ sha256 "1b2a3ec99cd9dfd491253496ee368500b5ff3d039e043158ea51ae3e855719a4"
         , mac False x86_64    "download/8.2.1/Haskell%20Platform%208.2.1%20Core%2064bit-signed.pkg" $ sha256 "97f7dc5338fc52269914f19331a2ee706441c2e8c637e8c119098375ad95abee"
-        , mac True  x86_64    "download/8.2.1/Haskell%20Platform%208.2.1%20Full%2064bit-signed.pkg" $ sha256 "b0182bb721b5dff3d66794cbdcea93cec562dc254fcf23c0e7a1a7a8d680aaa7"
+        , mac True  x86_64    "download/8.2.1/Haskell%20Platform%208.2.1%20Full%2064bit-signed.pkg" $ sha256 "05fc22d2cefdf67f1da2f62a90fda73a746accd08b44ec197046972b82afee06"
         , win False x86_64    "download/8.2.1/HaskellPlatform-8.2.1-core-x86_64-setup.exe" $ sha256 "81aa5b8476b84c732e4d9e5167a5f1a33ff5ae30d14e5aa4f1902001e4fdb8f8"
         , win True x86_64     "download/8.2.1/HaskellPlatform-8.2.1-full-x86_64-setup.exe" $ sha256 "c3dcd0f2cbd68389c137c8c903900e8a7728d79605511b0fd53c4aeb92631842"
         , src True "download/8.2.1/haskell-platform-8.2.1.tar.gz" $ sha256 "b7aa226dd21dc709525fee26e9655dc552c42e632387ec158dc9f9bcb41d9469"
