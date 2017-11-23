@@ -19,6 +19,9 @@ import Paths
 import PlatformDB
 import Types
 import Utils
+import Control.Exception(evaluate)
+import Data.List
+import Data.Char
 
 
 targetRules :: BuildConfig -> Rules ()
@@ -70,7 +73,8 @@ buildAction buildDir hpRel bc = do
         removeDirectoryRecursive depsDB
         localCommand' [] "ghc-pkg" ["init", depsDB]
         forM_ deps $ \d -> do
-            let targetconf = packageTargetConf d
+
+            let targetconf = packageInplaceConf d
             hasTargetconf <- doesFileExist targetconf
             when hasTargetconf $
                 localCommand' [] "ghc-pkg"
@@ -95,7 +99,8 @@ buildAction buildDir hpRel bc = do
         cabal "register"
             ["--inplace"
             , "--gen-pkg-config=" ++ packageInplaceConf pkg `relativeToDir` buildDir]
-
+        stripAbiDepends (packageInplaceConf pkg)
+        stripAbiDepends (packageTargetConf pkg)
         cReadArgs <- map (haddockReadArg . osGhcPkgPathMunge pkgHtmlDir)
                      <$> haddockAllCorePkgLocs hpRel bc
         pReadArgs <- map (haddockReadArg . osPlatformPkgPathMunge pkgHtmlDir)
@@ -168,3 +173,12 @@ installRules bc = do
         osPackageInstallAction pkg
   where
     OS{..} = osFromConfig bc
+
+stripAbiDepends :: FilePath -> Action ()
+stripAbiDepends f = do
+  hasF <- doesFileExist f
+  when hasF $ liftIO $ do
+    ls <- lines <$> readFile f
+    _ <- evaluate $ length ls
+    let (l1,l2) = break ("abi-depends:" `isPrefixOf`) ls
+    writeFile f $ unlines $ l1 ++ (dropWhile (all isSeparator . take 1) (drop 1 l2))
