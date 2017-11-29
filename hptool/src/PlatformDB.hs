@@ -1,5 +1,5 @@
 module PlatformDB
-    ( release, releaseWithMinimal, deltaFrom,
+    ( release, releaseWithMinimal, deltaFrom, deltaFrom',
       incGHC, incGHCLib, incGHCTool, incLib, incTool,
       notWindows, onlyWindows,
 
@@ -30,9 +30,13 @@ releaseWithMinimal vstr minimalIncs incs = Release (HpVersion $ version vstr) mi
 release :: String -> [Include] -> Release
 release vstr incs = Release (HpVersion $ version vstr) incs []
 
--- | Construct list of Includes as a delta to packages in another release
-deltaFrom :: Release -> [Include] -> [Include]
-deltaFrom base deltas = go (allRelIncludes base) deltas
+-- | Construct list of Includes as a delta to packages in another release.
+-- The contents of the single list provided are applied to both the core and
+-- the full include lists (since full is just the additions to core with no
+-- overlap).
+deltaFrom :: Release -> [Include] -> ([Include], [Include])
+deltaFrom base deltas = ( go (relMinimalIncludes base) deltas
+                        , go (relIncludes base) deltas )
   where
     go []             dIncs = dIncs
     go (bInc : bIncs) dIncs =
@@ -44,6 +48,11 @@ deltaFrom base deltas = go (allRelIncludes base) deltas
     merge bInc []          = bInc
     merge _    [updateInc] = updateInc
     merge bInc _ = error $ "multiple updates for package " ++ show (snd bInc)
+
+-- | Like deltaFrom, but for older releases that didn't have the
+-- core versus full separation of included packages.
+deltaFrom' :: Release -> [Include] -> [Include]
+deltaFrom' = (fst .) . deltaFrom
 
 buildInc :: IncludeType -> PackageName -> String -> Include
 buildInc inc name vstr = (inc, Package name $ version vstr)

@@ -15,6 +15,9 @@ import Development.Shake.FilePath
 import qualified Distribution.InstalledPackageInfo as C
 #endif
 import qualified Distribution.Package as C
+#if MIN_VERSION_Cabal(2,0,0)
+import qualified Distribution.Text as C ( display )
+#endif
 
 import Dirs
 import LocalCommand
@@ -26,7 +29,10 @@ import Paths
 import Types
 import Utils
 
-#if MIN_VERSION_Cabal(1,24,0)
+#if MIN_VERSION_Cabal(2,0,0)
+getPkgId :: C.HasUnitId pkg => pkg -> String
+getPkgId pkg = C.display $ C.installedUnitId pkg
+#elif MIN_VERSION_Cabal(1,24,0)
 getPkgId :: C.HasUnitId pkg => pkg -> String
 getPkgId pkg = case C.installedUnitId pkg of
   C.SimpleUnitId (C.ComponentId s) -> s

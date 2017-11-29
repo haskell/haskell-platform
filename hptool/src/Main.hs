@@ -88,7 +88,7 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
 
     opts = shakeOptions
 
-    hpRelease = hp_8_2_1
+    hpRelease = hp_8_2_2
     hpFullName = show $ relVersion hpRelease
     srcTarFile = productDir </> hpFullName <.> "tar.gz"
 
