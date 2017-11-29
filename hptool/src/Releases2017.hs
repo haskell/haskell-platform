@@ -4,7 +4,7 @@ import PlatformDB
 import Types
 
 releases2017 :: [Release]
-releases2017 = [hp_8_2_1]
+releases2017 = [hp_8_2_1, hp_8_2_2]
 
 
 hp_8_2_1 :: Release
@@ -110,3 +110,16 @@ hp_8_2_1 =
         ]
 
 -- TO add: binary? semigroups? regexlib? safe? tagsoup? tagged? tasty? optparse-applicative? clock? criterion? reflection?
+
+hp_8_2_2 :: Release
+hp_8_2_2 =
+    (uncurry $ releaseWithMinimal "8.2.2") $ deltaFrom hp_8_2_1
+        [ incGHC                            "8.2.2"
+        , incGHCLib "Cabal"                 "2.0.1.0"
+        , incGHCLib "base"                  "4.10.1.0"
+        {- These packages are in the GHC distribution, and hence bundled with
+        the Platform. However, they are not officially part of the Platform,
+        and as such, do not carry the same stability guaruntees.
+        , incGHCLib "ghc-prim"              "0.5.1.1"
+        -}
+        ]
