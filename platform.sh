@@ -6,7 +6,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.7
 
 set -e
 
-HPTOOL=hptool/dist-newstyle/build/hptool-0.1/build/hptool/hptool
+HPTOOL=hptool/dist-newstyle/build/x86_64-osx/ghc-8.2.1/hptool-0.1/c/hptool/build/hptool/hptool
 HPTOOL_ALT=hptool/.cabal-sandbox/bin/hptool
 
 #if ( cabal sandbox --help >/dev/null 2>&1 ) ; then

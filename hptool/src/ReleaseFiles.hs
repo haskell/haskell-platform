@@ -42,8 +42,6 @@ archBits :: Arch -> Int
 archBits ArchI386 = 32
 archBits ArchX86_64 = 64
 
-
-
 lin, mac, win :: Bool -> Arch -> Url -> Maybe Hash -> FileInfo
 lin isFull a u mh = (DistBinary OsLinux a,   u, mh, isFull)
 mac isFull a u mh = (DistBinary OsOSX a,     u, mh, isFull)

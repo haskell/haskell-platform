@@ -109,7 +109,6 @@ hp_8_2_1 =
         , incLib "call-stack"               "0.1.0"
         ]
 
--- TO add: binary? semigroups? regexlib? safe? tagsoup? tagged? tasty? optparse-applicative? clock? criterion? reflection?
 
 hp_8_2_2 :: Release
 hp_8_2_2 =
@@ -122,4 +121,15 @@ hp_8_2_2 =
         and as such, do not carry the same stability guaruntees.
         , incGHCLib "ghc-prim"              "0.5.1.1"
         -}
+        , incTool "alex"                    "3.2.3"
+        , incTool "happy"                   "1.19.8"
+
+        , incTool "hscolour"                "1.24.2"
+        , incLib "HTTP"                     "4000.3.8"
+        , incLib "QuickCheck"               "2.10.1"
+        , incLib "scientific"               "0.3.5.2"
         ]
+
+
+
+-- TO add: binary? semigroups? regexlib? safe? tagsoup? tagged? tasty? optparse-applicative? clock? criterion? reflection?

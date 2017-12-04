@@ -102,9 +102,9 @@ historyCtx = mkStrContext outerCtx
     ctx "hpReleases" = mapListStrContext rlsCtx releasesNewToOld
     ctx "ncols" = MuVariable $ length releasesNewToOld + 1
     ctx "sections" = MuList
-        [ sectionCtx "Compiler"                              [isGhc, not . isLib] False
+        [ sectionCtx "Compiler"                              [isGhc, not . isLib, not . isTool] False
         , sectionCtx "Core Libraries, provided with GHC"     [isGhc, isLib] False
-        , sectionCtx "Additional Core Platform Libraries" [not . isGhc, isLib] True
+        , sectionCtx "Additional Core Platform Libraries"    [not . isGhc, isLib] True
         , sectionCtx "Programs and Tools"                    [isTool] False
         , extendedCtx "Libraries with Full Platform"
         ]

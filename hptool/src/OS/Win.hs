@@ -34,8 +34,9 @@ getPkgId :: C.HasUnitId pkg => pkg -> String
 getPkgId pkg = C.display $ C.installedUnitId pkg
 #elif MIN_VERSION_Cabal(1,24,0)
 getPkgId :: C.HasUnitId pkg => pkg -> String
-getPkgId pkg = case C.installedUnitId pkg of
+getPkgId pkg = display (C.installedUnitId pkg) {-case C.installedUnitId pkg of
   C.SimpleUnitId (C.ComponentId s) -> s
+-}
 #else
 getPkgId :: C.PackageInstalled pkg => pkg -> String
 getPkgId pkg = case C.installedPackageId pkg of
