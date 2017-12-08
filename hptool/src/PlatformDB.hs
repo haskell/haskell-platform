@@ -33,12 +33,12 @@ release vstr incs = Release (HpVersion $ version vstr) incs []
 -- | Construct list of Includes as a delta to packages in another release.
 -- The contents of the single list provided are applied to both the core and
 -- the full include lists (since full is just the additions to core with no
--- overlap).
+-- overlap). Note that this will only _update_ packages, not provide new ones.
 deltaFrom :: Release -> [Include] -> ([Include], [Include])
 deltaFrom base deltas = ( go (relMinimalIncludes base) deltas
                         , go (relIncludes base) deltas )
   where
-    go []             dIncs = dIncs
+    go []             dIncs = [] --dIncs
     go (bInc : bIncs) dIncs =
         let (updates, dIncs') = partition (match bInc) dIncs
         in merge bInc updates : go bIncs dIncs'

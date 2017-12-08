@@ -121,6 +121,7 @@ hp_8_2_2 =
         and as such, do not carry the same stability guaruntees.
         , incGHCLib "ghc-prim"              "0.5.1.1"
         -}
+
         , incTool "alex"                    "3.2.3"
         , incTool "happy"                   "1.19.8"
 
@@ -128,6 +129,9 @@ hp_8_2_2 =
         , incLib "HTTP"                     "4000.3.8"
         , incLib "QuickCheck"               "2.10.1"
         , incLib "scientific"               "0.3.5.2"
+
+        , incGHCTool "cabal-install"        "2.0.0.1"
+        , incGHCTool "stack"                "1.6.1"
         ]
 
 
