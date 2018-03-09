@@ -69,7 +69,18 @@ currentFiles : priorFiles = releaseFiles
 releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
-       ("8.2.1", aug 2017,
+       ("8.2.2", dec 2017,
+        [ lin False x86_64    "download/8.2.2/haskell-platform-8.2.2-unknown-posix--core-x86_64.tar.gz" $ sha256 "bd01bf2b34ea3d91b1c82059197bb2e307e925e0cb308cb771df45c798632b58"
+        , lin True  x86_64    "download/8.2.2/haskell-platform-8.2.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "08883634093fa261b8f9706fe6dfcc0001d08a4431a7c5b1146443f9266bcc94"
+        , lin False i386      "download/8.2.2/haskell-platform-8.2.2-unknown-posix--core-i386.tar.gz" $ sha256 "7c8a40832910fcae5af44ac805af431218af560840bc8d5e394f25db0360cfc2"
+        , lin True  i386      "download/8.2.2/haskell-platform-8.2.2-unknown-posix--full-i386.tar.gz" $ sha256 "8a648b423f49e745f6ae7cc995912161e8b1bd113c43cb10be1e23a6c46d665d"
+        , mac False x86_64    "download/8.2.2/Haskell%20Platform%208.2.2%20Core%2064bit-signed.pkg" $ sha256 "02697851fea0fbbc8e60b3bd33efc379082a5b88642e935846e889dc0493514c"
+        , mac True  x86_64    "download/8.2.2/Haskell%20Platform%208.2.2%20Full%2064bit-signed.pkg" $ sha256 "24d6ec3a30e06a6484108a6f6ca01a3260b1aadcef2ba4c4404348945ad77b92"
+        , win False x86_64    "download/8.2.2/HaskellPlatform-8.2.2-core-x86_64-setup.exe" $ sha256 "a33fd0c9b017d089f24db7cf52cd6642319e1a21f1f07e9f6ddae32dff8c6264"
+        , win True x86_64     "download/8.2.2/HaskellPlatform-8.2.2-full-x86_64-setup.exe" $ sha256 "5d283968b3e3bde9972a7871f7ae784c4eb53630182e17397610085440563694"
+        , src True "download/8.2.2/haskell-platform-8.2.2.tar.gz" $ sha256 "06b2d78faa43758e4a62b2b3f5d58ddc7ff69e450377c38de94c34f68b7b9616"
+        ]),
+      ("8.2.1", aug 2017,
         [ lin False x86_64    "download/8.2.1/haskell-platform-8.2.1-unknown-posix--core-x86_64.tar.gz" $ sha256 "aff518ef78dd6a4433721f884a5fda5519ac7d826bdaa8199caad3cf7f51984a"
         , lin True  x86_64    "download/8.2.1/haskell-platform-8.2.1-unknown-posix--full-x86_64.tar.gz" $ sha256 "bb5629af143e7d257cb1f3710874f2ca17d1090cc6e5c1c2b80003bc37e0b9ec"
         , lin False i386      "download/8.2.1/haskell-platform-8.2.1-unknown-posix--core-i386.tar.gz" $ sha256 "f0c3e6527288a6b8a00bd0d22d50ace7b4e75352920b9a1cac457784f3e3f0cf"
