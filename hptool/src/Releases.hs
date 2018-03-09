@@ -5,6 +5,7 @@ module Releases
     , module Releases2015
     , module Releases2016
     , module Releases2017
+    , module Releases2018
     , releases
     )
 
@@ -16,6 +17,7 @@ import Releases2014
 import Releases2015
 import Releases2016
 import Releases2017
+import Releases2018
 import Types
 
 releases :: [Release]
@@ -26,4 +28,5 @@ releases = concat
     , releases2015
     , releases2016
     , releases2017
+    , releases2018
     ]

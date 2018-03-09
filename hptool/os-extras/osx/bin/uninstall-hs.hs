@@ -492,7 +492,10 @@ alertOlderVersions appl m = when (not $ Map.null m) $ do
     msg = "There are older versions of GHC and/or \
           \Haskell Platform on this system.\r\
           \\r\
-          \Run the command line tool uninstall-hs to \
+          \You can switch between versions by using \
+          \the command line tool activate-hs.\r\
+          \\r\
+          \You can also run the command line tool uninstall-hs to \
           \find out which and how to remove them."
 
 -- | Remove file paths and associated other files.

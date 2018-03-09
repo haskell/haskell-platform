@@ -1,8 +1,7 @@
 
                 <div class="container">
                   <h2 id="get-started">Let's get started</h2>
-               <p>Note: the stack tool has been evolving
-               relatively rapidly. Users who wish to ensure they are
+               <p>Note: Users who wish to make use of stack and want  to ensure they are
                running the latest version may want to consider running "stack
                upgrade" and ensuring the
                proper <a href="http://docs.haskellstack.org/en/stable/install_and_upgrade/#path">path</a>
@@ -166,9 +165,6 @@
 		  where network connectivity should not be taken for
 						    granted.</p>
 
-<p>The 8.2.1 platform release is for 64 bit Windows only, due to
-  issues with GHC 8.2.1 on 32 bit Windows. Future releases are anticipated to resume
-  32 bit support.</p>
 
                                         {{#current}} {{#files}} {{#isWindows}}
                                         {{^isFull}}

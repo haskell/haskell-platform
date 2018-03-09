@@ -38,6 +38,7 @@ Executable hptool
     Releases2015,
     Releases2016,
     Releases2017,
+    Releases2018,
     SourceTarball,
     Target,
     Templates,
