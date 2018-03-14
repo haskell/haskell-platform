@@ -2,14 +2,16 @@
 
 module Main where
 
-import Control.Monad (forM_)
-import Data.Monoid (mconcat)
+import Control.Monad ( forM_ )
+import Data.List ( intercalate )
 import Development.Shake
 import Development.Shake.FilePath
-import System.Console.GetOpt
+import System.Console.GetOpt ( usageInfo )
+import System.Directory as SD ( doesFileExist )
 import qualified System.Info (os, arch)
 import System.IO
 
+import CLArgs
 import Config
 import Dirs
 import GhcDist
@@ -24,29 +26,26 @@ import Types
 import Target
 import Website
 
-data Flags = Info | Prefix String | Full
-  deriving Eq
-
-flags :: [OptDescr (Either a Flags)]
-flags = [ Option ['i'] ["info"] (NoArg $ Right Info)
-                     "Show info on what gets included in this HP release"
-        , Option [] ["prefix"] (ReqArg (Right . Prefix) "DIR")
-                     "Set installation prefix (only for Posix builds)"
-        , Option ['f'] ["full"] (NoArg $ Right Full)
-                     "Do a full (rather than core) build of the platform."
-        ]
 
 main :: IO ()
 main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
   where
-    main' flgs args =
-        if Info `elem` flgs
-            then info
-            else case args of
-                (tarfile:cabalexe:stackexe:buildType) -> return $ Just $ do
-                    allRules tarfile (cabalexe,stackexe) flgs
-                    want $ if null buildType then ["build-all"] else buildType
-                _ -> usage
+    main' flgVals nonFlagArgs =
+      if Info `elem` flgVals then info
+      else
+        if Usage `elem` flgVals then usage
+        else do
+          -- if we were to do cross-building, using System.Info.os is incorrect
+          let buildWin = System.Info.os == "mingw32"
+          (uc, v) <- checkAndValidateArgs buildWin SD.doesFileExist flgVals
+          if (not $ null v )
+            then do
+              putStrLn "ERRORS:"
+              putStrLn $ intercalate "\n" v
+              usage
+            else return $ Just $ do
+              allRules uc
+              want $ if null nonFlagArgs then ["build-all"] else nonFlagArgs
 
     info = do
         putStrLn $ "This hptool is built to construct " ++ hpFullName ++ "\n\
@@ -57,8 +56,10 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
         return Nothing
 
     usage = do
-        putStrLn "usage: hptool --info\n\
-                 \       hptool [opts] <ghc-bindist.tar.bz> <cabal executable> <stack executable> [target...]\n\
+        putStr   $ usageInfo
+                 "usage: hptool --info\n\
+                 \       hptool --help\n\
+                 \       hptool [args] [target...]\n\
                  \  where target is one of:\n\
                  \    build-all           -- build everything (default)\n\
                  \    build-source        -- build the source tar ball\n\
@@ -67,12 +68,22 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
                  \    build-package-<pkg> -- build the package (name or name-ver)\n\
                  \    build-local         -- build the local GHC environment\n\
                  \    build-website       -- build the website\n\
-                 \  and opts may be 'f' for a full rather than core build, 'i' for info\n\
-                 \  or 'prefix=...' to set a custom install location prefix for linux"
+                 \  and args may be:" flags
+        putStrLn "NOTE:\n\
+                 \     The GHC binary distro, the cabal executable, and the \n\
+                 \     stack installer/executable are *required*.\n\
+                 \     Further, for the Windows platform, four additional\n\
+                 \     arguments are also required:\n\
+                 \         * the GHC Library documentation (tarfile)\n\
+                 \         * the GHC User's Guide (HTML format, tarfile)\n\
+                 \         * the GHC User's Guide (single PDF file)\n\
+                 \         * the Haddock documentation (HTML format, tarfile)"
+
         return Nothing
 
-    allRules tarfile stackcabalexe flgs = do
-        buildConfig <- addConfigOracle hpRelease tarfile stackcabalexe (prefixSetting flgs) (Full `elem` flgs)
+    allRules :: UserConfig -> Rules ()
+    allRules userConfig = do
+        buildConfig <- addConfigOracle hpRelease userConfig
         ghcDistRules
         packageRules
         targetRules buildConfig
@@ -80,11 +91,6 @@ main = hSetEncoding stdout utf8 >> shakeArgsWith opts flags main'
         sourceTarballRules srcTarFile
         buildRules hpRelease srcTarFile buildConfig
         websiteRules "website"
-
-    prefixSetting = mconcat . reverse . map ps
-      where
-        ps (Prefix p) = Just p
-        ps _ = Nothing
 
     opts = shakeOptions
 

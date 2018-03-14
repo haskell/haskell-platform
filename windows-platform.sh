@@ -1,17 +1,16 @@
 #!/bin/sh
 
-TAR_FILE=$1
-tar_name=${TAR_FILE##*/}
-tar_vers=${tar_name#*-}
-GHC_VERS=${tar_vers%%-*}
+echo '***'
+echo '*** ' $(date) "HP installer tool started"
+echo '***'
 
 # These may need to be edited to suit your specific environment
 # MSYS_BIN is needed on path for configure scripts;
 # HASK_BIN is needed on path for shake.exe, HsColour.exe (maybe cabal.exe)
 # NSIS_BIN is needed on path for makensisw.exe
-MSYS_BIN="/c/Program Files (x86)/MinGW/msys/1.0/bin"
-HASK_BIN="/c/Program Files/Haskell/bin:/c/Program Files/Haskell Platform/2014.2.0.0/lib/extralibs/bin"
-NSIS_BIN="/c/Program Files (x86)/NSIS"
+MSYS_BIN="/usr/bin"
+HASK_BIN="/f/Program Files/Haskell/bin:/f/Program Files/Haskell Platform/8.2.2/lib/extralibs/bin"
+NSIS_BIN="/f/Program Files (x86)/NSIS"
 GHC_BINDIST=build/ghc-bindist/local
 
 HPTOOL=hptool/dist/build/hptool/hptool.exe
@@ -49,6 +48,8 @@ which cabal ||
   { echo "Could not find cabal.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
 which makensisw ||
   { echo "Could not find makensisw.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
+which tar ||
+  { echo "Could not find tar.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
 
 echo "> cabal --version"
 cabal --version
@@ -86,10 +87,6 @@ if [ \! \(    -d winExternalSrc \
            -a -d winExternalSrc/glut/lib/x86_64 \
            -a -e winExternalSrc/glut/lib/x86_64/libglut32.a \
            -a -e winExternalSrc/glut/lib/x86_64/glut32.dll \
-           -a -d winExternalSrc/doc \
-           -a -e winExternalSrc/doc/users_guide.ps \
-           -a -e winExternalSrc/doc/users_guide.pdf \
-           -a -d winExternalSrc/doc/html \
            -a -d winExternalSrc/winghci \
            -a -e winExternalSrc/winghci/winghci.exe \
            -a -d winExternalSrc/msys/i386/usr \
@@ -119,26 +116,26 @@ then
                     x86_64/
                         libglut32.a
                         glut32.dll
-            doc/
-                users_guide.ps
-                users_guide.pdf
-                html/
-                    <untar of users_guide.html.tar.bz2>
             winghci/
                 winghci.exe
                 <and any other DLL, etc. needed to run this particular winghci>
             msys/
                 i386/
-                        usr/{bin,lib,libexec,share,ssl}
+                        <entire MSYS2 distro for i386>
                 x86_64/
-                        usr/{bin,lib,libexec,share,ssl}
+                        <entire MSYS2 distro for x64>
 EOF
 
     exit 1
 fi
 
 echo '***'
-echo "*** Running hptool for $GHC_VERS"
+echo "*** Running hptool"
 echo '***'
 # For Windows platforms, do not build the source tarball
+echo $HPTOOL "$@" build-local build-product
 $HPTOOL "$@" build-local build-product
+
+echo '***'
+echo '*** ' $(date) "HP installer tool finished"
+echo '***'

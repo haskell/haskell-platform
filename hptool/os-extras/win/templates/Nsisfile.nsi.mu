@@ -439,10 +439,10 @@ Section "-StartMenu" StartMenu
         "$INSTDIR\doc\html\index.html"
     CreateShortCut \
         "$SMPROGRAMS\$START_MENU_FOLDER\GHC Flag Reference.lnk" \
-        "$INSTDIR\doc\html\users_guide\flag-reference.html"
+        "$INSTDIR\doc\html\users_guide\flags.html"
     CreateShortCut \
         "$SMPROGRAMS\$START_MENU_FOLDER\Library Documentation.lnk" \
-        "$INSTDIR\lib\extralibs\doc\frames.html"
+        "$INSTDIR\lib\extralibs\doc\index.html"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\GHCi.lnk" \
         "$INSTDIR\bin\ghci.exe"
     CreateShortCut "$SMPROGRAMS\$START_MENU_FOLDER\WinGHCi.lnk" \

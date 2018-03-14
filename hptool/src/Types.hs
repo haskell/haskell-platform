@@ -12,10 +12,11 @@ module Types
     , BuildConfig(..)
     , GhcInstallAction
     , GhcInstall(..)
+    , BuildFlavor(..)
+    , UserConfig(..)
     )
   where
 
-import Control.Applicative
 import Data.Char (isDigit)
 import Data.List (intercalate)
 import Data.Version (Version, showVersion, parseVersion)
@@ -127,4 +128,27 @@ data GhcInstall =
 -- | Info retrieved from the package conf files: the first is
 -- the haddock-html field; the second is the haddock-interfaces field.
 data HaddockPkgLoc = HaddockPkgLoc { pkgLocHtml, pkgLocIntf :: String }
+    deriving (Show)
+
+-- | The HP can be built in two flavors: full or core, where "full" is
+-- "all the batteries included" (the full, agreed upon set of packages felt to
+-- be most useful to many GHC users); and "core" is just GHC, the packages
+-- included with its release (and minimally needed to successfully compile and
+-- link).
+data BuildFlavor = BuildFlavorCore | BuildFlavorFull
+    deriving (Eq, Show)
+
+-- | The digested user-provided flags and arguments for the build.
+-- Used for setting the user requests into the "oracle".
+data UserConfig = UserConfig
+    { ucPrefix        :: Maybe FilePath
+    , ucBuildFlavor   :: BuildFlavor
+    , ucCabalExe      :: FilePath
+    , ucGHCBinDist    :: FilePath
+    , ucStackExe      :: FilePath
+    , ucGHCUsersPDF   :: FilePath
+    , ucGHCUsersHTML  :: FilePath
+    , ucGHCLibsHTML   :: FilePath
+    , ucHaddockHTML   :: FilePath
+    }
     deriving (Show)

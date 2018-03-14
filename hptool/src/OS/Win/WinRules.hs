@@ -65,7 +65,31 @@ copyWinTargetExtras bc = do
     copyFilesAction mkIconsDir winExtrasSrc winTargetDir winIconsFiles
 
     -- copy user's guide docs: ps, pdf, html, etc....
-    copyDirAction winExternalDocs winDocTargetDir
+    makeDirectory winDocTargetDir
+
+    ghcUgHtml <- askGhcUgHtml
+    need [ghcUgHtml]
+    command_ [Cwd winDocTargetDir]
+        "tar" ["xf", ghcUgHtml `relativeToDir` winDocTargetDir]
+
+    ghcLibsHtml <- askGhcLibs
+    need [ghcLibsHtml]
+    command_ [Cwd winDocTargetDir]
+        "tar" ["xf", ghcLibsHtml `relativeToDir` winDocTargetDir]
+
+    haddockHtml <- askHaddockHTML
+    need [haddockHtml]
+    command_ [Cwd winDocTargetDir]
+        "tar" ["xf", haddockHtml `relativeToDir` winDocTargetDir]
+
+    -- needContents winDocTargetDir -- needed here? is done by our caller, actually
+
+    -- copy the PDF version of the GHC User's Guide
+    -- (copyFilesAction does the 'need' on the PDF file)
+    ghcUgPdf <- askGhcUgPDF
+    need [ghcUgPdf]
+    copyFileAction (return ()) (takeDirectory ghcUgPdf) winDocTargetDir
+        (takeFileName ghcUgPdf)
 
     -- copy winghci pieces
     copyDirAction winExternalWinGhciDir winWinGhciTargetDir

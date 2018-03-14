@@ -121,6 +121,14 @@ nsisUninstDatTmpl :: FilePath
 nsisUninstDatTmpl = winTemplates </> "uninst.dat.mu"
 
 
+-- | Template file and end-result file for the overall index.html
+docIndexFile :: FilePath
+docIndexFile = winDocTargetDir </> "index.html"
+
+docIndexTmpl :: FilePath
+docIndexTmpl = winTemplates </> "index.html.mu"
+
+
 -- | Some scripts and unchanging data files needed for the installer
 winInstExtrasFiles :: [FilePath]
 winInstExtrasFiles = [ "EnvVarUpdate.nsh"
@@ -138,14 +146,10 @@ winIconsFiles = [ "icons/installer.ico"
                 , "icons/hackage.ico"
                 ]
 
--- | This is the place for pre-built files (e.g., docs from GHC), which
+-- | This is the place for pre-built files (e.g., Glut libraries), which
 -- will be installed, but are not part of the build or of hptool.
 winExternalSrc :: FilePath
 winExternalSrc = "winExternalSrc"
-
--- | These will be copied to the top-level doc directory
-winExternalDocs :: FilePath
-winExternalDocs = winExternalSrc </> "doc"
 
 -- | Source info (paths & names) for GLUT pieces, which will be simply copied
 winExternalGlut :: FilePath
@@ -241,7 +245,8 @@ winGhcTargetPackageDbDir = winTargetDir </> winGhcPackageDbDir
 winNeeds :: [FilePath]
 winNeeds = [ nsisFile,
              msysNsisFile, msysNsisInstDat, msysNsisUninstDat,
-             ghcNsisFile,  ghcNsisInstDat,  ghcNsisUninstDat
+             ghcNsisFile,  ghcNsisInstDat,  ghcNsisUninstDat,
+             docIndexFile
            ]
            ++ winInstExtras
 

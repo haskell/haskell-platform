@@ -18,7 +18,7 @@ import Config
 import OS.Win.WinPaths
 import OS.Win.WinUtils
 import Paths ( phonyTargetDir )
-import Templates
+import Templates ( copyExpandedFile, ctxAppend, platformContext )
 import Types
 import Utils
 
@@ -50,6 +50,12 @@ genNsisFiles = do
     ghcNsisFile %> expandAndCopy ghcNsiTemplate ghcProductFile
     msysNsisFile %> expandAndCopy msysNsiTemplate msysProductFile
     extralibsNsisFile %> expandAndCopy extralibsNsiTemplate extralibsProductFile
+
+    -- Create the main doc/index.html from the template
+    docIndexFile %> \_ -> do
+        pCtx <- platformContext
+        copyExpandedFile pCtx docIndexTmpl docIndexFile
+
   where
     makeInstDat instFilter targDir dFile = do
         need [phonyTargetDir]

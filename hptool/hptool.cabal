@@ -1,4 +1,4 @@
-Name:            hptool
+Name:            HPTool
 Version:         0.1
 Author:          Mark Lentczner
 Maintainer:      gershomb@gmail.com
@@ -10,9 +10,10 @@ Synopsis:        Haskell Platform Utility
 Data-files:
   templates/*.cabal.mu
 
-Executable hptool
-  Main-is: Main.hs
-  Other-Modules:
+Library
+  Exposed-Modules:
+    CLArgs,
+    Internal.CLArgs,
     Config,
     Dirs
     GhcDist,
@@ -45,9 +46,6 @@ Executable hptool
     Types,
     Utils,
     Website
-
-  hs-source-dirs: src
-
   Build-depends:
     Cabal,
     base,
@@ -61,5 +59,77 @@ Executable hptool
     transformers,
     unix-compat,
     filepath
+  hs-source-dirs: src
 
+Executable hptool
+  Main-is: Main.hs
+  hs-source-dirs: src
+  Other-Modules:
+    CLArgs,
+    Internal.CLArgs,
+    Config,
+    Dirs
+    GhcDist,
+    HaddockMaster,
+    LocalCommand,
+    OS,
+    OS.Internal,
+    OS.Mac,
+    OS.Posix,
+    OS.Win
+    OS.Win.WinNsis,
+    OS.Win.WinPaths,
+    OS.Win.WinRules,
+    OS.Win.WinUtils,
+    Package,
+    Paths,
+    PlatformDB,
+    ReleaseFiles,
+    Releases,
+    Releases2012,
+    Releases2013,
+    Releases2014,
+    Releases2015,
+    Releases2016,
+    Releases2017,
+    Releases2018,
+    SourceTarball,
+    Target,
+    Templates,
+    Types,
+    Utils,
+    Website
+  Build-depends:
+    Cabal,
+    base,
+    bytestring,
+    containers,
+    directory,
+    hastache >=0.6.0,
+    HPTool,
+    shake >= 0.14 && < 0.16,
+    split,
+    text,
+    transformers,
+    unix-compat,
+    filepath
   ghc-options: -Wall -fwarn-tabs
+
+
+test-suite unit-tests
+  type: exitcode-stdio-1.0
+  hs-source-dirs: tests
+  other-modules:
+    UnitTests.CLArgs
+  main-is: UnitTests.hs
+  build-depends:
+    base,
+    directory,
+    HPTool,
+    HUnit,
+    QuickCheck,
+    tasty,
+    tasty-hunit,
+    tasty-hspec,
+    transformers
+  ghc-options: -Wall

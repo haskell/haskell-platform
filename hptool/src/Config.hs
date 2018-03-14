@@ -8,6 +8,10 @@ module Config
     , addConfigOracle
     , askCabalExe
     , askStackExe
+    , askGhcUgPDF
+    , askGhcUgHtml
+    , askGhcLibs
+    , askHaddockHTML
     )
     where
 
@@ -16,7 +20,6 @@ import Data.List.Split (splitOn)
 import Development.Shake
 import Development.Shake.Classes
 import Development.Shake.FilePath
-import Development.Shake.Rule
 
 import Types
 import Utils (readMaybe, version)
@@ -89,8 +92,44 @@ askCabalExe = do
     need [cabalexe]
     return cabalexe
 
-addConfigOracle :: Release -> FilePath -> (FilePath,FilePath) -> Maybe FilePath -> Bool -> Rules BuildConfig
-addConfigOracle hpRel tarFile (cabalexe,stackexe) prefix includeExtra = do
+newtype GhcUsersGuidePDFFileQ = GhcUsersGuidePDFFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
+askGhcUgPDF :: Action FilePath
+askGhcUgPDF = do
+  fname <- askOracle $ GhcUsersGuidePDFFileQ ()
+  need [fname]
+  return fname
+
+newtype GhcUsersGuideHTMLTarFileQ = GhcUsersGuideHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
+askGhcUgHtml :: Action FilePath
+askGhcUgHtml = do
+  fname <- askOracle $ GhcUsersGuideHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+newtype GhcLibsHTMLTarFileQ =  GhcLibsHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
+askGhcLibs :: Action FilePath
+askGhcLibs = do
+  fname <- askOracle $ GhcLibsHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+newtype HaddockHTMLTarFileQ = HaddockHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+
+askHaddockHTML :: Action FilePath
+askHaddockHTML = do
+  fname <- askOracle $ HaddockHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+addConfigOracle :: Release -> UserConfig -> Rules BuildConfig
+addConfigOracle hpRel userConfig = do
     _ <- addOracle $
             \(HpReleaseQ _) -> return $ show hpRel
     _ <- addOracle $
@@ -100,9 +139,26 @@ addConfigOracle hpRel tarFile (cabalexe,stackexe) prefix includeExtra = do
     _ <- addOracle $
             \(StackExeQ _) -> return stackexe
     _ <- addOracle $
+            \(GhcUsersGuidePDFFileQ _) -> return ghcUgPdf
+    _ <- addOracle $
+            \(GhcUsersGuideHTMLTarFileQ _) -> return ghcUgHtml
+    _ <- addOracle $
+            \(GhcLibsHTMLTarFileQ _) -> return ghcLibsHtml
+    _ <- addOracle $
+            \(HaddockHTMLTarFileQ _) -> return haddockHtml
+    _ <- addOracle $
             \(BuildConfigQ _) -> either fail (return . show) buildConfig
     either fail return buildConfig
   where
+    tarFile = ucGHCBinDist userConfig
+    cabalexe = ucCabalExe userConfig
+    stackexe = ucStackExe userConfig
+    prefix = ucPrefix userConfig
+    ghcUgPdf = ucGHCUsersPDF userConfig
+    ghcUgHtml = ucGHCUsersHTML userConfig
+    ghcLibsHtml = ucGHCLibsHTML userConfig
+    haddockHtml = ucHaddockHTML userConfig
+    includeExtra = ucBuildFlavor userConfig == BuildFlavorFull
     buildConfig = extractBuildConfig hpRel tarFile prefix includeExtra
 
 
