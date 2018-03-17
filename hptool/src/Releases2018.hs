@@ -67,7 +67,7 @@ hp_8_4_1 =
         , incLib "haskell-src"              "1.0.3.0"
         , incLib "hashable"                 "1.2.7.0"
         , incLib "html"                     "1.0.1.2"
-        , incLib "HTTP"                     "4000.3.10"
+        , incLib "HTTP"                     "4000.3.11"
         , incLib "HUnit"                    "1.6.0.0"
         , incLib "network"                  "2.6.3.4"
         , incLib "OpenGL"                   "3.0.2.0"
