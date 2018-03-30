@@ -69,7 +69,7 @@ hp_8_4_1 =
         , incLib "html"                     "1.0.1.2"
         , incLib "HTTP"                     "4000.3.11"
         , incLib "HUnit"                    "1.6.0.0"
-        , incLib "network"                  "2.6.3.4"
+        , incLib "network"                  "2.6.3.5"
         , incLib "OpenGL"                   "3.0.2.0"
         , incLib "OpenGLRaw"                "3.2.7.0"
         , incLib "parallel"                 "3.2.1.1"
