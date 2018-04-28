@@ -4,17 +4,17 @@ import PlatformDB
 import Types
 
 releases2018 :: [Release]
-releases2018 = [hp_8_4_1]
+releases2018 = [hp_8_4_2]
 
 
-hp_8_4_1 :: Release
-hp_8_4_1 =
-    releaseWithMinimal "8.4.1"
-        [ incGHC                            "8.4.1"
+hp_8_4_2 :: Release
+hp_8_4_2 =
+    releaseWithMinimal "8.4.2"
+        [ incGHC                            "8.4.2"
 
-        , incGHCLib "Cabal"                 "2.2.0.0"
+        , incGHCLib "Cabal"                 "2.2.0.1"
         , incGHCLib "array"                 "0.5.2.0"
-        , incGHCLib "base"                  "4.11.0.0"
+        , incGHCLib "base"                  "4.11.1.0"
         , incGHCLib "bytestring"            "0.10.8.2"
         , incGHCLib "containers"            "0.5.11.0"
         , incGHCLib "deepseq"               "1.4.3.0"
@@ -30,7 +30,7 @@ hp_8_4_1 =
         , incGHCLib "text"                  "1.2.3.0"
         , incGHCLib "time"                  "1.8.0.2"
         , incGHCLib "transformers"          "0.5.5.0"
-        , incGHCLib "xhtml"                 "3000.2.2"
+        , incGHCLib "xhtml"                 "3000.2.2.1"
 
         {- These packages are in the GHC distribution, and hence bundled with
         the Platform. However, they are not officially part of the Platform,
@@ -40,7 +40,7 @@ hp_8_4_1 =
         , incGHCLib "ghc-prim"              "0.5.2.0"
         , incGHCLib "haskeline"             "0.7.4.2"
         , incGHCLib "hoopl"                 "3.10.2.2"
-        , incGHCLib "integer-gmp"           "1.0.1.0"
+        , incGHCLib "integer-gmp"           "1.0.2.0"
         , incGHCLib "terminfo"              "0.4.1.0"
         -}
 
@@ -49,13 +49,13 @@ hp_8_4_1 =
 
         --, onlyWindows $ incGHCLib "Win32"   "2.6.1.0"
 
-        , incTool "alex"                    "3.2.3"
+        , incTool "alex"                    "3.2.4"
         , incTool "happy"                   "1.19.9"
 
         , incTool "hscolour"                "1.24.4"
         , incGHCTool "haddock"              "2.19.0.1"
         , incGHCTool "cabal-install"        "2.2.0.0"
-        , incGHCTool "stack"                "1.6.5"
+        , incGHCTool "stack"                "1.7.1"
         ]
         [
           incLib "async"                    "2.2.1"
