@@ -69,6 +69,17 @@ currentFiles : priorFiles = releaseFiles
 releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
+       ("8.4.2", may 2018,
+        [ lin False x86_64    "download/8.4.2/haskell-platform-8.4.2-unknown-posix--core-x86_64.tar.gz" $ sha256 "3b8886424d28c0ca66bd0db3ffe0791feea1226980d29b5ecc5514e436258ec8"
+        , lin True  x86_64    "download/8.4.2/haskell-platform-8.4.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "f0d0efcd961c52ee0833941047c8d2cda5c0736ad2715edc41079286de57ac8f"
+        , lin False i386      "download/8.4.2/haskell-platform-8.4.2-unknown-posix--core-i386.tar.gz" $ sha256 "831dc69d22da4e5dbe39ecf0d39465cca1c81be058cb215242b923c25027bdce"
+        , lin True  i386      "download/8.4.2/haskell-platform-8.4.2-unknown-posix--full-i386.tar.gz" $ sha256 "bd40cf359b47c88ee9538d9ce47ff42038d88b47533173a957979097d6504565"
+        , mac False x86_64    "download/8.4.2/Haskell%20Platform%208.4.2%20Core%2064bit-signed.pkg" $ sha256 "dd14f155b1dac889a3e65037955ec9aca3e48ed06487856338f110ab6d2a503d"
+        , mac True  x86_64    "download/8.4.2/Haskell%20Platform%208.4.2%20Full%2064bit-signed.pkg" $ sha256 "bae4dad218a8aa19dd8cd7297e538d5a2c6894616edcecc0b4b874c1101a68f0"
+        , win False x86_64    "download/8.4.2/HaskellPlatform-8.4.2-core-x86_64-setup.exe" $ sha256 "98cce489885693902f2d4f744913afd39c57ad2da94761ec5c9df4e6db665f18"
+        , win True x86_64     "download/8.4.2/HaskellPlatform-8.4.2-full-x86_64-setup.exe" $ sha256 "a1508ea5dd4c189aa11727ca2b7f46d4d4cced2a0c51fef044448b2395f5c8b6"
+        , src True "download/8.4.2/haskell-platform-8.4.2.tar.gz" $ sha256 "57b9bb24b014756614b2f5494be6d25e340327ff0a1373f4eb7d186920eb43e1"
+        ]),
        ("8.2.2", dec 2017,
         [ lin False x86_64    "download/8.2.2/haskell-platform-8.2.2-unknown-posix--core-x86_64.tar.gz" $ sha256 "bd01bf2b34ea3d91b1c82059197bb2e307e925e0cb308cb771df45c798632b58"
         , lin True  x86_64    "download/8.2.2/haskell-platform-8.2.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "08883634093fa261b8f9706fe6dfcc0001d08a4431a7c5b1146443f9266bcc94"
