@@ -129,7 +129,7 @@
                             <div id="osx-homebrewcask" class="flavor">
                                 <h3>Homebrew Cask</h3>
                                 <p>To install Haskell Platform with
-                                    <a href="http://caskroom.io">Homebrew Cask</a>,
+                                    <a href="http://caskroom.github.io">Homebrew Cask</a>,
                                     simply run,
                                 </p>
                                 <pre>$ brew cask install haskell-platform</pre>
