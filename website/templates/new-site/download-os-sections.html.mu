@@ -189,26 +189,8 @@
 					<p>Run the installer and
 					follow the instructions.</p>
                                 </li>
-				<li>
-                                    <div class="step-number">2</div>
-				  <div class="step-body">
-					  Modify your cabal config
-					  file (you can verify the
-					  location by running "cabal
-					  user-config init") to
-					  contain the following lines:
-<pre>
-extra-prog-path: C:\Program Files\Haskell Platform\{{hpVersion}}\msys\usr\bin
-extra-lib-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\lib
-extra-include-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\include
-</pre>
-Note: cabal config files can contain more than one of each of those lines
-&mdash; no need to replace any existing entries. Additionally, you
-should double-check that the version component of the path corresponds to
-your installed platform.
-                                    </div></li>
                                 <li>
-                                    <div class="step-number">3</div>
+                                    <div class="step-number">2</div>
                                     <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
                                 </li>
 
