@@ -4,7 +4,7 @@ import PlatformDB
 import Types
 
 releases2018 :: [Release]
-releases2018 = [hp_8_4_2]
+releases2018 = [hp_8_4_2, hp_8_4_3]
 
 
 hp_8_4_2 :: Release
@@ -107,6 +107,13 @@ hp_8_4_2 =
 
         -- needed by HUnit
         , incLib "call-stack"               "0.1.0"
+        ]
+
+hp_8_4_3 :: Release
+hp_8_4_3 =
+    (uncurry $ releaseWithMinimal "8.4.3") $ deltaFrom hp_8_4_2
+        [ incGHC                            "8.4.3"
+        , incLib "primitive"                "0.6.4.0"
         ]
 
 -- TO add: binary? semigroups? regexlib? safe? tagsoup? tagged? tasty? optparse-applicative? clock? criterion? reflection?
