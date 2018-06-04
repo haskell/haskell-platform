@@ -1,10 +1,10 @@
+Cabal-version:   2.2
 Name:            HPTool
 Version:         0.1
 Author:          Mark Lentczner
 Maintainer:      gershomb@gmail.com
 Category:        Utility
 Build-type:      Simple
-Cabal-version:   >=1.8
 Synopsis:        Haskell Platform Utility
 
 Data-files:
@@ -47,7 +47,7 @@ Library
     Utils,
     Website
   Build-depends:
-    Cabal,
+    Cabal >=2.2.0,
     base,
     bytestring,
     containers,
@@ -60,6 +60,7 @@ Library
     unix-compat,
     filepath
   hs-source-dirs: src
+  Default-Language: Haskell2010
 
 Executable hptool
   Main-is: Main.hs
@@ -114,6 +115,7 @@ Executable hptool
     unix-compat,
     filepath
   ghc-options: -Wall -fwarn-tabs
+  Default-Language: Haskell2010
 
 
 test-suite unit-tests
@@ -133,3 +135,4 @@ test-suite unit-tests
     tasty-hspec,
     transformers
   ghc-options: -Wall
+  Default-Language: Haskell2010

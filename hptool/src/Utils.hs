@@ -80,7 +80,9 @@ removeDirectoryRecursive fp = do
     command_ [] "rm" [ "-Rf", "--", fp]
 
 makeDirectory :: FilePath -> Action ()
-makeDirectory fp = liftIO $ createDirectoryIfMissing True fp
+makeDirectory fp = do
+    putNormal $ "createDirectoryIfMissing \""++fp++"\""
+    liftIO $ createDirectoryIfMissing True fp
 
 writeFileLinesChanged :: FilePath -> [String] -> Action ()
 writeFileLinesChanged fp = writeFileChanged fp . unlines

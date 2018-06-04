@@ -34,8 +34,8 @@ targetRules bc = do
         let OS{..} = osFromConfig bc'
         let packages = platformPackages (bcIncludeExtra bc') hpRel
 
-        need $ vdir ghcVirtualTarget
-               : dir (haddockDocDir bc')
+        need [ vdir ghcVirtualTarget ]
+        need $ dir (haddockDocDir bc')
                : map (dir . (targetDir </+>) . osPackageTargetDir) packages
 
         osTargetAction

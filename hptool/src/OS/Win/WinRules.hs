@@ -1,8 +1,7 @@
 {-# LANGUAGE RecordWildCards, OverloadedStrings #-}
 
 module OS.Win.WinRules
-    ( copyWinTargetExtras
-    , pkgrootConfFixup
+    ( pkgrootConfFixup
     , winGhcInstall
     , winRules
     )
@@ -12,9 +11,8 @@ import qualified Data.ByteString as B
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as E
 import Development.Shake
-import Development.Shake.FilePath ( (</>), takeDirectory, takeFileName )
+import Development.Shake.FilePath ( (</>) )
 
-import Config
 import Dirs
 import OS.Internal
 import OS.Win.WinNsis
@@ -25,17 +23,15 @@ import Types
 import Utils
 
 
-winRules :: Rules ()
-winRules = do
-    genNsisFiles
+winRules :: FilePath -> Rules ()
+winRules osProduct = do
+    genNsisFiles osProduct
     copyInstExtras
 
 winGhcInstall :: FilePath -> GhcInstallAction
 winGhcInstall destDir bc distDir = do
-    let untarDir = takeDirectory distDir
-
     -- (will this cause some race conditions, removing vs populating?)
-    command_ [] "mv" [untarDir </> show (bcGhcVersion bc), destDir ]
+    command_ [] "mv" [distDir, destDir ]
 
     -- Install the GLUT components into destDir:
     --   lib, dll, ...
@@ -56,51 +52,6 @@ winGhcInstall destDir bc distDir = do
     needContents winGlutIncludeInstallDir
 
     return . Just $ destDir
-
-
-copyWinTargetExtras :: BuildConfig -> Action ()
-copyWinTargetExtras bc = do
-    -- copy icons
-    let mkIconsDir = makeDirectory $ winTargetDir </> "icons"
-    copyFilesAction mkIconsDir winExtrasSrc winTargetDir winIconsFiles
-
-    -- copy user's guide docs: ps, pdf, html, etc....
-    makeDirectory winDocTargetDir
-
-    ghcUgHtml <- askGhcUgHtml
-    need [ghcUgHtml]
-    command_ [Cwd winDocTargetDir]
-        "tar" ["xf", ghcUgHtml `relativeToDir` winDocTargetDir]
-
-    ghcLibsHtml <- askGhcLibs
-    need [ghcLibsHtml]
-    command_ [Cwd winDocTargetDir]
-        "tar" ["xf", ghcLibsHtml `relativeToDir` winDocTargetDir]
-
-    haddockHtml <- askHaddockHTML
-    need [haddockHtml]
-    command_ [Cwd winDocTargetDir]
-        "tar" ["xf", haddockHtml `relativeToDir` winDocTargetDir]
-
-    -- needContents winDocTargetDir -- needed here? is done by our caller, actually
-
-    -- copy the PDF version of the GHC User's Guide
-    -- (copyFilesAction does the 'need' on the PDF file)
-    ghcUgPdf <- askGhcUgPDF
-    need [ghcUgPdf]
-    copyFileAction (return ()) (takeDirectory ghcUgPdf) winDocTargetDir
-        (takeFileName ghcUgPdf)
-
-    -- copy winghci pieces
-    copyDirAction winExternalWinGhciDir winWinGhciTargetDir
-
-    -- copy msys(msys2) pieces
-    copyDirAction (winExternalMSysDir bc) winMSysTargetDir
-
-    -- copy cabal executable
-    cabalFile <- askCabalExe
-    copyFileAction (return ()) (takeDirectory cabalFile) (winHpTargetDir </> "bin") (takeFileName cabalFile)
-
 
 -- | These files are needed when building the installer
 copyInstExtras :: Rules ()
@@ -132,24 +83,3 @@ pkgrootConfFixup os confFile = do
 copyFilesRules :: Action () -> FilePath -> FilePath -> [FilePath] -> Rules ()
 copyFilesRules setup srcDir dstDir =
     mapM_ (\f -> dstDir </> f %> \_ -> copyFileAction setup srcDir dstDir f)
-
-copyFileAction :: Action () -> FilePath -> FilePath -> FilePath -> Action ()
-copyFileAction setup srcDir dstDir file = do
-    need [srcDir </> file]
-    setup
-    command_ [] "cp" ["-p", srcDir </> file, dstDir </> file]
-
-copyFilesAction :: Action () -> FilePath -> FilePath -> [FilePath] -> Action ()
-copyFilesAction setup srcDir dstDir files = do
-    setup
-    mapM_ (copyFileAction (return ()) srcDir dstDir) files
-
-copyDirAction :: FilePath -> FilePath -> Action ()
-copyDirAction srcDir dstDir = do
-    needContents srcDir
-    makeDirectory dstDir
-    -- Two problems: seems that (</>) strips the "." out, so use (++);
-    -- second problem is that using an "*" in the path results in an error,
-    -- so "/." works better.
-    command_ [] "cp" ["-pR", srcDir ++ "/.", dstDir]
-    needContents dstDir

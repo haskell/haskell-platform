@@ -38,12 +38,12 @@ cppCommandFlags cpp = case cpp of
     CPP_cpphs -> "--cpp -traditional"
 
 
-ghcInstall :: GhcInstall ->
+ghcInstall :: GhcInstall -> String ->
               FilePath -> Maybe (BuildConfig -> FilePath) -> Action (Maybe FilePath)
-ghcInstall postUntarAction base mfPrefix = do
+ghcInstall postUntarAction suffix base mfPrefix = do
     tarFile <- askGhcBinDistTarFile
     conf <- askBuildConfig
-    let distDir = ghcBinDistDir $ bcGhcVersion conf
+    let distDir = ghcBinDistDir suffix (bcGhcVersion conf)
         untarDir = takeDirectory distDir
 
     makeDirectory untarDir
@@ -110,10 +110,10 @@ ghcDistRules :: Rules ()
 ghcDistRules = do
     ghcLocalDir %/> \_ -> do
         postUntar <- osGhcLocalInstall . osFromConfig <$> askBuildConfig
-        ghcInstall postUntar ghcLocalDir Nothing >> return ()
+        ghcInstall postUntar "" ghcLocalDir Nothing >> return ()
     ghcVirtualTarget ~/> do
         postUntar <- osGhcTargetInstall . osFromConfig <$> askBuildConfig
-        ghcInstall postUntar targetDir (Just targetPrefix)
+        ghcInstall postUntar "-tmp" targetDir (Just targetPrefix)
   where
     targetPrefix = osGhcPrefix . osFromConfig
 

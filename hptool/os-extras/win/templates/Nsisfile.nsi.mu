@@ -17,6 +17,7 @@
   !Include "x64.nsh"
   !insertmacro GetParameters
   !insertmacro GetOptions
+  !Include "CommonHP.nsh"
 
 ;--------------------------------
 ;Defines
@@ -33,6 +34,7 @@
   Var START_MENU_FOLDER
   Var PROGRAM_FILES
   Var STACK_INSTALL_DIR
+  Var tempDir
 
 ;--------------------------------
 ;General settings
@@ -73,51 +75,6 @@
 ;--------------------------------
 ;Macros
 
-!macro CheckAdmin thing
-UserInfo::GetAccountType
-pop $0
-${If} $0 != "admin" ;Require admin rights on NT4+
-    MessageBox MB_YESNO "It is recommended to run this ${thing} as administrator. Do you want to quit and restart the ${thing} manually with elevated privileges?" IDNO CheckAdminDone
-    SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
-    Quit
-${EndIf}
-CheckAdminDone:
-!macroend
-
-  ;--------------------------------
-  ;Win 64-bit support
-
-!macro do64Stuff isInstall
-  ; The NSIS installer is a 32-bit executable, but it can do a 64-bit install.
-  ; Default to 32-bit, change if installing 64-bit on 64-bit.
-  ;
-  ; The 'isInstall' argument is 1 for the install part of the script (from
-  ; .onInit function) and 0 if for the uninstall part (via un.onInit).  The
-  ; $INSTDIR must be changed for the installation step to account for the case
-  ; of installing the 32-bit installer onto 64-bit Windows; and it must
-  ; happen before the user gets to the dialog to change installation location.
-  ; On the other hand, $INSTDIR must *not* be changed for the uninstall step
-  ; because doing so over-rides what the user did during the install step.
-  ;
-  ; Also, do not force $INSTDIR to change if this is a silent install.
-SetRegView 32
-StrCpy $PROGRAM_FILES "$PROGRAMFILES"
-{{#build64bit}}
-${If} ${RunningX64}
-  ; If this is installing the 64-bit HP on 64-bit Windows, enable FSRedirection.
-  ${EnableX64FSRedirection}
-  ; enable access to 64-bit portion of registry
-  SetRegView 64
-  StrCpy $PROGRAM_FILES "$PROGRAMFILES64"
-${Else}
-;     pop up an error message: Cannot install 64-bit HP on 32-bit Windows
-    MessageBox MB_OK "You are trying to install the 64-bit version of the Haskell Platform onto a 32-bit version of Windows.  Please use the 32-bit version of the Haskell Platform."
-    SetErrorLevel 0x800401FAL ; CO_E_WRONGOSFORAPP
-    Quit
-${EndIf}
-{{/build64bit}}
-
-!macroend
 
 ;--------------------------------
 ;Warn about other HP installs
@@ -130,6 +87,8 @@ loop${loopN}:
   ${StrStr} $2 $1 "HaskellPlatform-"
   IntOp $0 $0 + 1
   StrCmp $2 "" loop${loopN}
+  ShowWindow $HWNDPARENT ${SW_SHOW}
+  BringToFront
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "You have other/older versions of the Haskell Platform installed.$\n\
 $\n\
 Due to how the PATH environment variable is used (by cabal, etc.) to find the needed GHC toolset, currently only one Haskell Platform can be used at a time.  While it is possible to manually modify the PATH variable to work-around this, it is not recommended.$\n\
@@ -147,30 +106,69 @@ done${loopN}:
 !macroend
 
 
-
 !macro CheckOtherInstalls
-
 {{#build64bit}}
-SetRegView 64
-!insertmacro CheckForOthers 1
-SetRegView 32
+  SetRegView 64
+  !insertmacro CheckForOthers 1
+  SetRegView 32
 {{/build64bit}}
 
 !insertmacro CheckForOthers 2
 
 CheckOtherInstallsDone:
-
 {{#build64bit}}
-SetRegView 64
+  SetRegView 64
 {{/build64bit}}
+!macroend
 
+
+!macro SubInstallEn thing thingFileName
+  DetailPrint "extracting ${thing}"
+  SetOutPath "$tempDir"
+  File "..\product\${thingFileName}"
+  DetailPrint "installing ${thing}"
+  SetDetailsPrint listonly
+!macroend
+
+!macro SubInstallEx thing thingFileName
+  SetDetailsPrint lastused
+  DetailPrint "finished ${thing}"
+  Delete "$tempDir\${thingFileName}"
+  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
+  RMDir "$tempDir"
+!macroend
+
+!macro SubInstall thing thingFileName
+  !insertmacro SubInstallEn "${thing}" "${thingFileName}"
+    ExecWait '"$tempDir\${thingFileName}" /S /D=$INSTDIR'
+  !insertmacro SubInstallEx "${thing}" "${thingFileName}"
+!macroend
+
+
+!macro SubUninstall thing thingFileName
+  Call un.CreateGUID
+  pop $0
+  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
+  ; copy the uninstaller so it can delete itself
+  CopyFiles /SILENT /FILESONLY "$INSTDIR\${thingFileName}" "$tempname"
+  DetailPrint "uninstalling ${thing}"
+  SetDetailsPrint listonly
+  ExecWait '"$tempname" /S _?=$INSTDIR'
+  Delete "$tempname"
+  SetDetailsPrint lastused
 !macroend
 
 
 ;--------------------------------
 ;Callbacks
 
+Function my.onGUIInit
+  ShowWindow $HWNDPARENT ${SW_SHOW}
+  BringToFront
+FunctionEnd
+
 Function .onInit
+  BringToFront
   !insertmacro do64Stuff 1
   !insertmacro CheckAdmin "installer"
   !insertmacro CheckOtherInstalls
@@ -192,13 +190,18 @@ FunctionEnd
 
 Function .onInstSuccess
   SetOutPath "$INSTDIR\bin"
-  ExecWait '"$INSTDIR\bin\ghc-pkg" recache'
+  nsExec::Exec '"$INSTDIR\bin\ghc-pkg" recache'
 
 ;   IfFileExists $SYSDIR\glut32.dll Done
 ;     MessageBox MB_YESNO "It looks like the GLUT library is not installed on your computer. Do you want to install GLUT?" IDNO Done
 ;         SetOutPath "$SYSDIR\."
 ;         File "${FILES_SOURCE_PATH}\etc\glut32.dll"
 ;   Done:
+FunctionEnd
+
+;--------------------------------
+Function CreateGUID
+  System::Call 'ole32::CoCreateGuid(g .s)'
 FunctionEnd
 
 ;--------------------------------
@@ -215,6 +218,8 @@ FunctionEnd
 
 ;--------------------------------
 ;Pages
+
+  !Define MUI_CUSTOMFUNCTION_GUIINIT my.onGUIInit
 
   !Define MUI_WELCOMEFINISHPAGE_BITMAP "welcome.bmp"
   !insertmacro MUI_PAGE_WELCOME
@@ -240,7 +245,7 @@ FunctionEnd
   ; No amount of shenanigans could get the default string to be referenced
   ; properly, just to add a bit more, so we just need to hardcode it here :(
   !define MUI_FINISHPAGE_TEXT \
-      "$(^NameDA) has been installed on your computer.$\r$\n$\r$\nClick Finish to close this wizard.$\r$\n$\r$\n(You may notice a window briefly appear while GHC package.cache is refreshed.)"
+      "$(^NameDA) has been installed on your computer.$\r$\n$\r$\nClick Finish to close this wizard."
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_WELCOME
@@ -266,64 +271,34 @@ Section "Base components" SecMain
   ;Meta-installer should not try to re-compress the payloads!
   SetCompress off
 
+  ; Create a unique name for a folder in $TEMP
+  Call CreateGUID
+  pop $0
+  StrCpy $tempDir "$TEMP\temp_$0"
+
   ; Put the install of stack here so it is first, since it requires additional
   ; user interaction, and putting it near the end makes the user have to wait.
   ${If} ${SectionIsSelected} 1 ; ${SecStack} but the symbol is not defined yet
-    DetailPrint "extracting Stack"
-    SetOutPath "$INSTDIR\temp"
-    File "{{stackInstallerPath}}"
-    DetailPrint "installing Stack"
-    SetDetailsPrint listonly
+    !insertmacro SubInstallEn "Stack" "{{stackInstallerPath}}"
     ${If} ${Silent}
-      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" /S $STACK_INSTALL_DIR'
+      ExecWait '"$tempDir\{{stackInstallerFileName}}" /S $STACK_INSTALL_DIR'
     ${Else}
-      ExecWait '"$INSTDIR\temp\{{stackInstallerFileName}}" $STACK_INSTALL_DIR'
+      ExecWait '"$tempDir\{{stackInstallerFileName}}" $STACK_INSTALL_DIR'
     ${EndIf}
-    SetDetailsPrint lastused
-    DetailPrint "finished Stack"
-    Delete "$INSTDIR\temp\{{stackInstallerFileName}}"
-    SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
-    RMDir "$INSTDIR\temp"
+    !insertmacro SubInstallEx "Stack" "{{stackInstallerFileName}}"
   ${EndIf}
 
   ; 1. MSys
-  DetailPrint "extracting MSys"
-  SetOutPath "$INSTDIR\temp"
-  File "..\product\MSys-setup.exe"
-  DetailPrint "installing MSys"
-  SetDetailsPrint listonly
-    ExecWait '"$INSTDIR\temp\MSys-setup.exe" /S /D=$INSTDIR'
-  SetDetailsPrint lastused
-  DetailPrint "finished MSys"
-  Delete "$INSTDIR\temp\MSys-setup.exe"
-  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
-  RMDir "$INSTDIR\temp"
+  !insertmacro SubInstall "MSys" "MSys-setup.exe"
 
   ; 2. HP-provided packages
-  DetailPrint "extracting Extralibs"
-  SetOutPath "$INSTDIR\temp"
-  File "..\product\Extralibs-setup.exe"
-  DetailPrint "installing Extralibs"
-  SetDetailsPrint listonly
-    ExecWait '"$INSTDIR\temp\Extralibs-setup.exe" /S /D=$INSTDIR'
-  SetDetailsPrint lastused
-  DetailPrint "finished Extralibs"
-  Delete "$INSTDIR\temp\Extralibs-setup.exe"
-  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
-  RMDir "$INSTDIR\temp"
+  !insertmacro SubInstall "Extralibs" "Extralibs-setup.exe"
 
-  ; 3. GHC (and anything else not already covered)
-  DetailPrint "extracting GHC"
-  SetOutPath "$INSTDIR\temp"
-  File "..\product\GHC-setup.exe"
-  DetailPrint "installing GHC"
-  SetDetailsPrint listonly
-    ExecWait '"$INSTDIR\temp\GHC-setup.exe" /S /D=$INSTDIR'
-  SetDetailsPrint lastused
-  DetailPrint "finished GHC"
-  Delete "$INSTDIR\temp\GHC-setup.exe"
-  SetOutPath "$INSTDIR" ; RMDIR on a dir will not work if it is the CWD
-  RMDir "$INSTDIR\temp"
+  ; 3. GHC doc
+  !insertmacro SubInstall "GHC doc" "GHCDoc-setup.exe"
+
+  ; 4. GHC (and anything else not already covered)
+  !insertmacro SubInstall "GHC" "GHC-setup.exe"
 
   ; Turn compression back on
   SetCompress auto
@@ -395,6 +370,15 @@ Section "Store GHC's location in registry" SecGHCLoc
 
 SectionEnd
 
+
+Section "Update user's global cabal configuration file" SecUpdCabal
+  SectionIn 1
+
+    DetailPrint "updating user's global cabal configuration file"
+    SetErrorLevel 3 ; magic value meaning for the meta-installer to update
+SectionEnd
+
+
 Section "Create uninstaller" SecAddRem
 
   SectionIn 1
@@ -456,7 +440,7 @@ SectionEnd
 ;Uninstaller Section
 
 ; Section /o "un.Stack" UnSecStack
-  ; Actually, we do not want ot let user uninstall Stack this way; the user
+  ; Actually, we do not want to let user uninstall Stack this way; the user
   ; should remove Stack using the the normal Add/Remove Programs functionality
   ; in Windows.  If we allow this here, the user might have already removed
   ; Stack using Add/Remove Programs but we would have to go through more
@@ -469,44 +453,21 @@ Section "Uninstall"
   !define MSYS_UNINST "MSys_Uninstall.exe"
   !define EXTRA_UNINST "Extralibs_Uninstall.exe"
   !define GHC_UNINST "GHC_Uninstall.exe"
+  !define GHCDOC_UNINST "GHCDoc_Uninstall.exe"
   Var /GLOBAL tempname
 
   ; uninstall the sub-components
   ; 1. MSys
-  Call un.CreateGUID
-  pop $0
-  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
-  ; copy the uninstaller so it can delete itself
-  CopyFiles /SILENT /FILESONLY "$INSTDIR\${MSYS_UNINST}" "$tempname"
-  DetailPrint "uninstalling MSys"
-  SetDetailsPrint listonly
-  ExecWait '"$tempname" /S _?=$INSTDIR'
-  Delete "$tempname"
-  SetDetailsPrint lastused
+  !insertmacro SubUninstall "MSys" "${MSYS_UNINST}"
 
   ; 2. HP-provided packages
-  Call un.CreateGUID
-  pop $0
-  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
-  ; copy the uninstaller so it can delete itself
-  CopyFiles /SILENT /FILESONLY "$INSTDIR\${EXTRA_UNINST}" "$tempname"
-  DetailPrint "uninstalling Extralibs"
-  SetDetailsPrint listonly
-  ExecWait '"$tempname" /S _?=$INSTDIR'
-  Delete "$tempname"
-  SetDetailsPrint lastused
+  !insertmacro SubUninstall "Extralibs" "${EXTRA_UNINST}"
 
-  ; 3. GHC (and anything else not already covered)
-  Call un.CreateGUID
-  pop $0
-  StrCpy $tempname "$TEMP\uninstHP_$0.exe"
-  ; copy the uninstaller so it can delete itself
-  CopyFiles /SILENT /FILESONLY "$INSTDIR\${GHC_UNINST}" "$tempname"
-  DetailPrint "uninstalling GHC"
-  SetDetailsPrint listonly
-  ExecWait '"$tempname" /S _?=$INSTDIR'
-  Delete "$tempname"
-  SetDetailsPrint lastused
+  ; 3. GHC doc
+  !insertmacro SubUninstall "GHC doc" "${GHCDOC_UNINST}"
+
+  ; 4. GHC (and anything else not already covered)
+  !insertmacro SubUninstall "GHC" "${GHC_UNINST}"
 
   Delete "$INSTDIR\Uninstall.exe"
   RMDir $INSTDIR

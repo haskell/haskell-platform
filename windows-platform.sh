@@ -6,10 +6,17 @@ echo '***'
 
 # These may need to be edited to suit your specific environment
 # MSYS_BIN is needed on path for configure scripts;
-# HASK_BIN is needed on path for shake.exe, HsColour.exe (maybe cabal.exe)
+## HASK_BIN is needed on path for haddock.exe, HsColour.exe (maybe cabal.exe)
+# CABAL_BIN for cabal.exe
 # NSIS_BIN is needed on path for makensisw.exe
-MSYS_BIN="/usr/bin"
-HASK_BIN="/f/Program Files/Haskell/bin:/f/Program Files/Haskell Platform/8.2.2/lib/extralibs/bin"
+# MSYSTEM_PREFIX: set by the msys2 shell; either "/mingw64" or "/mingw32"
+
+MSYS_BIN="$MSYSTEM_PREFIX/bin:/usr/bin"
+CABAL_BIN="/f/Program Files/Haskell Platform/8.4.2/lib/extralibs/bin"
+# or something like this to use the cabal which is part of build
+# CABAL_BIN="/d/haskell/ghc-8.4.2/i386/cabal-install-2.2.0.0-i386-unknown-mingw32"
+# HASK_BIN="/d/haskell/ghc-8.4.2/i386/cabal-install-2.2.0.0-i386-unknown-mingw32"
+
 NSIS_BIN="/f/Program Files (x86)/NSIS"
 GHC_BINDIST=build/ghc-bindist/local
 
@@ -42,7 +49,9 @@ CWD=`pwd`
 MINGW=$GHC_BINDIST/mingw
 
 # A clean, well-lighted, cruft-free PATH
-export PATH=$CWD/$GHC_BINDIST/bin:$CWD/$MINGW/bin:$MSYS_BIN:$NSIS_BIN:$HASK_BIN
+export PATH=$CWD/$GHC_BINDIST/bin:$CWD/$MINGW/bin:$MSYS_BIN:$NSIS_BIN:$CABAL_BIN
+echo "> echo \$PATH"
+echo $PATH
 
 which cabal ||
   { echo "Could not find cabal.exe on PATH!"; echo "PATH=$PATH"; exit 1; }
@@ -53,10 +62,11 @@ which tar ||
 
 echo "> cabal --version"
 cabal --version
-echo "> which haddock"
-which haddock
-echo "> haddock --version"
-haddock --version
+# haddock should come from the ghc release itself, so this is obsolete
+# echo "> which haddock"
+# which haddock
+# echo "> haddock --version"
+# haddock --version
 
 # Make sure makensisw.exe is compiled with support for large strings
 #   makensisw="/c/Program\ Files\ \(x86\)/NSIS/Orig/makensis //HDRINFO"
