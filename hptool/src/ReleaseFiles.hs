@@ -69,6 +69,17 @@ currentFiles : priorFiles = releaseFiles
 releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
+       ("8.4.3", jun 2018,
+        [ lin False x86_64    "download/8.4.3/haskell-platform-8.4.3-unknown-posix--core-x86_64.tar.gz" $ sha256 "724995aa3860d49a3c52adcbbb9e8a599a76fb0f043d8b2add2e74b9beca2cd1"
+        , lin True  x86_64    "download/8.4.3/haskell-platform-8.4.3-unknown-posix--full-x86_64.tar.gz" $ sha256 "1cea60e382ef54ed328beda344be8ec8430ceef34c52a2a115209d1ddfc2887a"
+        , lin False i386      "download/8.4.3/haskell-platform-8.4.3-unknown-posix--core-i386.tar.gz" $ sha256 "8c9c09b8a6d5bce7a763eff6a92d1a6ca054b6f008b131a7a9546c212aeae502"
+        , lin True  i386      "download/8.4.3/haskell-platform-8.4.3-unknown-posix--full-i386.tar.gz" $ sha256 "1c8d336ebc2bd2bcd1da1887388e85a250f76fff3387d6b4973cac4444b6b308"
+        , mac False x86_64    "download/8.4.3/Haskell%20Platform%208.4.3%20Core%2064bit-signed.pkg" $ sha256 "4a98682bdca828da31bcd625345456196adc9786988719ef956d08a2ebb8d3a5"
+        , mac True  x86_64    "download/8.4.3/Haskell%20Platform%208.4.3%20Full%2064bit-signed.pkg" $ sha256 "7b36761ae47b0d94845a06f41c6338bad9312bc513cc10baae3dd55f9c787bf4"
+        , win False x86_64    "download/8.4.3/HaskellPlatform-8.4.3-core-x86_64-setup.exe" $ sha256 "a5eecc051085a535049e18e9ddf7390f16edbdbc2327feada39d62b496f0b79b"
+        , win True x86_64     "download/8.4.3/HaskellPlatform-8.4.3-full-x86_64-setup.exe" $ sha256 "7a994fa88c8807956f7e78ec6dff227f333e1158ca251c1df7bcce55817ee4ae"
+        , src True "download/8.4.3/haskell-platform-8.4.3.tar.gz" $ sha256 "c2c6b3925af7ea722420601fb3e09967d50cd90f6ebfdeedb0acd9108df4f0e9"
+        ]),
        ("8.4.2", may 2018,
         [ lin False x86_64    "download/8.4.2/haskell-platform-8.4.2-unknown-posix--core-x86_64.tar.gz" $ sha256 "3b8886424d28c0ca66bd0db3ffe0791feea1226980d29b5ecc5514e436258ec8"
         , lin True  x86_64    "download/8.4.2/haskell-platform-8.4.2-unknown-posix--full-x86_64.tar.gz" $ sha256 "f0d0efcd961c52ee0833941047c8d2cda5c0736ad2715edc41079286de57ac8f"
