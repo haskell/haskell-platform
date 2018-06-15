@@ -12,9 +12,12 @@ echo '***'
 # MSYSTEM_PREFIX: set by the msys2 shell; either "/mingw64" or "/mingw32"
 
 MSYS_BIN="$MSYSTEM_PREFIX/bin:/usr/bin"
-CABAL_BIN="/f/Program Files/Haskell Platform/8.4.2/lib/extralibs/bin"
+# CABAL_BIN="/f/Program Files/Haskell Platform/8.4.2/lib/extralibs/bin"
 # or something like this to use the cabal which is part of build
-# CABAL_BIN="/d/haskell/ghc-8.4.2/i386/cabal-install-2.2.0.0-i386-unknown-mingw32"
+# CABAL_BIN="/d/haskell/ghc-8.4.3/x86_64/cabal-install-2.2.0.0-x86_64-unknown-mingw32"
+# CABAL_BIN="/d/haskell/ghc-8.4.3/i386/cabal-install-2.2.0.0-i386-unknown-mingw32"
+CABAL_BIN="/d/haskell/ghc-8.2.2/x86_64/cabal-install-2.0.0.1-x86_64-unknown-mingw32"
+HSCOLOUR_BIN="/f/Program Files/Haskell Platform/8.2.2/lib/extralibs/bin"
 # HASK_BIN="/d/haskell/ghc-8.4.2/i386/cabal-install-2.2.0.0-i386-unknown-mingw32"
 
 NSIS_BIN="/f/Program Files (x86)/NSIS"
@@ -22,20 +25,20 @@ GHC_BINDIST=build/ghc-bindist/local
 
 HPTOOL=hptool/dist/build/hptool/hptool.exe
 
-if ( cabal sandbox --help >/dev/null 2>&1 ) ; then
+if ( $CABAL_BIN/cabal sandbox --help >/dev/null 2>&1 ) ; then
     if [ \! -d hptool/.cabal-sandbox ]
     then
         echo '***'
         echo '*** Setting up sandbox for hptool'
         echo '***'
-        cabal update
-        (cd hptool; cabal sandbox init; cabal install --only-dependencies)
+        $CABAL_BIN/cabal update
+        (cd hptool; $CABAL_BIN/cabal sandbox init; $CABAL_BIN/cabal install --only-dependencies)
     fi
 else
-    if ( cabal install --dry-run --only-dependencies | grep -q 'would be installed' ) ; then
+    if ( $CABAL_BIN/cabal install --dry-run --only-dependencies | grep -q 'would be installed' ) ; then
         echo '=== pre-requisite packages for hptool are not installed'
         echo '    run the following:'
-        echo '    cd hptool ; cabal install --only-dependencies'
+        echo '    cd hptool ; $CABAL_BIN/cabal install --only-dependencies'
         exit 1
     fi
 fi
@@ -43,13 +46,13 @@ fi
 echo '***'
 echo '*** Building hptool'
 echo '***'
-(cd hptool; cabal build)
+(cd hptool; $CABAL_BIN/cabal build)
 
 CWD=`pwd`
 MINGW=$GHC_BINDIST/mingw
 
 # A clean, well-lighted, cruft-free PATH
-export PATH=$CWD/$GHC_BINDIST/bin:$CWD/$MINGW/bin:$MSYS_BIN:$NSIS_BIN:$CABAL_BIN
+export PATH=$CWD/$GHC_BINDIST/bin:$CWD/$MINGW/bin:$MSYS_BIN:$NSIS_BIN:$CABAL_BIN:$HSCOLOUR_BIN
 echo "> echo \$PATH"
 echo $PATH
 
@@ -67,6 +70,11 @@ cabal --version
 # which haddock
 # echo "> haddock --version"
 # haddock --version
+
+echo "> which hscolour"
+which hscolour
+echo "> hscolour --version"
+hscolour --version
 
 # Make sure makensisw.exe is compiled with support for large strings
 #   makensisw="/c/Program\ Files\ \(x86\)/NSIS/Orig/makensis //HDRINFO"
@@ -108,7 +116,6 @@ then
     echo 'to be provided:'
     echo '    * winghci (can copy from a previous HP release)'
     echo '    * GLUT library & DLL (e.g,. from freeglut-MinGW-2.8.1-1.mp.zip)'
-    echo "    * GHC user's guide (matching the GHC in this HP)"
     echo "    * MSys2 'usr' directory, as seen in git-for-windows(tm)"
     echo ''
     echo 'Please create a subdirectory in this directory (where this script'
