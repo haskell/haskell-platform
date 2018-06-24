@@ -14,8 +14,34 @@
 ; This bootstrapper exists for one feature (currently) which must be done as
 ; the user, which is to write update/create the user's cabal config file.
 ;
-; NOTE: do not use $INSTDIR here, as it will not be correct if the user
-; selects a non-default install directory in the launched sub-installer.
+;;;;;;;;;
+; NOTE, special handling for $INSTDIR:
+;
+; $INSTDIR is a variable set initially by the NSIS framework before calling any
+; functions in the client's NSI file.  It can be set by the user with the
+; command line parameter "D=<directory>", or to some default by NSIS.
+;
+; Using $INSTDIR in this particular installer is only correct when the user has
+; launched this installer with the /S and /D options; otherwise, installing
+; anything to $INSTDIR from this installer may not have the correct value since
+; the user can subsequently change the install directory in the following
+; sub-installer's dialog.  This installer handles post-install tasks, so it
+; gets the actual installed directory from the registry for those purposes.
+;
+; We only support two cases: 1) both /S and /D= or 2) neither /S nor /D=
+;
+; This installer does modify $INSTDIR for a non-silent install, according to
+; the defaults for 32-bit vs 64-bit (using the macro "do64Stuff"), which means
+; if the user specifies "/D=" without "/S" (for silent), the user's "/D=" will
+; not be used (we cannot readily detect if the user specified "/D=" or not,
+; since the NSIS framework strips it out of $CMDLINE; however if /S is present,
+; then we do not modify $INSTDIR, so any user-specified /D= will be retained).
+;
+; To the sub-installer which is launched from here, this installer provides a
+; forced "/D=" command line switch, which accounts for whether the user set it
+; (but also must have /S), or it was set by the "do64Stuff" logic.  In either
+; case, unless /S, the launched sub-installer will ask the user and ignore the
+; /D= parameter.
 
 
 ;--------------------------------
@@ -49,8 +75,11 @@
 
   Var PROGRAM_FILES
   Var INSTALLER_PARAMS
-  Var ACTUAL_INSTDIR ; only valid after the enclosed installed has finished
   Var tempDir
+
+  ; ACTUAL_INSTDIR: set from registry, and only valid after the enclosed
+  ; installed has finished
+  Var ACTUAL_INSTDIR
 
 ;--------------------------------
 ;General settings
@@ -94,6 +123,9 @@
 
 Function .onInit
   ; Store and pass on all the params given to this bootstrapper
+  ; NOTE: GetParameters uses $CMDLINE which has already stripped out any /D=
+  ; "If /D= is specified on the command line (to override the install
+  ;  directory) it won't show up in $CMDLINE." (nor GetParameters)
   ${GetParameters} $INSTALLER_PARAMS
 
   ; If the /S (for silent install) switch has been supplied by the user,
@@ -162,7 +194,7 @@ Section "Base components" SecMain
     ; Can bring down the banner now
     Banner::destroy
     BringToFront
-    !insertmacro ShellExecWait "" '"$tempDir\{{osProductFileName}}"' '$INSTALLER_PARAMS' "" SW_SHOWNORMAL $0
+    !insertmacro ShellExecWait "" '"$tempDir\{{osProductFileName}}"' '$INSTALLER_PARAMS /D=$INSTDIR' "" SW_SHOWNORMAL $0
     ; return value from the ShellExecWait is now in $0
     Delete "$tempDir\{{osProductFileName}}"
     SetOutPath "$TEMP" ; RMDIR on a dir will not work if it is the CWD
