@@ -94,7 +94,9 @@ buildAction buildDir hpRel bc = do
             cabalGlobalOpts =
                 [ "--config-file=" ++
                   (buildRoot </> "cabal.conf") `relativeToDir` buildDir ]
-        when (not isAlexOrHappy) $
+        when (not isAlexOrHappy) $ do
+            -- work-around cabal 2.2 bug with clean
+            makeDirectory (buildDir </> "dist/build")
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
                               -- bootstrap files in their sdist tarballs.
