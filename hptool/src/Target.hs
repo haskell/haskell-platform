@@ -85,8 +85,15 @@ buildAction buildDir hpRel bc = do
                     ]
 
         cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
+        -- This variable, cabal, has the command, plus any global options.
+        -- The global options must appear before the command (in arg named 'c')
         let cabal c as = localCommand' [Cwd buildDir] "cabal" $
-                             c : ("--verbose=" ++ cabalVerbosity) : as
+                             cabalGlobalOpts ++
+                             (c : ("--verbose=" ++ cabalVerbosity) : as)
+            -- To make the HP build cleaner, use a default cabal config file
+            cabalGlobalOpts =
+                [ "--config-file=" ++
+                  (buildRoot </> "cabal.conf") `relativeToDir` buildDir ]
         when (not isAlexOrHappy) $
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
