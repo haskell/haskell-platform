@@ -39,14 +39,6 @@
                             <img src="img/expand-piece.svg" class="expand-3">
                         </div></a>
 
-                        <div class="sidebar flavors">
-                            <strong>Choose your package manager</strong>
-                            <ul>
-                                <li class="active"><a href="#osx-none"><span class="logo"><i class="fa fa-cogs"></i></span>None</a></li>
-                                <li><a href="#osx-homebrewcask"><img alt="Homebrew logo" class="logo" src="img/distro-homebrew.png">Homebrew</a></li>
-                            </ul>
-                        </div>
-
                         <div class="content">
                             <div id="osx-none" class="flavor active">
                                 <p>
