@@ -76,8 +76,8 @@ releaseFiles =
         , lin True  i386      "download/8.4.3/haskell-platform-8.4.3-unknown-posix--full-i386.tar.gz" $ sha256 "1c8d336ebc2bd2bcd1da1887388e85a250f76fff3387d6b4973cac4444b6b308"
         , mac False x86_64    "download/8.4.3/Haskell%20Platform%208.4.3%20Core%2064bit-signed.pkg" $ sha256 "4a98682bdca828da31bcd625345456196adc9786988719ef956d08a2ebb8d3a5"
         , mac True  x86_64    "download/8.4.3/Haskell%20Platform%208.4.3%20Full%2064bit-signed.pkg" $ sha256 "7b36761ae47b0d94845a06f41c6338bad9312bc513cc10baae3dd55f9c787bf4"
-        , win False x86_64    "download/8.4.3/HaskellPlatform-8.4.3-core-x86_64-setup.exe" $ sha256 "a5eecc051085a535049e18e9ddf7390f16edbdbc2327feada39d62b496f0b79b"
-        , win True x86_64     "download/8.4.3/HaskellPlatform-8.4.3-full-x86_64-setup.exe" $ sha256 "7a994fa88c8807956f7e78ec6dff227f333e1158ca251c1df7bcce55817ee4ae"
+        , win False x86_64    "download/8.4.3/HaskellPlatform-8.4.3-core-x86_64-setup.exe" $ sha256 "a8a0eed4c19bed251c46e9d31a1668469275ba592f55261a53da91c306093557"
+        , win True x86_64     "download/8.4.3/HaskellPlatform-8.4.3-full-x86_64-setup.exe" $ sha256 "813622eaf91a145517bba9f2f0953550f9a5f3d6c820214c0c2586d64ff4f964"
         , src True "download/8.4.3/haskell-platform-8.4.3.tar.gz" $ sha256 "c2c6b3925af7ea722420601fb3e09967d50cd90f6ebfdeedb0acd9108df4f0e9"
         ]),
        ("8.4.2", may 2018,
