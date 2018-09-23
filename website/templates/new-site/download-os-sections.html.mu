@@ -50,12 +50,7 @@
                                 </p>
                                 <p>
                                     These packages are for Mac OS X systems not
-                                    using a package manager. If you would rather
-                                    install with MacPorts or Homebrew then select the
-                                    appropriate option to the
-                                    right. (Note that those
-                                    distributions may lag behind
-                                    official platform installers).
+                                    using a package manager.
                                 </p>
                                 <p> To get started perform these steps:</p>
 
