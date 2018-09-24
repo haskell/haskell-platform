@@ -7,7 +7,7 @@ module Package
 
 import Control.Applicative ((<$>))
 import Data.Graph (flattenSCCs, stronglyConnComp)
-import Data.List (isPrefixOf, isInfixOf)
+import Data.List ( isInfixOf)
 #if MIN_VERSION_base(4,6,0)
 import Data.Ord (Down(..))
 #endif

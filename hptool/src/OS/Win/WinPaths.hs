@@ -20,7 +20,7 @@ winTemplates = winExtrasSrc </> "templates"
 
 
 -- | File name of the data file used by NSIS to create the installer exe
--- (this is everything (including GHC) that is not MSys or extralibs)
+-- (this is everything (including GHC) that is not MSys, extralibs, or ghc doc)
 nsisFileName :: FilePath
 nsisFileName = "Nsisfile.nsi"
 
@@ -28,6 +28,20 @@ nsisFileName = "Nsisfile.nsi"
 nsisFile :: FilePath
 nsisFile = installerPartsDir </> nsisFileName
 
+-- | The full sub-installer file name; it is internal only;
+--   launched by bootstrapper.
+nsisFileProductFileName :: FilePath
+nsisFileProductFileName = "HP-setup" <.> "exe"
+
+-- | Directory where the MSys sub-installer file is built.
+nsisFileProductFile :: FilePath
+nsisFileProductFile = productDir </> nsisFileProductFileName
+
+commonNshFileName :: FilePath
+commonNshFileName = "CommonHP.nsh"
+
+commonNshFile :: FilePath
+commonNshFile = installerPartsDir </> commonNshFileName
 
 -- | MSys installation data files
 msysNsisFileName :: FilePath
@@ -47,8 +61,8 @@ msysProductFileName :: FilePath
 msysProductFileName = "MSys-setup" <.> "exe"
 
 -- | Directory where the MSys sub-installer file is built.
-msysProductFile :: Bool -> Version -> String -> FilePath
-msysProductFile _isFull _hpv _arch = productDir </> msysProductFileName
+msysProductFile :: FilePath
+msysProductFile = productDir </> msysProductFileName
 
 
 -- | Extralibs installation data files
@@ -69,8 +83,8 @@ extralibsProductFileName :: FilePath
 extralibsProductFileName = "Extralibs-setup" <.> "exe"
 
 -- | Directory where the extralibs sub-installer file is built.
-extralibsProductFile :: Bool -> Version -> String -> FilePath
-extralibsProductFile _ _ _ = productDir </> extralibsProductFileName
+extralibsProductFile :: FilePath
+extralibsProductFile = productDir </> extralibsProductFileName
 
 
 -- | GHC installation data files
@@ -91,8 +105,41 @@ ghcProductFileName :: FilePath
 ghcProductFileName = "GHC-setup" <.> "exe"
 
 -- | Directory where the GHC sub-installer file is built.
-ghcProductFile :: Bool -> Version -> String -> FilePath
-ghcProductFile _ _ _ = productDir </> ghcProductFileName
+ghcProductFile :: FilePath
+ghcProductFile = productDir </> ghcProductFileName
+
+
+-- | GHC doc installation data files
+ghcDocNsisFileName :: FilePath
+ghcDocNsisFileName = "GHCDoc.nsi"
+
+ghcDocNsisFile :: FilePath
+ghcDocNsisFile = installerPartsDir </> ghcDocNsisFileName
+
+ghcDocNsisInstDat :: FilePath
+ghcDocNsisInstDat = installerPartsDir </> "GHCDoc_inst.dat"
+
+ghcDocNsisUninstDat :: FilePath
+ghcDocNsisUninstDat = installerPartsDir </> "GHCDoc_uninst.dat"
+
+-- | The GHC Doc sub-installer file name; it is internal only
+ghcDocProductFileName :: FilePath
+ghcDocProductFileName = "GHCDoc-setup" <.> "exe"
+
+-- | Directory where the GHC doc sub-installer file is built.
+ghcDocProductFile :: FilePath
+ghcDocProductFile = productDir </> ghcDocProductFileName
+
+
+-- | A tiny installer just to launch the full installer and also to
+--   modify/install the user's cabal config, which is kept separate
+--   so that it does not elevate to admin and updates the config as the user.
+--   Since this is the overall wrapper, it gets the "main" file name.
+bootstrapNsisFileName :: FilePath
+bootstrapNsisFileName = "Bootstrapper.nsi"
+
+bootstrapNsisFile :: FilePath
+bootstrapNsisFile = installerPartsDir </> bootstrapNsisFileName
 
 
 -- | Pre-built or unchanging files that need to be included in the installer
@@ -104,21 +151,28 @@ winInstExtras = map (installerPartsDir </>) winInstExtrasFiles
 nsiTemplate :: FilePath
 nsiTemplate = winTemplates </> "Nsisfile.nsi.mu"
 
-msysNsiTemplate :: FilePath
-msysNsiTemplate = winTemplates </> "MSys.nsi.mu"
+subInstNsiTemplate :: FilePath
+subInstNsiTemplate = winTemplates </> "SubInstall.nsi.mu"
 
-extralibsNsiTemplate :: FilePath
-extralibsNsiTemplate = winTemplates </> "Extralibs.nsi.mu"
+commonNshTemplate :: FilePath
+commonNshTemplate = winTemplates </> "CommonHP.nsh.mu"
 
-ghcNsiTemplate :: FilePath
-ghcNsiTemplate = winTemplates </> "GHC.nsi.mu"
-
+bootstrapNsiTemplate :: FilePath
+bootstrapNsiTemplate = winTemplates </> "Bootstrapper.nsi.mu"
 
 nsisInstDatTmpl :: FilePath
 nsisInstDatTmpl = winTemplates </> "inst.dat.mu"
 
 nsisUninstDatTmpl :: FilePath
 nsisUninstDatTmpl = winTemplates </> "uninst.dat.mu"
+
+
+-- | Template file and end-result file for the overall index.html
+docIndexFile :: FilePath
+docIndexFile = winDocTargetDir </> "index.html"
+
+docIndexTmpl :: FilePath
+docIndexTmpl = winTemplates </> "index.html.mu"
 
 
 -- | Some scripts and unchanging data files needed for the installer
@@ -138,14 +192,10 @@ winIconsFiles = [ "icons/installer.ico"
                 , "icons/hackage.ico"
                 ]
 
--- | This is the place for pre-built files (e.g., docs from GHC), which
+-- | This is the place for pre-built files (e.g., Glut libraries), which
 -- will be installed, but are not part of the build or of hptool.
 winExternalSrc :: FilePath
 winExternalSrc = "winExternalSrc"
-
--- | These will be copied to the top-level doc directory
-winExternalDocs :: FilePath
-winExternalDocs = winExternalSrc </> "doc"
 
 -- | Source info (paths & names) for GLUT pieces, which will be simply copied
 winExternalGlut :: FilePath
@@ -239,14 +289,11 @@ winGhcTargetPackageDbDir = winTargetDir </> winGhcPackageDbDir
 
 -- | Additional build targets needed for the Windows version of HP
 winNeeds :: [FilePath]
-winNeeds = [ nsisFile,
-             msysNsisFile, msysNsisInstDat, msysNsisUninstDat,
-             ghcNsisFile,  ghcNsisInstDat,  ghcNsisUninstDat
+winNeeds = [ nsisFile
+           , docIndexFile
            ]
            ++ winInstExtras
 
--- | Additional build targets needed for the Windows version of full HP
---  (note however, that alex and happy live here, so we always need these)
-winExtraNeeds :: [FilePath]
-winExtraNeeds = [
-    extralibsNsisFile, extralibsNsisInstDat, extralibsNsisUninstDat ]
+winSubProductFiles :: [FilePath]
+winSubProductFiles = [
+    ghcDocProductFile, ghcProductFile, extralibsProductFile, msysProductFile ]

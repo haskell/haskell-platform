@@ -74,8 +74,10 @@ packageTargetConf   = packageBase "target.conf"     -- reg. for target inst.
 extractPackage :: FilePath -> Package
 extractPackage = read . takeFileName . takeDirectory
 
-ghcBinDistDir :: GhcVersion -> FilePath
-ghcBinDistDir ghcVer = buildRoot </> "ghc-bindist" </> show ghcVer
+-- There are two times where the ghc dist is untarred, so allow a unique path
+-- for each instance.
+ghcBinDistDir :: String -> GhcVersion -> FilePath
+ghcBinDistDir s ghcVer = buildRoot </> ("ghc-bindist" ++ s) </> show ghcVer
 
 ghcLocalDir :: FilePath
 ghcLocalDir = buildRoot </> "ghc-bindist" </> "local"
@@ -148,6 +150,3 @@ sourceForPackageDir p = sourceRoot </> show p
 
 markerRoot :: FilePath
 markerRoot = buildRoot </> ".markers"
-
-
-

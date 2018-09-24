@@ -34,8 +34,8 @@ targetRules bc = do
         let OS{..} = osFromConfig bc'
         let packages = platformPackages (bcIncludeExtra bc') hpRel
 
-        need $ vdir ghcVirtualTarget
-               : dir (haddockDocDir bc')
+        need [ vdir ghcVirtualTarget ]
+        need $ dir (haddockDocDir bc')
                : map (dir . (targetDir </+>) . osPackageTargetDir) packages
 
         osTargetAction
@@ -85,9 +85,18 @@ buildAction buildDir hpRel bc = do
                     ]
 
         cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
+        -- This variable, cabal, has the command, plus any global options.
+        -- The global options must appear before the command (in arg named 'c')
         let cabal c as = localCommand' [Cwd buildDir] "cabal" $
-                             c : ("--verbose=" ++ cabalVerbosity) : as
-        when (not isAlexOrHappy) $
+                             cabalGlobalOpts ++
+                             (c : ("--verbose=" ++ cabalVerbosity) : as)
+            -- To make the HP build cleaner, use a default cabal config file
+            cabalGlobalOpts =
+                [ "--config-file=" ++
+                  (buildRoot </> "cabal.conf") `relativeToDir` buildDir ]
+        when (not isAlexOrHappy) $ do
+            -- work-around cabal 2.2 bug with clean
+            makeDirectory (buildDir </> "dist/build")
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
                               -- bootstrap files in their sdist tarballs.

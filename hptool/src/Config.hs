@@ -1,5 +1,5 @@
 {-# LANGUAGE ConstraintKinds, DeriveDataTypeable, GeneralizedNewtypeDeriving,
-             RecordWildCards #-}
+             RecordWildCards, TypeFamilies #-}
 
 module Config
     ( askHpRelease
@@ -8,6 +8,10 @@ module Config
     , addConfigOracle
     , askCabalExe
     , askStackExe
+    , askGhcUgPDF
+    , askGhcUgHtml
+    , askGhcLibs
+    , askHaddockHTML
     )
     where
 
@@ -16,38 +20,24 @@ import Data.List.Split (splitOn)
 import Development.Shake
 import Development.Shake.Classes
 import Development.Shake.FilePath
-import Development.Shake.Rule
 
 import Types
-import Utils (readMaybe, version)
+import Utils (version)
 
-
-readOracle :: (ShakeValue q, Read a) => String -> q -> Action a
-readOracle name q = do
-    s <- askOracle q
-    maybe (error $ msg s) return $ readMaybe reads s
-  where
-    msg s = "readOracle failed to parse " ++ name ++ " from " ++ show s
-
-{-
-Release and BuildConfig are not used directly in the oracles because writing all
-the required instances is possible but lengthly, and Version is missing
-instances for both Hashable and Binary. It is easier to just rely on the
-generated instances of Show and Read for these, and use String in the oracle.
--}
 
 newtype HpReleaseQ = HpReleaseQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult HpReleaseQ = Release
 
 -- | Provide the Platform release information
 -- The release information will be tracked as a dependency
-
 askHpRelease :: Action Release
-askHpRelease = readOracle "HpRelease" (HpReleaseQ ())
+askHpRelease = askOracle $ HpReleaseQ ()
 
 
 newtype GhcBinDistTarFileQ = GhcBinDistTarFileQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult GhcBinDistTarFileQ = FilePath
 
 -- | Provide the bindist tar file.
 -- The filepath will be tracked as a dependency.
@@ -60,18 +50,17 @@ askGhcBinDistTarFile = do
 
 newtype BuildConfigQ = BuildConfigQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult BuildConfigQ = BuildConfig
 
 -- | Provide the Platform release information
 -- The release information will be tracked as a dependency
-
 askBuildConfig :: Action BuildConfig
-askBuildConfig = readOracle "BuildConfig" (BuildConfigQ ())
+askBuildConfig = askOracle $ BuildConfigQ ()
+
 
 newtype StackExeQ = StackExeQ ()
     deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
-
-newtype CabalExeQ = CabalExeQ ()
-    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult StackExeQ = FilePath
 
 -- | Provide the stack executable
 -- The filepath will be tracked as a dependency
@@ -81,6 +70,11 @@ askStackExe = do
     need [stackexe]
     return stackexe
 
+
+newtype CabalExeQ = CabalExeQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult CabalExeQ = FilePath
+
 -- | Provide the stack executable
 -- The filepath will be tracked as a dependency
 askCabalExe :: Action FilePath
@@ -89,10 +83,54 @@ askCabalExe = do
     need [cabalexe]
     return cabalexe
 
-addConfigOracle :: Release -> FilePath -> (FilePath,FilePath) -> Maybe FilePath -> Bool -> Rules BuildConfig
-addConfigOracle hpRel tarFile (cabalexe,stackexe) prefix includeExtra = do
+newtype GhcUsersGuidePDFFileQ = GhcUsersGuidePDFFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult GhcUsersGuidePDFFileQ = FilePath
+
+askGhcUgPDF :: Action FilePath
+askGhcUgPDF = do
+  fname <- askOracle $ GhcUsersGuidePDFFileQ ()
+  need [fname]
+  return fname
+
+
+newtype GhcUsersGuideHTMLTarFileQ = GhcUsersGuideHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult GhcUsersGuideHTMLTarFileQ = FilePath
+
+askGhcUgHtml :: Action FilePath
+askGhcUgHtml = do
+  fname <- askOracle $ GhcUsersGuideHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+
+newtype GhcLibsHTMLTarFileQ =  GhcLibsHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult GhcLibsHTMLTarFileQ = FilePath
+
+askGhcLibs :: Action FilePath
+askGhcLibs = do
+  fname <- askOracle $ GhcLibsHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+
+newtype HaddockHTMLTarFileQ = HaddockHTMLTarFileQ ()
+    deriving (Show,Typeable,Eq,Hashable,Binary,NFData)
+type instance RuleResult HaddockHTMLTarFileQ = FilePath
+
+askHaddockHTML :: Action FilePath
+askHaddockHTML = do
+  fname <- askOracle $ HaddockHTMLTarFileQ ()
+  need [fname]
+  return fname
+
+
+addConfigOracle :: Release -> UserConfig -> Rules BuildConfig
+addConfigOracle hpRel userConfig = do
     _ <- addOracle $
-            \(HpReleaseQ _) -> return $ show hpRel
+            \(HpReleaseQ _) -> return hpRel
     _ <- addOracle $
             \(GhcBinDistTarFileQ _) -> return tarFile
     _ <- addOracle $
@@ -100,9 +138,26 @@ addConfigOracle hpRel tarFile (cabalexe,stackexe) prefix includeExtra = do
     _ <- addOracle $
             \(StackExeQ _) -> return stackexe
     _ <- addOracle $
-            \(BuildConfigQ _) -> either fail (return . show) buildConfig
+            \(GhcUsersGuidePDFFileQ _) -> return ghcUgPdf
+    _ <- addOracle $
+            \(GhcUsersGuideHTMLTarFileQ _) -> return ghcUgHtml
+    _ <- addOracle $
+            \(GhcLibsHTMLTarFileQ _) -> return ghcLibsHtml
+    _ <- addOracle $
+            \(HaddockHTMLTarFileQ _) -> return haddockHtml
+    _ <- addOracle $
+            \(BuildConfigQ _) -> either fail return buildConfig
     either fail return buildConfig
   where
+    tarFile = ucGHCBinDist userConfig
+    cabalexe = ucCabalExe userConfig
+    stackexe = ucStackExe userConfig
+    prefix = ucPrefix userConfig
+    ghcUgPdf = ucGHCUsersPDF userConfig
+    ghcUgHtml = ucGHCUsersHTML userConfig
+    ghcLibsHtml = ucGHCLibsHTML userConfig
+    haddockHtml = ucHaddockHTML userConfig
+    includeExtra = ucBuildFlavor userConfig == BuildFlavorFull
     buildConfig = extractBuildConfig hpRel tarFile prefix includeExtra
 
 

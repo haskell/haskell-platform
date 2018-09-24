@@ -19,8 +19,6 @@ import qualified Distribution.Package as C
 import qualified Distribution.Text as C ( display )
 #endif
 
-import Dirs
-import LocalCommand
 import OS.Internal
 import OS.Win.WinPaths
 import OS.Win.WinRules
@@ -136,35 +134,7 @@ winOsFromConfig BuildConfig{..} = os
 
     osProduct = winProductFile bcIncludeExtra hpVersion bcArch
 
-    osRules _rel bc = do
-        winRules
-
-        osProduct %> \_ -> do
-            need $ [dir ghcLocalDir, phonyTargetDir, vdir ghcVirtualTarget]
-
-            copyWinTargetExtras bc
-
-            -- Now, targetDir is actually ready to snapshot (we skipped doing
-            -- this in osGhcTargetInstall).
-            void $ getDirectoryFiles "" [targetDir ++ "//*"]
-
-            need winNeeds
-            need winExtraNeeds
-
-            -- Now, it is time to make sure there are no problems with the
-            -- conf files copied to
-            localCommand' [] "ghc-pkg"
-                [ "recache"
-                , "--package-db=" ++ winGhcTargetPackageDbDir ]
-            localCommand' [] "ghc-pkg"
-                [ "check"
-                , "--package-db=" ++ winGhcTargetPackageDbDir ]
-
-            -- Build installer now; makensis must be run in installerPartsDir
-            command_ [Cwd installerPartsDir] "makensis" [extralibsNsisFileName]
-            command_ [Cwd installerPartsDir] "makensis" [msysNsisFileName]
-            command_ [Cwd installerPartsDir] "makensis" [ghcNsisFileName]
-            command_ [Cwd installerPartsDir] "makensis" [nsisFileName]
+    osRules _rel _bc = winRules osProduct
 
     osPackageConfigureExtraArgs _ =
         [ "--prefix=" ++ toCabalPrefix osHpPrefix

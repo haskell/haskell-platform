@@ -1,5 +1,8 @@
 module OS.Win.WinUtils
     ( DirContents
+    , copyDirAction
+    , copyFileAction
+    , copyFilesAction
     , getDirContents
     , getDirContentsR
     , parseConfFile
@@ -10,11 +13,13 @@ module OS.Win.WinUtils
 import Control.Applicative ( (<$>), liftA )
 import Control.Monad ( forM, unless )
 import Data.Either ( partitionEithers )
-import Development.Shake ( Action, putNormal )
+import Development.Shake ( Action, need, putNormal, command_ )
 import Development.Shake.FilePath ( toNative, (</>) )
 import qualified Distribution.InstalledPackageInfo as C
 import qualified System.Directory ( doesDirectoryExist, getDirectoryContents )
 
+import Dirs ( needContents )
+import Utils ( makeDirectory )
 
 type DirContents = [(FilePath, [FilePath])]
 
@@ -54,3 +59,24 @@ parseConfFile confFile conf =
 -- Cabal on Windows requires an absolute, native-format prefix.
 toCabalPrefix :: FilePath -> FilePath
 toCabalPrefix = toNative . ("C:/" ++)
+
+copyFileAction :: Action () -> FilePath -> FilePath -> FilePath -> Action ()
+copyFileAction setup srcDir dstDir file = do
+    need [srcDir </> file]
+    setup
+    command_ [] "cp" ["-p", srcDir </> file, dstDir </> file]
+
+copyFilesAction :: Action () -> FilePath -> FilePath -> [FilePath] -> Action ()
+copyFilesAction setup srcDir dstDir files = do
+    setup
+    mapM_ (copyFileAction (return ()) srcDir dstDir) files
+
+copyDirAction :: FilePath -> FilePath -> Action ()
+copyDirAction srcDir dstDir = do
+    needContents srcDir
+    makeDirectory dstDir
+    -- Two problems: seems that (</>) strips the "." out, so use (++);
+    -- second problem is that using an "*" in the path results in an error,
+    -- so "/." works better.
+    command_ [] "cp" ["-pR", srcDir ++ "/.", dstDir]
+    needContents dstDir -- is this 'need' here correct? we do this in Win.hs
