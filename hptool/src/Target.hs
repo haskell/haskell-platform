@@ -87,7 +87,7 @@ buildAction buildDir hpRel bc = do
         cabalVerbosity <- show . fromEnum <$> shakeToCabalVerbosity
         let cabal c as = localCommand' [Cwd buildDir] "cabal" $
                              c : ("--verbose=" ++ cabalVerbosity) : as
-        when (not isAlexOrHappy) $
+        when (not isAlexOrHappy && not isNetwork) $
             cabal "clean" []  -- This is a hack to handle when packages, other
                               -- than alex or happy themselves, have outdated
                               -- bootstrap files in their sdist tarballs.
@@ -121,6 +121,7 @@ buildAction buildDir hpRel bc = do
     depsDB = packageDepsDB pkg
 
     isAlexOrHappy = pkgName pkg `elem` ["alex", "happy"]
+    isNetwork = pkgName pkg `elem` ["network"]
     usesTool pats =
         if not isAlexOrHappy
             then (not . null) <$> getDirectoryFiles sourceDir pats
