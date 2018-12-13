@@ -176,8 +176,26 @@
 					<p>Run the installer and
 					follow the instructions.</p>
                                 </li>
-                                <li>
+				<li>
                                     <div class="step-number">2</div>
+				  <div class="step-body">
+					  Ensure your cabal config
+					  file (you can verify the
+					  location by running "cabal
+					  user-config init")
+					  contains the following lines:
+<pre>
+extra-prog-path: C:\Program Files\Haskell Platform\{{hpVersion}}\msys\usr\bin
+extra-lib-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\lib
+extra-include-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\include
+</pre>
+Note: cabal config files can contain more than one of each of those lines
+&mdash; no need to replace any existing entries. Additionally, you
+should double-check that the version component of the path corresponds to
+your installed platform.
+                                    </div></li>
+                                <li>
+                                    <div class="step-number">3</div>
                                     <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
                                 </li>
 
@@ -256,7 +274,16 @@
                                     right. As GHC links against libgmp,
                                     you may need to install "libgmp-dev" using your package manager of choice.
                                 </p>
-                                <p>
+				<p>
+				  There is no current generic platform
+				  installer. We recommend
+				  using <a href="https://github.com/haskell/ghcup/">ghcup</a>
+				  to install ghc and cabal-install,
+				  and following the instructions at
+				  <a href="https://www.haskellstack.org">haskellstack.org</a>
+				  to install stack.
+				</p>
+<!--                                <p>
                                     The latest version of the Haskell Platform for Linux is
                                     <strong>{{hpVersion}}</strong>.</p>
                                 <p> To get started perform these steps:</p>
@@ -329,7 +356,8 @@ $ sudo ./install-haskell-platform.sh</pre>
 				      </div>
 				    </li>
                                 </ol>
-                            </div> <!-- #linux-generic -->
+-->
+                            </div><!-- #linux-generic -->
 
                             <div id="linux-ubuntu" class="flavor">
                                 <h3>Ubuntu</h3>

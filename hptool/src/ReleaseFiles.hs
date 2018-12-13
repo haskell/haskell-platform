@@ -70,6 +70,13 @@ releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
        ("8.4.3", jun 2018,
+        [ mac False x86_64    "download/8.6.3/Haskell%20Platform%208.6.3%20Core%2064bit-signed.pkg" $ sha256 "9b665c60e03f554664588194ecf7b015ab4dce2fcc39682f65394d4152f629e7"
+        , win False x86_64    "download/8.6.3/HaskellPlatform-8.6.3-core-x86_64-setup.exe" $ sha256 "d94df2008a96a12957d27e4a99bbee38bd84f096a9474ede20126c73c89c1304"
+        , win False i386    "download/8.6.3/HaskellPlatform-8.6.3-core-i386-setup.exe" $ sha256 "e7ced4ec8aaee98cb49fd8e1d7dbd3f63fb148fec354e1bd7998a5e4e622f6b9"
+        , src True "download/8.6.3/haskell-platform-8.6.3.tar.gz" $ sha256 "557e5594ab236154e6307bd6dd5c8c5405305f577f1683ad1f357e833099fcff"
+        ]),
+
+       ("8.4.3", jun 2018,
         [ lin False x86_64    "download/8.4.3/haskell-platform-8.4.3-unknown-posix--core-x86_64.tar.gz" $ sha256 "724995aa3860d49a3c52adcbbb9e8a599a76fb0f043d8b2add2e74b9beca2cd1"
         , lin True  x86_64    "download/8.4.3/haskell-platform-8.4.3-unknown-posix--full-x86_64.tar.gz" $ sha256 "1cea60e382ef54ed328beda344be8ec8430ceef34c52a2a115209d1ddfc2887a"
         , lin False i386      "download/8.4.3/haskell-platform-8.4.3-unknown-posix--core-i386.tar.gz" $ sha256 "8c9c09b8a6d5bce7a763eff6a92d1a6ca054b6f008b131a7a9546c212aeae502"

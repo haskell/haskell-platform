@@ -4,7 +4,7 @@ import PlatformDB
 import Types
 
 releases2018 :: [Release]
-releases2018 = [hp_8_4_2, hp_8_4_3]
+releases2018 = [hp_8_4_2, hp_8_4_3, hp_8_6_3]
 
 
 hp_8_4_2 :: Release
@@ -164,7 +164,7 @@ hp_8_6_3 =
         , incTool "hscolour"                "1.24.4" --drop it?
         , incGHCTool "haddock"              "2.21.0" --Correct?
         , incGHCTool "cabal-install"        "2.4.1.0"
-        , incGHCTool "stack"                "1.9.1"
+        , incGHCTool "stack"                "1.9.3"
         ]
         [
           incLib "async"                    "2.2.1"
