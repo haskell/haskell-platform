@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, RecordWildCards #-}
+{-# LANGUAGE CPP, RecordWildCards, DeriveAnyClass, DeriveGeneric #-}
 
 module Types
     ( PackageName
@@ -17,9 +17,11 @@ module Types
 
 import Control.Applicative
 import Data.Char (isDigit)
-import Data.List (intercalate)
+import Data.List (intercalate, sort)
 import Data.Version (Version, showVersion, parseVersion)
 import Development.Shake (Action)
+import Development.Shake.Classes (Binary, Hashable, NFData)
+import GHC.Generics
 import Text.ParserCombinators.ReadP (ReadP,
     char, endBy1, munch, readP_to_S, satisfy, skipSpaces)
 
@@ -32,6 +34,7 @@ type PackageName = String
 -- a hyphen between the two parts. i.e.: "acme-inator-0.1.0.0". Note that no
 -- component of a package name can start with a digit.
 data Package = Package { pkgName :: PackageName, pkgVersion :: Version }
+  deriving (Eq, Ord, Generic, Hashable, Binary, NFData)
 
 readPackageP :: ReadP Package
 readPackageP = do
@@ -58,7 +61,7 @@ instance Show Package where
 data IncludeType = IncGHC | IncGHCLib | IncGHCTool | IncLib | IncTool
                  | IncIfWindows IncludeType
                  | IncIfNotWindows IncludeType
-  deriving (Eq, Read, Show)
+  deriving (Eq, Read, Show, Ord, Generic, Hashable, Binary, NFData)
 
 
 readFixedPacakgeP :: (Version -> a) -> String -> ReadP a
@@ -72,6 +75,7 @@ readFixedPacakgeP f fixedName = do
 -- | Version of the platform itself.
 -- 'Read'/'Show' format is "haskell-platform-<version>"
 newtype HpVersion = HpVersion { hpVersion :: Version }
+  deriving (Eq, Generic, Hashable, Binary, NFData)
 instance Read HpVersion where
     readsPrec _ = readP_to_S $ readFixedPacakgeP HpVersion "haskell-platform"
 instance Show HpVersion where
@@ -80,6 +84,7 @@ instance Show HpVersion where
 -- | Version of the GHC.
 -- 'Read'/'Show' format is "ghc-<version>"
 newtype GhcVersion = GhcVersion { ghcVersion :: Version }
+  deriving (Eq, Generic, Hashable, Binary, NFData)
 instance Read GhcVersion where
     readsPrec _ = readP_to_S $ readFixedPacakgeP GhcVersion "ghc"
 instance Show GhcVersion where
@@ -94,7 +99,14 @@ data Release = Release
     , relMinimalIncludes :: [Include]
     , relIncludes :: [Include]
     }
-  deriving (Read, Show)
+  deriving (Read, Show, Generic, Hashable, Binary, NFData)
+-- The order of entries in the relMinimalIncludes and relIncludes does not
+-- matter for equality (and these lists will have 20-40 entries max with no
+-- duplicates), so this Eq instance addresses that.
+instance Eq Release where
+    (Release v1 m1 i1) == (Release v2 m2 i2) =
+        (v1 == v2) && (sortedEq m1 m2) && (sortedEq i1 i2)
+        where sortedEq as bs = (sort as) == (sort bs)
 
 -- | The configuration of a build. These are the parameters of the build that
 -- specify what type of system this build of Haskell Platform is for. It
@@ -111,7 +123,7 @@ data BuildConfig = BuildConfig
     , bcPrefix :: Maybe FilePath   -- ex.: "/usr/local/haskell"
     , bcIncludeExtra :: Bool
     }
-  deriving (Read, Show)
+  deriving (Read, Show, Eq, Generic, Hashable, Binary, NFData)
 
 -- | A function that is used for the actions after untar-ing GHC.
 -- The build configuration and file path of the untar-ed directory is
