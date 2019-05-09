@@ -69,7 +69,13 @@ currentFiles : priorFiles = releaseFiles
 releaseFiles :: [ReleaseFiles]
 releaseFiles =
       [
-       ("8.4.3", jun 2018,
+
+       ("8.6.5", may 2019,
+        [
+           win False x86_64    "download/8.6.5/HaskellPlatform-8.6.5-core-x86_64-setup.exe" $ sha256 "b557748749f6c4073885ecdf43f7cd5d4d8c8f90712665943a1d265d78bb38c6"
+        ]),
+
+       ("8.6.3", jun 2018,
         [ mac False x86_64    "download/8.6.3/Haskell%20Platform%208.6.3%20Core%2064bit-signed.pkg" $ sha256 "9b665c60e03f554664588194ecf7b015ab4dce2fcc39682f65394d4152f629e7"
         , win False x86_64    "download/8.6.3/HaskellPlatform-8.6.3-core-x86_64-setup.exe" $ sha256 "d94df2008a96a12957d27e4a99bbee38bd84f096a9474ede20126c73c89c1304"
         , win False i386    "download/8.6.3/HaskellPlatform-8.6.3-core-i386-setup.exe" $ sha256 "e7ced4ec8aaee98cb49fd8e1d7dbd3f63fb148fec354e1bd7998a5e4e622f6b9"

@@ -40,78 +40,18 @@
                         </div></a>
 
                         <div class="content">
-                            <div id="osx-none" class="flavor active">
-                                <p>
-                                    The latest version of the Haskell Platform for Mac OS X is
-                                    <strong>{{hpVersion}}</strong>. Note
-                                    that the current
-                                    Haskell Platform is only compatible with
-                                    <strong>OS X 10.8 and later</strong>.
-                                </p>
-                                <p>
-                                    These packages are for Mac OS X systems not
-                                    using a package manager.
-                                </p>
-                                <p> To get started perform these steps:</p>
+                          <div id="osx-none" class="flavor active">
 
-                                <ol class="install-steps">
-                                    <li>
-                                        <div class="step-number">1</div>
-                                        <div class="step-body"
-                                            <p>Download the
-                                              installer.</p>
-
-		  <p>The core installer is the recommended
-		  installer. It includes all tools. The full installer includes
-		  additional global libraries beyond those packaged
-		  with ghc. It especially serves those who want full-featured installers in situations
-		  where network connectivity should not be taken for granted.</p>
-
-                                            {{#current}} {{#files}} {{#isOSX}}
-                                            {{^isFull}}
-                                            <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
-                                                    <i class="fa
-                                                    fa-download"></i>
-                                                    Download Core ({{archBits}} bit)
-                                                </a>
-                                            </div>
-					    {{/isFull}}
-                                            {{#isFull}}
-                                            <div class="download-btn">
-                                                <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
-                                                    <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
-                                                </a>
-                                            </div>
-                                            {{/isFull}}
-                                            {{/isOSX}} {{/files}} {{/current}}
-
-                                            <div class="download-hash">
-                                                You can verify the integrity of this file by
-                                                checking its <strong>SHA-256</strong> hash,
-                                                <ul class="hashes">
-                                                  {{#current}} {{#files}} {{#isOSX}}
-                                                  {{^isFull}}
-                                                  <li>{{archBits}} bit Core:<br><textarea rows="2" cols="40" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
-                                                  {{/isFull}}
-                                                  {{#isFull}}
-                                                  <li>{{archBits}} bit Full:<br><textarea rows="2" cols="40" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
-                                                  {{/isFull}}
-                                                  {{/isOSX}} {{/files}} {{/current}}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="step-number">2</div>
-                                        <div class="step-body">Run the installer.</div>
-                                    </li>
-                                    <li>
-                                        <div class="step-number">3</div>
-                                        <div class="step-body">Follow the instructions.</div>
-                                    </li>
-                                </ol>
-                            </div> <!-- #osx-none -->
+                            <p>
+				  The recommended way to install the
+				  components of the mac platform is
+				  using <a href="https://www.haskell.org/ghcup/">ghcup</a>
+				  to install ghc and cabal-install,
+				  and following the instructions at
+				  <a href="https://www.haskellstack.org">haskellstack.org</a>
+				  to install stack.
+                            </p>
+                            </div>
 
                             <div id="osx-homebrewcask" class="flavor">
                                 <h3>Homebrew Cask</h3>
@@ -275,9 +215,9 @@ your installed platform.
                                     you may need to install "libgmp-dev" using your package manager of choice.
                                 </p>
 				<p>
-				  There is no current generic platform
-				  installer. We recommend
-				  using <a href="https://github.com/haskell/ghcup/">ghcup</a>
+				  The recommended way to install the
+				  components of the generic platform is
+				  using <a href="https://www.haskell.org/ghcup/">ghcup</a>
 				  to install ghc and cabal-install,
 				  and following the instructions at
 				  <a href="https://www.haskellstack.org">haskellstack.org</a>
