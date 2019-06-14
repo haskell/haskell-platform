@@ -288,13 +288,13 @@ NOTICE_END
 
 **********************************************************************
 
-=== An new default configuration for cabal has been written to
+=== A new default configuration for cabal has been written to
     ${cabal_config_platform}
 
 === You have an existing, custom configuration at
     ${cabal_config}
 
-    You may want to switch the the new default configuration, or
+    You may want to switch to the new default configuration, or
     incorporate parts of it into your configuration.
 
 **********************************************************************
