@@ -75,8 +75,15 @@
                         </div></a>
                         <div class="content">
                             <p>
-                                The latest version of the Haskell Platform for Windows is
-                                <strong>{{hpVersion}}</strong>.
+				  The recommended way to install the
+				  components of the mac platform is
+				  using <a href="https://chocolatey.org">Chocolatey</a>
+				  to install ghc and cabal-install,
+				  and following the instructions at
+				  <a href="https://www.haskellstack.org">haskellstack.org</a>
+				  to install stack. Further details
+				  for Chocolatey usage are available
+				 <a href="https://hub.zhox.com/posts/introducing-haskell-dev/">here</a>.
                             </p>
                             <p> To get started perform these steps:</p>
 
@@ -84,79 +91,30 @@
                                 <li>
                                     <div class="step-number">1</div>
                                     <div class="step-body">
-                                      <p>Download the installer.</p>
-				      		  <p>The core installer is the recommended
-		  installer. It includes all tools. The full installer includes
-		  additional global libraries beyond those packaged
-		  with ghc. It especially serves those who want full-featured installers in situations
-		  where network connectivity should not be taken for
-						    granted.</p>
-
-
-                                        {{#current}} {{#files}} {{#isWindows}}
-                                        {{^isFull}}
-                                        <div class="download-btn">
-                                            <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
-                                                <i class="fa
-                                                fa-download"></i>
-                                                Download Core ({{archBits}} bit)
-                                            </a>
-                                        </div>
-                                        {{/isFull}}
-
-				        {{#isFull}}
-                                        <div class="download-btn">
-                                            <a href="{{> downloads-root}}{{url}}" onclick="return dl(this)" class="btn btn-haskell" role="button">
-                                                <i class="fa fa-download"></i> Download Full ({{archBits}} bit)
-                                            </a>
-                                        </div>
-                                        {{/isFull}}
-                                        {{/isWindows}} {{/files}} {{/current}}
-
-					<p>Run the installer and
-					follow the instructions.</p>
+                                      <p><a href="https://chocolatey.org/install">Configure
+                                      Chocolatey</a> on your machine.</p>
                                 </li>
 				<li>
                                     <div class="step-number">2</div>
-				  <div class="step-body">
-					  Ensure your cabal config
-					  file (you can verify the
-					  location by running "cabal
-					  user-config init")
-					  contains the following lines:
-<pre>
-extra-prog-path: C:\Program Files\Haskell Platform\{{hpVersion}}\msys\usr\bin
-extra-lib-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\lib
-extra-include-dirs: C:\Program Files\Haskell Platform\{{hpVersion}}\mingw\include
-</pre>
-Note: cabal config files can contain more than one of each of those lines
-&mdash; no need to replace any existing entries. Additionally, you
-should double-check that the version component of the path corresponds to
-your installed platform.
+				    <div class="step-body">
+                                         If upgrading from the old-style
+					  haskell-platform installer, clean the
+					  cabal configuration by
+					 running:
+                                         <pre>cabal user-config init
+                                           -f </pre>
+
+                                         Then uninstall prior versions of
+                                         the platform.
                                     </div></li>
                                 <li>
                                     <div class="step-number">3</div>
-                                    <div class="step-body">Start WinGHCi from the Start menu and have fun!</div>
+                                    <div class="step-body">At an
+                                      elevated command prompt, run:
+                                      <pre>choco install haskell-dev
+refreshenv</pre>
                                 </li>
 
-				<li> <div class="step-body">
-				  Note:
-                                            You can verify the
-				  integrity of downloaded files by
-                                            checking their <strong>SHA-256</strong> hash,
-                                            <ul class="hashes">
-                                              {{#current}} {{#files}} {{#isWindows}}
-                                              {{^isFull}}
-                                              <li>{{archBits}} bit Core:<br><textarea rows="2" cols="40" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
-                                              {{/isFull}}
-                                              {{#isFull}}
-                                              <li>{{archBits}} bit Full: <br><textarea rows="2" cols="40" class="file-hash" readonly onclick="this.select()">{{mHash}}</textarea></li>
-                                              {{/isFull}}
-                                              {{/isWindows}} {{/files}} {{/current}}
-                                            </ul>
-                                        </div>
-
-				  </li>
                             </ol>
                         </div>
                         <div class="bottom-rule"></div>

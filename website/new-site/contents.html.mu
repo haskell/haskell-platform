@@ -36,17 +36,18 @@
                 <div class="container">
                     <h2>Included Packages</h2>
                     <p>
-                        Along with a compiler and basic development environment, Haskell Platform provides
+                        Along with a compiler and basic development
+                    environment, Haskell Platform historically provided
                         a variety of widely-used packages from <a href="http://hackage.haskell.org/">Hackage</a>, the
                         Haskell package repository.
-                    </p>
-                    <p>
-                        If you are a library author and would like to see your
-                        package included in Haskell Platform, see the
-                        <a href="https://github.com/haskell/haskell-platform/wiki/AddingPackages">Wiki</a>
-                        for the package proposal procedure.
-                    </p>
-
+                  </p>
+                  <p>
+                  However, from 8.8 onwards, the platform has moved to
+                    core-only-installers, as the current best
+                    practices for managing packages have shifted to
+                    "nixlike-sandboxed" rather than global
+                    installs. This page documents platform contents up
+                    until that shift.</p>
                     <div>
                         <label for="package-filter">Package name: </label>
                         <input id="package-filter" placeholder="Filter by package name">
