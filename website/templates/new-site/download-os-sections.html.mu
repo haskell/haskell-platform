@@ -101,8 +101,7 @@
 					  haskell-platform installer, clean the
 					  cabal configuration by
 					 running:
-                                         <pre>cabal user-config init
-                                           -f </pre>
+                                         <pre>cabal user-config init -f </pre>
 
                                          Then uninstall prior versions of
                                          the platform.
