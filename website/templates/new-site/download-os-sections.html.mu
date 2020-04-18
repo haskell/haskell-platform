@@ -76,7 +76,7 @@
                         <div class="content">
                             <p>
 				  The recommended way to install the
-				  components of the mac platform is
+				  components of the windows platform is
 				  using <a href="https://chocolatey.org">Chocolatey</a>
 				  to install ghc and cabal-install,
 				  and following the instructions at
