@@ -156,7 +156,7 @@ refreshenv</pre>
                                     This is a <strong>generic</strong>
                                     distribution of the Haskell Platform. While
                                     it should work on most modern Linux
-                                    distributions, you may want to investigate use one of the
+                                    distributions, you may want to use one of the
                                     distribution-specific options listed on the
                                     right. As GHC links against libgmp,
                                     you may need to install "libgmp-dev" using your package manager of choice.
