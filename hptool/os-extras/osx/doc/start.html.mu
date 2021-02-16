@@ -168,7 +168,7 @@ p {
       <div class="module">
       <h2>Development Resources</h2>
       <ul>
-        <li><a href="http://hackage.haskell.org/">Hackage libary database</a></li>
+        <li><a href="http://hackage.haskell.org/">Hackage library database</a></li>
         <li><a href="http://haskell.org/hoogle/">Hoogle</a> and
             <a href="http://holumbus.fh-wedel.de/hayoo/">Hayoo</a> API search</li>
       </ul>
