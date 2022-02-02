@@ -1,3 +1,11 @@
+**THIS PROJECT IS NOW DEPRECATED **
+-------------
+
+The Haskell Platform is deprecated and no longer the recommended way
+to install Haskell.  The recommended way is to follow the instructions on
+[the Haskell.org Downloads page](https://www.haskell.org/downloads/).
+
+
 Haskell Platform
 ----------------
 
